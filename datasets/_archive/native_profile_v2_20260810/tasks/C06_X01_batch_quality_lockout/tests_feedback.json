@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C06_X01_batch_quality_lockout",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "mixed_batch_edges",
+      "description": "Count only rising edges and latch completion at Target.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "ItemPulse": true,
+            "Rejected": false,
+            "Stop": false,
+            "Reset": false,
+            "Target": 2,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "AcceptedCount": 1,
+            "RejectCount": 0,
+            "ConsecutiveRejects": 0,
+            "Complete": false,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ItemPulse": false,
+            "Rejected": false,
+            "Stop": false,
+            "Reset": false,
+            "Target": 2,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "AcceptedCount": 1,
+            "RejectCount": 0,
+            "ConsecutiveRejects": 0,
+            "Complete": false,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ItemPulse": true,
+            "Rejected": false,
+            "Stop": false,
+            "Reset": false,
+            "Target": 2,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "AcceptedCount": 2,
+            "RejectCount": 0,
+            "ConsecutiveRejects": 0,
+            "Complete": true,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

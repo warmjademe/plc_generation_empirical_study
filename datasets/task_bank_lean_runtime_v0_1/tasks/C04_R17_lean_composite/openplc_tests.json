@@ -1,0 +1,554 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "C04_R17_lean_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "independent_base_oracles_plus_explicit_composition_rules",
+  "independent_requirement_oracle": true,
+  "cases": [
+    {
+      "name": "A_feedback_1",
+      "description": "Subsystem-A expectations are copied from its independently authored base oracle.",
+      "requirement_ids": [
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Button": false,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": false,
+            "A_AcceptedPulse": false,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": true,
+            "A_AcceptedPulse": true,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": true,
+            "A_AcceptedPulse": false,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_A",
+      "id": "OT01"
+    },
+    {
+      "name": "B_feedback_1",
+      "description": "Subsystem-B expectations are copied from its independent base oracle after an authored A activation trace.",
+      "requirement_ids": [
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Button": false,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": false,
+            "A_AcceptedPulse": false,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": true,
+            "A_AcceptedPulse": true,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": true,
+            "B_ChB": true,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_SafeEnable": true,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": true,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_SafeEnable": false,
+            "B_Disagree": true,
+            "B_TestActive": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_B_after_A_activation",
+      "id": "OT02"
+    },
+    {
+      "name": "A_hidden_1",
+      "description": "Subsystem-A expectations are copied from its independently authored base oracle.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": true,
+            "A_AcceptedPulse": true,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": false,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": true,
+            "A_AcceptedPulse": false,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": false,
+            "A_AcceptedPulse": true,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": true,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": false,
+            "A_AcceptedPulse": false,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_A",
+      "id": "OT03"
+    },
+    {
+      "name": "B_hidden_1",
+      "description": "Subsystem-B expectations are copied from its independent base oracle after an authored A activation trace.",
+      "requirement_ids": [
+        "R6",
+        "R7"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Button": false,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": false,
+            "A_AcceptedPulse": false,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": true,
+            "A_AcceptedPulse": true,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": true,
+            "B_ChB": false,
+            "B_TestMode": true,
+            "B_TestPermit": false,
+            "B_ProcessRequest": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_SafeEnable": false,
+            "B_Disagree": true,
+            "B_TestActive": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": true,
+            "B_ChB": false,
+            "B_TestMode": true,
+            "B_TestPermit": true,
+            "B_ProcessRequest": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_SafeEnable": true,
+            "B_Disagree": true,
+            "B_TestActive": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": true,
+            "B_TestMode": true,
+            "B_TestPermit": true,
+            "B_ProcessRequest": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_SafeEnable": false,
+            "B_Disagree": true,
+            "B_TestActive": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_B_after_A_activation",
+      "id": "OT04"
+    },
+    {
+      "name": "cross_reset_priority",
+      "description": "The explicitly specified supervisory reset isolates B in the same scan.",
+      "requirement_ids": [
+        "R8",
+        "R9",
+        "R10",
+        "R11"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Button": false,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": false,
+            "A_AcceptedPulse": false,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": false,
+            "B_ChB": false,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_State": true,
+            "A_AcceptedPulse": true,
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": true,
+            "B_ChB": true,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_SafeEnable": true,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Button": true,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_ChA": true,
+            "B_ChB": true,
+            "B_TestMode": false,
+            "B_TestPermit": false,
+            "B_ProcessRequest": true,
+            "SubsystemBEnable": true,
+            "CrossReset": true
+          },
+          "expect": {
+            "B_SafeEnable": false,
+            "B_Disagree": false,
+            "B_TestActive": false,
+            "CrossReady": false,
+            "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_specified_supervisory_contract",
+      "id": "OT05"
+    }
+  ]
+}

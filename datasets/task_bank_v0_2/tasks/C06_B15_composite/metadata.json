@@ -1,0 +1,245 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C06_B15_composite",
+  "title": "Composed supervisory control: Bounded up/down inventory counter -> Configurable batch counter",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "bounded counter",
+    "compositional control",
+    "configurable counter",
+    "dual edge detection",
+    "edge detection",
+    "latched readiness",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 6,
+    "transitions": 12,
+    "stateful_blocks": 3,
+    "interactions": 10,
+    "fault_modes": 4,
+    "horizon_scans": 11,
+    "inputs": 10,
+    "outputs": 9,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_AddItem",
+        "type": "BOOL",
+        "description": "Subsystem A: Add one item"
+      },
+      {
+        "name": "A_RemoveItem",
+        "type": "BOOL",
+        "description": "Subsystem A: Remove one item"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Reset inventory"
+      },
+      {
+        "name": "A_Capacity",
+        "type": "INT",
+        "description": "Subsystem A: Maximum count, assumed positive"
+      },
+      {
+        "name": "B_Item",
+        "type": "BOOL",
+        "description": "Subsystem B: Item detection"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Reset current batch"
+      },
+      {
+        "name": "B_Target",
+        "type": "INT",
+        "description": "Subsystem B: Batch target, assumed 1 through 100"
+      },
+      {
+        "name": "B_Enable",
+        "type": "BOOL",
+        "description": "Subsystem B: Counting enable"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Count",
+        "type": "INT",
+        "description": "Subsystem A: Inventory count"
+      },
+      {
+        "name": "A_Empty",
+        "type": "BOOL",
+        "description": "Subsystem A: Count is zero"
+      },
+      {
+        "name": "A_Full",
+        "type": "BOOL",
+        "description": "Subsystem A: Count reached Capacity"
+      },
+      {
+        "name": "A_Conflict",
+        "type": "BOOL",
+        "description": "Subsystem A: Add and Remove rose together"
+      },
+      {
+        "name": "B_Count",
+        "type": "INT",
+        "description": "Subsystem B: Accepted item count"
+      },
+      {
+        "name": "B_BatchDone",
+        "type": "BOOL",
+        "description": "Subsystem B: Target reached"
+      },
+      {
+        "name": "B_Accepted",
+        "type": "BOOL",
+        "description": "Subsystem B: Item accepted this scan"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Empty"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Capacity remains constant during a test and is positive.",
+    "Each test starts from a fresh function-block instance.",
+    "Target remains constant during a test and is between 1 and 100.",
+    "Item pulses are separated by at least one low scan.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A lone rising A_AddItem edge increments A_Count when below A_Capacity.",
+      "property": "G((rose(A_AddItem) AND !rose(A_RemoveItem) AND prev(A_Count)<A_Capacity AND !A_Reset) -> A_Count=prev(A_Count)+1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A lone rising A_RemoveItem edge decrements A_Count when above zero.",
+      "property": "G((rose(A_RemoveItem) AND !rose(A_AddItem) AND prev(A_Count)>0 AND !A_Reset) -> A_Count=prev(A_Count)-1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Simultaneous rising edges shall leave A_Count unchanged and set A_Conflict for one scan.",
+      "property": "G((rose(A_AddItem) AND rose(A_RemoveItem) AND !A_Reset) -> ((A_Count=prev(A_Count)) AND A_Conflict))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Count shall remain within zero and A_Capacity; A_Empty and A_Full reflect the boundaries.",
+      "property": "G((A_Count>=0) AND (A_Count<=A_Capacity) AND (A_Empty=(A_Count=0)) AND (A_Full=(A_Count>=A_Capacity)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Count and A_Conflict.",
+      "property": "G(A_Reset -> ((A_Count=0) AND !A_Conflict))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Only a rising B_Item edge while B_Enable and below B_Target shall increment B_Count.",
+      "property": "G(B_Accepted = (rose(B_Item) AND B_Enable AND prev(B_Count)<B_Target AND !B_Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Count shall remain between zero and B_Target.",
+      "property": "G((B_Count>=0) AND (B_Count<=B_Target))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_BatchDone shall be TRUE when B_Count reaches B_Target.",
+      "property": "G(B_BatchDone = (B_Count>=B_Target))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_Count, B_BatchDone, and B_Accepted.",
+      "property": "G(B_Reset -> ((B_Count=0) AND !B_BatchDone AND !B_Accepted))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_Empty shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Empty AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C06_M02_bounded_up_down_counter",
+    "base_b": "C06_M01_configurable_batch_counter",
+    "direction": "A_to_B",
+    "activation_output": "A_Empty"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

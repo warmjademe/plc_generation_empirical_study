@@ -1,0 +1,262 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C03_B06_composite",
+  "title": "Composed supervisory control: Safety-zone actuator arbitration -> Pump and discharge-valve interlock",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "arbitration",
+    "compositional control",
+    "feedback monitoring",
+    "interlock",
+    "latched readiness",
+    "safety interlock",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 10,
+    "stateful_blocks": 0,
+    "interactions": 15,
+    "fault_modes": 6,
+    "horizon_scans": 6,
+    "inputs": 13,
+    "outputs": 9,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_RobotRequest",
+        "type": "BOOL",
+        "description": "Subsystem A: Robot requests the shared zone"
+      },
+      {
+        "name": "A_ConveyorRequest",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor requests the shared zone"
+      },
+      {
+        "name": "A_ManualRequest",
+        "type": "BOOL",
+        "description": "Subsystem A: Manual maintenance request"
+      },
+      {
+        "name": "A_GuardClosed",
+        "type": "BOOL",
+        "description": "Subsystem A: Guard status"
+      },
+      {
+        "name": "A_EStopOK",
+        "type": "BOOL",
+        "description": "Subsystem A: Emergency-stop chain healthy"
+      },
+      {
+        "name": "A_ManualKey",
+        "type": "BOOL",
+        "description": "Subsystem A: Manual mode authorization"
+      },
+      {
+        "name": "B_RunRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Process run request"
+      },
+      {
+        "name": "B_TankLevelOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Suction tank level permissive"
+      },
+      {
+        "name": "B_ValveFeedbackOpen",
+        "type": "BOOL",
+        "description": "Subsystem B: Discharge valve open feedback"
+      },
+      {
+        "name": "B_PumpFeedback",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump running feedback"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Stop command"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_RobotEnable",
+        "type": "BOOL",
+        "description": "Subsystem A: Robot zone grant"
+      },
+      {
+        "name": "A_ConveyorEnable",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor zone grant"
+      },
+      {
+        "name": "A_ManualEnable",
+        "type": "BOOL",
+        "description": "Subsystem A: Manual zone grant"
+      },
+      {
+        "name": "A_Conflict",
+        "type": "BOOL",
+        "description": "Subsystem A: More than one eligible request"
+      },
+      {
+        "name": "B_ValveCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Discharge valve command"
+      },
+      {
+        "name": "B_PumpCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump command"
+      },
+      {
+        "name": "B_InterlockAlarm",
+        "type": "BOOL",
+        "description": "Subsystem B: Unsafe feedback combination"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_RobotEnable"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: Loss of A_GuardClosed or A_EStopOK shall disable all grants.",
+      "property": "G((!A_GuardClosed OR !A_EStopOK) -> (!A_RobotEnable AND !A_ConveyorEnable AND !A_ManualEnable))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Authorized A_ManualRequest has highest priority.",
+      "property": "G((A_ManualRequest AND A_ManualKey AND A_GuardClosed AND A_EStopOK) -> A_ManualEnable)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_RobotRequest has priority over A_ConveyorRequest when manual mode is not granted.",
+      "property": "G((A_RobotRequest AND !A_ManualEnable AND A_GuardClosed AND A_EStopOK) -> A_RobotEnable)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: At most one grant shall be TRUE.",
+      "property": "G(at_most_one(A_RobotEnable,A_ConveyorEnable,A_ManualEnable))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Conflict shall indicate more than one eligible request before arbitration.",
+      "property": "G(A_Conflict = more_than_one(A_RobotRequest,A_ConveyorRequest,(A_ManualRequest AND A_ManualKey)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_ValveCommand shall follow a valid B_RunRequest while B_TankLevelOK and not B_Stop hold.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_ValveCommand = (B_RunRequest AND B_TankLevelOK AND !B_Stop)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_PumpCommand requires B_ValveFeedbackOpen in addition to the valve-command permissives.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_PumpCommand -> B_ValveFeedbackOpen))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_PumpCommand shall be FALSE when B_Stop or loss of B_TankLevelOK is active.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Stop OR !B_TankLevelOK) -> !B_PumpCommand))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_InterlockAlarm shall be TRUE when B_PumpFeedback is TRUE while valve feedback is closed.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_InterlockAlarm = (B_PumpFeedback AND !B_ValveFeedbackOpen)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_RobotEnable shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_RobotEnable AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_ValveCommand AND NOT B_PumpCommand AND NOT B_InterlockAlarm)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_ValveCommand AND NOT B_PumpCommand AND NOT B_InterlockAlarm))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C03_H02_safety_zone_arbitration",
+    "base_b": "C03_M01_pump_valve_interlock",
+    "direction": "A_to_B",
+    "activation_output": "A_RobotEnable"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

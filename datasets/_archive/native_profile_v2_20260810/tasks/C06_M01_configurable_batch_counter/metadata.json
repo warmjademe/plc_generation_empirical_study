@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C06_M01_configurable_batch_counter",
+  "title": "Configurable batch counter",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained state",
+    "edge detection",
+    "configurable counter"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 4,
+    "stateful_blocks": 1,
+    "interactions": 2,
+    "fault_modes": 1,
+    "horizon_scans": 7,
+    "inputs": 4,
+    "outputs": 3,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Item",
+        "type": "BOOL",
+        "description": "Item detection"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Reset current batch"
+      },
+      {
+        "name": "Target",
+        "type": "INT",
+        "description": "Batch target, assumed 1 through 100"
+      },
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Counting enable"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Count",
+        "type": "INT",
+        "description": "Accepted item count"
+      },
+      {
+        "name": "BatchDone",
+        "type": "BOOL",
+        "description": "Target reached"
+      },
+      {
+        "name": "Accepted",
+        "type": "BOOL",
+        "description": "Item accepted this scan"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Target remains constant during a test and is between 1 and 100.",
+    "Item pulses are separated by at least one low scan.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Only a rising Item edge while Enable and below Target shall increment Count.",
+      "property": "G(Accepted = (rose(Item) AND Enable AND prev(Count)<Target AND !Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Count shall remain between zero and Target.",
+      "property": "G((Count>=0) AND (Count<=Target))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "BatchDone shall be TRUE when Count reaches Target.",
+      "property": "G(BatchDone = (Count>=Target))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Reset shall clear Count, BatchDone, and Accepted.",
+      "property": "G(Reset -> ((Count=0) AND !BatchDone AND !Accepted))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

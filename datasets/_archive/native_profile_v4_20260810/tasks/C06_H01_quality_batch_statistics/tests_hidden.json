@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C06_H01_quality_batch_statistics",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "simultaneous_priority_fault_reset",
+      "description": "Prioritize reject, latch quality fault, and reset.",
+      "requirement_ids": [
+        "R2",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "GoodPart": true,
+            "RejectPart": true,
+            "Reset": false,
+            "BatchTarget": 2,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "GoodCount": 0,
+            "RejectCount": 1,
+            "BatchDone": false,
+            "QualityFault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "GoodPart": false,
+            "RejectPart": false,
+            "Reset": false,
+            "BatchTarget": 2,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "GoodCount": 0,
+            "RejectCount": 1,
+            "BatchDone": false,
+            "QualityFault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "GoodPart": false,
+            "RejectPart": true,
+            "Reset": false,
+            "BatchTarget": 2,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "GoodCount": 0,
+            "RejectCount": 2,
+            "BatchDone": true,
+            "QualityFault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "GoodPart": false,
+            "RejectPart": false,
+            "Reset": true,
+            "BatchTarget": 2,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "GoodCount": 0,
+            "RejectCount": 0,
+            "BatchDone": false,
+            "QualityFault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

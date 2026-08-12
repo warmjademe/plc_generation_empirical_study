@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C02_H02_safe_restart_inhibit",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "safety_interruption",
+      "description": "A safety interruption creates a lockout that blocks held Start.",
+      "requirement_ids": [
+        "R1",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "PowerOK": true,
+            "SafetyOK": true,
+            "Start": true,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Running": true,
+            "RestartInhibit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PowerOK": true,
+            "SafetyOK": false,
+            "Start": false,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Running": false,
+            "RestartInhibit": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PowerOK": true,
+            "SafetyOK": true,
+            "Start": true,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Running": false,
+            "RestartInhibit": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C05_B18_composite",
+  "title": "Composed supervisory control: Pre-lube motor lifecycle with feedback fault and cooldown -> Star-delta motor transition",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "TIME",
+    "TON",
+    "compositional control",
+    "cooldown",
+    "feedback timeout",
+    "interlock",
+    "latched readiness",
+    "retained outputs",
+    "state machine",
+    "supervisory interlock",
+    "timed transition"
+  ],
+  "complexity": {
+    "retained_state": 10,
+    "transitions": 21,
+    "stateful_blocks": 5,
+    "interactions": 20,
+    "fault_modes": 8,
+    "horizon_scans": 20,
+    "inputs": 12,
+    "outputs": 11,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Start",
+        "type": "BOOL",
+        "description": "Subsystem A: Start request"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: Stop request"
+      },
+      {
+        "name": "A_Permit",
+        "type": "BOOL",
+        "description": "Subsystem A: Safety permission"
+      },
+      {
+        "name": "A_OilPressure",
+        "type": "BOOL",
+        "description": "Subsystem A: Lubrication pressure proof"
+      },
+      {
+        "name": "A_MotorFeedback",
+        "type": "BOOL",
+        "description": "Subsystem A: Motor running feedback"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Fault reset"
+      },
+      {
+        "name": "B_Start",
+        "type": "BOOL",
+        "description": "Subsystem B: Start command"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Stop command"
+      },
+      {
+        "name": "B_Overload",
+        "type": "BOOL",
+        "description": "Subsystem B: Motor overload"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Fault reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_LubePump",
+        "type": "BOOL",
+        "description": "Subsystem A: Lubrication pump command"
+      },
+      {
+        "name": "A_MotorCommand",
+        "type": "BOOL",
+        "description": "Subsystem A: Motor command"
+      },
+      {
+        "name": "A_Cooldown",
+        "type": "BOOL",
+        "description": "Subsystem A: Cooldown state indication"
+      },
+      {
+        "name": "A_Fault",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched startup or oil fault"
+      },
+      {
+        "name": "A_State",
+        "type": "INT",
+        "description": "Subsystem A: 0 idle, 1 pre-lube, 2 feedback proving, 3 running, 4 cooldown"
+      },
+      {
+        "name": "B_Main",
+        "type": "BOOL",
+        "description": "Subsystem B: Main contactor"
+      },
+      {
+        "name": "B_Star",
+        "type": "BOOL",
+        "description": "Subsystem B: Star contactor"
+      },
+      {
+        "name": "B_Delta",
+        "type": "BOOL",
+        "description": "Subsystem B: Delta contactor"
+      },
+      {
+        "name": "B_Fault",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched overload fault"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_LubePump"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Start may remain TRUE through startup.",
+    "Each test starts from a fresh function-block instance.",
+    "Start may remain TRUE during normal operation.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A permitted A_Start shall enter pre-lube with A_LubePump TRUE and A_MotorCommand FALSE.",
+      "property": "G((A_State=0 AND A_Start AND A_Permit AND !A_Stop AND !A_Fault)->X(A_State=1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_MotorCommand may A_Start only after A_OilPressure remains TRUE for 300 ms.",
+      "property": "G(A_MotorCommand -> continuous(A_OilPressure,3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Failure to receive A_MotorFeedback within 400 ms of A_MotorCommand shall latch A_Fault and enter A_Cooldown.",
+      "property": "G(feedback_timeout -> (A_Fault AND A_State=4 AND !A_MotorCommand))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_OilPressure loss while running shall immediately A_Stop the motor, latch A_Fault, and enter A_Cooldown.",
+      "property": "G((A_State=3 AND !A_OilPressure)->(A_Fault AND !A_MotorCommand AND A_State=4))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Stop or A_Permit loss shall A_Stop A_MotorCommand and enter a 300 ms A_Cooldown with A_LubePump remaining TRUE.",
+      "property": "G(((A_Stop OR !A_Permit) AND prev(A_State)>0)->(A_State=4 AND !A_MotorCommand))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "Subsystem A shall satisfy: A_Reset clears A_Fault only in idle with A_Start FALSE; A_Cooldown completion returns idle without clearing A_Fault.",
+      "property": "G((A_Reset AND A_State=0 AND !A_Start)->!A_Fault)",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Start shall energize B_Main and B_Star when no B_Fault, B_Stop, or B_Overload is active.",
+      "property": "G((B_Start AND !B_Stop AND !B_Overload AND !B_Fault AND phase=idle) -> (B_Main AND B_Star AND !B_Delta))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: After 500 ms in B_Star, B_Star shall turn off before B_Delta turns on after a 200 ms transition gap.",
+      "property": "G(B_Delta -> (B_Main AND !B_Star AND elapsed_star>=7))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Star and B_Delta shall never be TRUE together.",
+      "property": "G(!(B_Star AND B_Delta))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Stop or B_Overload shall immediately turn off all contactors; B_Overload latches B_Fault.",
+      "property": "G((B_Stop OR B_Overload) -> (!B_Main AND !B_Star AND !B_Delta))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset clears B_Fault only while B_Start is FALSE and B_Overload is FALSE.",
+      "property": "G((B_Reset AND !B_Start AND !B_Overload) -> !B_Fault)",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_LubePump shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_LubePump AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C05_X01_pre_lube_motor_lifecycle",
+    "base_b": "C05_H02_star_delta_sequence",
+    "direction": "A_to_B",
+    "activation_output": "A_LubePump"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "runtime-replacement-0.1-dev",
+  "id": "C06_H02_inspection_window_lockout",
+  "title": "Inspection-window reject lockout",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained counters",
+    "edge detection",
+    "windowing",
+    "fault latch"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 7,
+    "stateful_blocks": 1,
+    "interactions": 6,
+    "fault_modes": 2,
+    "horizon_scans": 10,
+    "inputs": 5,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Inspected",
+        "type": "BOOL",
+        "description": "One item inspected"
+      },
+      {
+        "name": "Rejected",
+        "type": "BOOL",
+        "description": "Current inspected item rejected"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Manual lockout reset"
+      },
+      {
+        "name": "WindowSize",
+        "type": "INT",
+        "description": "Items per inspection window"
+      },
+      {
+        "name": "RejectLimit",
+        "type": "INT",
+        "description": "Rejects allowed in one window"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "WindowCount",
+        "type": "INT",
+        "description": "Items in current window"
+      },
+      {
+        "name": "RejectCount",
+        "type": "INT",
+        "description": "Rejects in current window"
+      },
+      {
+        "name": "LockedOut",
+        "type": "BOOL",
+        "description": "Quality lockout"
+      },
+      {
+        "name": "WindowComplete",
+        "type": "BOOL",
+        "description": "One-scan window-complete pulse"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "WindowSize is at least 1 and RejectLimit is non-negative.",
+    "Rejected is sampled only on a rising Inspected edge.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Each rising Inspected edge shall add one to WindowCount and, when Rejected is TRUE, one to RejectCount.",
+      "property": "G(rose(Inspected) AND !Reset AND !LockedOut -> update_window_counts)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Completing WindowSize items shall pulse WindowComplete for one scan and then start a new zeroed window.",
+      "property": "G(WindowComplete -> ((WindowCount=0) AND (RejectCount=0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "If rejects in the completed window exceed RejectLimit, LockedOut shall latch TRUE.",
+      "property": "G(completed_rejects>RejectLimit -> LockedOut)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "No new items shall be counted while LockedOut.",
+      "property": "G(LockedOut AND !Reset -> (WindowCount=prev(WindowCount) AND RejectCount=prev(RejectCount)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Reset shall clear counts, WindowComplete, and LockedOut.",
+      "property": "G(Reset -> (WindowCount=0 AND RejectCount=0 AND !WindowComplete AND !LockedOut))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending",
+    "replacement_source_task_id": "C06_H02_inspection_window_lockout",
+    "construction": "unchanged independently authored base task"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

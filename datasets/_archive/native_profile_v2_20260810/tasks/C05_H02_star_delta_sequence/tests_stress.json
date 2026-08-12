@@ -1,0 +1,5436 @@
+{
+  "schema_version": "1.0",
+  "suite": "stress",
+  "task_id": "C05_H02_star_delta_sequence",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "frozen_reference_st_differential_trace",
+  "independent_requirement_oracle": false,
+  "seed": 20260810,
+  "cases": [
+    {
+      "id": "ST001",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST002",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST003",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST004",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST005",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST006",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST007",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST008",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST009",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST010",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST011",
+      "name": "boundary_009",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST012",
+      "name": "boundary_010",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST013",
+      "name": "boundary_011",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST014",
+      "name": "boundary_012",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST015",
+      "name": "boundary_013",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST016",
+      "name": "boundary_014",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST017",
+      "name": "boundary_015",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST018",
+      "name": "boundary_016",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST019",
+      "name": "hold_Start",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST020",
+      "name": "hold_Stop",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST021",
+      "name": "hold_Overload",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST022",
+      "name": "hold_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST023",
+      "name": "conflict_Start_Stop",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST024",
+      "name": "conflict_Start_Overload",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST025",
+      "name": "conflict_Start_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST026",
+      "name": "conflict_Stop_Overload",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST027",
+      "name": "conflict_Stop_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST028",
+      "name": "conflict_Overload_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST029",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST030",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST031",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST032",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": true,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": true,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

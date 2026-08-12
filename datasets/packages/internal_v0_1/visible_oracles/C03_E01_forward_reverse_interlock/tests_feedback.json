@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C03_E01_forward_reverse_interlock",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "exclusive_commands",
+      "description": "Exercise each exclusive direction.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "ForwardRequest": true,
+            "ReverseRequest": false,
+            "Permit": true
+          },
+          "expect": {
+            "Forward": true,
+            "Reverse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ForwardRequest": false,
+            "ReverseRequest": true,
+            "Permit": true
+          },
+          "expect": {
+            "Forward": false,
+            "Reverse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

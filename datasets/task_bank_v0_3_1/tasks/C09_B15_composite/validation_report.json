@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "task_id": "C09_B15_composite",
+  "structural": {
+    "status": "pass",
+    "validator": "tools/validate_task_bank.py"
+  },
+  "external": {
+    "matiec": {
+      "status": "not_run"
+    },
+    "plcverif": {
+      "status": "not_run"
+    },
+    "openplc": {
+      "status": "not_run"
+    }
+  },
+  "screening": {
+    "kimi_k3_direct_once": "not_run"
+  }
+}

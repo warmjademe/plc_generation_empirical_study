@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C10_X01_three_pump_feedback_dispatch",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "healthy_lead_and_staging",
+      "description": "Run the healthy lead and add the cyclic follower.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "LowDemand": true,
+            "HighDemand": false,
+            "Lead": 2,
+            "Available1": true,
+            "Available2": true,
+            "Available3": true,
+            "Feedback1": false,
+            "Feedback2": true,
+            "Feedback3": false,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Run1": false,
+            "Run2": true,
+            "Run3": false,
+            "ActiveCount": 1,
+            "Failover": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "LowDemand": true,
+            "HighDemand": true,
+            "Lead": 2,
+            "Available1": true,
+            "Available2": true,
+            "Available3": true,
+            "Feedback1": false,
+            "Feedback2": true,
+            "Feedback3": true,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Run1": false,
+            "Run2": true,
+            "Run3": true,
+            "ActiveCount": 2,
+            "Failover": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

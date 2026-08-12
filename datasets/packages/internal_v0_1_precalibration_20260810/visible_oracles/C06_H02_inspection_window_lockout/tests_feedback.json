@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C06_H02_inspection_window_lockout",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "acceptable_window",
+      "description": "Complete an acceptable window and reset its counters.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Inspected": true,
+            "Rejected": false,
+            "Reset": false,
+            "WindowSize": 2,
+            "RejectLimit": 1
+          },
+          "expect": {
+            "WindowCount": 1,
+            "RejectCount": 0,
+            "LockedOut": false,
+            "WindowComplete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Inspected": false,
+            "Rejected": false,
+            "Reset": false,
+            "WindowSize": 2,
+            "RejectLimit": 1
+          },
+          "expect": {
+            "WindowCount": 1,
+            "RejectCount": 0,
+            "LockedOut": false,
+            "WindowComplete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Inspected": true,
+            "Rejected": true,
+            "Reset": false,
+            "WindowSize": 2,
+            "RejectLimit": 1
+          },
+          "expect": {
+            "WindowCount": 0,
+            "RejectCount": 0,
+            "LockedOut": false,
+            "WindowComplete": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

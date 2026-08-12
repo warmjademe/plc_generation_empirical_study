@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C06_B09_composite",
+  "title": "Composed supervisory control: Configurable batch counter -> Good/reject batch statistics with reject lockout",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "compositional control",
+    "configurable counter",
+    "edge detection",
+    "fault latch",
+    "latched readiness",
+    "priority",
+    "retained counters",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 8,
+    "transitions": 13,
+    "stateful_blocks": 3,
+    "interactions": 12,
+    "fault_modes": 5,
+    "horizon_scans": 12,
+    "inputs": 11,
+    "outputs": 9,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Item",
+        "type": "BOOL",
+        "description": "Subsystem A: Item detection"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Reset current batch"
+      },
+      {
+        "name": "A_Target",
+        "type": "INT",
+        "description": "Subsystem A: Batch target, assumed 1 through 100"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Counting enable"
+      },
+      {
+        "name": "B_GoodPart",
+        "type": "BOOL",
+        "description": "Subsystem B: Good-part pulse"
+      },
+      {
+        "name": "B_RejectPart",
+        "type": "BOOL",
+        "description": "Subsystem B: Rejected-part pulse"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Reset statistics"
+      },
+      {
+        "name": "B_BatchTarget",
+        "type": "INT",
+        "description": "Subsystem B: Total parts in a batch"
+      },
+      {
+        "name": "B_RejectLimit",
+        "type": "INT",
+        "description": "Subsystem B: Maximum allowed rejects"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Count",
+        "type": "INT",
+        "description": "Subsystem A: Accepted item count"
+      },
+      {
+        "name": "A_BatchDone",
+        "type": "BOOL",
+        "description": "Subsystem A: Target reached"
+      },
+      {
+        "name": "A_Accepted",
+        "type": "BOOL",
+        "description": "Subsystem A: Item accepted this scan"
+      },
+      {
+        "name": "B_GoodCount",
+        "type": "INT",
+        "description": "Subsystem B: Good parts"
+      },
+      {
+        "name": "B_RejectCount",
+        "type": "INT",
+        "description": "Subsystem B: Rejected parts"
+      },
+      {
+        "name": "B_BatchDone",
+        "type": "BOOL",
+        "description": "Subsystem B: Total reached target"
+      },
+      {
+        "name": "B_QualityFault",
+        "type": "BOOL",
+        "description": "Subsystem B: Reject count exceeded limit"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_BatchDone"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: A_Target remains constant during a test and is between 1 and 100.",
+    "Subsystem A: A_Item pulses are separated by at least one low scan.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_BatchTarget and B_RejectLimit remain positive and constant during a test.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: Only a rising A_Item edge while A_Enable and below A_Target shall increment A_Count.",
+      "property": "G(A_Accepted = (rose(A_Item) AND A_Enable AND prev(A_Count)<A_Target AND !A_Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Count shall remain between zero and A_Target.",
+      "property": "G((A_Count>=0) AND (A_Count<=A_Target))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_BatchDone shall be TRUE when A_Count reaches A_Target.",
+      "property": "G(A_BatchDone = (A_Count>=A_Target))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Count, A_BatchDone, and A_Accepted.",
+      "property": "G(A_Reset -> ((A_Count=0) AND !A_BatchDone AND !A_Accepted))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A good-part rising edge increments only B_GoodCount; a reject-part rising edge increments only B_RejectCount.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (exclusive_edges_update_matching_counter))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Simultaneous good and reject edges shall count one reject and no good part.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((rose(B_GoodPart) AND rose(B_RejectPart) AND !B_Reset) -> (B_RejectCount=prev(B_RejectCount)+1 AND B_GoodCount=prev(B_GoodCount))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_BatchDone shall be TRUE when B_GoodCount plus B_RejectCount reaches B_BatchTarget.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_BatchDone = ((B_GoodCount+B_RejectCount)>=B_BatchTarget)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_QualityFault shall latch when B_RejectCount reaches B_RejectLimit and remain set until B_Reset.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_RejectCount>=B_RejectLimit) -> B_QualityFault))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear both counts, B_BatchDone, and B_QualityFault.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Reset -> (B_GoodCount=0 AND B_RejectCount=0 AND !B_BatchDone AND !B_QualityFault)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_BatchDone shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_BatchDone AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND B_GoodCount=0 AND B_RejectCount=0 AND NOT B_BatchDone AND NOT B_QualityFault)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (B_GoodCount=0 AND B_RejectCount=0 AND NOT B_BatchDone AND NOT B_QualityFault))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C06_M01_configurable_batch_counter",
+    "base_b": "C06_H01_quality_batch_statistics",
+    "direction": "A_to_B",
+    "activation_output": "A_BatchDone"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

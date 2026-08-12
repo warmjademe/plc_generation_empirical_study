@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C01_M02_mode_dependent_command",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "mode_selection",
+      "description": "Ensure only the selected mode request is honored.",
+      "requirement_ids": [
+        "R1"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AutoMode": true,
+            "AutoDemand": true,
+            "ManualDemand": false,
+            "SafetyOK": true,
+            "Inhibit": false
+          },
+          "expect": {
+            "Command": true,
+            "Blocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AutoMode": false,
+            "AutoDemand": true,
+            "ManualDemand": false,
+            "SafetyOK": true,
+            "Inhibit": false
+          },
+          "expect": {
+            "Command": false,
+            "Blocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

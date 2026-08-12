@@ -1,0 +1,134 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 5,
+    "fully_native_property_count": 5,
+    "total_property_count": 5
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(C3Run = (RunRequest AND C3Available AND C3Clear AND !Stop))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "C3Run = (RunRequest AND C3Available AND C3Clear AND !Stop)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(C2Run -> (C3Run AND C2Available AND C2Clear))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "C2Run -> (C3Run AND C2Available AND C2Clear)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(C1Run -> (C2Run AND C1Clear))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "C1Run -> (C2Run AND C1Clear)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(Stop -> (!C1Run AND !C2Run AND !C3Run))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "Stop -> (!C1Run AND !C2Run AND !C3Run)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(Blocked = (RunRequest AND (!C1Clear OR !C2Clear OR !C3Clear OR !C2Available OR !C3Available)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "Blocked = (RunRequest AND (!C1Clear OR !C2Clear OR !C3Clear OR !C2Available OR !C3Available))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    }
+  ]
+}

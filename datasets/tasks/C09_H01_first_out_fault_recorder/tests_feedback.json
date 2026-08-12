@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C09_H01_first_out_fault_recorder",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "record_and_preserve_first_fault",
+      "description": "Record B first and prevent A from overwriting it.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "FaultA": false,
+            "FaultB": true,
+            "FaultC": false,
+            "Reset": false
+          },
+          "expect": {
+            "AnyFault": true,
+            "LockedOut": true,
+            "FirstFault": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "FaultA": true,
+            "FaultB": false,
+            "FaultC": false,
+            "Reset": false
+          },
+          "expect": {
+            "AnyFault": true,
+            "LockedOut": true,
+            "FirstFault": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "FaultA": false,
+            "FaultB": false,
+            "FaultC": false,
+            "Reset": false
+          },
+          "expect": {
+            "AnyFault": false,
+            "LockedOut": true,
+            "FirstFault": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

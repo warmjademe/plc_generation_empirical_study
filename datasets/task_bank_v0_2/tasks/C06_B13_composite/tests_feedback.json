@@ -1,0 +1,322 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C06_B13_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_AddItem": true,
+            "A_RemoveItem": false,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": false,
+            "B_RejectPart": false,
+            "B_Reset": false,
+            "B_BatchTarget": 0,
+            "B_RejectLimit": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_Empty": false,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 0,
+            "B_RejectCount": 0,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_AddItem": false,
+            "A_RemoveItem": false,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": false,
+            "B_RejectPart": false,
+            "B_Reset": false,
+            "B_BatchTarget": 0,
+            "B_RejectLimit": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_Empty": false,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 0,
+            "B_RejectCount": 0,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_AddItem": false,
+            "A_RemoveItem": true,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": false,
+            "B_RejectPart": false,
+            "B_Reset": false,
+            "B_BatchTarget": 0,
+            "B_RejectLimit": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_Empty": true,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 0,
+            "B_RejectCount": 0,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_AddItem": true,
+            "A_RemoveItem": false,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": false,
+            "B_RejectPart": false,
+            "B_Reset": false,
+            "B_BatchTarget": 0,
+            "B_RejectLimit": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_Empty": false,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 0,
+            "B_RejectCount": 0,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_AddItem": false,
+            "A_RemoveItem": false,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": false,
+            "B_RejectPart": false,
+            "B_Reset": false,
+            "B_BatchTarget": 0,
+            "B_RejectLimit": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_Empty": false,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 0,
+            "B_RejectCount": 0,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_AddItem": false,
+            "A_RemoveItem": true,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": false,
+            "B_RejectPart": false,
+            "B_Reset": false,
+            "B_BatchTarget": 0,
+            "B_RejectLimit": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_Empty": true,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 0,
+            "B_RejectCount": 0,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_AddItem": false,
+            "A_RemoveItem": true,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": true,
+            "B_RejectPart": false,
+            "B_Reset": false,
+            "B_BatchTarget": 3,
+            "B_RejectLimit": 2,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_Empty": true,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 1,
+            "B_RejectCount": 0,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_AddItem": false,
+            "A_RemoveItem": true,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": false,
+            "B_RejectPart": false,
+            "B_Reset": false,
+            "B_BatchTarget": 3,
+            "B_RejectLimit": 2,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_Empty": true,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 1,
+            "B_RejectCount": 0,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_AddItem": false,
+            "A_RemoveItem": true,
+            "A_Reset": false,
+            "A_Capacity": 2,
+            "B_GoodPart": false,
+            "B_RejectPart": true,
+            "B_Reset": false,
+            "B_BatchTarget": 3,
+            "B_RejectLimit": 2,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_Empty": true,
+            "A_Full": false,
+            "A_Conflict": false,
+            "B_GoodCount": 1,
+            "B_RejectCount": 1,
+            "B_BatchDone": false,
+            "B_QualityFault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

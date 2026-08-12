@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "runtime-replacement-0.1-dev",
+  "id": "C04_H01_qualified_event_counter",
+  "title": "Qualified event capture with saturation",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained state",
+    "edge detection",
+    "saturation"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 5,
+    "stateful_blocks": 1,
+    "interactions": 4,
+    "fault_modes": 1,
+    "horizon_scans": 8,
+    "inputs": 4,
+    "outputs": 3,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Event",
+        "type": "BOOL",
+        "description": "Event input"
+      },
+      {
+        "name": "Qualify",
+        "type": "BOOL",
+        "description": "Event qualification"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Reset count"
+      },
+      {
+        "name": "MaxCount",
+        "type": "INT",
+        "description": "Saturation limit, assumed at least one"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Count",
+        "type": "INT",
+        "description": "Accepted event count"
+      },
+      {
+        "name": "AcceptedPulse",
+        "type": "BOOL",
+        "description": "Accepted event this scan"
+      },
+      {
+        "name": "AtLimit",
+        "type": "BOOL",
+        "description": "Count has reached MaxCount"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "MaxCount is constant during a test and is at least 1.",
+    "The function block is called exactly once per PLC scan.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Reset shall clear Count and AcceptedPulse.",
+      "property": "G(Reset -> ((Count = 0) AND !AcceptedPulse))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Only a rising Event edge with Qualify TRUE and Count below MaxCount shall increment Count.",
+      "property": "G(AcceptedPulse = (rose(Event) AND Qualify AND (prev(Count) < MaxCount) AND !Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Count shall not exceed MaxCount.",
+      "property": "G(Count <= MaxCount)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "AtLimit shall be TRUE exactly when Count is at least MaxCount.",
+      "property": "G(AtLimit = (Count >= MaxCount))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending",
+    "replacement_source_task_id": "C04_H01_qualified_event_counter",
+    "construction": "unchanged independently authored base task"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

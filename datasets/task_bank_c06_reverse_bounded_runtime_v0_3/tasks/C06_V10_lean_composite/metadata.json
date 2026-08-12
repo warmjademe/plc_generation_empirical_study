@@ -1,0 +1,279 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C06_V10_lean_composite",
+  "title": "Composed supervisory control: Redundant-channel safety gate -> Edge-counted batch with consecutive-reject lockout",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "compositional control",
+    "edge memory",
+    "inequality",
+    "latched readiness",
+    "lockout",
+    "priority",
+    "qualified reset",
+    "saturating state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 7,
+    "transitions": 18,
+    "stateful_blocks": 0,
+    "interactions": 19,
+    "fault_modes": 7,
+    "horizon_scans": 16,
+    "inputs": 13,
+    "outputs": 10,
+    "requirements": 14
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_ChA",
+        "type": "BOOL",
+        "description": "Subsystem A: Safety channel A"
+      },
+      {
+        "name": "A_ChB",
+        "type": "BOOL",
+        "description": "Subsystem A: Safety channel B"
+      },
+      {
+        "name": "A_TestMode",
+        "type": "BOOL",
+        "description": "Subsystem A: Maintenance test mode"
+      },
+      {
+        "name": "A_TestPermit",
+        "type": "BOOL",
+        "description": "Subsystem A: Independent test authorization"
+      },
+      {
+        "name": "A_ProcessRequest",
+        "type": "BOOL",
+        "description": "Subsystem A: Process run request"
+      },
+      {
+        "name": "B_ItemPulse",
+        "type": "BOOL",
+        "description": "Subsystem B: Item completion signal"
+      },
+      {
+        "name": "B_Rejected",
+        "type": "BOOL",
+        "description": "Subsystem B: Current item rejection flag"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Batch stop"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Qualified reset"
+      },
+      {
+        "name": "B_Target",
+        "type": "INT",
+        "description": "Subsystem B: Required accepted items"
+      },
+      {
+        "name": "B_RejectLimit",
+        "type": "INT",
+        "description": "Subsystem B: Consecutive rejects causing lockout"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_SafeEnable",
+        "type": "BOOL",
+        "description": "Subsystem A: Permitted process output"
+      },
+      {
+        "name": "A_Disagree",
+        "type": "BOOL",
+        "description": "Subsystem A: Channel disagreement"
+      },
+      {
+        "name": "A_TestActive",
+        "type": "BOOL",
+        "description": "Subsystem A: Authorized test-mode indication"
+      },
+      {
+        "name": "B_AcceptedCount",
+        "type": "INT",
+        "description": "Subsystem B: Accepted item count"
+      },
+      {
+        "name": "B_RejectCount",
+        "type": "INT",
+        "description": "Subsystem B: Total reject count"
+      },
+      {
+        "name": "B_ConsecutiveRejects",
+        "type": "INT",
+        "description": "Subsystem B: Current consecutive reject count"
+      },
+      {
+        "name": "B_Complete",
+        "type": "BOOL",
+        "description": "Subsystem B: Accepted target reached"
+      },
+      {
+        "name": "B_LockedOut",
+        "type": "BOOL",
+        "description": "Subsystem B: Consecutive reject lockout"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_SafeEnable"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_Target and B_RejectLimit remain constant during a test.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults.",
+    "B_Target remains within the closed interval [-4, 4] during a test.",
+    "B_RejectLimit remains within the closed interval [-4, 4] during a test."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Disagree shall be TRUE exactly when A_ChA and A_ChB differ.",
+      "property": "G(A_Disagree = (A_ChA <> A_ChB))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Normal A_SafeEnable requires A_ProcessRequest and both channels TRUE.",
+      "property": "G((!A_TestMode) -> (A_SafeEnable = (A_ProcessRequest AND A_ChA AND A_ChB)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Test mode may bypass A_ChB only when A_TestPermit and A_ChA are TRUE.",
+      "property": "G(A_TestMode -> (A_SafeEnable = (A_ProcessRequest AND A_TestPermit AND A_ChA)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_TestActive shall indicate A_TestMode and A_TestPermit together.",
+      "property": "G(A_TestActive = (A_TestMode AND A_TestPermit))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Only a rising B_ItemPulse while not stopped, B_Complete, or locked shall count one item.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (count_change -> (rose(B_ItemPulse) AND !B_Stop AND !prev(B_Complete) AND !prev(B_LockedOut))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: An accepted item increments B_AcceptedCount and clears B_ConsecutiveRejects; a B_Rejected item increments both reject counters.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (accepted_edge -> (B_AcceptedCount=prev(B_AcceptedCount)+1 AND B_ConsecutiveRejects=0))) AND G((SubsystemBEnable AND CrossReady) -> (rejected_edge -> (B_RejectCount=prev(B_RejectCount)+1 AND B_ConsecutiveRejects=prev(B_ConsecutiveRejects)+1)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Complete shall latch when B_AcceptedCount reaches positive B_Target and no later item may change counts.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Complete -> X(B_Complete)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Except for a qualified B_Reset scan, B_RejectLimit less than or equal to zero, or reaching B_RejectLimit consecutive rejects, shall latch B_LockedOut.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (((B_RejectLimit<=0 OR B_ConsecutiveRejects>=B_RejectLimit) AND !(B_Reset AND B_Stop AND !B_ItemPulse))->B_LockedOut))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Stop has priority over B_ItemPulse and prevents every count change.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Stop -> stable(B_AcceptedCount,B_RejectCount,B_ConsecutiveRejects)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset clears all state only while B_Stop is TRUE and B_ItemPulse is FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND B_Stop AND !B_ItemPulse)->(B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND !B_Complete AND !B_LockedOut)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "A TRUE A_SafeEnable shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_SafeEnable AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND NOT B_Complete AND NOT B_LockedOut)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND NOT B_Complete AND NOT B_LockedOut))",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R14",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C01_H02_redundant_channel_gate",
+    "base_b": "C06_X01_batch_quality_lockout",
+    "direction": "A_to_B",
+    "activation_output": "A_SafeEnable",
+    "runtime_design": "one stateful subsystem plus one stateless Boolean subsystem"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

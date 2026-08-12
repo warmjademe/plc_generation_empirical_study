@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C02_H02_safe_restart_inhibit",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "qualified_reset",
+      "description": "Require released Start for reset, restart deliberately, and stop normally.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "PowerOK": false,
+            "SafetyOK": true,
+            "Start": false,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Running": false,
+            "RestartInhibit": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PowerOK": true,
+            "SafetyOK": true,
+            "Start": true,
+            "Stop": false,
+            "Reset": true
+          },
+          "expect": {
+            "Running": false,
+            "RestartInhibit": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PowerOK": true,
+            "SafetyOK": true,
+            "Start": false,
+            "Stop": false,
+            "Reset": true
+          },
+          "expect": {
+            "Running": false,
+            "RestartInhibit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PowerOK": true,
+            "SafetyOK": true,
+            "Start": true,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Running": true,
+            "RestartInhibit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PowerOK": true,
+            "SafetyOK": true,
+            "Start": false,
+            "Stop": true,
+            "Reset": false
+          },
+          "expect": {
+            "Running": false,
+            "RestartInhibit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

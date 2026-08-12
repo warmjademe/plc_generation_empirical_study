@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(rose(A_Demand) -> selected_available_pump_runs)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(command_without_feedback_for_3 -> standby_runs)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(!(A_Pump1Run AND A_Pump2Run))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(unserved_after_failover -> A_Failure)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(!A_Demand -> (!A_Pump1Run AND !A_Pump2Run)) AND G((A_Reset AND !A_Demand)->!A_Failure)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P6",
+      "requirement_ids": [
+        "R6"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(!(B_Pump1Run AND B_Pump2Run))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P7",
+      "requirement_ids": [
+        "R7"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(alternating_rising_demands -> alternating_selected_pumps)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P8",
+      "requirement_ids": [
+        "R8"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((B_Demand AND exactly_one_available) -> (B_Pump1Run OR B_Pump2Run))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P9",
+      "requirement_ids": [
+        "R9"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(B_Unavailable = (B_Demand AND !B_Pump1Available AND !B_Pump2Available))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P10",
+      "requirement_ids": [
+        "R10"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((B_Reset AND !B_Demand) -> (B_NextPump=1 AND !B_Pump1Run AND !B_Pump2Run))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P11",
+      "requirement_ids": [
+        "R11"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> !CrossReady) AND G((A_Pump1Run AND !CrossReset)->CrossReady)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P12",
+      "requirement_ids": [
+        "R12"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P13",
+      "requirement_ids": [
+        "R13"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P14",
+      "requirement_ids": [
+        "R14"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "source": "independently authored from the requirement contract"
+    }
+  ]
+}

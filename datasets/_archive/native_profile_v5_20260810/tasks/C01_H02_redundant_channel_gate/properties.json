@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 4,
+    "fully_native_property_count": 4,
+    "total_property_count": 4,
+    "environment": {
+      "parameters": [],
+      "assumption_invariants": []
+    }
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(Disagree = (ChA <> ChB))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "Disagree = (ChA <> ChB)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((!TestMode) -> (SafeEnable = (ProcessRequest AND ChA AND ChB)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(!TestMode) -> (SafeEnable = (ProcessRequest AND ChA AND ChB))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(TestMode -> (SafeEnable = (ProcessRequest AND TestPermit AND ChA)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "TestMode -> (SafeEnable = (ProcessRequest AND TestPermit AND ChA))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(TestActive = (TestMode AND TestPermit))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "TestActive = (TestMode AND TestPermit)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    }
+  ]
+}

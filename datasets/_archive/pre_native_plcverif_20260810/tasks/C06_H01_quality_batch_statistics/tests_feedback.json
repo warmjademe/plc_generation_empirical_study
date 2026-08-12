@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C06_H01_quality_batch_statistics",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "good_and_reject",
+      "description": "Count each classification independently.",
+      "requirement_ids": [
+        "R1",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "GoodPart": true,
+            "RejectPart": false,
+            "Reset": false,
+            "BatchTarget": 3,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "GoodCount": 1,
+            "RejectCount": 0,
+            "BatchDone": false,
+            "QualityFault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "GoodPart": false,
+            "RejectPart": false,
+            "Reset": false,
+            "BatchTarget": 3,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "GoodCount": 1,
+            "RejectCount": 0,
+            "BatchDone": false,
+            "QualityFault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "GoodPart": false,
+            "RejectPart": true,
+            "Reset": false,
+            "BatchTarget": 3,
+            "RejectLimit": 2
+          },
+          "expect": {
+            "GoodCount": 1,
+            "RejectCount": 1,
+            "BatchDone": false,
+            "QualityFault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

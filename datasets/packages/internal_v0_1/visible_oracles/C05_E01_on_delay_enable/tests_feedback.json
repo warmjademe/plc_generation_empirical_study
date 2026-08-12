@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C05_E01_on_delay_enable",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "delay_and_reset",
+      "description": "Allow more than the threshold, then reset immediately.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "Delayed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "Delayed": true
+          },
+          "repeat": 5,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "Delayed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

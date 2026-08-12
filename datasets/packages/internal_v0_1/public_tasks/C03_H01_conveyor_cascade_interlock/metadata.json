@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C03_H01_conveyor_cascade_interlock",
+  "title": "Three-conveyor downstream interlock",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "cascaded interlocks",
+    "priority"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 5,
+    "stateful_blocks": 0,
+    "interactions": 6,
+    "fault_modes": 3,
+    "horizon_scans": 1,
+    "inputs": 7,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "RunRequest",
+        "type": "BOOL",
+        "description": "Line run request"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "Common stop"
+      },
+      {
+        "name": "C1Clear",
+        "type": "BOOL",
+        "description": "Conveyor 1 clear"
+      },
+      {
+        "name": "C2Clear",
+        "type": "BOOL",
+        "description": "Conveyor 2 clear"
+      },
+      {
+        "name": "C3Clear",
+        "type": "BOOL",
+        "description": "Conveyor 3 clear"
+      },
+      {
+        "name": "C2Available",
+        "type": "BOOL",
+        "description": "Conveyor 2 available"
+      },
+      {
+        "name": "C3Available",
+        "type": "BOOL",
+        "description": "Conveyor 3 available"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "C1Run",
+        "type": "BOOL",
+        "description": "Upstream conveyor command"
+      },
+      {
+        "name": "C2Run",
+        "type": "BOOL",
+        "description": "Middle conveyor command"
+      },
+      {
+        "name": "C3Run",
+        "type": "BOOL",
+        "description": "Downstream conveyor command"
+      },
+      {
+        "name": "Blocked",
+        "type": "BOOL",
+        "description": "Run request blocked by availability or occupancy"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "C3Run shall require RunRequest, C3Available, C3Clear, and not Stop.",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "C2Run shall require C3Run, C2Available, and C2Clear.",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "C1Run shall require C2Run and C1Clear.",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Stop shall turn all three commands off.",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Blocked shall indicate RunRequest with at least one unavailable or uncleared stage.",
+      "safety_critical": false
+    }
+  ]
+}

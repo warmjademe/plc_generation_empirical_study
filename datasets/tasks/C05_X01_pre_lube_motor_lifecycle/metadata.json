@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C05_X01_pre_lube_motor_lifecycle",
+  "title": "Pre-lube motor lifecycle with feedback fault and cooldown",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "TIME",
+    "TON",
+    "state machine",
+    "feedback timeout",
+    "cooldown"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 11,
+    "stateful_blocks": 3,
+    "interactions": 9,
+    "fault_modes": 4,
+    "horizon_scans": 16,
+    "inputs": 6,
+    "outputs": 5,
+    "requirements": 6
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start request"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "Stop request"
+      },
+      {
+        "name": "Permit",
+        "type": "BOOL",
+        "description": "Safety permission"
+      },
+      {
+        "name": "OilPressure",
+        "type": "BOOL",
+        "description": "Lubrication pressure proof"
+      },
+      {
+        "name": "MotorFeedback",
+        "type": "BOOL",
+        "description": "Motor running feedback"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Fault reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "LubePump",
+        "type": "BOOL",
+        "description": "Lubrication pump command"
+      },
+      {
+        "name": "MotorCommand",
+        "type": "BOOL",
+        "description": "Motor command"
+      },
+      {
+        "name": "Cooldown",
+        "type": "BOOL",
+        "description": "Cooldown state indication"
+      },
+      {
+        "name": "Fault",
+        "type": "BOOL",
+        "description": "Latched startup or oil fault"
+      },
+      {
+        "name": "State",
+        "type": "INT",
+        "description": "0 idle, 1 pre-lube, 2 feedback proving, 3 running, 4 cooldown"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Start may remain TRUE through startup.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "A permitted start shall enter pre-lube with LubePump TRUE and MotorCommand FALSE.",
+      "property": "G((State=0 AND Start AND Permit AND !Stop AND !Fault)->X(State=1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "MotorCommand may start only after OilPressure remains TRUE for 300 ms.",
+      "property": "G(MotorCommand -> continuous(OilPressure,3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Failure to receive MotorFeedback within 400 ms of MotorCommand shall latch Fault and enter cooldown.",
+      "property": "G(feedback_timeout -> (Fault AND State=4 AND !MotorCommand))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "OilPressure loss while running shall immediately stop the motor, latch Fault, and enter cooldown.",
+      "property": "G((State=3 AND !OilPressure)->(Fault AND !MotorCommand AND State=4))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Stop or Permit loss shall stop MotorCommand and enter a 300 ms cooldown with LubePump remaining TRUE.",
+      "property": "G(((Stop OR !Permit) AND prev(State)>0)->(State=4 AND !MotorCommand))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "Reset clears Fault only in idle with Start FALSE; cooldown completion returns idle without clearing Fault.",
+      "property": "G((Reset AND State=0 AND !Start)->!Fault)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

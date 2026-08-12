@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C03_M01_pump_valve_interlock",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "start_sequence_permissions",
+      "description": "Valve command precedes pump permission.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RunRequest": true,
+            "TankLevelOK": true,
+            "ValveFeedbackOpen": false,
+            "PumpFeedback": false,
+            "Stop": false
+          },
+          "expect": {
+            "ValveCommand": true,
+            "PumpCommand": false,
+            "InterlockAlarm": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RunRequest": true,
+            "TankLevelOK": true,
+            "ValveFeedbackOpen": true,
+            "PumpFeedback": false,
+            "Stop": false
+          },
+          "expect": {
+            "ValveCommand": true,
+            "PumpCommand": true,
+            "InterlockAlarm": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

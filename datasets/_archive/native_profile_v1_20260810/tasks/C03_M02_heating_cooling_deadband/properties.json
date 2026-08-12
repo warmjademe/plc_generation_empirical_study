@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 4,
+    "fully_native_property_count": 4,
+    "total_property_count": 4
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Enable AND !SafetyTrip AND Temperature < Setpoint-1.0) -> Heat)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(Enable AND !SafetyTrip AND Temperature < Setpoint-1.0) -> Heat"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Enable AND !SafetyTrip AND Temperature > Setpoint+1.0) -> Cool)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(Enable AND !SafetyTrip AND Temperature > Setpoint+1.0) -> Cool"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Temperature >= Setpoint-1.0 AND Temperature <= Setpoint+1.0) -> (!Heat AND !Cool))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(Temperature >= Setpoint-1.0 AND Temperature <= Setpoint+1.0) -> (!Heat AND !Cool)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((!(Heat AND Cool)) AND (SafetyTrip -> (!Heat AND !Cool)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(!(Heat AND Cool)) AND (SafetyTrip -> (!Heat AND !Cool))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    }
+  ]
+}

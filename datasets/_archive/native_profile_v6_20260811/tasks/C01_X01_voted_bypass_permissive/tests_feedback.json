@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C01_X01_voted_bypass_permissive",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "normal_vote_and_block",
+      "description": "Exercise a valid vote and a blocked selected request.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Ch1": true,
+            "Ch2": true,
+            "Ch3": false,
+            "AutoMode": true,
+            "AutoRequest": true,
+            "ManualRequest": false,
+            "BypassRequest": false,
+            "BypassPermit": false,
+            "SafetyOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "RunPermit": true,
+            "Degraded": true,
+            "BypassActive": false,
+            "Blocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Ch1": true,
+            "Ch2": false,
+            "Ch3": false,
+            "AutoMode": true,
+            "AutoRequest": true,
+            "ManualRequest": false,
+            "BypassRequest": false,
+            "BypassPermit": false,
+            "SafetyOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "RunPermit": false,
+            "Degraded": false,
+            "BypassActive": false,
+            "Blocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

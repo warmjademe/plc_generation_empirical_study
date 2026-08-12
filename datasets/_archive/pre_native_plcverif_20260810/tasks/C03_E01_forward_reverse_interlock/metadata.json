@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C03_E01_forward_reverse_interlock",
+  "title": "Forward/reverse motor interlock",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "AND",
+    "NOT",
+    "interlock"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 0,
+    "stateful_blocks": 0,
+    "interactions": 0,
+    "fault_modes": 0,
+    "horizon_scans": 1,
+    "inputs": 3,
+    "outputs": 2,
+    "requirements": 3
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "ForwardRequest",
+        "type": "BOOL",
+        "description": "Forward request"
+      },
+      {
+        "name": "ReverseRequest",
+        "type": "BOOL",
+        "description": "Reverse request"
+      },
+      {
+        "name": "Permit",
+        "type": "BOOL",
+        "description": "Common safety permit"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Forward",
+        "type": "BOOL",
+        "description": "Forward contactor command"
+      },
+      {
+        "name": "Reverse",
+        "type": "BOOL",
+        "description": "Reverse contactor command"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Forward shall be TRUE only for an exclusive forward request with Permit TRUE.",
+      "property": "G(Forward = (Permit AND ForwardRequest AND !ReverseRequest))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Reverse shall be TRUE only for an exclusive reverse request with Permit TRUE.",
+      "property": "G(Reverse = (Permit AND ReverseRequest AND !ForwardRequest))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Forward and Reverse shall never be TRUE together.",
+      "property": "G(!(Forward AND Reverse))",
+      "safety_critical": true
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

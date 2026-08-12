@@ -1,0 +1,1839 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "C04_M01_falling_edge_pulse",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "independently_authored_base_task_oracles",
+  "independent_requirement_oracle": true,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "armed_falling",
+      "description": "Detect one armed falling edge.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_feedback_oracle"
+    },
+    {
+      "id": "HT01",
+      "name": "disarmed_then_rearmed",
+      "description": "Suppress an edge while disarmed and detect the next armed edge.",
+      "requirement_ids": [
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_hidden_oracle"
+    },
+    {
+      "id": "ST01",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST02",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST03",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST04",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST05",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST06",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST07",
+      "name": "hold_Signal",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST08",
+      "name": "hold_Arm",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST09",
+      "name": "conflict_Signal_Arm",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST10",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST11",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST12",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST13",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    }
+  ]
+}

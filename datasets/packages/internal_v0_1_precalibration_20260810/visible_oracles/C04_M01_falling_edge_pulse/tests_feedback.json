@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C04_M01_falling_edge_pulse",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "armed_falling",
+      "description": "Detect one armed falling edge.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C01_M02_mode_dependent_command",
+  "title": "Mode-dependent command selection",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "AND",
+    "OR",
+    "NOT"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 2,
+    "stateful_blocks": 0,
+    "interactions": 3,
+    "fault_modes": 1,
+    "horizon_scans": 1,
+    "inputs": 5,
+    "outputs": 2,
+    "requirements": 2
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "AutoMode",
+        "type": "BOOL",
+        "description": "TRUE selects automatic mode"
+      },
+      {
+        "name": "AutoDemand",
+        "type": "BOOL",
+        "description": "Automatic request"
+      },
+      {
+        "name": "ManualDemand",
+        "type": "BOOL",
+        "description": "Manual request"
+      },
+      {
+        "name": "SafetyOK",
+        "type": "BOOL",
+        "description": "Common safety permission"
+      },
+      {
+        "name": "Inhibit",
+        "type": "BOOL",
+        "description": "High-priority inhibit"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Command",
+        "type": "BOOL",
+        "description": "Selected command"
+      },
+      {
+        "name": "Blocked",
+        "type": "BOOL",
+        "description": "A request exists but is blocked"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Command shall follow AutoDemand in automatic mode and ManualDemand in manual mode, but only when SafetyOK is TRUE and Inhibit is FALSE.",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Blocked shall be TRUE when the selected request is TRUE but safety is not OK or Inhibit is TRUE.",
+      "safety_critical": false
+    }
+  ]
+}

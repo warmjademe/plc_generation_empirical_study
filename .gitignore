@@ -1,0 +1,37 @@
+# Python caches, virtual environments, and package outputs
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Experiment runtime output and local logs
+runs/
+datasets_50/evidence/screening/
+*.log
+
+# Local editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
+
+# Private local configuration and authentication material
+.env
+.env.*
+credentials.json
+auth.json
+.codex/
+.claude/
+.ssh/
+*.pem
+*.key
+
+# User- and machine-level agent instructions are not release artifacts
+AGENTS.md
+AGENTS.override.md
+CLAUDE.md

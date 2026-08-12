@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C08_H02_timed_sequence_fault",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "stage_timeout_and_reset",
+      "description": "Time out, enforce safe outputs, and require a qualified reset.",
+      "requirement_ids": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Sensor1": false,
+            "Sensor2": false,
+            "Stop": false,
+            "ResetFault": false
+          },
+          "expect": {
+            "Actuator1": false,
+            "Actuator2": false,
+            "Complete": false,
+            "Fault": true,
+            "State": 0
+          },
+          "repeat": 8,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Sensor1": false,
+            "Sensor2": false,
+            "Stop": true,
+            "ResetFault": true
+          },
+          "expect": {
+            "Actuator1": false,
+            "Actuator2": false,
+            "Complete": false,
+            "Fault": true,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Sensor1": false,
+            "Sensor2": false,
+            "Stop": true,
+            "ResetFault": true
+          },
+          "expect": {
+            "Actuator1": false,
+            "Actuator2": false,
+            "Complete": false,
+            "Fault": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

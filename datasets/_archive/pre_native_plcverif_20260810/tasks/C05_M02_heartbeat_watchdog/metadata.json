@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C05_M02_heartbeat_watchdog",
+  "title": "Heartbeat watchdog timeout",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "TIME",
+    "TON",
+    "retained output",
+    "watchdog"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 4,
+    "stateful_blocks": 1,
+    "interactions": 3,
+    "fault_modes": 1,
+    "horizon_scans": 8,
+    "inputs": 3,
+    "outputs": 2,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "MonitorEnable",
+        "type": "BOOL",
+        "description": "Enable monitoring"
+      },
+      {
+        "name": "Heartbeat",
+        "type": "BOOL",
+        "description": "One-scan heartbeat pulse"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Clear timeout latch"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "TimedOut",
+        "type": "BOOL",
+        "description": "Latched timeout"
+      },
+      {
+        "name": "Healthy",
+        "type": "BOOL",
+        "description": "Monitor enabled and not timed out"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Heartbeat is a pulse lasting no more than one scan.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "While monitoring, a Heartbeat shall restart the 400 ms watchdog interval.",
+      "property": "G(Heartbeat -> reset(watchdog))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Absence of Heartbeat for at least 400 ms shall latch TimedOut TRUE.",
+      "property": "G((MonitorEnable AND no_event(Heartbeat,4)) -> TimedOut)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Reset shall clear TimedOut only while MonitorEnable is FALSE.",
+      "property": "G((Reset AND !MonitorEnable) -> !TimedOut)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Healthy shall equal MonitorEnable and not TimedOut.",
+      "property": "G(Healthy = (MonitorEnable AND !TimedOut))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

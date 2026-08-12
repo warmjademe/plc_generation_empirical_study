@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C01_E01_two_input_permissive",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "nominal_permit",
+      "description": "Exercise disabled and fully permitted states.",
+      "requirement_ids": [
+        "R1"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Enable": false,
+            "GuardClosed": true
+          },
+          "expect": {
+            "RunPermit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": true,
+            "GuardClosed": true
+          },
+          "expect": {
+            "RunPermit": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C01_X01_voted_bypass_permissive",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "qualified_bypass_lifecycle",
+      "description": "Latch a qualified bypass, retain it across safety loss, and clear it only while idle.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Ch1": true,
+            "Ch2": false,
+            "Ch3": false,
+            "AutoMode": false,
+            "AutoRequest": false,
+            "ManualRequest": true,
+            "BypassRequest": true,
+            "BypassPermit": true,
+            "SafetyOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "RunPermit": true,
+            "Degraded": true,
+            "BypassActive": true,
+            "Blocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Ch1": true,
+            "Ch2": false,
+            "Ch3": false,
+            "AutoMode": false,
+            "AutoRequest": false,
+            "ManualRequest": true,
+            "BypassRequest": false,
+            "BypassPermit": false,
+            "SafetyOK": false,
+            "Reset": false
+          },
+          "expect": {
+            "RunPermit": false,
+            "Degraded": false,
+            "BypassActive": true,
+            "Blocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Ch1": false,
+            "Ch2": false,
+            "Ch3": false,
+            "AutoMode": false,
+            "AutoRequest": false,
+            "ManualRequest": false,
+            "BypassRequest": false,
+            "BypassPermit": false,
+            "SafetyOK": true,
+            "Reset": true
+          },
+          "expect": {
+            "RunPermit": false,
+            "Degraded": false,
+            "BypassActive": false,
+            "Blocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4663 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "C06_M02_bounded_up_down_counter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "independently_authored_base_task_oracles",
+  "independent_requirement_oracle": true,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "add_and_remove",
+      "description": "Increment and decrement within bounds.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_feedback_oracle"
+    },
+    {
+      "id": "HT01",
+      "name": "conflict_capacity_reset",
+      "description": "Resolve conflict, reach capacity, and reset.",
+      "requirement_ids": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 2,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_hidden_oracle"
+    },
+    {
+      "id": "ST01",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST02",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 2,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST03",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST04",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST05",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST06",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST07",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST08",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST09",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST10",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST11",
+      "name": "boundary_009",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST12",
+      "name": "boundary_010",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST13",
+      "name": "boundary_011",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST14",
+      "name": "boundary_012",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST15",
+      "name": "boundary_013",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST16",
+      "name": "boundary_014",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST17",
+      "name": "boundary_015",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST18",
+      "name": "boundary_016",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST19",
+      "name": "boundary_017",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST20",
+      "name": "boundary_018",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST21",
+      "name": "boundary_019",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST22",
+      "name": "boundary_020",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST23",
+      "name": "boundary_021",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST24",
+      "name": "boundary_022",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST25",
+      "name": "boundary_023",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST26",
+      "name": "boundary_024",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST27",
+      "name": "boundary_025",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST28",
+      "name": "boundary_026",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST29",
+      "name": "boundary_027",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST30",
+      "name": "boundary_028",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST31",
+      "name": "boundary_029",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST32",
+      "name": "boundary_030",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST33",
+      "name": "boundary_031",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST34",
+      "name": "boundary_032",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST35",
+      "name": "boundary_033",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST36",
+      "name": "boundary_034",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST37",
+      "name": "boundary_035",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST38",
+      "name": "boundary_036",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST39",
+      "name": "boundary_037",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST40",
+      "name": "boundary_038",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST41",
+      "name": "boundary_039",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST42",
+      "name": "boundary_040",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST43",
+      "name": "hold_AddItem",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST44",
+      "name": "hold_RemoveItem",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST45",
+      "name": "hold_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST46",
+      "name": "conflict_AddItem_RemoveItem",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST47",
+      "name": "conflict_AddItem_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST48",
+      "name": "conflict_RemoveItem_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST49",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST50",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST51",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST52",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": -1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": true,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": false,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 3
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 1
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": true,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST53",
+      "name": "mutation_boundary_regression_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AddItem": true,
+            "RemoveItem": false,
+            "Reset": false,
+            "Capacity": 0
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": true,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    }
+  ]
+}

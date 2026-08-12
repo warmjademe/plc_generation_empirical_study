@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C03_X01_ventilated_heater_interlock",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "normal_proven_start",
+      "description": "Prove ventilation before enabling heat.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "HeatRequest": true,
+            "Stop": false,
+            "GuardClosed": true,
+            "DamperOpen": true,
+            "AirflowOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "DamperCommand": true,
+            "FanCommand": true,
+            "HeaterCommand": false,
+            "Fault": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "HeatRequest": true,
+            "Stop": false,
+            "GuardClosed": true,
+            "DamperOpen": true,
+            "AirflowOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "DamperCommand": true,
+            "FanCommand": true,
+            "HeaterCommand": true,
+            "Fault": false,
+            "State": 2
+          },
+          "repeat": 5,
+          "check": "last_only"
+        }
+      ]
+    }
+  ]
+}

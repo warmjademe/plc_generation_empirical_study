@@ -1,0 +1,20 @@
+{
+  "purpose": "oracle calibration only; no LLM call",
+  "count": 1,
+  "controls": [
+    {
+      "id": "NC1",
+      "operator": "supervisory_blocked_stuck_false",
+      "description": "Force CrossBlocked FALSE even when subsystem B is requested before readiness.",
+      "target_requirement_ids": [
+        "R11"
+      ],
+      "expected_detection": [
+        "PLCverif",
+        "OpenPLC"
+      ],
+      "equivalence_status": "non_equivalent_by_explicit_cross_contract",
+      "validation_status": "not_run"
+    }
+  ]
+}

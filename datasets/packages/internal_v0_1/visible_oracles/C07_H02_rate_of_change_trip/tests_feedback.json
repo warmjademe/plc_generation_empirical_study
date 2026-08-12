@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C07_H02_rate_of_change_trip",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "normal_rate",
+      "description": "Accept changes within asymmetric bounds.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Value": 10.0,
+            "Enable": true,
+            "MaxRise": 2.0,
+            "MaxFall": 3.0,
+            "Reset": false
+          },
+          "expect": {
+            "Delta": 0.0,
+            "Trip": false,
+            "Ready": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Value": 11.5,
+            "Enable": true,
+            "MaxRise": 2.0,
+            "MaxFall": 3.0,
+            "Reset": false
+          },
+          "expect": {
+            "Delta": 1.5,
+            "Trip": false,
+            "Ready": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Value": 9.0,
+            "Enable": true,
+            "MaxRise": 2.0,
+            "MaxFall": 3.0,
+            "Reset": false
+          },
+          "expect": {
+            "Delta": -2.5,
+            "Trip": false,
+            "Ready": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

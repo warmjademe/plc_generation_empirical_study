@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "dataset_name": "PLC Generation Balanced-50",
+  "task_count": 50,
+  "category_counts": {
+    "C01": 5,
+    "C02": 5,
+    "C03": 5,
+    "C04": 5,
+    "C05": 5,
+    "C06": 5,
+    "C07": 5,
+    "C08": 5,
+    "C09": 5,
+    "C10": 5
+  },
+  "outcome_counts": {
+    "screening_failure": 49,
+    "verified_success": 1
+  },
+  "runtime_replacement_count": 2,
+  "max_reference_plcverif_ms": 900000,
+  "selection_sha256": "2e3d56f01055df165ab0f2edfe36244fb280da9086b0e862cfbd667f6aaf5e5a",
+  "manifest_sha256": "049d1eb2cf732b7dee790b40254e0ee86c87635153e75915c0ef4df09f4199b1"
+}

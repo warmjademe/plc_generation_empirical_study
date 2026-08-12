@@ -1,0 +1,28 @@
+FUNCTION_BLOCK C09_B20_composite
+VAR_INPUT
+    A_WarningCondition : BOOL;
+    A_TripCondition : BOOL;
+    A_Enable : BOOL;
+    A_Shelve : BOOL;
+    A_Acknowledge : BOOL;
+    A_Reset : BOOL;
+    B_SensorA : REAL;
+    B_SensorB : REAL;
+    B_MaxDifference : REAL;
+    B_Enable : BOOL;
+    B_Reset : BOOL;
+    SubsystemBEnable : BOOL;
+    CrossReset : BOOL;
+END_VAR
+VAR_OUTPUT
+    A_Warning : BOOL;
+    A_Trip : BOOL;
+    A_Unacked : BOOL;
+    A_Shelved : BOOL;
+    A_LockedOut : BOOL;
+    B_Alarm : BOOL;
+    B_Disagreeing : BOOL;
+    CrossReady : BOOL;
+    CrossBlocked : BOOL;
+END_VAR
+END_FUNCTION_BLOCK

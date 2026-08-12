@@ -1,0 +1,216 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C06_R13_lean_composite",
+  "title": "Composed supervisory control: Configurable batch counter -> Two-out-of-three sensor voter",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "AND",
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "NOT",
+    "OR",
+    "compositional control",
+    "configurable counter",
+    "edge detection",
+    "latched readiness",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 9,
+    "stateful_blocks": 1,
+    "interactions": 9,
+    "fault_modes": 4,
+    "horizon_scans": 11,
+    "inputs": 9,
+    "outputs": 7,
+    "requirements": 10
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Item",
+        "type": "BOOL",
+        "description": "Subsystem A: Item detection"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Reset current batch"
+      },
+      {
+        "name": "A_Target",
+        "type": "INT",
+        "description": "Subsystem A: Batch target, assumed 1 through 100"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Counting enable"
+      },
+      {
+        "name": "B_S1",
+        "type": "BOOL",
+        "description": "Subsystem B: Sensor channel 1"
+      },
+      {
+        "name": "B_S2",
+        "type": "BOOL",
+        "description": "Subsystem B: Sensor channel 2"
+      },
+      {
+        "name": "B_S3",
+        "type": "BOOL",
+        "description": "Subsystem B: Sensor channel 3"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Count",
+        "type": "INT",
+        "description": "Subsystem A: Accepted item count"
+      },
+      {
+        "name": "A_BatchDone",
+        "type": "BOOL",
+        "description": "Subsystem A: Target reached"
+      },
+      {
+        "name": "A_Accepted",
+        "type": "BOOL",
+        "description": "Subsystem A: Item accepted this scan"
+      },
+      {
+        "name": "B_Vote",
+        "type": "BOOL",
+        "description": "Subsystem B: Majority-vote result"
+      },
+      {
+        "name": "B_Unanimous",
+        "type": "BOOL",
+        "description": "Subsystem B: All channels agree"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_BatchDone"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: A_Target remains constant during a test and is between 1 and 100.",
+    "Subsystem A: A_Item pulses are separated by at least one low scan.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: Only a rising A_Item edge while A_Enable and below A_Target shall increment A_Count.",
+      "property": "G(A_Accepted = (rose(A_Item) AND A_Enable AND prev(A_Count)<A_Target AND !A_Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Count shall remain between zero and A_Target.",
+      "property": "G((A_Count>=0) AND (A_Count<=A_Target))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_BatchDone shall be TRUE when A_Count reaches A_Target.",
+      "property": "G(A_BatchDone = (A_Count>=A_Target))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Count, A_BatchDone, and A_Accepted.",
+      "property": "G(A_Reset -> ((A_Count=0) AND !A_BatchDone AND !A_Accepted))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Vote shall be TRUE when at least two of B_S1, B_S2, and B_S3 are TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Vote = ((B_S1 AND B_S2) OR (B_S1 AND B_S3) OR (B_S2 AND B_S3))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Unanimous shall be TRUE only when all three channels have the same value.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Unanimous = ((B_S1 AND B_S2 AND B_S3) OR ((!B_S1) AND (!B_S2) AND (!B_S3)))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "A TRUE A_BatchDone shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_BatchDone AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Vote AND NOT B_Unanimous)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Vote AND NOT B_Unanimous))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C06_M01_configurable_batch_counter",
+    "base_b": "C01_M01_two_out_of_three_vote",
+    "direction": "A_to_B",
+    "activation_output": "A_BatchDone",
+    "runtime_design": "one stateful primary subsystem plus one stateless Boolean subsystem"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

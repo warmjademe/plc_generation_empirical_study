@@ -1,0 +1,216 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C10_B13_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_LowDemand": true,
+            "A_HighDemand": false,
+            "A_LeadIsPump1": true,
+            "A_Pump1Available": true,
+            "A_Pump2Available": true,
+            "B_Demand": false,
+            "B_DutyIsPump1": false,
+            "B_Pump1Available": false,
+            "B_Pump2Available": false,
+            "B_Pump1Feedback": false,
+            "B_Pump2Feedback": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pump1Run": true,
+            "A_Pump2Run": false,
+            "A_CapacityShortfall": false,
+            "B_Pump1Run": false,
+            "B_Pump2Run": false,
+            "B_FailoverActive": false,
+            "B_Failure": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_LowDemand": true,
+            "A_HighDemand": true,
+            "A_LeadIsPump1": true,
+            "A_Pump1Available": true,
+            "A_Pump2Available": true,
+            "B_Demand": false,
+            "B_DutyIsPump1": false,
+            "B_Pump1Available": false,
+            "B_Pump2Available": false,
+            "B_Pump1Feedback": false,
+            "B_Pump2Feedback": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pump1Run": true,
+            "A_Pump2Run": true,
+            "A_CapacityShortfall": false,
+            "B_Pump1Run": false,
+            "B_Pump2Run": false,
+            "B_FailoverActive": false,
+            "B_Failure": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_LowDemand": true,
+            "A_HighDemand": false,
+            "A_LeadIsPump1": true,
+            "A_Pump1Available": true,
+            "A_Pump2Available": true,
+            "B_Demand": false,
+            "B_DutyIsPump1": false,
+            "B_Pump1Available": false,
+            "B_Pump2Available": false,
+            "B_Pump1Feedback": false,
+            "B_Pump2Feedback": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pump1Run": true,
+            "A_Pump2Run": false,
+            "A_CapacityShortfall": false,
+            "B_Pump1Run": false,
+            "B_Pump2Run": false,
+            "B_FailoverActive": false,
+            "B_Failure": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_LowDemand": true,
+            "A_HighDemand": false,
+            "A_LeadIsPump1": true,
+            "A_Pump1Available": true,
+            "A_Pump2Available": true,
+            "B_Demand": true,
+            "B_DutyIsPump1": true,
+            "B_Pump1Available": true,
+            "B_Pump2Available": true,
+            "B_Pump1Feedback": true,
+            "B_Pump2Feedback": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pump1Run": true,
+            "A_Pump2Run": false,
+            "A_CapacityShortfall": false,
+            "B_Pump1Run": true,
+            "B_Pump2Run": false,
+            "B_FailoverActive": false,
+            "B_Failure": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_LowDemand": true,
+            "A_HighDemand": false,
+            "A_LeadIsPump1": true,
+            "A_Pump1Available": true,
+            "A_Pump2Available": true,
+            "B_Demand": false,
+            "B_DutyIsPump1": true,
+            "B_Pump1Available": true,
+            "B_Pump2Available": true,
+            "B_Pump1Feedback": false,
+            "B_Pump2Feedback": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pump1Run": true,
+            "A_Pump2Run": false,
+            "A_CapacityShortfall": false,
+            "B_Pump1Run": false,
+            "B_Pump2Run": false,
+            "B_FailoverActive": false,
+            "B_Failure": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

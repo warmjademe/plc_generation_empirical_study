@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C04_M01_falling_edge_pulse",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "disarmed_then_rearmed",
+      "description": "Suppress an edge while disarmed and detect the next armed edge.",
+      "requirement_ids": [
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": false
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": false,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false,
+            "Arm": true
+          },
+          "expect": {
+            "Pulse": true,
+            "Armed": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

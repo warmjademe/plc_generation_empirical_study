@@ -1,0 +1,262 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C03_B02_composite",
+  "title": "Composed supervisory control: Three-conveyor downstream interlock -> Pump and discharge-valve interlock",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "cascaded interlocks",
+    "compositional control",
+    "feedback monitoring",
+    "interlock",
+    "latched readiness",
+    "priority",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 10,
+    "stateful_blocks": 0,
+    "interactions": 14,
+    "fault_modes": 6,
+    "horizon_scans": 6,
+    "inputs": 14,
+    "outputs": 9,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_RunRequest",
+        "type": "BOOL",
+        "description": "Subsystem A: Line run request"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: Common stop"
+      },
+      {
+        "name": "A_C1Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 1 clear"
+      },
+      {
+        "name": "A_C2Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 2 clear"
+      },
+      {
+        "name": "A_C3Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 3 clear"
+      },
+      {
+        "name": "A_C2Available",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 2 available"
+      },
+      {
+        "name": "A_C3Available",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 3 available"
+      },
+      {
+        "name": "B_RunRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Process run request"
+      },
+      {
+        "name": "B_TankLevelOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Suction tank level permissive"
+      },
+      {
+        "name": "B_ValveFeedbackOpen",
+        "type": "BOOL",
+        "description": "Subsystem B: Discharge valve open feedback"
+      },
+      {
+        "name": "B_PumpFeedback",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump running feedback"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Stop command"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_C1Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Upstream conveyor command"
+      },
+      {
+        "name": "A_C2Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Middle conveyor command"
+      },
+      {
+        "name": "A_C3Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Downstream conveyor command"
+      },
+      {
+        "name": "A_Blocked",
+        "type": "BOOL",
+        "description": "Subsystem A: Run request blocked by availability or occupancy"
+      },
+      {
+        "name": "B_ValveCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Discharge valve command"
+      },
+      {
+        "name": "B_PumpCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump command"
+      },
+      {
+        "name": "B_InterlockAlarm",
+        "type": "BOOL",
+        "description": "Subsystem B: Unsafe feedback combination"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_C1Run"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_C3Run shall require A_RunRequest, A_C3Available, A_C3Clear, and not A_Stop.",
+      "property": "G(A_C3Run = (A_RunRequest AND A_C3Available AND A_C3Clear AND !A_Stop))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_C2Run shall require A_C3Run, A_C2Available, and A_C2Clear.",
+      "property": "G(A_C2Run -> (A_C3Run AND A_C2Available AND A_C2Clear))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_C1Run shall require A_C2Run and A_C1Clear.",
+      "property": "G(A_C1Run -> (A_C2Run AND A_C1Clear))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Stop shall turn all three commands off.",
+      "property": "G(A_Stop -> (!A_C1Run AND !A_C2Run AND !A_C3Run))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Blocked shall indicate A_RunRequest with at least one unavailable or uncleared stage.",
+      "property": "G(A_Blocked = (A_RunRequest AND (!A_C1Clear OR !A_C2Clear OR !A_C3Clear OR !A_C2Available OR !A_C3Available)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_ValveCommand shall follow a valid B_RunRequest while B_TankLevelOK and not B_Stop hold.",
+      "property": "G(B_ValveCommand = (B_RunRequest AND B_TankLevelOK AND !B_Stop))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_PumpCommand requires B_ValveFeedbackOpen in addition to the valve-command permissives.",
+      "property": "G(B_PumpCommand -> B_ValveFeedbackOpen)",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_PumpCommand shall be FALSE when B_Stop or loss of B_TankLevelOK is active.",
+      "property": "G((B_Stop OR !B_TankLevelOK) -> !B_PumpCommand)",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_InterlockAlarm shall be TRUE when B_PumpFeedback is TRUE while valve feedback is closed.",
+      "property": "G(B_InterlockAlarm = (B_PumpFeedback AND !B_ValveFeedbackOpen))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_C1Run shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_C1Run AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C03_H01_conveyor_cascade_interlock",
+    "base_b": "C03_M01_pump_valve_interlock",
+    "direction": "A_to_B",
+    "activation_output": "A_C1Run"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

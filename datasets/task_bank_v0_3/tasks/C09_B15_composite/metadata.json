@@ -1,0 +1,237 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C09_B15_composite",
+  "title": "Composed supervisory control: Time-qualified sensor disagreement alarm -> High and high-high alarm priority",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "ABS",
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "REAL",
+    "TIME",
+    "TON",
+    "comparisons",
+    "compositional control",
+    "latched readiness",
+    "priority",
+    "retained alarm",
+    "retained alarms",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 11,
+    "stateful_blocks": 1,
+    "interactions": 13,
+    "fault_modes": 5,
+    "horizon_scans": 10,
+    "inputs": 11,
+    "outputs": 7,
+    "requirements": 12
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_SensorA",
+        "type": "REAL",
+        "description": "Subsystem A: First sensor value"
+      },
+      {
+        "name": "A_SensorB",
+        "type": "REAL",
+        "description": "Subsystem A: Second sensor value"
+      },
+      {
+        "name": "A_MaxDifference",
+        "type": "REAL",
+        "description": "Subsystem A: Allowed absolute difference"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Monitoring enable"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Alarm reset"
+      },
+      {
+        "name": "B_Value",
+        "type": "REAL",
+        "description": "Subsystem B: Measured process value"
+      },
+      {
+        "name": "B_HighLimit",
+        "type": "REAL",
+        "description": "Subsystem B: High threshold"
+      },
+      {
+        "name": "B_HighHighLimit",
+        "type": "REAL",
+        "description": "Subsystem B: High-high threshold"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched alarm reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Alarm",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched disagreement alarm"
+      },
+      {
+        "name": "A_Disagreeing",
+        "type": "BOOL",
+        "description": "Subsystem A: Current disagreement status"
+      },
+      {
+        "name": "B_HighAlarm",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched high alarm"
+      },
+      {
+        "name": "B_HighHighAlarm",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched high-high alarm"
+      },
+      {
+        "name": "B_Shutdown",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched shutdown command"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Alarm"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: A_MaxDifference is non-negative.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_HighHighLimit is greater than B_HighLimit.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Disagreeing shall be TRUE exactly when monitoring is enabled and the absolute difference exceeds A_MaxDifference.",
+      "property": "G(A_Disagreeing = (A_Enable AND ABS(A_SensorA-A_SensorB)>A_MaxDifference))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A disagreement lasting 300 ms shall latch A_Alarm.",
+      "property": "G(within(3, A_Disagreeing, A_Alarm))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A shorter disagreement shall not latch A_Alarm.",
+      "property": "G((A_Disagreeing AND duration(A_Disagreeing)<3) -> !A_Alarm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Alarm only while no disagreement is present.",
+      "property": "G((A_Reset AND !A_Disagreeing) -> !A_Alarm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Value at or above B_HighLimit shall latch B_HighAlarm.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Value>=B_HighLimit) -> B_HighAlarm))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Value at or above B_HighHighLimit shall latch both alarms and B_Shutdown.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Value>=B_HighHighLimit) -> (B_HighAlarm AND B_HighHighAlarm AND B_Shutdown)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A high alarm below B_HighHighLimit shall not by itself assert B_Shutdown.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Value>=B_HighLimit AND B_Value<B_HighHighLimit AND !B_HighHighAlarm) -> !B_Shutdown))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear all latched outputs only below B_HighLimit.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND B_Value<B_HighLimit) -> (!B_HighAlarm AND !B_HighHighAlarm AND !B_Shutdown)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "A TRUE A_Alarm shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Alarm AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_HighAlarm AND NOT B_HighHighAlarm AND NOT B_Shutdown)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_HighAlarm AND NOT B_HighHighAlarm AND NOT B_Shutdown))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C09_M02_qualified_sensor_disagreement",
+    "base_b": "C09_M01_high_high_alarm_priority",
+    "direction": "A_to_B",
+    "activation_output": "A_Alarm"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

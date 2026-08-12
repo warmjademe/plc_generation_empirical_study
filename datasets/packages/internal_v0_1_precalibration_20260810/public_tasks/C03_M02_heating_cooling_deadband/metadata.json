@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C03_M02_heating_cooling_deadband",
+  "title": "Mutually exclusive heating and cooling with deadband",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "REAL",
+    "IF",
+    "ELSIF",
+    "comparison",
+    "interlock"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 2,
+    "stateful_blocks": 0,
+    "interactions": 3,
+    "fault_modes": 1,
+    "horizon_scans": 1,
+    "inputs": 4,
+    "outputs": 2,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Temperature",
+        "type": "REAL",
+        "description": "Measured temperature"
+      },
+      {
+        "name": "Setpoint",
+        "type": "REAL",
+        "description": "Target temperature"
+      },
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Controller enable"
+      },
+      {
+        "name": "SafetyTrip",
+        "type": "BOOL",
+        "description": "Common safety trip"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Heat",
+        "type": "BOOL",
+        "description": "Heating output"
+      },
+      {
+        "name": "Cool",
+        "type": "BOOL",
+        "description": "Cooling output"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Heat shall turn on below Setpoint minus 1.0 while enabled and safe.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Cool shall turn on above Setpoint plus 1.0 while enabled and safe.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Neither output shall be active inside the inclusive deadband.",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Heat and Cool shall never be active together, and SafetyTrip shall turn both off.",
+      "safety_critical": true
+    }
+  ]
+}

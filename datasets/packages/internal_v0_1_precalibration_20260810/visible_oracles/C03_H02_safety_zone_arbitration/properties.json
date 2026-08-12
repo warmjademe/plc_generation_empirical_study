@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((!GuardClosed OR !EStopOK) -> (!RobotEnable AND !ConveyorEnable AND !ManualEnable))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((ManualRequest AND ManualKey AND GuardClosed AND EStopOK) -> ManualEnable)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((RobotRequest AND !ManualEnable AND GuardClosed AND EStopOK) -> RobotEnable)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(at_most_one(RobotEnable,ConveyorEnable,ManualEnable))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(Conflict = more_than_one(RobotRequest,ConveyorRequest,(ManualRequest AND ManualKey)))",
+      "source": "independently authored from the requirement contract"
+    }
+  ]
+}

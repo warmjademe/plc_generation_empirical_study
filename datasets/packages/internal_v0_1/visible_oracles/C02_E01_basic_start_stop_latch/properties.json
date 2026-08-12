@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Start AND !Stop) -> X(Running))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(Stop -> (!Running))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((!Start AND !Stop) -> (Running = prev(Running)))",
+      "source": "independently authored from the requirement contract"
+    }
+  ]
+}

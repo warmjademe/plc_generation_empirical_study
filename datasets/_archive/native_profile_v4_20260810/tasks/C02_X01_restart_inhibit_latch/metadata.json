@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C02_X01_restart_inhibit_latch",
+  "title": "Mode-selected start latch with restart inhibit",
+  "category_id": "C02",
+  "category": "Start/stop and retained state",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "IF",
+    "retained latch",
+    "mode selection",
+    "restart inhibit",
+    "priority"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 7,
+    "stateful_blocks": 0,
+    "interactions": 8,
+    "fault_modes": 3,
+    "horizon_scans": 7,
+    "inputs": 7,
+    "outputs": 3,
+    "requirements": 6
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "AutoMode",
+        "type": "BOOL",
+        "description": "Automatic mode"
+      },
+      {
+        "name": "AutoStart",
+        "type": "BOOL",
+        "description": "Automatic start request"
+      },
+      {
+        "name": "ManualStart",
+        "type": "BOOL",
+        "description": "Manual start request"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "High-priority stop"
+      },
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Controller enable"
+      },
+      {
+        "name": "SafetyOK",
+        "type": "BOOL",
+        "description": "Safety permission"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Restart-inhibit reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Running",
+        "type": "BOOL",
+        "description": "Latched running command"
+      },
+      {
+        "name": "RestartRequired",
+        "type": "BOOL",
+        "description": "Manual restart acknowledgement required"
+      },
+      {
+        "name": "RejectedStart",
+        "type": "BOOL",
+        "description": "One-scan rejected-start diagnostic"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "AutoMode shall select AutoStart; manual mode shall select ManualStart.",
+      "property": "G(selected_start = mux(AutoMode,AutoStart,ManualStart))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Stop, Enable FALSE, or SafetyOK FALSE shall force Running FALSE with priority over every start.",
+      "property": "G((Stop OR !Enable OR !SafetyOK) -> !Running)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Safety loss while running or while a start is requested shall latch RestartRequired.",
+      "property": "G((!SafetyOK AND (prev(Running) OR selected_start)) -> RestartRequired)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "RestartRequired may clear only when Reset is TRUE, SafetyOK and Enable are TRUE, and the selected start is released.",
+      "property": "G((RestartRequired AND !(Reset AND SafetyOK AND Enable AND !selected_start)) -> X(RestartRequired))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "A start presented while RestartRequired is TRUE shall not run and shall pulse RejectedStart.",
+      "property": "G((RestartRequired AND selected_start) -> (!Running AND RejectedStart))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "With all permissions healthy and no restart inhibit, a selected start shall latch Running until a stop condition occurs.",
+      "property": "G((selected_start AND Enable AND SafetyOK AND !Stop AND !RestartRequired) -> Running)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "purpose": "optional local oracle calibration; excluded from LLM evaluation",
+  "count": 1,
+  "controls": [
+    {
+      "id": "NC1",
+      "operator": "output_override",
+      "description": "Force output HeaterCommand to FALSE.",
+      "target_requirement_ids": [
+        "R2"
+      ],
+      "expected_detection": [
+        "dynamic_test"
+      ],
+      "equivalence_status": "non_equivalent_by_witness",
+      "validation_status": "not_run",
+      "witness": {
+        "suite": "feedback",
+        "case": "normal_proven_start"
+      }
+    }
+  ]
+}

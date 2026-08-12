@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C09_H01_first_out_fault_recorder",
+  "title": "First-out fault recorder with deterministic priority",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained state",
+    "priority encoding",
+    "qualified reset"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 6,
+    "stateful_blocks": 0,
+    "interactions": 6,
+    "fault_modes": 3,
+    "horizon_scans": 4,
+    "inputs": 4,
+    "outputs": 3,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "FaultA",
+        "type": "BOOL",
+        "description": "Fault channel A"
+      },
+      {
+        "name": "FaultB",
+        "type": "BOOL",
+        "description": "Fault channel B"
+      },
+      {
+        "name": "FaultC",
+        "type": "BOOL",
+        "description": "Fault channel C"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Recorder reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "AnyFault",
+        "type": "BOOL",
+        "description": "Current aggregate fault input"
+      },
+      {
+        "name": "LockedOut",
+        "type": "BOOL",
+        "description": "Latched lockout"
+      },
+      {
+        "name": "FirstFault",
+        "type": "INT",
+        "description": "First fault code: 0 none, 1 A, 2 B, 3 C"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "AnyFault shall equal the disjunction of all three fault inputs.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "The first observed fault shall latch LockedOut and its code in FirstFault.",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Simultaneous first faults shall use priority A, then B, then C.",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Later faults shall not overwrite FirstFault while LockedOut is TRUE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Reset shall clear LockedOut and FirstFault only when all fault inputs are FALSE.",
+      "safety_critical": false
+    }
+  ]
+}

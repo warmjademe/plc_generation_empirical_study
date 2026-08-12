@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C01_H01_four_level_priority",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "suppression_and_emergency",
+      "description": "Verify emergency override, suppression, and idle state.",
+      "requirement_ids": [
+        "R1",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Info": true,
+            "Warning": true,
+            "Trip": true,
+            "Emergency": false,
+            "Suppress": true
+          },
+          "expect": {
+            "Active": false,
+            "Level": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Info": false,
+            "Warning": false,
+            "Trip": false,
+            "Emergency": true,
+            "Suppress": true
+          },
+          "expect": {
+            "Active": true,
+            "Level": 4
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Info": false,
+            "Warning": false,
+            "Trip": false,
+            "Emergency": false,
+            "Suppress": false
+          },
+          "expect": {
+            "Active": false,
+            "Level": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

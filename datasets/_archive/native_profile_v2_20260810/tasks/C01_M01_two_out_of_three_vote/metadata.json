@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C01_M01_two_out_of_three_vote",
+  "title": "Two-out-of-three sensor voter",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "AND",
+    "OR",
+    "NOT"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 2,
+    "stateful_blocks": 0,
+    "interactions": 2,
+    "fault_modes": 1,
+    "horizon_scans": 1,
+    "inputs": 3,
+    "outputs": 2,
+    "requirements": 2
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "S1",
+        "type": "BOOL",
+        "description": "Sensor channel 1"
+      },
+      {
+        "name": "S2",
+        "type": "BOOL",
+        "description": "Sensor channel 2"
+      },
+      {
+        "name": "S3",
+        "type": "BOOL",
+        "description": "Sensor channel 3"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Vote",
+        "type": "BOOL",
+        "description": "Majority-vote result"
+      },
+      {
+        "name": "Unanimous",
+        "type": "BOOL",
+        "description": "All channels agree"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Vote shall be TRUE when at least two of S1, S2, and S3 are TRUE.",
+      "property": "G(Vote = ((S1 AND S2) OR (S1 AND S3) OR (S2 AND S3)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Unanimous shall be TRUE only when all three channels have the same value.",
+      "property": "G(Unanimous = ((S1 AND S2 AND S3) OR ((!S1) AND (!S2) AND (!S3))))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

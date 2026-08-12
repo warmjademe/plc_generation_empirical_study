@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C04_R19_lean_composite",
+  "title": "Composed supervisory control: Toggle output on qualified rising edge -> Mode-dependent command selection",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "AND",
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "NOT",
+    "OR",
+    "compositional control",
+    "edge detection",
+    "latched readiness",
+    "priority",
+    "retained output",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 8,
+    "stateful_blocks": 1,
+    "interactions": 10,
+    "fault_modes": 4,
+    "horizon_scans": 9,
+    "inputs": 10,
+    "outputs": 6,
+    "requirements": 9
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Button",
+        "type": "BOOL",
+        "description": "Subsystem A: Momentary button"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Toggle permission"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Synchronous reset"
+      },
+      {
+        "name": "B_AutoMode",
+        "type": "BOOL",
+        "description": "Subsystem B: TRUE selects automatic mode"
+      },
+      {
+        "name": "B_AutoDemand",
+        "type": "BOOL",
+        "description": "Subsystem B: Automatic request"
+      },
+      {
+        "name": "B_ManualDemand",
+        "type": "BOOL",
+        "description": "Subsystem B: Manual request"
+      },
+      {
+        "name": "B_SafetyOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Common safety permission"
+      },
+      {
+        "name": "B_Inhibit",
+        "type": "BOOL",
+        "description": "Subsystem B: High-priority inhibit"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_State",
+        "type": "BOOL",
+        "description": "Subsystem A: Toggled state"
+      },
+      {
+        "name": "A_AcceptedPulse",
+        "type": "BOOL",
+        "description": "Subsystem A: Qualified edge accepted this scan"
+      },
+      {
+        "name": "B_Command",
+        "type": "BOOL",
+        "description": "Subsystem B: Selected command"
+      },
+      {
+        "name": "B_Blocked",
+        "type": "BOOL",
+        "description": "Subsystem B: A request exists but is blocked"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_State"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_State and suppress A_AcceptedPulse with highest priority.",
+      "property": "G(A_Reset -> (!A_State AND !A_AcceptedPulse))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A rising A_Button edge while A_Enable is TRUE shall invert A_State exactly once.",
+      "property": "G(A_AcceptedPulse = (A_Enable AND rose(A_Button) AND !A_Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Holding A_Button TRUE shall not repeatedly toggle A_State.",
+      "property": "G((A_Button AND prev(A_Button) AND !A_Reset) -> (A_State = prev(A_State)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Command shall follow B_AutoDemand in automatic mode and B_ManualDemand in manual mode, but only when B_SafetyOK is TRUE and B_Inhibit is FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Command = (((B_AutoMode AND B_AutoDemand) OR ((!B_AutoMode) AND B_ManualDemand)) AND B_SafetyOK AND (!B_Inhibit))))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Blocked shall be TRUE when the selected request is TRUE but safety is not OK or B_Inhibit is TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Blocked = (((B_AutoMode AND B_AutoDemand) OR ((!B_AutoMode) AND B_ManualDemand)) AND ((!B_SafetyOK) OR B_Inhibit))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "A TRUE A_State shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_State AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Command AND NOT B_Blocked)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Command AND NOT B_Blocked))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C04_M02_toggle_on_edge",
+    "base_b": "C01_M02_mode_dependent_command",
+    "direction": "A_to_B",
+    "activation_output": "A_State",
+    "runtime_design": "one stateful primary subsystem plus one stateless Boolean subsystem"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

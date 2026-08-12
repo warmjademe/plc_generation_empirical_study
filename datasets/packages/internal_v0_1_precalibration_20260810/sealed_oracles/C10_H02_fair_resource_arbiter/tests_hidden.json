@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C10_H02_fair_resource_arbiter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "emergency_and_qualified_reset",
+      "description": "Revoke on emergency and require an idle reset.",
+      "requirement_ids": [
+        "R1",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

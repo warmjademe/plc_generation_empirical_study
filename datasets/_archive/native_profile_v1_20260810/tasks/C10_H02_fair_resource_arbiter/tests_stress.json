@@ -1,0 +1,5270 @@
+{
+  "schema_version": "1.0",
+  "suite": "stress",
+  "task_id": "C10_H02_fair_resource_arbiter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "frozen_reference_st_differential_trace",
+  "independent_requirement_oracle": false,
+  "seed": 20260810,
+  "cases": [
+    {
+      "id": "ST001",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST002",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST003",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST004",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST005",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST006",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST007",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST008",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST009",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST010",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST011",
+      "name": "boundary_009",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST012",
+      "name": "boundary_010",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST013",
+      "name": "boundary_011",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST014",
+      "name": "boundary_012",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST015",
+      "name": "boundary_013",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST016",
+      "name": "boundary_014",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST017",
+      "name": "boundary_015",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST018",
+      "name": "boundary_016",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST019",
+      "name": "boundary_017",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST020",
+      "name": "boundary_018",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST021",
+      "name": "boundary_019",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST022",
+      "name": "boundary_020",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST023",
+      "name": "boundary_021",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST024",
+      "name": "boundary_022",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST025",
+      "name": "boundary_023",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST026",
+      "name": "boundary_024",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST027",
+      "name": "boundary_025",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST028",
+      "name": "boundary_026",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST029",
+      "name": "boundary_027",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST030",
+      "name": "boundary_028",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST031",
+      "name": "boundary_029",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST032",
+      "name": "boundary_030",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST033",
+      "name": "boundary_031",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST034",
+      "name": "boundary_032",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST035",
+      "name": "hold_RequestA",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST036",
+      "name": "hold_RequestB",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST037",
+      "name": "hold_Done",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST038",
+      "name": "hold_Emergency",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST039",
+      "name": "hold_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST040",
+      "name": "conflict_RequestA_RequestB",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST041",
+      "name": "conflict_RequestA_Done",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST042",
+      "name": "conflict_RequestA_Emergency",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST043",
+      "name": "conflict_RequestA_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST044",
+      "name": "conflict_RequestB_Done",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST045",
+      "name": "conflict_RequestB_Emergency",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST046",
+      "name": "conflict_RequestB_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST047",
+      "name": "conflict_Done_Emergency",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST048",
+      "name": "conflict_Done_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST049",
+      "name": "conflict_Emergency_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST050",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST051",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST052",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST053",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": true,
+            "Emergency": true,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": true,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

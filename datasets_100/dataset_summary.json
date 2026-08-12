@@ -1,0 +1,72 @@
+{
+  "category_counts": {
+    "C01": 10,
+    "C02": 10,
+    "C03": 10,
+    "C04": 10,
+    "C05": 10,
+    "C06": 10,
+    "C07": 10,
+    "C08": 10,
+    "C09": 10,
+    "C10": 10
+  },
+  "dataset_name": "PLC Generation Balanced-100",
+  "exact_reference_revalidation": {
+    "calibration_summary_sha256": "0bc61125409cd758b1de6b204ff93501a9822dddd6d2524be2e1fe42bc16ba44",
+    "manifest_sha256": "7d5d18522deef51321466eacdbfbfd829c2c3ff737f220514a44a613383c2ab9",
+    "pass_count": 100,
+    "reference_duration_ms": {
+      "maximum": 580944,
+      "median": 231935.5,
+      "minimum": 37348,
+      "p90": 367740
+    },
+    "schema_version": "1.0",
+    "success": true,
+    "task_count": 100,
+    "toolchain": [
+      "MatIEC",
+      "PLCverif",
+      "OpenPLC feedback",
+      "OpenPLC sealed"
+    ],
+    "validator_config_sha256": "434026ea91648573a7ee3b1f6621ad9300d43526a6b541bab9f752d2c97b8405"
+  },
+  "historical_reference_duration_ms": {
+    "hard_limit": 600000,
+    "maximum": 288562,
+    "median": 110120.0,
+    "minimum": 30012,
+    "p90": 172989
+  },
+  "historical_screening_outcome_used_for_selection": false,
+  "historical_screening_status_counts": {
+    "candidate_budget_exhausted": 17,
+    "infrastructure_error": 8,
+    "not_run": 40,
+    "sealed_failure": 4,
+    "verified_success": 31
+  },
+  "known_data_quality_exclusions": [
+    "C02_B08_composite",
+    "C02_B12_composite",
+    "C06_M02_bounded_up_down_counter",
+    "C06_W03_lean_composite",
+    "C06_W05_lean_composite",
+    "C06_W10_lean_composite",
+    "C06_W20_lean_composite",
+    "C09_B02_composite"
+  ],
+  "manifest_sha256": "7d5d18522deef51321466eacdbfbfd829c2c3ff737f220514a44a613383c2ab9",
+  "qualification_status": "exact current toolchain revalidation passed 100/100",
+  "retained_from_balanced_50_count": 29,
+  "schema_version": "1.0",
+  "selection_audit_sha256": "48c5c666a12abc2dd5de593b4455a93dba549fb2d72201ad85b0e6db6e5f2944",
+  "source_bank_counts": {
+    "task_bank_c04_reverse_runtime_v0_3": 10,
+    "task_bank_c06_formal_core_runtime_v0_4": 10,
+    "task_bank_v0_3_1": 80
+  },
+  "task_count": 100
+}

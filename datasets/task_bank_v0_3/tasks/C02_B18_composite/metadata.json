@@ -1,0 +1,271 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C02_B18_composite",
+  "title": "Composed supervisory control: Mode-selected start latch with restart inhibit -> Safe restart after power or safety interruption",
+  "category_id": "C02",
+  "category": "Start/stop and retained state",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "compositional control",
+    "latched readiness",
+    "mode selection",
+    "priority",
+    "restart inhibit",
+    "retained latch",
+    "retained outputs",
+    "safe restart",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 16,
+    "stateful_blocks": 2,
+    "interactions": 19,
+    "fault_modes": 7,
+    "horizon_scans": 11,
+    "inputs": 14,
+    "outputs": 7,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_AutoMode",
+        "type": "BOOL",
+        "description": "Subsystem A: Automatic mode"
+      },
+      {
+        "name": "A_AutoStart",
+        "type": "BOOL",
+        "description": "Subsystem A: Automatic start request"
+      },
+      {
+        "name": "A_ManualStart",
+        "type": "BOOL",
+        "description": "Subsystem A: Manual start request"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: High-priority stop"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Controller enable"
+      },
+      {
+        "name": "A_SafetyOK",
+        "type": "BOOL",
+        "description": "Subsystem A: Safety permission"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Restart-inhibit reset"
+      },
+      {
+        "name": "B_PowerOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Control power available"
+      },
+      {
+        "name": "B_SafetyOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Safety chain healthy"
+      },
+      {
+        "name": "B_Start",
+        "type": "BOOL",
+        "description": "Subsystem B: Start push button"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Stop push button"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Restart-inhibit reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Running",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched running command"
+      },
+      {
+        "name": "A_RestartRequired",
+        "type": "BOOL",
+        "description": "Subsystem A: Manual restart acknowledgement required"
+      },
+      {
+        "name": "A_RejectedStart",
+        "type": "BOOL",
+        "description": "Subsystem A: One-scan rejected-start diagnostic"
+      },
+      {
+        "name": "B_Running",
+        "type": "BOOL",
+        "description": "Subsystem B: Machine running"
+      },
+      {
+        "name": "B_RestartInhibit",
+        "type": "BOOL",
+        "description": "Subsystem B: A fresh reset is required"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Running"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan B_Start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_AutoMode shall select A_AutoStart; manual mode shall select A_ManualStart.",
+      "property": "G(selected_start = mux(A_AutoMode,A_AutoStart,A_ManualStart))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Stop, A_Enable FALSE, or A_SafetyOK FALSE shall force A_Running FALSE with priority over every start.",
+      "property": "G((A_Stop OR !A_Enable OR !A_SafetyOK) -> !A_Running)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Safety loss while A_Running or while a start is requested shall latch A_RestartRequired.",
+      "property": "G((!A_SafetyOK AND (prev(A_Running) OR selected_start)) -> A_RestartRequired)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_RestartRequired may clear only when A_Reset is TRUE, A_SafetyOK and A_Enable are TRUE, and the selected start is released.",
+      "property": "G((A_RestartRequired AND !(A_Reset AND A_SafetyOK AND A_Enable AND !selected_start)) -> X(A_RestartRequired))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A start presented while A_RestartRequired is TRUE shall not run and shall pulse A_RejectedStart.",
+      "property": "G((A_RestartRequired AND selected_start) -> (!A_Running AND A_RejectedStart))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "Subsystem A shall satisfy: With all permissions healthy and no restart inhibit, a selected start shall latch A_Running until a A_Stop condition occurs.",
+      "property": "G((selected_start AND A_Enable AND A_SafetyOK AND !A_Stop AND !A_RestartRequired) -> A_Running)",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Loss of B_PowerOK or B_SafetyOK shall B_Stop B_Running and set B_RestartInhibit.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((!B_PowerOK OR !B_SafetyOK) -> ((!B_Running) AND B_RestartInhibit)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Stop shall B_Stop B_Running without by itself setting B_RestartInhibit.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Stop -> !B_Running))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset may clear B_RestartInhibit only when B_PowerOK and B_SafetyOK are TRUE and B_Start is FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((prev(B_RestartInhibit) AND !B_RestartInhibit) -> (B_Reset AND B_PowerOK AND B_SafetyOK AND !B_Start)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Running shall remain FALSE while B_RestartInhibit is TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_RestartInhibit -> !B_Running))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: After B_Reset, a new B_Start may run the machine when B_PowerOK, B_SafetyOK, and not B_Stop hold.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Start AND !B_RestartInhibit AND B_PowerOK AND B_SafetyOK AND !B_Stop) -> B_Running))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_Running shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Running AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Running AND NOT B_RestartInhibit)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Running AND NOT B_RestartInhibit))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C02_X01_restart_inhibit_latch",
+    "base_b": "C02_H02_safe_restart_inhibit",
+    "direction": "A_to_B",
+    "activation_output": "A_Running"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

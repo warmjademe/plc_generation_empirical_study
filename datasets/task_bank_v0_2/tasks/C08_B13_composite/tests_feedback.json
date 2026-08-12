@@ -1,0 +1,391 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C08_B13_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_HighLevel": false,
+            "A_MixDone": false,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": false,
+            "B_Pause": false,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": true,
+            "A_Mixer": false,
+            "A_DrainValve": false,
+            "A_Complete": false,
+            "A_State": 1,
+            "B_Step1": false,
+            "B_Step2": false,
+            "B_Paused": false,
+            "B_Aborted": false,
+            "B_State": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": false,
+            "A_HighLevel": true,
+            "A_MixDone": false,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": false,
+            "B_Pause": false,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": false,
+            "A_Mixer": true,
+            "A_DrainValve": false,
+            "A_Complete": false,
+            "A_State": 2,
+            "B_Step1": false,
+            "B_Step2": false,
+            "B_Paused": false,
+            "B_Aborted": false,
+            "B_State": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": false,
+            "A_HighLevel": false,
+            "A_MixDone": true,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": false,
+            "B_Pause": false,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": false,
+            "A_Mixer": false,
+            "A_DrainValve": true,
+            "A_Complete": false,
+            "A_State": 3,
+            "B_Step1": false,
+            "B_Step2": false,
+            "B_Paused": false,
+            "B_Aborted": false,
+            "B_State": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": false,
+            "A_HighLevel": false,
+            "A_MixDone": false,
+            "A_LowLevel": true,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": false,
+            "B_Pause": false,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": false,
+            "A_Mixer": false,
+            "A_DrainValve": false,
+            "A_Complete": true,
+            "A_State": 0,
+            "B_Step1": false,
+            "B_Step2": false,
+            "B_Paused": false,
+            "B_Aborted": false,
+            "B_State": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_HighLevel": false,
+            "A_MixDone": false,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": false,
+            "B_Pause": false,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": true,
+            "A_Mixer": false,
+            "A_DrainValve": false,
+            "A_Complete": false,
+            "A_State": 1,
+            "B_Step1": false,
+            "B_Step2": false,
+            "B_Paused": false,
+            "B_Aborted": false,
+            "B_State": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_HighLevel": false,
+            "A_MixDone": false,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": true,
+            "B_Advance": false,
+            "B_Pause": false,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": true,
+            "A_Mixer": false,
+            "A_DrainValve": false,
+            "A_Complete": false,
+            "A_State": 1,
+            "B_Step1": true,
+            "B_Step2": false,
+            "B_Paused": false,
+            "B_Aborted": false,
+            "B_State": 1,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_HighLevel": false,
+            "A_MixDone": false,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": false,
+            "B_Pause": true,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": true,
+            "A_Mixer": false,
+            "A_DrainValve": false,
+            "A_Complete": false,
+            "A_State": 1,
+            "B_Step1": false,
+            "B_Step2": false,
+            "B_Paused": true,
+            "B_Aborted": false,
+            "B_State": 1,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_HighLevel": false,
+            "A_MixDone": false,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": true,
+            "B_Pause": false,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": true,
+            "A_Mixer": false,
+            "A_DrainValve": false,
+            "A_Complete": false,
+            "A_State": 1,
+            "B_Step1": false,
+            "B_Step2": false,
+            "B_Paused": true,
+            "B_Aborted": false,
+            "B_State": 1,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_HighLevel": false,
+            "A_MixDone": false,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": false,
+            "B_Pause": false,
+            "B_Resume": true,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": true,
+            "A_Mixer": false,
+            "A_DrainValve": false,
+            "A_Complete": false,
+            "A_State": 1,
+            "B_Step1": true,
+            "B_Step2": false,
+            "B_Paused": false,
+            "B_Aborted": false,
+            "B_State": 1,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_HighLevel": false,
+            "A_MixDone": false,
+            "A_LowLevel": false,
+            "A_Abort": false,
+            "B_Start": false,
+            "B_Advance": true,
+            "B_Pause": false,
+            "B_Resume": false,
+            "B_Abort": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_FillValve": true,
+            "A_Mixer": false,
+            "A_DrainValve": false,
+            "A_Complete": false,
+            "A_State": 1,
+            "B_Step1": false,
+            "B_Step2": true,
+            "B_Paused": false,
+            "B_Aborted": false,
+            "B_State": 2,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

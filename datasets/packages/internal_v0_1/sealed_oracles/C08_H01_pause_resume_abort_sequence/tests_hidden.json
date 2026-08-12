@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C08_H01_pause_resume_abort_sequence",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "abort_and_qualified_reset",
+      "description": "Abort, reject reset with Start held, and accept a qualified reset.",
+      "requirement_ids": [
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Advance": false,
+            "Pause": false,
+            "Resume": false,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": true,
+            "Step2": false,
+            "Paused": false,
+            "Aborted": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Advance": false,
+            "Pause": false,
+            "Resume": false,
+            "Abort": true,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": false,
+            "Step2": false,
+            "Paused": false,
+            "Aborted": true,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Advance": false,
+            "Pause": false,
+            "Resume": false,
+            "Abort": false,
+            "Reset": true
+          },
+          "expect": {
+            "Step1": false,
+            "Step2": false,
+            "Paused": false,
+            "Aborted": true,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Advance": false,
+            "Pause": false,
+            "Resume": false,
+            "Abort": false,
+            "Reset": true
+          },
+          "expect": {
+            "Step1": false,
+            "Step2": false,
+            "Paused": false,
+            "Aborted": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C04_H02_dual_event_priority_lockout",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "simultaneous_priority",
+      "description": "Event A wins simultaneous capture.",
+      "requirement_ids": [
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C03_H02_safety_zone_arbitration",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "priority_chain",
+      "description": "Exercise robot-over-conveyor and manual-over-all priorities.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RobotRequest": true,
+            "ConveyorRequest": true,
+            "ManualRequest": false,
+            "GuardClosed": true,
+            "EStopOK": true,
+            "ManualKey": false
+          },
+          "expect": {
+            "RobotEnable": true,
+            "ConveyorEnable": false,
+            "ManualEnable": false,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RobotRequest": true,
+            "ConveyorRequest": true,
+            "ManualRequest": true,
+            "GuardClosed": true,
+            "EStopOK": true,
+            "ManualKey": true
+          },
+          "expect": {
+            "RobotEnable": false,
+            "ConveyorEnable": false,
+            "ManualEnable": true,
+            "Conflict": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

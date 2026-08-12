@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "task_id": "C09_B08_composite",
+  "structural": {
+    "status": "not_run"
+  },
+  "external": {
+    "matiec": {
+      "status": "not_run"
+    },
+    "formal": {
+      "status": "not_run"
+    },
+    "openplc": {
+      "status": "not_run"
+    },
+    "mutation_audit": {
+      "status": "not_run"
+    }
+  },
+  "screening": {
+    "kimi_k3_direct_once": "not_run"
+  }
+}

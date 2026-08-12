@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C02_H01_fault_lockout_reset",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "qualified_reset_and_restart",
+      "description": "Reject reset with Start held, then reset and require a new start.",
+      "requirement_ids": [
+        "R2",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Fault": true,
+            "Reset": false,
+            "Permit": true
+          },
+          "expect": {
+            "Running": false,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Fault": false,
+            "Reset": true,
+            "Permit": true
+          },
+          "expect": {
+            "Running": false,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Fault": false,
+            "Reset": true,
+            "Permit": true
+          },
+          "expect": {
+            "Running": false,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Fault": false,
+            "Reset": false,
+            "Permit": true
+          },
+          "expect": {
+            "Running": false,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Fault": false,
+            "Reset": false,
+            "Permit": true
+          },
+          "expect": {
+            "Running": true,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

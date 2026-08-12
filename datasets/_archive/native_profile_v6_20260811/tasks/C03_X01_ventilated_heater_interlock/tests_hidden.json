@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C03_X01_ventilated_heater_interlock",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "proof_loss_and_qualified_reset",
+      "description": "Time out missing proofs and require idle reset.",
+      "requirement_ids": [
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "HeatRequest": true,
+            "Stop": false,
+            "GuardClosed": true,
+            "DamperOpen": false,
+            "AirflowOK": false,
+            "Reset": false
+          },
+          "expect": {
+            "DamperCommand": false,
+            "FanCommand": false,
+            "HeaterCommand": false,
+            "Fault": true,
+            "State": 0
+          },
+          "repeat": 8,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "HeatRequest": true,
+            "Stop": true,
+            "GuardClosed": true,
+            "DamperOpen": false,
+            "AirflowOK": false,
+            "Reset": true
+          },
+          "expect": {
+            "DamperCommand": false,
+            "FanCommand": false,
+            "HeaterCommand": false,
+            "Fault": true,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "HeatRequest": false,
+            "Stop": false,
+            "GuardClosed": true,
+            "DamperOpen": false,
+            "AirflowOK": false,
+            "Reset": true
+          },
+          "expect": {
+            "DamperCommand": false,
+            "FanCommand": false,
+            "HeaterCommand": false,
+            "Fault": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

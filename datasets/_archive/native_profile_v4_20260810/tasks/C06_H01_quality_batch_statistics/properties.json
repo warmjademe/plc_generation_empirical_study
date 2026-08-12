@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 3,
+    "fully_native_property_count": 3,
+    "total_property_count": 5,
+    "environment": {
+      "parameters": [
+        "BatchTarget",
+        "RejectLimit"
+      ],
+      "assumption_invariants": [
+        "BatchTarget >= 1",
+        "RejectLimit >= 1"
+      ]
+    }
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(exclusive_edges_update_matching_counter)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((rose(GoodPart) AND rose(RejectPart) AND !Reset) -> (RejectCount=prev(RejectCount)+1 AND GoodCount=prev(GoodCount)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(BatchDone = ((GoodCount+RejectCount)>=BatchTarget))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "BatchDone = ((GoodCount+RejectCount)>=BatchTarget)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((RejectCount>=RejectLimit) -> QualityFault)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(RejectCount>=RejectLimit) -> QualityFault"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(Reset -> (GoodCount=0 AND RejectCount=0 AND !BatchDone AND !QualityFault))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "Reset -> (GoodCount=0 AND RejectCount=0 AND !BatchDone AND !QualityFault)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    }
+  ]
+}

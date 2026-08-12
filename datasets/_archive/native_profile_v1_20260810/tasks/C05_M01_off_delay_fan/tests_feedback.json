@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C05_M01_off_delay_fan",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "demand_and_run_on",
+      "description": "Start immediately and retain output for a bounded run-on.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Demand": true,
+            "SafetyTrip": false
+          },
+          "expect": {
+            "Fan": true,
+            "RunOn": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Demand": false,
+            "SafetyTrip": false
+          },
+          "expect": {
+            "Fan": true,
+            "RunOn": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Demand": false,
+            "SafetyTrip": false
+          },
+          "expect": {
+            "Fan": false,
+            "RunOn": false
+          },
+          "repeat": 5,
+          "check": "last_only"
+        }
+      ]
+    }
+  ]
+}

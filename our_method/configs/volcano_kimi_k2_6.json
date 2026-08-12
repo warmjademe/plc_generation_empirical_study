@@ -1,0 +1,38 @@
+{
+  "provider": {
+    "name": "volcengine",
+    "base_url": "https://ark.cn-beijing.volces.com/api/coding/v3",
+    "api_key_env": "ARK_API_KEY",
+    "requested_model": "kimi-k2.6",
+    "allowed_resolved_models": ["kimi-k2.6"],
+    "timeout_seconds": 180,
+    "max_output_tokens": 8192,
+    "history_mode": "stateless"
+  },
+  "experiment": {
+    "max_candidates": 10,
+    "max_feedback_chars": 6000,
+    "required_visible_gates": ["interface", "feedback_tests"],
+    "sealed_gate": "hidden_tests",
+    "stop_on_visible_pass": true,
+    "development_only": true
+  },
+  "validators": [
+    {"name": "interface", "kind": "interface", "suite": null, "blocking": true},
+    {
+      "name": "feedback_tests",
+      "kind": "dataset_scan",
+      "suite": "feedback",
+      "blocking": true,
+      "engine_root": "../../../../ISPSoft_CLI_Linux/src"
+    },
+    {
+      "name": "hidden_tests",
+      "kind": "dataset_scan",
+      "suite": "hidden",
+      "sealed": true,
+      "blocking": true,
+      "engine_root": "../../../../ISPSoft_CLI_Linux/src"
+    }
+  ]
+}

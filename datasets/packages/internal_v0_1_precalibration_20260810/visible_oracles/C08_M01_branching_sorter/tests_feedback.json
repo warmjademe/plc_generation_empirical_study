@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C08_M01_branching_sorter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "accept_branch",
+      "description": "Take the accept branch and return.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "ItemPresent": true,
+            "RejectClass": false,
+            "TransferDone": false,
+            "Reset": false
+          },
+          "expect": {
+            "Inspect": true,
+            "AcceptGate": false,
+            "RejectGate": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ItemPresent": true,
+            "RejectClass": false,
+            "TransferDone": false,
+            "Reset": false
+          },
+          "expect": {
+            "Inspect": false,
+            "AcceptGate": true,
+            "RejectGate": false,
+            "State": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ItemPresent": false,
+            "RejectClass": false,
+            "TransferDone": true,
+            "Reset": false
+          },
+          "expect": {
+            "Inspect": false,
+            "AcceptGate": false,
+            "RejectGate": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

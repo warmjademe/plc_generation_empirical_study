@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C02_M01_enabled_start_stop",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "enable_and_run",
+      "description": "Run and force shutdown through Enable.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Enable": true,
+            "Start": false,
+            "Stop": false
+          },
+          "expect": {
+            "Running": false,
+            "Ready": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": true,
+            "Start": true,
+            "Stop": false
+          },
+          "expect": {
+            "Running": true,
+            "Ready": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": false,
+            "Start": false,
+            "Stop": false
+          },
+          "expect": {
+            "Running": false,
+            "Ready": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

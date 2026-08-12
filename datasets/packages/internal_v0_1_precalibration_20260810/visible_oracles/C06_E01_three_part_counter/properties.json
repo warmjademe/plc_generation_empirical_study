@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((rose(PartPulse) AND prev(Count)<3 AND !Reset) -> (Count=prev(Count)+1))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((Count >= 0) AND (Count <= 3))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(Complete = (Count = 3))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(Reset -> ((Count=0) AND !Complete))",
+      "source": "independently authored from the requirement contract"
+    }
+  ]
+}

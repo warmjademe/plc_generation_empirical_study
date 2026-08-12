@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C01_M02_mode_dependent_command",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "blocking_priority",
+      "description": "Exercise both safety and inhibit blocking.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AutoMode": false,
+            "AutoDemand": false,
+            "ManualDemand": true,
+            "SafetyOK": false,
+            "Inhibit": false
+          },
+          "expect": {
+            "Command": false,
+            "Blocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AutoMode": true,
+            "AutoDemand": true,
+            "ManualDemand": true,
+            "SafetyOK": true,
+            "Inhibit": true
+          },
+          "expect": {
+            "Command": false,
+            "Blocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

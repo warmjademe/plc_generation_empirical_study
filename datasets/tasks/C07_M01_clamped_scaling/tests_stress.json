@@ -1,0 +1,1408 @@
+{
+  "schema_version": "1.0",
+  "suite": "stress",
+  "task_id": "C07_M01_clamped_scaling",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.0002,
+  "oracle_source": "frozen_reference_st_differential_trace",
+  "independent_requirement_oracle": false,
+  "seed": 20260810,
+  "cases": [
+    {
+      "id": "ST001",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4096
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST002",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST003",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": -2
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST004",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST005",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST006",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 1
+          },
+          "expect": {
+            "Engineering": 0.002442002442002442,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST007",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST008",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST009",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 2049
+          },
+          "expect": {
+            "Engineering": 5.003663003663004,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST010",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST011",
+      "name": "boundary_009",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST012",
+      "name": "boundary_010",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 4096
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST013",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST014",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2049
+          },
+          "expect": {
+            "Engineering": 5.003663003663004,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2049
+          },
+          "expect": {
+            "Engineering": 5.003663003663004,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2049
+          },
+          "expect": {
+            "Engineering": 5.003663003663004,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2049
+          },
+          "expect": {
+            "Engineering": 5.003663003663004,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2049
+          },
+          "expect": {
+            "Engineering": 5.003663003663004,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST015",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": -2
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4096
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.001221001221001,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 1
+          },
+          "expect": {
+            "Engineering": 0.002442002442002442,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 1
+          },
+          "expect": {
+            "Engineering": 0.002442002442002442,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST016",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4094
+          },
+          "expect": {
+            "Engineering": 9.997557997557998,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2049
+          },
+          "expect": {
+            "Engineering": 5.003663003663004,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2047
+          },
+          "expect": {
+            "Engineering": 4.998778998778999,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

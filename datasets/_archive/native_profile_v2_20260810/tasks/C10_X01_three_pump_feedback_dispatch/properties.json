@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 2,
+    "fully_native_property_count": 0,
+    "total_property_count": 6,
+    "environment": {
+      "parameters": [],
+      "assumption_invariants": []
+    }
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(required_count = mux(HighDemand,2,mux(LowDemand,1,0)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(dispatched_order = cyclic_available_order(Lead))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(no_feedback_3 -> !corresponding_run)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(ActiveCount=count_true(Run1,Run2,Run3)) AND G(ActiveCount<=2)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required_partial",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "ActiveCount<=2"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "partial"
+      }
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(ActiveCount<required_count -> (Failover AND Fault))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P6",
+      "requirement_ids": [
+        "R6"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(Stop -> (!Run1 AND !Run2 AND !Run3)) AND G(qualified_reset -> !Fault)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required_partial",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "Stop -> (!Run1 AND !Run2 AND !Run3)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "partial"
+      }
+    }
+  ]
+}

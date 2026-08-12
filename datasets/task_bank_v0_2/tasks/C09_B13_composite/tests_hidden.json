@@ -1,0 +1,708 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C09_B13_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "A_hidden_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_SensorA": 0.0,
+            "A_SensorB": 5.0,
+            "A_MaxDifference": 1.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 0.0,
+            "A_SensorB": 5.0,
+            "A_MaxDifference": 1.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 0.0,
+            "A_SensorB": 5.0,
+            "A_MaxDifference": 1.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 0.0,
+            "A_SensorB": 5.0,
+            "A_MaxDifference": 1.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": true,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 0.0,
+            "A_SensorB": 5.0,
+            "A_MaxDifference": 1.0,
+            "A_Enable": false,
+            "A_Reset": true,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": false,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT02",
+      "name": "B_hidden_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 10.5,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": false,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": true,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": true,
+            "B_FaultB": true,
+            "B_FaultC": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": true,
+            "A_Disagreeing": true,
+            "B_AnyFault": true,
+            "B_LockedOut": true,
+            "B_FirstFault": 1,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": true,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": true,
+            "A_Disagreeing": true,
+            "B_AnyFault": true,
+            "B_LockedOut": true,
+            "B_FirstFault": 1,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": true,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT03",
+      "name": "cross_reset_priority",
+      "description": "Composed trace source: independently_specified_cross_contract; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 10.5,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": false,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": false,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": false,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": true,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": true,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Alarm": true,
+            "A_Disagreeing": true,
+            "B_AnyFault": true,
+            "B_LockedOut": true,
+            "B_FirstFault": 2,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_SensorA": 10.0,
+            "A_SensorB": 13.0,
+            "A_MaxDifference": 2.0,
+            "A_Enable": true,
+            "A_Reset": false,
+            "B_FaultA": false,
+            "B_FaultB": true,
+            "B_FaultC": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": true
+          },
+          "expect": {
+            "A_Alarm": true,
+            "A_Disagreeing": true,
+            "B_AnyFault": false,
+            "B_LockedOut": false,
+            "B_FirstFault": 0,
+            "CrossReady": false,
+            "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

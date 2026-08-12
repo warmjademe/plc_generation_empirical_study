@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C05_X01_pre_lube_motor_lifecycle",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "feedback_timeout_cooldown_reset",
+      "description": "Time out feedback, complete cooldown, and reset only in idle.",
+      "requirement_ids": [
+        "R3",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Permit": true,
+            "OilPressure": true,
+            "MotorFeedback": false,
+            "Reset": false
+          },
+          "expect": {
+            "LubePump": true,
+            "MotorCommand": false,
+            "Cooldown": true,
+            "Fault": true,
+            "State": 4
+          },
+          "repeat": 10,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Permit": true,
+            "OilPressure": false,
+            "MotorFeedback": false,
+            "Reset": false
+          },
+          "expect": {
+            "LubePump": false,
+            "MotorCommand": false,
+            "Cooldown": false,
+            "Fault": true,
+            "State": 0
+          },
+          "repeat": 5,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Permit": true,
+            "OilPressure": false,
+            "MotorFeedback": false,
+            "Reset": true
+          },
+          "expect": {
+            "LubePump": false,
+            "MotorCommand": false,
+            "Cooldown": false,
+            "Fault": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "HT02",
+      "name": "running_oil_loss",
+      "description": "Trip immediately on lubrication proof loss while running.",
+      "requirement_ids": [
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Permit": true,
+            "OilPressure": true,
+            "MotorFeedback": false,
+            "Reset": false
+          },
+          "expect": {
+            "LubePump": true,
+            "MotorCommand": false,
+            "Cooldown": false,
+            "Fault": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Permit": true,
+            "OilPressure": true,
+            "MotorFeedback": false,
+            "Reset": false
+          },
+          "expect": {
+            "LubePump": true,
+            "MotorCommand": true,
+            "Cooldown": false,
+            "Fault": false,
+            "State": 2
+          },
+          "repeat": 5,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Permit": true,
+            "OilPressure": true,
+            "MotorFeedback": true,
+            "Reset": false
+          },
+          "expect": {
+            "LubePump": true,
+            "MotorCommand": true,
+            "Cooldown": false,
+            "Fault": false,
+            "State": 3
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Permit": true,
+            "OilPressure": false,
+            "MotorFeedback": true,
+            "Reset": false
+          },
+          "expect": {
+            "LubePump": true,
+            "MotorCommand": false,
+            "Cooldown": true,
+            "Fault": true,
+            "State": 4
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

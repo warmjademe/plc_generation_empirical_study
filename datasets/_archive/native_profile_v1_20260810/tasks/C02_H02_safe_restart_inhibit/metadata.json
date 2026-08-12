@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C02_H02_safe_restart_inhibit",
+  "title": "Safe restart after power or safety interruption",
+  "category_id": "C02",
+  "category": "Start/stop and retained state",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "retained outputs",
+    "IF",
+    "ELSIF",
+    "safe restart"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 6,
+    "stateful_blocks": 2,
+    "interactions": 6,
+    "fault_modes": 2,
+    "horizon_scans": 7,
+    "inputs": 5,
+    "outputs": 2,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "PowerOK",
+        "type": "BOOL",
+        "description": "Control power available"
+      },
+      {
+        "name": "SafetyOK",
+        "type": "BOOL",
+        "description": "Safety chain healthy"
+      },
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start push button"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "Stop push button"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Restart-inhibit reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Running",
+        "type": "BOOL",
+        "description": "Machine running"
+      },
+      {
+        "name": "RestartInhibit",
+        "type": "BOOL",
+        "description": "A fresh reset is required"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Loss of PowerOK or SafetyOK shall stop Running and set RestartInhibit.",
+      "property": "G((!PowerOK OR !SafetyOK) -> ((!Running) AND RestartInhibit))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Stop shall stop Running without by itself setting RestartInhibit.",
+      "property": "G(Stop -> !Running)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Reset may clear RestartInhibit only when PowerOK and SafetyOK are TRUE and Start is FALSE.",
+      "property": "G((Reset AND PowerOK AND SafetyOK AND !Start) -> !RestartInhibit)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Running shall remain FALSE while RestartInhibit is TRUE.",
+      "property": "G(RestartInhibit -> !Running)",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "After reset, a new Start may run the machine when PowerOK, SafetyOK, and not Stop hold.",
+      "property": "G((Start AND !RestartInhibit AND PowerOK AND SafetyOK AND !Stop) -> Running)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

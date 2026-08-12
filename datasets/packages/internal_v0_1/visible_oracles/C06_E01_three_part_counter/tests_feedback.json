@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C06_E01_three_part_counter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "count_two_edges",
+      "description": "Count edges, not held levels.",
+      "requirement_ids": [
+        "R1"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "PartPulse": true,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 1,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": true,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 1,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": false,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 1,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": true,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 2,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

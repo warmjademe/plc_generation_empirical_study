@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C01_X01_voted_bypass_permissive",
+  "title": "Voted permissive with qualified bypass and diagnostics",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "IF",
+    "retained state",
+    "2oo3 voting",
+    "priority",
+    "diagnostics"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 4,
+    "stateful_blocks": 0,
+    "interactions": 9,
+    "fault_modes": 3,
+    "horizon_scans": 5,
+    "inputs": 10,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Ch1",
+        "type": "BOOL",
+        "description": "Permissive channel 1"
+      },
+      {
+        "name": "Ch2",
+        "type": "BOOL",
+        "description": "Permissive channel 2"
+      },
+      {
+        "name": "Ch3",
+        "type": "BOOL",
+        "description": "Permissive channel 3"
+      },
+      {
+        "name": "AutoMode",
+        "type": "BOOL",
+        "description": "Automatic mode selection"
+      },
+      {
+        "name": "AutoRequest",
+        "type": "BOOL",
+        "description": "Automatic run request"
+      },
+      {
+        "name": "ManualRequest",
+        "type": "BOOL",
+        "description": "Manual run request"
+      },
+      {
+        "name": "BypassRequest",
+        "type": "BOOL",
+        "description": "Maintenance bypass request"
+      },
+      {
+        "name": "BypassPermit",
+        "type": "BOOL",
+        "description": "Independent bypass authorization"
+      },
+      {
+        "name": "SafetyOK",
+        "type": "BOOL",
+        "description": "Non-bypassable safety chain"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Bypass reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "RunPermit",
+        "type": "BOOL",
+        "description": "Final run permission"
+      },
+      {
+        "name": "Degraded",
+        "type": "BOOL",
+        "description": "Run uses disagreement or bypass"
+      },
+      {
+        "name": "BypassActive",
+        "type": "BOOL",
+        "description": "Latched qualified bypass"
+      },
+      {
+        "name": "Blocked",
+        "type": "BOOL",
+        "description": "Selected request cannot run"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "The selected request shall be AutoRequest in automatic mode and ManualRequest otherwise.",
+      "property": "G(selected_request = mux(AutoMode,AutoRequest,ManualRequest))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Without bypass, RunPermit requires SafetyOK and at least two TRUE channels.",
+      "property": "G((RunPermit AND !BypassActive) -> (SafetyOK AND vote2of3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Bypass may latch only in manual mode when BypassRequest, BypassPermit, SafetyOK, and at least one channel are TRUE.",
+      "property": "G(rose(BypassActive) -> (!AutoMode AND BypassRequest AND BypassPermit AND SafetyOK AND any_channel))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Reset may clear BypassActive only when neither automatic nor manual request is active.",
+      "property": "G((Reset AND !AutoRequest AND !ManualRequest) -> !BypassActive)",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Degraded shall identify a permitted run with channel disagreement or active bypass; Blocked shall identify a selected request without RunPermit.",
+      "property": "G(Degraded = (RunPermit AND ((!unanimous_channels) OR BypassActive))) AND G(Blocked = (selected_request AND !RunPermit))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

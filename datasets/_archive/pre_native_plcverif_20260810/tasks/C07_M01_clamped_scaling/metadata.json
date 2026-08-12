@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C07_M01_clamped_scaling",
+  "title": "Clamped analog scaling with range status",
+  "category_id": "C07",
+  "category": "Analog processing",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "REAL",
+    "IF",
+    "ELSIF",
+    "clamping",
+    "conversion"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 2,
+    "stateful_blocks": 0,
+    "interactions": 2,
+    "fault_modes": 2,
+    "horizon_scans": 1,
+    "inputs": 1,
+    "outputs": 3,
+    "requirements": 3
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Raw",
+        "type": "INT",
+        "description": "Raw input nominally 0 through 4095"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Engineering",
+        "type": "REAL",
+        "description": "Scaled output 0.0 through 10.0"
+      },
+      {
+        "name": "UnderRange",
+        "type": "BOOL",
+        "description": "Raw below zero"
+      },
+      {
+        "name": "OverRange",
+        "type": "BOOL",
+        "description": "Raw above 4095"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Raw below zero shall set UnderRange, clear OverRange, and clamp Engineering to 0.0.",
+      "property": "G((Raw<0) -> (UnderRange AND !OverRange AND Engineering=0.0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Raw above 4095 shall set OverRange, clear UnderRange, and clamp Engineering to 10.0.",
+      "property": "G((Raw>4095) -> (OverRange AND !UnderRange AND Engineering=10.0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "In-range Raw shall clear both flags and scale linearly to 0.0 through 10.0.",
+      "property": "G((Raw>=0 AND Raw<=4095) -> (!UnderRange AND !OverRange AND Engineering=INT_TO_REAL(Raw)*10.0/4095.0))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

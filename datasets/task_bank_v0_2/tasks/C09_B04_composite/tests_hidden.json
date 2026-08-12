@@ -1,0 +1,390 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C09_B04_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "A_hidden_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_FaultA": true,
+            "A_FaultB": true,
+            "A_FaultC": true,
+            "A_Reset": false,
+            "B_WarningCondition": false,
+            "B_TripCondition": false,
+            "B_Enable": false,
+            "B_Shelve": false,
+            "B_Acknowledge": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 1,
+            "B_Warning": false,
+            "B_Trip": false,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_FaultA": true,
+            "A_FaultB": false,
+            "A_FaultC": false,
+            "A_Reset": true,
+            "B_WarningCondition": false,
+            "B_TripCondition": false,
+            "B_Enable": false,
+            "B_Shelve": false,
+            "B_Acknowledge": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 1,
+            "B_Warning": false,
+            "B_Trip": false,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_FaultA": false,
+            "A_FaultB": false,
+            "A_FaultC": false,
+            "A_Reset": true,
+            "B_WarningCondition": false,
+            "B_TripCondition": false,
+            "B_Enable": false,
+            "B_Shelve": false,
+            "B_Acknowledge": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": false,
+            "A_LockedOut": false,
+            "A_FirstFault": 0,
+            "B_Warning": false,
+            "B_Trip": false,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT02",
+      "name": "B_hidden_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_FaultA": false,
+            "A_FaultB": true,
+            "A_FaultC": false,
+            "A_Reset": false,
+            "B_WarningCondition": false,
+            "B_TripCondition": false,
+            "B_Enable": false,
+            "B_Shelve": false,
+            "B_Acknowledge": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 2,
+            "B_Warning": false,
+            "B_Trip": false,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_FaultA": false,
+            "A_FaultB": true,
+            "A_FaultC": false,
+            "A_Reset": false,
+            "B_WarningCondition": true,
+            "B_TripCondition": true,
+            "B_Enable": true,
+            "B_Shelve": true,
+            "B_Acknowledge": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 2,
+            "B_Warning": false,
+            "B_Trip": true,
+            "B_Unacked": true,
+            "B_Shelved": false,
+            "B_LockedOut": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_FaultA": false,
+            "A_FaultB": true,
+            "A_FaultC": false,
+            "A_Reset": false,
+            "B_WarningCondition": false,
+            "B_TripCondition": false,
+            "B_Enable": true,
+            "B_Shelve": false,
+            "B_Acknowledge": true,
+            "B_Reset": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 2,
+            "B_Warning": false,
+            "B_Trip": true,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_FaultA": false,
+            "A_FaultB": true,
+            "A_FaultC": false,
+            "A_Reset": false,
+            "B_WarningCondition": false,
+            "B_TripCondition": false,
+            "B_Enable": false,
+            "B_Shelve": false,
+            "B_Acknowledge": false,
+            "B_Reset": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 2,
+            "B_Warning": false,
+            "B_Trip": false,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT03",
+      "name": "cross_reset_priority",
+      "description": "Composed trace source: independently_specified_cross_contract; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_FaultA": false,
+            "A_FaultB": true,
+            "A_FaultC": false,
+            "A_Reset": false,
+            "B_WarningCondition": false,
+            "B_TripCondition": false,
+            "B_Enable": false,
+            "B_Shelve": false,
+            "B_Acknowledge": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 2,
+            "B_Warning": false,
+            "B_Trip": false,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_FaultA": false,
+            "A_FaultB": true,
+            "A_FaultC": false,
+            "A_Reset": false,
+            "B_WarningCondition": true,
+            "B_TripCondition": false,
+            "B_Enable": true,
+            "B_Shelve": false,
+            "B_Acknowledge": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 2,
+            "B_Warning": false,
+            "B_Trip": false,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_FaultA": false,
+            "A_FaultB": true,
+            "A_FaultC": false,
+            "A_Reset": false,
+            "B_WarningCondition": true,
+            "B_TripCondition": false,
+            "B_Enable": true,
+            "B_Shelve": false,
+            "B_Acknowledge": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": true
+          },
+          "expect": {
+            "A_AnyFault": true,
+            "A_LockedOut": true,
+            "A_FirstFault": 2,
+            "B_Warning": false,
+            "B_Trip": false,
+            "B_Unacked": false,
+            "B_Shelved": false,
+            "B_LockedOut": false,
+            "CrossReady": false,
+            "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C05_H02_star_delta_sequence",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "normal_transition",
+      "description": "Reach delta after star time and transition gap.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": false,
+            "Delta": true,
+            "Fault": false
+          },
+          "repeat": 10,
+          "check": "last_only"
+        }
+      ]
+    }
+  ]
+}

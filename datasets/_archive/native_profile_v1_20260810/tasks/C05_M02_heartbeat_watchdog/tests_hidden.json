@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C05_M02_heartbeat_watchdog",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "heartbeat_and_qualified_reset",
+      "description": "Restart the interval, time out, reject an enabled reset, then reset while disabled.",
+      "requirement_ids": [
+        "R1",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "MonitorEnable": true,
+            "Heartbeat": false,
+            "Reset": false
+          },
+          "expect": {
+            "TimedOut": false,
+            "Healthy": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "MonitorEnable": true,
+            "Heartbeat": true,
+            "Reset": false
+          },
+          "expect": {
+            "TimedOut": false,
+            "Healthy": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "MonitorEnable": true,
+            "Heartbeat": false,
+            "Reset": false
+          },
+          "expect": {
+            "TimedOut": true,
+            "Healthy": false
+          },
+          "repeat": 6,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "MonitorEnable": true,
+            "Heartbeat": false,
+            "Reset": true
+          },
+          "expect": {
+            "TimedOut": true,
+            "Healthy": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "MonitorEnable": false,
+            "Heartbeat": false,
+            "Reset": true
+          },
+          "expect": {
+            "TimedOut": false,
+            "Healthy": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C03_H02_safety_zone_arbitration",
+  "title": "Safety-zone actuator arbitration",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "IF",
+    "ELSIF",
+    "arbitration",
+    "safety interlock"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 5,
+    "stateful_blocks": 0,
+    "interactions": 7,
+    "fault_modes": 3,
+    "horizon_scans": 1,
+    "inputs": 6,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "RobotRequest",
+        "type": "BOOL",
+        "description": "Robot requests the shared zone"
+      },
+      {
+        "name": "ConveyorRequest",
+        "type": "BOOL",
+        "description": "Conveyor requests the shared zone"
+      },
+      {
+        "name": "ManualRequest",
+        "type": "BOOL",
+        "description": "Manual maintenance request"
+      },
+      {
+        "name": "GuardClosed",
+        "type": "BOOL",
+        "description": "Guard status"
+      },
+      {
+        "name": "EStopOK",
+        "type": "BOOL",
+        "description": "Emergency-stop chain healthy"
+      },
+      {
+        "name": "ManualKey",
+        "type": "BOOL",
+        "description": "Manual mode authorization"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "RobotEnable",
+        "type": "BOOL",
+        "description": "Robot zone grant"
+      },
+      {
+        "name": "ConveyorEnable",
+        "type": "BOOL",
+        "description": "Conveyor zone grant"
+      },
+      {
+        "name": "ManualEnable",
+        "type": "BOOL",
+        "description": "Manual zone grant"
+      },
+      {
+        "name": "Conflict",
+        "type": "BOOL",
+        "description": "More than one eligible request"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Loss of GuardClosed or EStopOK shall disable all grants.",
+      "property": "G((!GuardClosed OR !EStopOK) -> (!RobotEnable AND !ConveyorEnable AND !ManualEnable))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Authorized ManualRequest has highest priority.",
+      "property": "G((ManualRequest AND ManualKey AND GuardClosed AND EStopOK) -> ManualEnable)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "RobotRequest has priority over ConveyorRequest when manual mode is not granted.",
+      "property": "G((RobotRequest AND !ManualEnable AND GuardClosed AND EStopOK) -> RobotEnable)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "At most one grant shall be TRUE.",
+      "property": "G(at_most_one(RobotEnable,ConveyorEnable,ManualEnable))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Conflict shall indicate more than one eligible request before arbitration.",
+      "property": "G(Conflict = more_than_one(RobotRequest,ConveyorRequest,(ManualRequest AND ManualKey)))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

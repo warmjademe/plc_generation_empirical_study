@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C07_B16_composite",
+  "title": "Composed supervisory control: Temperature control with hysteresis -> Redundant sensor fusion with plausibility and rate trip",
+  "category_id": "C07",
+  "category": "Analog processing",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "ABS",
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "REAL",
+    "boundary",
+    "compositional control",
+    "hysteresis",
+    "latched readiness",
+    "latched trip",
+    "retained output",
+    "retained state",
+    "sensor fusion",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 14,
+    "stateful_blocks": 0,
+    "interactions": 18,
+    "fault_modes": 7,
+    "horizon_scans": 12,
+    "inputs": 14,
+    "outputs": 9,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Temperature",
+        "type": "REAL",
+        "description": "Subsystem A: Measured temperature"
+      },
+      {
+        "name": "A_LowThreshold",
+        "type": "REAL",
+        "description": "Subsystem A: Heater-on threshold"
+      },
+      {
+        "name": "A_HighThreshold",
+        "type": "REAL",
+        "description": "Subsystem A: Heater-off threshold"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Controller enable"
+      },
+      {
+        "name": "B_SensorA",
+        "type": "REAL",
+        "description": "Subsystem B: Sensor A value"
+      },
+      {
+        "name": "B_SensorB",
+        "type": "REAL",
+        "description": "Subsystem B: Sensor B value"
+      },
+      {
+        "name": "B_ValidA",
+        "type": "BOOL",
+        "description": "Subsystem B: Sensor A validity"
+      },
+      {
+        "name": "B_ValidB",
+        "type": "BOOL",
+        "description": "Subsystem B: Sensor B validity"
+      },
+      {
+        "name": "B_Enable",
+        "type": "BOOL",
+        "description": "Subsystem B: Fusion enable"
+      },
+      {
+        "name": "B_MaxDifference",
+        "type": "REAL",
+        "description": "Subsystem B: Maximum pair disagreement"
+      },
+      {
+        "name": "B_MaxRate",
+        "type": "REAL",
+        "description": "Subsystem B: Maximum accepted per-scan change"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Rate-trip reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Heater",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched heater command"
+      },
+      {
+        "name": "A_ConfigError",
+        "type": "BOOL",
+        "description": "Subsystem A: Threshold configuration invalid"
+      },
+      {
+        "name": "B_ProcessValue",
+        "type": "REAL",
+        "description": "Subsystem B: Accepted fused value"
+      },
+      {
+        "name": "B_ValidOutput",
+        "type": "BOOL",
+        "description": "Subsystem B: ProcessValue is usable"
+      },
+      {
+        "name": "B_Degraded",
+        "type": "BOOL",
+        "description": "Subsystem B: Only one sensor is used"
+      },
+      {
+        "name": "B_Disagree",
+        "type": "BOOL",
+        "description": "Subsystem B: Both valid sensors disagree"
+      },
+      {
+        "name": "B_RateTrip",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched excessive rate change"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Heater"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_ConfigError shall be TRUE when A_LowThreshold is not less than A_HighThreshold.",
+      "property": "G(A_ConfigError = (A_LowThreshold>=A_HighThreshold))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Disable or A_ConfigError shall turn A_Heater off.",
+      "property": "G((!A_Enable OR A_ConfigError) -> !A_Heater)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: While enabled with valid thresholds, A_Temperature below or equal to A_LowThreshold shall turn A_Heater on.",
+      "property": "G((A_Enable AND !A_ConfigError AND A_Temperature<=A_LowThreshold) -> A_Heater)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Temperature above or equal to A_HighThreshold shall turn A_Heater off.",
+      "property": "G((A_Enable AND !A_ConfigError AND A_Temperature>=A_HighThreshold) -> !A_Heater)",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: Between thresholds, A_Heater shall retain its previous state.",
+      "property": "G((A_Enable AND !A_ConfigError AND A_Temperature>A_LowThreshold AND A_Temperature<A_HighThreshold) -> A_Heater=prev(A_Heater))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: When both sensors are valid and their absolute difference is at most B_MaxDifference, the B_Candidate value is their average.",
+      "property": "G(both_plausible -> B_Candidate=(B_SensorA+B_SensorB)/2)",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: When exactly one sensor is valid, the B_Candidate is that sensor and B_Degraded is TRUE.",
+      "property": "G(exactly_one_valid -> B_Degraded)",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: When both valid sensors differ by more than B_MaxDifference, B_Disagree is TRUE and B_ValidOutput is FALSE.",
+      "property": "G(disagreement -> (B_Disagree AND !B_ValidOutput))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: After initialization, an otherwise valid B_Candidate changing by more than B_MaxRate shall latch B_RateTrip and shall not replace B_ProcessValue.",
+      "property": "G((B_Ready AND candidate_valid AND abs(B_Candidate-prev(B_ProcessValue))>B_MaxRate)->(B_RateTrip AND B_ProcessValue=prev(B_ProcessValue)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_RateTrip or B_Enable FALSE shall force B_ValidOutput FALSE; B_Reset clears B_RateTrip only while disabled.",
+      "property": "G((B_RateTrip OR !B_Enable)->!B_ValidOutput) AND G((B_Reset AND !B_Enable)->!B_RateTrip)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: At equality boundaries for B_MaxDifference and B_MaxRate, the B_Candidate remains acceptable.",
+      "property": "G(abs_difference=B_MaxDifference -> !B_Disagree)",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_Heater shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Heater AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C07_M02_temperature_hysteresis",
+    "base_b": "C07_X01_plausible_rate_limited_fusion",
+    "direction": "A_to_B",
+    "activation_output": "A_Heater"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

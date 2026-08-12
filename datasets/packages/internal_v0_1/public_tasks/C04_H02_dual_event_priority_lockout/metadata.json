@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C04_H02_dual_event_priority_lockout",
+  "title": "Dual-event priority capture with lockout",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained state",
+    "edge detection",
+    "priority"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 6,
+    "stateful_blocks": 2,
+    "interactions": 5,
+    "fault_modes": 1,
+    "horizon_scans": 7,
+    "inputs": 4,
+    "outputs": 3,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "EventA",
+        "type": "BOOL",
+        "description": "High-priority event"
+      },
+      {
+        "name": "EventB",
+        "type": "BOOL",
+        "description": "Lower-priority event"
+      },
+      {
+        "name": "Arm",
+        "type": "BOOL",
+        "description": "Capture enable"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Clear captured event"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Captured",
+        "type": "BOOL",
+        "description": "An event has been captured"
+      },
+      {
+        "name": "Code",
+        "type": "INT",
+        "description": "0 none, 1 event A, 2 event B"
+      },
+      {
+        "name": "Pulse",
+        "type": "BOOL",
+        "description": "Capture occurred this scan"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Reset shall clear Captured, Code, and Pulse.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "While armed and not captured, a rising EventA shall capture Code 1.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "A simultaneous rising edge shall select EventA over EventB.",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "A rising EventB without EventA shall capture Code 2.",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "After capture, later events shall not change Code until Reset.",
+      "safety_critical": true
+    }
+  ]
+}

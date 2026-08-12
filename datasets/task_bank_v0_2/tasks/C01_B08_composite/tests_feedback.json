@@ -1,0 +1,229 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C01_B08_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_ChA": true,
+            "A_ChB": true,
+            "A_TestMode": false,
+            "A_TestPermit": false,
+            "A_ProcessRequest": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_SafeEnable": true,
+            "A_Disagree": false,
+            "A_TestActive": false,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_ChA": true,
+            "A_ChB": false,
+            "A_TestMode": false,
+            "A_TestPermit": false,
+            "A_ProcessRequest": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_SafeEnable": false,
+            "A_Disagree": true,
+            "A_TestActive": false,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_ChA": true,
+            "A_ChB": true,
+            "A_TestMode": false,
+            "A_TestPermit": false,
+            "A_ProcessRequest": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_SafeEnable": true,
+            "A_Disagree": false,
+            "A_TestActive": false,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_ChA": true,
+            "A_ChB": true,
+            "A_TestMode": false,
+            "A_TestPermit": false,
+            "A_ProcessRequest": true,
+            "B_Ch1": true,
+            "B_Ch2": true,
+            "B_Ch3": false,
+            "B_AutoMode": true,
+            "B_AutoRequest": true,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_SafeEnable": true,
+            "A_Disagree": false,
+            "A_TestActive": false,
+            "B_RunPermit": true,
+            "B_Degraded": true,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_ChA": true,
+            "A_ChB": true,
+            "A_TestMode": false,
+            "A_TestPermit": false,
+            "A_ProcessRequest": true,
+            "B_Ch1": true,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": true,
+            "B_AutoRequest": true,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_SafeEnable": true,
+            "A_Disagree": false,
+            "A_TestActive": false,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

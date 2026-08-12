@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 3,
+    "fully_native_property_count": 3,
+    "total_property_count": 5,
+    "environment": {
+      "parameters": [],
+      "assumption_invariants": []
+    }
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((!GuardClosed OR !EStopOK) -> (!RobotEnable AND !ConveyorEnable AND !ManualEnable))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(!GuardClosed OR !EStopOK) -> (!RobotEnable AND !ConveyorEnable AND !ManualEnable)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((ManualRequest AND ManualKey AND GuardClosed AND EStopOK) -> ManualEnable)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(ManualRequest AND ManualKey AND GuardClosed AND EStopOK) -> ManualEnable"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((RobotRequest AND !ManualEnable AND GuardClosed AND EStopOK) -> RobotEnable)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(RobotRequest AND !ManualEnable AND GuardClosed AND EStopOK) -> RobotEnable"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(at_most_one(RobotEnable,ConveyorEnable,ManualEnable))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(Conflict = more_than_one(RobotRequest,ConveyorRequest,(ManualRequest AND ManualKey)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    }
+  ]
+}

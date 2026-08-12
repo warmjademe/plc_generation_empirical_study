@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C09_M01_high_high_alarm_priority",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "latch_and_qualified_reset",
+      "description": "Preserve latches until the process is below the high limit.",
+      "requirement_ids": [
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Value": 95.0,
+            "HighLimit": 70.0,
+            "HighHighLimit": 90.0,
+            "Reset": false
+          },
+          "expect": {
+            "HighAlarm": true,
+            "HighHighAlarm": true,
+            "Shutdown": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Value": 80.0,
+            "HighLimit": 70.0,
+            "HighHighLimit": 90.0,
+            "Reset": true
+          },
+          "expect": {
+            "HighAlarm": true,
+            "HighHighAlarm": true,
+            "Shutdown": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Value": 60.0,
+            "HighLimit": 70.0,
+            "HighHighLimit": 90.0,
+            "Reset": true
+          },
+          "expect": {
+            "HighAlarm": false,
+            "HighHighAlarm": false,
+            "Shutdown": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

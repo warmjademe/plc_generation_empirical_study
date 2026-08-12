@@ -1,0 +1,314 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 7,
+    "fully_native_property_count": 7,
+    "total_property_count": 15,
+    "environment": {
+      "parameters": [],
+      "assumption_invariants": []
+    }
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((A_State=0 AND A_Start AND !A_Fault AND !A_Stop)->X(A_State=1))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((A_State=1 AND A_Sensor1)->X(A_State=2)) AND G((A_State=2 AND A_Sensor2)->X(A_State=0))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(stage_timeout -> (A_Fault AND A_State=0 AND !A_Actuator1 AND !A_Actuator2))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(A_Stop -> (A_State=0 AND !A_Actuator1 AND !A_Actuator2))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "A_Stop -> (A_State=0 AND !A_Actuator1 AND !A_Actuator2)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((A_ResetFault AND A_Stop AND !A_Start)->!A_Fault)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(A_ResetFault AND A_Stop AND !A_Start)->!A_Fault"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P6",
+      "requirement_ids": [
+        "R6"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(A_Complete = (prev(A_State)=2 AND A_Sensor2 AND !A_Stop AND !A_Fault))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P7",
+      "requirement_ids": [
+        "R7"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> ((B_State=0 AND B_Start AND !B_Aborted AND !B_Abort) -> X(B_State=1)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P8",
+      "requirement_ids": [
+        "R8"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> ((B_Advance AND !B_Paused AND B_State=1)->X(B_State=2))) AND G((SubsystemBEnable AND CrossReady) -> ((B_Advance AND !B_Paused AND B_State=2)->X(B_State=3)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P9",
+      "requirement_ids": [
+        "R9"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (B_Paused -> (!B_Step1 AND !B_Step2)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(SubsystemBEnable AND CrossReady) -> (B_Paused -> (!B_Step1 AND !B_Step2))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P10",
+      "requirement_ids": [
+        "R10"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (B_Abort -> (B_State=0 AND !B_Step1 AND !B_Step2 AND !B_Paused AND B_Aborted)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(SubsystemBEnable AND CrossReady) -> (B_Abort -> (B_State=0 AND !B_Step1 AND !B_Step2 AND !B_Paused AND B_Aborted))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P11",
+      "requirement_ids": [
+        "R11"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (qualified_reset -> !B_Aborted))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P12",
+      "requirement_ids": [
+        "R12"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> !CrossReady) AND G((A_Actuator1 AND !CrossReset)->CrossReady)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossReset -> !CrossReady"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          },
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(A_Actuator1 AND !CrossReset)->CrossReady"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P13",
+      "requirement_ids": [
+        "R13"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> (!CrossReady AND NOT B_Step1 AND NOT B_Step2 AND NOT B_Paused AND NOT B_Aborted AND B_State=0)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Step1 AND NOT B_Step2 AND NOT B_Paused AND NOT B_Aborted AND B_State=0))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossReset -> (!CrossReady AND NOT B_Step1 AND NOT B_Step2 AND NOT B_Paused AND NOT B_Aborted AND B_State=0)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          },
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Step1 AND NOT B_Step2 AND NOT B_Paused AND NOT B_Aborted AND B_State=0)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P14",
+      "requirement_ids": [
+        "R14"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P15",
+      "requirement_ids": [
+        "R15"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossBlocked = (SubsystemBEnable AND !CrossReady)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    }
+  ]
+}

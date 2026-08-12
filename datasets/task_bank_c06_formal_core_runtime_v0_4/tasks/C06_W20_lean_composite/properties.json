@@ -1,0 +1,288 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 2,
+    "fully_native_property_count": 2,
+    "total_property_count": 12,
+    "environment": {
+      "parameters": [
+        "B_Target",
+        "B_RejectLimit"
+      ],
+      "assumption_invariants": [
+        "B_Target >= -4",
+        "B_Target <= 4",
+        "B_RejectLimit >= -4",
+        "B_RejectLimit <= 4"
+      ]
+    },
+    "native_case_count": 2,
+    "selection_policy": "predeclared negative-control target plus safety properties within the fixed native-case budget; all requirements remain mandatory in the independent OpenPLC oracle",
+    "native_case_budget": 2
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(A_Command = (((A_AutoMode AND A_AutoDemand) OR ((!A_AutoMode) AND A_ManualDemand)) AND A_SafetyOK AND (!A_Inhibit)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "A_Command = (((A_AutoMode AND A_AutoDemand) OR ((!A_AutoMode) AND A_ManualDemand)) AND A_SafetyOK AND (!A_Inhibit))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(A_Blocked = (((A_AutoMode AND A_AutoDemand) OR ((!A_AutoMode) AND A_ManualDemand)) AND ((!A_SafetyOK) OR A_Inhibit)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "deferred_to_openplc_oracle",
+        "coverage": "runtime_only",
+        "deferred_cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "A_Blocked = (((A_AutoMode AND A_AutoDemand) OR ((!A_AutoMode) AND A_ManualDemand)) AND ((!A_SafetyOK) OR A_Inhibit))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "cases": []
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (count_change -> (rose(B_ItemPulse) AND !B_Stop AND !prev(B_Complete) AND !prev(B_LockedOut))))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (accepted_edge -> (B_AcceptedCount=prev(B_AcceptedCount)+1 AND B_ConsecutiveRejects=0))) AND G((SubsystemBEnable AND CrossReady) -> (rejected_edge -> (B_RejectCount=prev(B_RejectCount)+1 AND B_ConsecutiveRejects=prev(B_ConsecutiveRejects)+1)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (B_Complete -> X(B_Complete)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P6",
+      "requirement_ids": [
+        "R6"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (((B_RejectLimit<=0 OR B_ConsecutiveRejects>=B_RejectLimit) AND !(B_Reset AND B_Stop AND !B_ItemPulse))->B_LockedOut))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "deferred_to_openplc_oracle",
+        "coverage": "runtime_only",
+        "deferred_cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(SubsystemBEnable AND CrossReady) -> (((B_RejectLimit<=0 OR B_ConsecutiveRejects>=B_RejectLimit) AND !(B_Reset AND B_Stop AND !B_ItemPulse))->B_LockedOut)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "cases": []
+      }
+    },
+    {
+      "id": "P7",
+      "requirement_ids": [
+        "R7"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (B_Stop -> stable(B_AcceptedCount,B_RejectCount,B_ConsecutiveRejects)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P8",
+      "requirement_ids": [
+        "R8"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND B_Stop AND !B_ItemPulse)->(B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND !B_Complete AND !B_LockedOut)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "deferred_to_openplc_oracle",
+        "coverage": "runtime_only",
+        "deferred_cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(SubsystemBEnable AND CrossReady) -> ((B_Reset AND B_Stop AND !B_ItemPulse)->(B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND !B_Complete AND !B_LockedOut))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "cases": []
+      }
+    },
+    {
+      "id": "P9",
+      "requirement_ids": [
+        "R9"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> !CrossReady) AND G((A_Command AND !CrossReset)->CrossReady)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "deferred_to_openplc_oracle",
+        "coverage": "runtime_only",
+        "deferred_cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossReset -> !CrossReady"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          },
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(A_Command AND !CrossReset)->CrossReady"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "cases": []
+      }
+    },
+    {
+      "id": "P10",
+      "requirement_ids": [
+        "R10"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> (!CrossReady AND B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND NOT B_Complete AND NOT B_LockedOut)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND NOT B_Complete AND NOT B_LockedOut))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "deferred_to_openplc_oracle",
+        "coverage": "runtime_only",
+        "deferred_cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossReset -> (!CrossReady AND B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND NOT B_Complete AND NOT B_LockedOut)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          },
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(NOT (SubsystemBEnable AND CrossReady)) -> (B_AcceptedCount=0 AND B_RejectCount=0 AND B_ConsecutiveRejects=0 AND NOT B_Complete AND NOT B_LockedOut)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "cases": []
+      }
+    },
+    {
+      "id": "P11",
+      "requirement_ids": [
+        "R11"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P12",
+      "requirement_ids": [
+        "R12"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossBlocked = (SubsystemBEnable AND !CrossReady)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C02_X01_restart_inhibit_latch",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "start_latch_and_stop",
+      "description": "Latch a healthy start and apply simultaneous stop priority.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AutoMode": true,
+            "AutoStart": true,
+            "ManualStart": false,
+            "Stop": false,
+            "Enable": true,
+            "SafetyOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "Running": true,
+            "RestartRequired": false,
+            "RejectedStart": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AutoMode": true,
+            "AutoStart": false,
+            "ManualStart": false,
+            "Stop": false,
+            "Enable": true,
+            "SafetyOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "Running": true,
+            "RestartRequired": false,
+            "RejectedStart": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AutoMode": true,
+            "AutoStart": true,
+            "ManualStart": false,
+            "Stop": true,
+            "Enable": true,
+            "SafetyOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "Running": false,
+            "RestartRequired": false,
+            "RejectedStart": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

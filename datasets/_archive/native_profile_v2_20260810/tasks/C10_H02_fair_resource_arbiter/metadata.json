@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C10_H02_fair_resource_arbiter",
+  "title": "Fair two-client resource arbiter with emergency lockout",
+  "category_id": "C10",
+  "category": "Multi-device coordination",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained state",
+    "mutual exclusion",
+    "round-robin arbitration",
+    "emergency lockout"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 9,
+    "stateful_blocks": 0,
+    "interactions": 8,
+    "fault_modes": 2,
+    "horizon_scans": 6,
+    "inputs": 5,
+    "outputs": 5,
+    "requirements": 6
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "RequestA",
+        "type": "BOOL",
+        "description": "Client A requests the resource"
+      },
+      {
+        "name": "RequestB",
+        "type": "BOOL",
+        "description": "Client B requests the resource"
+      },
+      {
+        "name": "Done",
+        "type": "BOOL",
+        "description": "Current client releases the resource"
+      },
+      {
+        "name": "Emergency",
+        "type": "BOOL",
+        "description": "Emergency resource shutdown"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Lockout reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "GrantA",
+        "type": "BOOL",
+        "description": "Resource grant to client A"
+      },
+      {
+        "name": "GrantB",
+        "type": "BOOL",
+        "description": "Resource grant to client B"
+      },
+      {
+        "name": "Busy",
+        "type": "BOOL",
+        "description": "Resource has an active owner"
+      },
+      {
+        "name": "Turn",
+        "type": "INT",
+        "description": "Tie-break preference: 1 A, 2 B"
+      },
+      {
+        "name": "LockedOut",
+        "type": "BOOL",
+        "description": "Emergency lockout"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "GrantA and GrantB shall never be TRUE simultaneously.",
+      "property": "G(!(GrantA AND GrantB))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "When idle, a single request shall receive the resource; simultaneous requests shall follow Turn.",
+      "property": "G((!Busy AND request_present AND !LockedOut) -> X(Busy))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Done shall release a currently held grant before a new owner is selected on a later scan.",
+      "property": "G((Done AND Busy) -> (!GrantA AND !GrantB AND !Busy))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "After A completes Turn shall prefer B, and after B completes Turn shall prefer A.",
+      "property": "G((Done AND GrantA)->X(Turn=2)) AND G((Done AND GrantB)->X(Turn=1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Emergency shall immediately revoke all grants and latch LockedOut.",
+      "property": "G(Emergency -> (!GrantA AND !GrantB AND !Busy AND LockedOut))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "Reset shall clear LockedOut only while Emergency and both requests are FALSE.",
+      "property": "G((Reset AND !Emergency AND !RequestA AND !RequestB) -> !LockedOut)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

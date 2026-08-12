@@ -1,0 +1,2514 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "C04_M02_toggle_on_edge",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "independently_authored_base_task_oracles",
+  "independent_requirement_oracle": true,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "toggle_once",
+      "description": "Toggle only on the rising edge.",
+      "requirement_ids": [
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_feedback_oracle"
+    },
+    {
+      "id": "HT01",
+      "name": "second_toggle_and_reset",
+      "description": "Toggle a second time and apply reset while held.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_hidden_oracle"
+    },
+    {
+      "id": "ST01",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST02",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST03",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST04",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST05",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST06",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST07",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST08",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST09",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST10",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST11",
+      "name": "hold_Button",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST12",
+      "name": "hold_Enable",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST13",
+      "name": "hold_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST14",
+      "name": "conflict_Button_Enable",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST15",
+      "name": "conflict_Button_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST16",
+      "name": "conflict_Enable_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST17",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST18",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST19",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST20",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C05_H02_star_delta_sequence",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "overload_and_reset",
+      "description": "Trip on overload and require a qualified reset.",
+      "requirement_ids": [
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": false
+          },
+          "expect": {
+            "Main": true,
+            "Star": true,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": true,
+            "Reset": false
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Overload": false,
+            "Reset": true
+          },
+          "expect": {
+            "Main": false,
+            "Star": false,
+            "Delta": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

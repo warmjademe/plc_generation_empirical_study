@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C01_H02_redundant_channel_gate",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "normal_two_channel",
+      "description": "Validate normal redundant operation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "ChA": true,
+            "ChB": true,
+            "TestMode": false,
+            "TestPermit": false,
+            "ProcessRequest": true
+          },
+          "expect": {
+            "SafeEnable": true,
+            "Disagree": false,
+            "TestActive": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ChA": true,
+            "ChB": false,
+            "TestMode": false,
+            "TestPermit": false,
+            "ProcessRequest": true
+          },
+          "expect": {
+            "SafeEnable": false,
+            "Disagree": true,
+            "TestActive": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

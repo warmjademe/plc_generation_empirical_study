@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C04_E01_rising_edge_pulse",
+  "title": "Single-scan rising-edge pulse",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "retained state",
+    "edge detection"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 2,
+    "stateful_blocks": 1,
+    "interactions": 0,
+    "fault_modes": 0,
+    "horizon_scans": 3,
+    "inputs": 1,
+    "outputs": 1,
+    "requirements": 2
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Signal",
+        "type": "BOOL",
+        "description": "Observed signal"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Pulse",
+        "type": "BOOL",
+        "description": "TRUE for one scan on a rising edge"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Pulse shall be TRUE for the scan in which Signal changes from FALSE to TRUE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Pulse shall be FALSE while Signal remains TRUE or remains FALSE.",
+      "safety_critical": false
+    }
+  ]
+}

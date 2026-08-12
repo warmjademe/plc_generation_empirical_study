@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C09_M02_qualified_sensor_disagreement",
+  "title": "Time-qualified sensor disagreement alarm",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "REAL",
+    "TIME",
+    "TON",
+    "ABS",
+    "retained alarm"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 4,
+    "stateful_blocks": 1,
+    "interactions": 4,
+    "fault_modes": 1,
+    "horizon_scans": 6,
+    "inputs": 5,
+    "outputs": 2,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "SensorA",
+        "type": "REAL",
+        "description": "First sensor value"
+      },
+      {
+        "name": "SensorB",
+        "type": "REAL",
+        "description": "Second sensor value"
+      },
+      {
+        "name": "MaxDifference",
+        "type": "REAL",
+        "description": "Allowed absolute difference"
+      },
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Monitoring enable"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Alarm reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Alarm",
+        "type": "BOOL",
+        "description": "Latched disagreement alarm"
+      },
+      {
+        "name": "Disagreeing",
+        "type": "BOOL",
+        "description": "Current disagreement status"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "MaxDifference is non-negative.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Disagreeing shall be TRUE exactly when monitoring is enabled and the absolute difference exceeds MaxDifference.",
+      "property": "G(Disagreeing = (Enable AND ABS(SensorA-SensorB)>MaxDifference))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "A disagreement lasting 300 ms shall latch Alarm.",
+      "property": "G(within(3, Disagreeing, Alarm))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "A shorter disagreement shall not latch Alarm.",
+      "property": "G((Disagreeing AND duration(Disagreeing)<3) -> !Alarm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Reset shall clear Alarm only while no disagreement is present.",
+      "property": "G((Reset AND !Disagreeing) -> !Alarm)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

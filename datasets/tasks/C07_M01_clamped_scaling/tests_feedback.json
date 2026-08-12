@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C07_M01_clamped_scaling",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.0002,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "clamp_out_of_range",
+      "description": "Clamp immediately outside each bound.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": -1
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": true,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4096
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C01_E01_two_input_permissive",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "truth_table_boundaries",
+      "description": "Cover the remaining Boolean combinations.",
+      "requirement_ids": [
+        "R1"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Enable": false,
+            "GuardClosed": false
+          },
+          "expect": {
+            "RunPermit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": true,
+            "GuardClosed": false
+          },
+          "expect": {
+            "RunPermit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

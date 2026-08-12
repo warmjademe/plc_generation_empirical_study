@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C02_E01_basic_start_stop_latch",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "start_hold_stop",
+      "description": "Start, retain, and stop the latch.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false
+          },
+          "expect": {
+            "Running": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false
+          },
+          "expect": {
+            "Running": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false
+          },
+          "expect": {
+            "Running": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": true
+          },
+          "expect": {
+            "Running": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

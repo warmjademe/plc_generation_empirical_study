@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C04_E01_rising_edge_pulse",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "second_edge_after_low",
+      "description": "A new edge is possible only after returning low.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Signal": true
+          },
+          "expect": {
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true
+          },
+          "expect": {
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": false
+          },
+          "expect": {
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Signal": true
+          },
+          "expect": {
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

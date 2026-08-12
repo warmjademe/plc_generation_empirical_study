@@ -1,0 +1,307 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C08_B16_composite",
+  "title": "Composed supervisory control: Fill-mix-drain sequence -> Paused three-stage sequence with abort and per-stage timeout",
+  "category_id": "C08",
+  "category": "Sequential state machines",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "CASE",
+    "FUNCTION_BLOCK",
+    "INT",
+    "TIME",
+    "TON",
+    "abort",
+    "compositional control",
+    "latched readiness",
+    "pause",
+    "priority abort",
+    "sequential control",
+    "state machine",
+    "supervisory interlock",
+    "timeout"
+  ],
+  "complexity": {
+    "retained_state": 6,
+    "transitions": 20,
+    "stateful_blocks": 1,
+    "interactions": 18,
+    "fault_modes": 6,
+    "horizon_scans": 19,
+    "inputs": 14,
+    "outputs": 14,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Start",
+        "type": "BOOL",
+        "description": "Subsystem A: Start batch"
+      },
+      {
+        "name": "A_HighLevel",
+        "type": "BOOL",
+        "description": "Subsystem A: Vessel high level"
+      },
+      {
+        "name": "A_MixDone",
+        "type": "BOOL",
+        "description": "Subsystem A: Mixing completion"
+      },
+      {
+        "name": "A_LowLevel",
+        "type": "BOOL",
+        "description": "Subsystem A: Vessel low level"
+      },
+      {
+        "name": "A_Abort",
+        "type": "BOOL",
+        "description": "Subsystem A: Abort batch"
+      },
+      {
+        "name": "B_Start",
+        "type": "BOOL",
+        "description": "Subsystem B: Start sequence"
+      },
+      {
+        "name": "B_Stage1Done",
+        "type": "BOOL",
+        "description": "Subsystem B: Stage 1 completion"
+      },
+      {
+        "name": "B_Stage2Done",
+        "type": "BOOL",
+        "description": "Subsystem B: Stage 2 completion"
+      },
+      {
+        "name": "B_Stage3Done",
+        "type": "BOOL",
+        "description": "Subsystem B: Stage 3 completion"
+      },
+      {
+        "name": "B_Pause",
+        "type": "BOOL",
+        "description": "Subsystem B: Pause request"
+      },
+      {
+        "name": "B_Abort",
+        "type": "BOOL",
+        "description": "Subsystem B: Abort request"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Fault reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_FillValve",
+        "type": "BOOL",
+        "description": "Subsystem A: Fill command"
+      },
+      {
+        "name": "A_Mixer",
+        "type": "BOOL",
+        "description": "Subsystem A: Mixer command"
+      },
+      {
+        "name": "A_DrainValve",
+        "type": "BOOL",
+        "description": "Subsystem A: Drain command"
+      },
+      {
+        "name": "A_Complete",
+        "type": "BOOL",
+        "description": "Subsystem A: Batch completion pulse"
+      },
+      {
+        "name": "A_State",
+        "type": "INT",
+        "description": "Subsystem A: 0 idle, 1 fill, 2 mix, 3 drain"
+      },
+      {
+        "name": "B_Actuator1",
+        "type": "BOOL",
+        "description": "Subsystem B: Stage 1 actuator"
+      },
+      {
+        "name": "B_Actuator2",
+        "type": "BOOL",
+        "description": "Subsystem B: Stage 2 actuator"
+      },
+      {
+        "name": "B_Actuator3",
+        "type": "BOOL",
+        "description": "Subsystem B: Stage 3 actuator"
+      },
+      {
+        "name": "B_Paused",
+        "type": "BOOL",
+        "description": "Subsystem B: Sequence paused"
+      },
+      {
+        "name": "B_Complete",
+        "type": "BOOL",
+        "description": "Subsystem B: One-scan completion pulse"
+      },
+      {
+        "name": "B_Fault",
+        "type": "BOOL",
+        "description": "Subsystem B: Abort or timeout lockout"
+      },
+      {
+        "name": "B_State",
+        "type": "INT",
+        "description": "Subsystem B: 0 idle, 1 stage1, 2 stage2, 3 stage3"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_FillValve"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "The runtime scan period is 100 ms.",
+    "Pausing resets rather than accumulates the stage timeout.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Start in idle shall enter fill and open only A_FillValve.",
+      "property": "G((A_State=0 AND A_Start AND !A_Abort) -> X(A_State=1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_HighLevel shall transition fill to mix; A_MixDone transitions mix to drain.",
+      "property": "G((A_State=1 AND A_HighLevel)->X(A_State=2)) AND G((A_State=2 AND A_MixDone)->X(A_State=3))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_LowLevel in drain shall return to idle and pulse A_Complete for one scan.",
+      "property": "G((A_State=3 AND A_LowLevel AND !A_Abort) -> X(A_State=0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_FillValve, A_Mixer, and A_DrainValve shall be mutually exclusive and correspond to A_State.",
+      "property": "G(outputs_match_batch_state)",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Abort shall immediately return to idle, close all actuators, and suppress A_Complete.",
+      "property": "G(A_Abort -> (A_State=0 AND !A_FillValve AND !A_Mixer AND !A_DrainValve AND !A_Complete))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Start in idle shall enter stage 1; each matching Done input advances exactly one stage, and B_Stage3Done returns idle with a one-scan B_Complete pulse.",
+      "property": "G(stage_done -> next_stage)",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Pause shall retain B_State while forcing every actuator FALSE; Done inputs while B_Paused shall not advance.",
+      "property": "G(B_Pause -> (!B_Actuator1 AND !B_Actuator2 AND !B_Actuator3 AND X(B_State)=B_State))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: The active stage shall time out after 500 ms of unpaused execution and latch B_Fault.",
+      "property": "G(stage_timeout -> B_Fault)",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Abort shall immediately return idle, force safe outputs, and latch B_Fault.",
+      "property": "G(B_Abort -> (B_State=0 AND B_Fault AND !B_Actuator1 AND !B_Actuator2 AND !B_Actuator3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset clears B_Fault only in idle while B_Start, B_Abort, and every Done input are FALSE.",
+      "property": "G(qualified_reset -> !B_Fault)",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: At most one actuator may be TRUE, and B_Complete shall never coincide with an actuator.",
+      "property": "G(at_most_one(B_Actuator1,B_Actuator2,B_Actuator3)) AND G(B_Complete -> (!B_Actuator1 AND !B_Actuator2 AND !B_Actuator3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_FillValve shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_FillValve AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C08_M02_fill_mix_drain",
+    "base_b": "C08_X01_paused_three_stage_timeout",
+    "direction": "A_to_B",
+    "activation_output": "A_FillValve"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

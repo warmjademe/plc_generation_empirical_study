@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(!(Pump1Run AND Pump2Run))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(alternating_rising_demands -> alternating_selected_pumps)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Demand AND exactly_one_available) -> (Pump1Run OR Pump2Run))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(Unavailable = (Demand AND !Pump1Available AND !Pump2Available))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Reset AND !Demand) -> (NextPump=1 AND !Pump1Run AND !Pump2Run))",
+      "source": "independently authored from the requirement contract"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "dataset": "IEC-ST-VerifyBench-TaskBank",
+  "version": "0.2.0-dev",
+  "task_count": 200,
+  "category_counts": {
+    "C01": 20,
+    "C02": 20,
+    "C03": 20,
+    "C04": 20,
+    "C05": 20,
+    "C06": 20,
+    "C07": 20,
+    "C08": 20,
+    "C09": 20,
+    "C10": 20
+  },
+  "difficulty_counts": {
+    "hard": 200
+  },
+  "screening_model": "kimi-k3",
+  "screening_attempts_per_task": 1,
+  "selection_target": 50,
+  "selection_quota_per_category": 5,
+  "selection_status": "not_run",
+  "model_calls_used_to_build_oracles": false
+}

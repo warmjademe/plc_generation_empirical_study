@@ -1,0 +1,114 @@
+{
+  "task_id": "C03_B08_composite",
+  "reference_ok": true,
+  "authored_negative_killed": true,
+  "qualified": true,
+  "candidates": {
+    "reference": {
+      "candidate_sha256": "afcb1445c508e7acb75c4f7fd47f03a09425dd011eae3a7b6644b38eaefa4655",
+      "gates": [
+        {
+          "name": "compiler",
+          "status": "pass",
+          "summary": "MatIEC accepted the IEC Structured Text candidate",
+          "evidence": [],
+          "passed_requirement_ids": [],
+          "duration_ms": 1097,
+          "tool_version": "matiec-0.1"
+        },
+        {
+          "name": "plcverif",
+          "status": "pass",
+          "summary": "12/12 native PLCverif cases have no property counterexample",
+          "evidence": [],
+          "passed_requirement_ids": [
+            "R1",
+            "R10",
+            "R11",
+            "R12",
+            "R13",
+            "R15",
+            "R2",
+            "R3",
+            "R9"
+          ],
+          "duration_ms": 138582,
+          "tool_version": "PLCverif-1.0.0.202410210930+nuXmv-2.0.0+native-pattern-invariant-v1"
+        },
+        {
+          "name": "openplc",
+          "status": "pass",
+          "summary": "OpenPLC v3 passed 14/14 checked functional scan observations",
+          "evidence": [],
+          "passed_requirement_ids": [
+            "R1",
+            "R10",
+            "R11",
+            "R12",
+            "R13",
+            "R14",
+            "R15",
+            "R2",
+            "R3",
+            "R4",
+            "R5",
+            "R6",
+            "R7",
+            "R8",
+            "R9"
+          ],
+          "duration_ms": 12125,
+          "tool_version": "OpenPLC_v3@b5d41356dab4aeadca0dd7ca64ba542f870b595d+independent-functional-oracle-v1+one-scan-request-ack-v2"
+        }
+      ]
+    },
+    "authored_negative": {
+      "candidate_sha256": "004840e349ad2786b3904a2306d9658524b2942b7a4d08ca9f1941b651def235",
+      "gates": [
+        {
+          "name": "compiler",
+          "status": "pass",
+          "summary": "MatIEC accepted the IEC Structured Text candidate",
+          "evidence": [],
+          "passed_requirement_ids": [],
+          "duration_ms": 764,
+          "tool_version": "matiec-0.1"
+        },
+        {
+          "name": "plcverif",
+          "status": "fail",
+          "summary": "1 mandatory native PLCverif case was violated; stopped after 12/12 cases",
+          "evidence": [
+            {
+              "tool": "plcverif",
+              "kind": "formal_counterexample",
+              "summary": "native PLCverif case P15 is false",
+              "requirement_ids": [
+                "R15"
+              ],
+              "severity": "error",
+              "trace": {
+                "counterexample_tail": "ble = FALSE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.2 <-\n    loc = loop_start\n    instance_A_RobotRequest = FALSE\n    instance_A_ManualRequest = FALSE\n    instance_A_GuardClosed = FALSE\n    instance_A_EStopOK = FALSE\n    instance_A_ManualKey = FALSE\n    instance_SubsystemBEnable = FALSE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.3 <-\n    loc = prepare_BoC\n    instance_A_RobotRequest = TRUE\n    instance_A_ManualRequest = TRUE\n    instance_A_GuardClosed = TRUE\n    instance_A_EStopOK = TRUE\n    instance_A_ManualKey = TRUE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = TRUE\n  -> State: 1.4 <-\n    loc = l_main_call\n    instance_A_RobotRequest = TRUE\n    instance_A_ManualRequest = TRUE\n    instance_A_GuardClosed = TRUE\n    instance_A_EStopOK = TRUE\n    instance_A_ManualKey = TRUE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.5 <-\n    loc = verificationLoop_VerificationLoop_l4\n    instance_A_RobotRequest = TRUE\n    instance_A_ManualRequest = TRUE\n    instance_A_GuardClosed = TRUE\n    instance_A_EStopOK = TRUE\n    instance_A_ManualKey = TRUE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.6 <-\n    loc = verificationLoop_VerificationLoop_l13\n    instance_A_RobotRequest = TRUE\n    instance_A_ManualRequest = TRUE\n    instance_A_GuardClosed = TRUE\n    instance_A_EStopOK = TRUE\n    instance_A_ManualKey = TRUE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.7 <-\n    loc = verificationLoop_VerificationLoop_l15\n    instance_A_RobotRequest = TRUE\n    instance_A_ManualRequest = TRUE\n    instance_A_GuardClosed = TRUE\n    instance_A_EStopOK = TRUE\n    instance_A_ManualKey = TRUE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.8 <-\n    loc = verificationLoop_VerificationLoop_l21\n    instance_A_RobotRequest = TRUE\n    instance_A_ManualRequest = TRUE\n    instance_A_GuardClosed = TRUE\n    instance_A_EStopOK = TRUE\n    instance_A_ManualKey = TRUE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.9 <-\n    loc = verificationLoop_VerificationLoop_l59\n    instance_A_RobotRequest = TRUE\n    instance_A_ManualRequest = TRUE\n    instance_A_GuardClosed = TRUE\n    instance_A_EStopOK = TRUE\n    instance_A_ManualKey = TRUE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.10 <-\n    loc = prepare_EoC\n    instance_A_RobotRequest = TRUE\n    instance_A_ManualRequest = TRUE\n    instance_A_GuardClosed = TRUE\n    instance_A_EStopOK = TRUE\n    instance_A_ManualKey = TRUE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_RobotEnable = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = TRUE\n    BoC = FALSE\n"
+              },
+              "oracle_status": "formal_counterexample_pending_runtime_replay",
+              "raw_log_sha256": "db3c1889c2bbd4feb8c1e306beb6a8fb482ba5db14b3004171a1a22743ff486f",
+              "signature": "36ebc89097ef2bab"
+            }
+          ],
+          "passed_requirement_ids": [
+            "R1",
+            "R10",
+            "R11",
+            "R12",
+            "R13",
+            "R2",
+            "R3",
+            "R9"
+          ],
+          "duration_ms": 138920,
+          "tool_version": "PLCverif-1.0.0.202410210930+nuXmv-2.0.0+native-pattern-invariant-v1"
+        }
+      ]
+    }
+  }
+}

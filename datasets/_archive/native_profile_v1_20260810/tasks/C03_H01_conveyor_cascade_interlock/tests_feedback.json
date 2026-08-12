@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C03_H01_conveyor_cascade_interlock",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "healthy_cascade",
+      "description": "All downstream permissions allow the entire cascade.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RunRequest": true,
+            "Stop": false,
+            "C1Clear": true,
+            "C2Clear": true,
+            "C3Clear": true,
+            "C2Available": true,
+            "C3Available": true
+          },
+          "expect": {
+            "C1Run": true,
+            "C2Run": true,
+            "C3Run": true,
+            "Blocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

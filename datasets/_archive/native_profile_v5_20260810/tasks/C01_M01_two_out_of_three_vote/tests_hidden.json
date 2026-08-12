@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C01_M01_two_out_of_three_vote",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "unanimity_edges",
+      "description": "Check both unanimous values and a different majority permutation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

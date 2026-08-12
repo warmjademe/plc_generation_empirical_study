@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "dataset": "IEC-ST-VerifyBench runtime replacement candidates",
+  "task_count": 10,
+  "category_counts": {
+    "C04": 5,
+    "C06": 5
+  },
+  "construction_rule": "independently authored base tasks; no compositional product state",
+  "eligibility_rule": "reference MatIEC -> PLCverif -> OpenPLC within a separately recorded wall-time budget",
+  "selection_status": "not_run"
+}

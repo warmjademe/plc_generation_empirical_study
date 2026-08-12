@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C03_B13_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Temperature": 18.9,
+            "A_Setpoint": 20.0,
+            "A_Enable": true,
+            "A_SafetyTrip": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heat": true,
+            "A_Cool": false,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Temperature": 20.0,
+            "A_Setpoint": 20.0,
+            "A_Enable": true,
+            "A_SafetyTrip": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heat": false,
+            "A_Cool": false,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Temperature": 21.1,
+            "A_Setpoint": 20.0,
+            "A_Enable": true,
+            "A_SafetyTrip": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heat": false,
+            "A_Cool": true,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Temperature": 18.9,
+            "A_Setpoint": 20.0,
+            "A_Enable": true,
+            "A_SafetyTrip": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heat": true,
+            "A_Cool": false,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Temperature": 18.9,
+            "A_Setpoint": 20.0,
+            "A_Enable": true,
+            "A_SafetyTrip": false,
+            "B_RunRequest": true,
+            "B_Stop": false,
+            "B_C1Clear": true,
+            "B_C2Clear": true,
+            "B_C3Clear": true,
+            "B_C2Available": true,
+            "B_C3Available": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heat": true,
+            "A_Cool": false,
+            "B_C1Run": true,
+            "B_C2Run": true,
+            "B_C3Run": true,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

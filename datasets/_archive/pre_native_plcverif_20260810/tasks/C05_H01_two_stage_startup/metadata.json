@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C05_H01_two_stage_startup",
+  "title": "Two-stage timed startup with safe abort",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "TIME",
+    "TON",
+    "retained fault",
+    "timed sequence"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 6,
+    "stateful_blocks": 2,
+    "interactions": 5,
+    "fault_modes": 2,
+    "horizon_scans": 10,
+    "inputs": 4,
+    "outputs": 3,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start sequence"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "Abort sequence"
+      },
+      {
+        "name": "Permit",
+        "type": "BOOL",
+        "description": "Safety permission"
+      },
+      {
+        "name": "Stage1Feedback",
+        "type": "BOOL",
+        "description": "Stage 1 feedback"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Stage1",
+        "type": "BOOL",
+        "description": "Stage 1 command"
+      },
+      {
+        "name": "Stage2",
+        "type": "BOOL",
+        "description": "Stage 2 command"
+      },
+      {
+        "name": "Fault",
+        "type": "BOOL",
+        "description": "Stage 1 feedback timeout"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Permit changes are sampled at scan start.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Start with Permit shall command Stage1 immediately.",
+      "property": "G((Start AND Permit AND !Stop AND !Fault) -> Stage1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Stage2 shall not start until Stage1Feedback has remained TRUE for at least 300 ms.",
+      "property": "G(Stage2 -> continuous(Stage1Feedback,3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "If Stage1Feedback is absent for 600 ms after Stage1 starts, Fault shall latch and both stages shall stop.",
+      "property": "G((Stage1 AND no_event(Stage1Feedback,6)) -> (Fault AND !Stage1 AND !Stage2))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Stop or loss of Permit shall turn both stages off immediately.",
+      "property": "G((Stop OR !Permit) -> (!Stage1 AND !Stage2))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Fault remains latched until Stop is TRUE while Start is FALSE.",
+      "property": "G((Fault AND !(Stop AND !Start)) -> X(Fault))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C08_H01_pause_resume_abort_sequence",
+  "title": "Pause/resume sequence with abort recovery",
+  "category_id": "C08",
+  "category": "Sequential state machines",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "CASE",
+    "retained state",
+    "pause resume",
+    "abort lockout"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 7,
+    "stateful_blocks": 0,
+    "interactions": 6,
+    "fault_modes": 2,
+    "horizon_scans": 8,
+    "inputs": 6,
+    "outputs": 5,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start sequence"
+      },
+      {
+        "name": "Advance",
+        "type": "BOOL",
+        "description": "Advance current step"
+      },
+      {
+        "name": "Pause",
+        "type": "BOOL",
+        "description": "Pause active step"
+      },
+      {
+        "name": "Resume",
+        "type": "BOOL",
+        "description": "Resume paused step"
+      },
+      {
+        "name": "Abort",
+        "type": "BOOL",
+        "description": "Abort sequence"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Clear aborted state"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Step1",
+        "type": "BOOL",
+        "description": "Step 1 command"
+      },
+      {
+        "name": "Step2",
+        "type": "BOOL",
+        "description": "Step 2 command"
+      },
+      {
+        "name": "Paused",
+        "type": "BOOL",
+        "description": "Sequence paused"
+      },
+      {
+        "name": "Aborted",
+        "type": "BOOL",
+        "description": "Abort latched"
+      },
+      {
+        "name": "State",
+        "type": "INT",
+        "description": "0 idle, 1 step1, 2 step2, 3 done"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Start shall begin Step 1 only when idle and not Aborted.",
+      "property": "G((State=0 AND Start AND !Aborted AND !Abort) -> X(State=1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Advance shall move Step 1 to Step 2 and Step 2 to done only while not Paused.",
+      "property": "G((Advance AND !Paused AND State=1)->X(State=2)) AND G((Advance AND !Paused AND State=2)->X(State=3))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Pause shall suppress active step outputs without losing State; Resume clears Paused.",
+      "property": "G(Paused -> (!Step1 AND !Step2))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Abort shall return State to idle, suppress outputs, clear Paused, and latch Aborted.",
+      "property": "G(Abort -> (State=0 AND !Step1 AND !Step2 AND !Paused AND Aborted))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Reset shall clear Aborted only while Start, Advance, Pause, Resume, and Abort are all FALSE.",
+      "property": "G(qualified_reset -> !Aborted)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

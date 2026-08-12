@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C07_E01_linear_scaling",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.0001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "scale_interior",
+      "description": "Scale non-round interior values.",
+      "requirement_ids": [
+        "R1"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 1
+          },
+          "expect": {
+            "Engineering": 0.1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 537
+          },
+          "expect": {
+            "Engineering": 53.7
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 999
+          },
+          "expect": {
+            "Engineering": 99.9
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,227 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C05_B02_composite",
+  "title": "Composed supervisory control: Two-stage timed startup with safe abort -> Off-delay ventilation fan",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "TIME",
+    "TOF",
+    "TON",
+    "compositional control",
+    "latched readiness",
+    "retained fault",
+    "supervisory interlock",
+    "timed sequence"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 12,
+    "stateful_blocks": 3,
+    "interactions": 12,
+    "fault_modes": 5,
+    "horizon_scans": 14,
+    "inputs": 8,
+    "outputs": 7,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Start",
+        "type": "BOOL",
+        "description": "Subsystem A: Start sequence"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: Abort sequence"
+      },
+      {
+        "name": "A_Permit",
+        "type": "BOOL",
+        "description": "Subsystem A: Safety permission"
+      },
+      {
+        "name": "A_Stage1Feedback",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 1 feedback"
+      },
+      {
+        "name": "B_Demand",
+        "type": "BOOL",
+        "description": "Subsystem B: Ventilation demand"
+      },
+      {
+        "name": "B_SafetyTrip",
+        "type": "BOOL",
+        "description": "Subsystem B: Immediate safety shutdown"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Stage1",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 1 command"
+      },
+      {
+        "name": "A_Stage2",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 2 command"
+      },
+      {
+        "name": "A_Fault",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 1 feedback timeout"
+      },
+      {
+        "name": "B_Fan",
+        "type": "BOOL",
+        "description": "Subsystem B: Fan command"
+      },
+      {
+        "name": "B_RunOn",
+        "type": "BOOL",
+        "description": "Subsystem B: Fan is in off-delay run-on"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Stage1"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: A_Permit changes are sampled at scan A_Start.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The runtime scan period is 100 ms.",
+    "Subsystem B: B_Demand is held TRUE for at least one scan before an off-delay test.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Start with A_Permit shall command A_Stage1 immediately.",
+      "property": "G((A_Start AND A_Permit AND !A_Stop AND !A_Fault) -> A_Stage1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Stage2 shall not A_Start until A_Stage1Feedback has remained TRUE for at least 300 ms.",
+      "property": "G(A_Stage2 -> continuous(A_Stage1Feedback,3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: If A_Stage1Feedback is absent for 600 ms after A_Stage1 starts, A_Fault shall latch and both stages shall A_Stop.",
+      "property": "G((A_Stage1 AND no_event(A_Stage1Feedback,6)) -> (A_Fault AND !A_Stage1 AND !A_Stage2))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Stop or loss of A_Permit shall turn both stages off immediately.",
+      "property": "G((A_Stop OR !A_Permit) -> (!A_Stage1 AND !A_Stage2))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Fault remains latched until A_Stop is TRUE while A_Start is FALSE.",
+      "property": "G((A_Fault AND !(A_Stop AND !A_Start)) -> X(A_Fault))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Fan shall turn on without delay when B_Demand becomes TRUE and B_SafetyTrip is FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Demand AND !B_SafetyTrip) -> B_Fan))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: After B_Demand becomes FALSE, B_Fan shall remain on for 300 ms unless B_SafetyTrip occurs.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((fell(B_Demand) AND !B_SafetyTrip) -> hold(B_Fan,3)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_SafetyTrip shall turn B_Fan and B_RunOn off immediately.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_SafetyTrip -> (!B_Fan AND !B_RunOn)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_RunOn shall indicate the interval in which B_Demand is FALSE but the off-delay output remains TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_RunOn = (!B_Demand AND B_Fan)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_Stage1 shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Stage1 AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Fan AND NOT B_RunOn)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Fan AND NOT B_RunOn))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C05_H01_two_stage_startup",
+    "base_b": "C05_M01_off_delay_fan",
+    "direction": "A_to_B",
+    "activation_output": "A_Stage1"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

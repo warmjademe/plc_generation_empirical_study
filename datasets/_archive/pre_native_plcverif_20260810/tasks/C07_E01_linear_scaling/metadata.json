@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C07_E01_linear_scaling",
+  "title": "Linear raw-value scaling",
+  "category_id": "C07",
+  "category": "Analog processing",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "INT",
+    "REAL",
+    "INT_TO_REAL",
+    "arithmetic"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 0,
+    "stateful_blocks": 0,
+    "interactions": 0,
+    "fault_modes": 0,
+    "horizon_scans": 1,
+    "inputs": 1,
+    "outputs": 1,
+    "requirements": 1
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Raw",
+        "type": "INT",
+        "description": "Raw input from 0 to 1000"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Engineering",
+        "type": "REAL",
+        "description": "Scaled output from 0.0 to 100.0"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Engineering shall equal Raw multiplied by 0.1 for Raw values from 0 through 1000.",
+      "property": "G(Engineering = INT_TO_REAL(Raw)*0.1)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 8,
+    "fully_native_property_count": 8,
+    "total_property_count": 11,
+    "environment": {
+      "parameters": [
+        "A_BatchTarget",
+        "A_RejectLimit"
+      ],
+      "assumption_invariants": [
+        "A_BatchTarget >= 1",
+        "A_RejectLimit >= 1"
+      ]
+    }
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(exclusive_edges_update_matching_counter)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((rose(A_GoodPart) AND rose(A_RejectPart) AND !A_Reset) -> (A_RejectCount=prev(A_RejectCount)+1 AND A_GoodCount=prev(A_GoodCount)))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(A_BatchDone = ((A_GoodCount+A_RejectCount)>=A_BatchTarget))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "A_BatchDone = ((A_GoodCount+A_RejectCount)>=A_BatchTarget)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((A_RejectCount>=A_RejectLimit) -> A_QualityFault)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(A_RejectCount>=A_RejectLimit) -> A_QualityFault"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(A_Reset -> (A_GoodCount=0 AND A_RejectCount=0 AND !A_BatchDone AND !A_QualityFault))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "A_Reset -> (A_GoodCount=0 AND A_RejectCount=0 AND !A_BatchDone AND !A_QualityFault)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P6",
+      "requirement_ids": [
+        "R6"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (B_Command = (((B_AutoMode AND B_AutoDemand) OR ((!B_AutoMode) AND B_ManualDemand)) AND B_SafetyOK AND (!B_Inhibit))))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(SubsystemBEnable AND CrossReady) -> (B_Command = (((B_AutoMode AND B_AutoDemand) OR ((!B_AutoMode) AND B_ManualDemand)) AND B_SafetyOK AND (!B_Inhibit)))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P7",
+      "requirement_ids": [
+        "R7"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((SubsystemBEnable AND CrossReady) -> (B_Blocked = (((B_AutoMode AND B_AutoDemand) OR ((!B_AutoMode) AND B_ManualDemand)) AND ((!B_SafetyOK) OR B_Inhibit))))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(SubsystemBEnable AND CrossReady) -> (B_Blocked = (((B_AutoMode AND B_AutoDemand) OR ((!B_AutoMode) AND B_ManualDemand)) AND ((!B_SafetyOK) OR B_Inhibit)))"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P8",
+      "requirement_ids": [
+        "R8"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> !CrossReady) AND G((A_BatchDone AND !CrossReset)->CrossReady)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossReset -> !CrossReady"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          },
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(A_BatchDone AND !CrossReset)->CrossReady"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P9",
+      "requirement_ids": [
+        "R9"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> (!CrossReady AND NOT B_Command AND NOT B_Blocked)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Command AND NOT B_Blocked))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossReset -> (!CrossReady AND NOT B_Command AND NOT B_Blocked)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          },
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Command AND NOT B_Blocked)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P10",
+      "requirement_ids": [
+        "R10"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "not_expressible_in_qualified_invariant_profile",
+        "cases": []
+      }
+    },
+    {
+      "id": "P11",
+      "requirement_ids": [
+        "R11"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "auto",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "CrossBlocked = (SubsystemBEnable AND !CrossReady)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    }
+  ]
+}

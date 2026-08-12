@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C08_M02_fill_mix_drain",
+  "title": "Fill-mix-drain sequence",
+  "category_id": "C08",
+  "category": "Sequential state machines",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "CASE",
+    "sequential control",
+    "priority abort"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 5,
+    "stateful_blocks": 0,
+    "interactions": 3,
+    "fault_modes": 1,
+    "horizon_scans": 5,
+    "inputs": 5,
+    "outputs": 5,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start batch"
+      },
+      {
+        "name": "HighLevel",
+        "type": "BOOL",
+        "description": "Vessel high level"
+      },
+      {
+        "name": "MixDone",
+        "type": "BOOL",
+        "description": "Mixing completion"
+      },
+      {
+        "name": "LowLevel",
+        "type": "BOOL",
+        "description": "Vessel low level"
+      },
+      {
+        "name": "Abort",
+        "type": "BOOL",
+        "description": "Abort batch"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "FillValve",
+        "type": "BOOL",
+        "description": "Fill command"
+      },
+      {
+        "name": "Mixer",
+        "type": "BOOL",
+        "description": "Mixer command"
+      },
+      {
+        "name": "DrainValve",
+        "type": "BOOL",
+        "description": "Drain command"
+      },
+      {
+        "name": "Complete",
+        "type": "BOOL",
+        "description": "Batch completion pulse"
+      },
+      {
+        "name": "State",
+        "type": "INT",
+        "description": "0 idle, 1 fill, 2 mix, 3 drain"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Start in idle shall enter fill and open only FillValve.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "HighLevel shall transition fill to mix; MixDone transitions mix to drain.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "LowLevel in drain shall return to idle and pulse Complete for one scan.",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "FillValve, Mixer, and DrainValve shall be mutually exclusive and correspond to State.",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Abort shall immediately return to idle, close all actuators, and suppress Complete.",
+      "safety_critical": true
+    }
+  ]
+}

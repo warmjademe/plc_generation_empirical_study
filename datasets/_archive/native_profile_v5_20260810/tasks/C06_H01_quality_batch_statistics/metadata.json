@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C06_H01_quality_batch_statistics",
+  "title": "Good/reject batch statistics with reject lockout",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained counters",
+    "edge detection",
+    "priority",
+    "fault latch"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 6,
+    "stateful_blocks": 2,
+    "interactions": 5,
+    "fault_modes": 2,
+    "horizon_scans": 8,
+    "inputs": 5,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "GoodPart",
+        "type": "BOOL",
+        "description": "Good-part pulse"
+      },
+      {
+        "name": "RejectPart",
+        "type": "BOOL",
+        "description": "Rejected-part pulse"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Reset statistics"
+      },
+      {
+        "name": "BatchTarget",
+        "type": "INT",
+        "description": "Total parts in a batch"
+      },
+      {
+        "name": "RejectLimit",
+        "type": "INT",
+        "description": "Maximum allowed rejects"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "GoodCount",
+        "type": "INT",
+        "description": "Good parts"
+      },
+      {
+        "name": "RejectCount",
+        "type": "INT",
+        "description": "Rejected parts"
+      },
+      {
+        "name": "BatchDone",
+        "type": "BOOL",
+        "description": "Total reached target"
+      },
+      {
+        "name": "QualityFault",
+        "type": "BOOL",
+        "description": "Reject count exceeded limit"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "BatchTarget and RejectLimit remain positive and constant during a test.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "A good-part rising edge increments only GoodCount; a reject-part rising edge increments only RejectCount.",
+      "property": "G(exclusive_edges_update_matching_counter)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Simultaneous good and reject edges shall count one reject and no good part.",
+      "property": "G((rose(GoodPart) AND rose(RejectPart) AND !Reset) -> (RejectCount=prev(RejectCount)+1 AND GoodCount=prev(GoodCount)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "BatchDone shall be TRUE when GoodCount plus RejectCount reaches BatchTarget.",
+      "property": "G(BatchDone = ((GoodCount+RejectCount)>=BatchTarget))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "QualityFault shall latch when RejectCount reaches RejectLimit and remain set until Reset.",
+      "property": "G((RejectCount>=RejectLimit) -> QualityFault)",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Reset shall clear both counts, BatchDone, and QualityFault.",
+      "property": "G(Reset -> (GoodCount=0 AND RejectCount=0 AND !BatchDone AND !QualityFault))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

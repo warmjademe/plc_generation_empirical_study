@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C05_H01_two_stage_startup",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "successful_start",
+      "description": "Stage 2 follows stable feedback.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Permit": true,
+            "Stage1Feedback": false
+          },
+          "expect": {
+            "Stage1": true,
+            "Stage2": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Permit": true,
+            "Stage1Feedback": true
+          },
+          "expect": {
+            "Stage1": true,
+            "Stage2": true,
+            "Fault": false
+          },
+          "repeat": 5,
+          "check": "last_only"
+        }
+      ]
+    }
+  ]
+}

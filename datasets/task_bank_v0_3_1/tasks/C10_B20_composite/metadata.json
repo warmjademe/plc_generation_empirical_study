@@ -1,0 +1,312 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C10_B20_composite",
+  "title": "Composed supervisory control: Three-pump staged dispatch with lead preference and feedback exclusion -> Lead-lag pump demand control",
+  "category_id": "C10",
+  "category": "Multi-device coordination",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "TIME",
+    "TON",
+    "availability",
+    "compositional control",
+    "cyclic priority",
+    "feedback exclusion",
+    "latched readiness",
+    "lead-lag coordination",
+    "multi-device dispatch",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 6,
+    "transitions": 17,
+    "stateful_blocks": 3,
+    "interactions": 24,
+    "fault_modes": 9,
+    "horizon_scans": 18,
+    "inputs": 18,
+    "outputs": 11,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_LowDemand",
+        "type": "BOOL",
+        "description": "Subsystem A: One-pump demand"
+      },
+      {
+        "name": "A_HighDemand",
+        "type": "BOOL",
+        "description": "Subsystem A: Two-pump demand"
+      },
+      {
+        "name": "A_Lead",
+        "type": "INT",
+        "description": "Subsystem A: Preferred pump 1, 2, or 3"
+      },
+      {
+        "name": "A_Available1",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 1 availability"
+      },
+      {
+        "name": "A_Available2",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 2 availability"
+      },
+      {
+        "name": "A_Available3",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 3 availability"
+      },
+      {
+        "name": "A_Feedback1",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 1 running feedback"
+      },
+      {
+        "name": "A_Feedback2",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 2 running feedback"
+      },
+      {
+        "name": "A_Feedback3",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 3 running feedback"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: Immediate stop"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Failure reset"
+      },
+      {
+        "name": "B_LowDemand",
+        "type": "BOOL",
+        "description": "Subsystem B: At least one pump is required"
+      },
+      {
+        "name": "B_HighDemand",
+        "type": "BOOL",
+        "description": "Subsystem B: Both pumps are requested"
+      },
+      {
+        "name": "B_LeadIsPump1",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 1 is selected lead"
+      },
+      {
+        "name": "B_Pump1Available",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 1 availability"
+      },
+      {
+        "name": "B_Pump2Available",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 2 availability"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Run1",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 1 command"
+      },
+      {
+        "name": "A_Run2",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 2 command"
+      },
+      {
+        "name": "A_Run3",
+        "type": "BOOL",
+        "description": "Subsystem A: Pump 3 command"
+      },
+      {
+        "name": "A_ActiveCount",
+        "type": "INT",
+        "description": "Subsystem A: Number of commanded pumps"
+      },
+      {
+        "name": "A_Failover",
+        "type": "BOOL",
+        "description": "Subsystem A: Lead or requested capacity was replaced"
+      },
+      {
+        "name": "A_Fault",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched insufficient-capacity fault"
+      },
+      {
+        "name": "B_Pump1Run",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 1 command"
+      },
+      {
+        "name": "B_Pump2Run",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 2 command"
+      },
+      {
+        "name": "B_CapacityShortfall",
+        "type": "BOOL",
+        "description": "Subsystem B: Requested capacity cannot be supplied"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Run2"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: At most two pumps are required simultaneously.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_LowDemand shall request one pump and A_HighDemand shall request two, with A_HighDemand taking priority.",
+      "property": "G(required_count = mux(A_HighDemand,2,mux(A_LowDemand,1,0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Dispatch shall prefer A_Lead, then the next pump numbers cyclically, excluding unavailable or feedback-failed pumps.",
+      "property": "G(dispatched_order = cyclic_available_order(A_Lead))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A commanded pump without feedback for 300 ms shall be excluded and replaced when capacity permits.",
+      "property": "G(no_feedback_3 -> !corresponding_run)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_ActiveCount shall equal the number of TRUE run outputs, and no more than two pumps may run.",
+      "property": "G(A_ActiveCount=count_true(A_Run1,A_Run2,A_Run3)) AND G(A_ActiveCount<=2)",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Failover shall be TRUE when an unhealthy preferred pump is bypassed or requested capacity cannot be met; insufficient capacity shall latch A_Fault.",
+      "property": "G(A_ActiveCount<required_count -> (A_Failover AND A_Fault))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "Subsystem A shall satisfy: A_Stop shall immediately clear every run command; A_Reset clears failures only while both demand inputs and A_Stop are FALSE.",
+      "property": "G(A_Stop -> (!A_Run1 AND !A_Run2 AND !A_Run3)) AND G(qualified_reset -> !A_Fault)",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: With B_LowDemand only, the available selected lead pump shall run and the lag pump shall remain off.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_LowDemand AND !B_HighDemand AND lead_available) -> exactly_one_run))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: With B_HighDemand, every available pump shall run.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_HighDemand -> (B_Pump1Run=B_Pump1Available AND B_Pump2Run=B_Pump2Available)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: If the selected lead is unavailable under B_LowDemand, the available lag pump shall run.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_LowDemand AND !B_HighDemand AND !lead_available AND lag_available) -> lag_runs))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: No pump shall run when neither demand input is TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((!B_LowDemand AND !B_HighDemand) -> (!B_Pump1Run AND !B_Pump2Run)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_CapacityShortfall shall indicate zero available pumps for B_LowDemand or fewer than two for B_HighDemand.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_CapacityShortfall = insufficient_available_capacity))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_Run2 shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Run2 AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Pump1Run AND NOT B_Pump2Run AND NOT B_CapacityShortfall)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Pump1Run AND NOT B_Pump2Run AND NOT B_CapacityShortfall))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C10_X01_three_pump_feedback_dispatch",
+    "base_b": "C10_M02_lead_lag_demand_control",
+    "direction": "A_to_B",
+    "activation_output": "A_Run2"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

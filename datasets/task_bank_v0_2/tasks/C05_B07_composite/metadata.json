@@ -1,0 +1,236 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C05_B07_composite",
+  "title": "Composed supervisory control: Star-delta motor transition -> Heartbeat watchdog timeout",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "TIME",
+    "TON",
+    "compositional control",
+    "interlock",
+    "latched readiness",
+    "retained output",
+    "retained outputs",
+    "supervisory interlock",
+    "timed transition",
+    "watchdog"
+  ],
+  "complexity": {
+    "retained_state": 8,
+    "transitions": 14,
+    "stateful_blocks": 3,
+    "interactions": 14,
+    "fault_modes": 5,
+    "horizon_scans": 16,
+    "inputs": 9,
+    "outputs": 8,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Start",
+        "type": "BOOL",
+        "description": "Subsystem A: Start command"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: Stop command"
+      },
+      {
+        "name": "A_Overload",
+        "type": "BOOL",
+        "description": "Subsystem A: Motor overload"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Fault reset"
+      },
+      {
+        "name": "B_MonitorEnable",
+        "type": "BOOL",
+        "description": "Subsystem B: Enable monitoring"
+      },
+      {
+        "name": "B_Heartbeat",
+        "type": "BOOL",
+        "description": "Subsystem B: One-scan heartbeat pulse"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Clear timeout latch"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Main",
+        "type": "BOOL",
+        "description": "Subsystem A: Main contactor"
+      },
+      {
+        "name": "A_Star",
+        "type": "BOOL",
+        "description": "Subsystem A: Star contactor"
+      },
+      {
+        "name": "A_Delta",
+        "type": "BOOL",
+        "description": "Subsystem A: Delta contactor"
+      },
+      {
+        "name": "A_Fault",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched overload fault"
+      },
+      {
+        "name": "B_TimedOut",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched timeout"
+      },
+      {
+        "name": "B_Healthy",
+        "type": "BOOL",
+        "description": "Subsystem B: Monitor enabled and not timed out"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Main"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Start may remain TRUE during normal operation.",
+    "Each test starts from a fresh function-block instance.",
+    "Heartbeat is a pulse lasting no more than one scan.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Start shall energize A_Main and A_Star when no A_Fault, A_Stop, or A_Overload is active.",
+      "property": "G((A_Start AND !A_Stop AND !A_Overload AND !A_Fault AND phase=idle) -> (A_Main AND A_Star AND !A_Delta))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: After 500 ms in A_Star, A_Star shall turn off before A_Delta turns on after a 200 ms transition gap.",
+      "property": "G(A_Delta -> (A_Main AND !A_Star AND elapsed_star>=7))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_Star and A_Delta shall never be TRUE together.",
+      "property": "G(!(A_Star AND A_Delta))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Stop or A_Overload shall immediately turn off all contactors; A_Overload latches A_Fault.",
+      "property": "G((A_Stop OR A_Overload) -> (!A_Main AND !A_Star AND !A_Delta))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Reset clears A_Fault only while A_Start is FALSE and A_Overload is FALSE.",
+      "property": "G((A_Reset AND !A_Start AND !A_Overload) -> !A_Fault)",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: While monitoring, a B_Heartbeat shall restart the 400 ms B_Watchdog interval.",
+      "property": "G(B_Heartbeat -> B_Reset(B_Watchdog))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Absence of B_Heartbeat for at least 400 ms shall latch B_TimedOut TRUE.",
+      "property": "G((B_MonitorEnable AND no_event(B_Heartbeat,4)) -> B_TimedOut)",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_TimedOut only while B_MonitorEnable is FALSE.",
+      "property": "G((B_Reset AND !B_MonitorEnable) -> !B_TimedOut)",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Healthy shall equal B_MonitorEnable and not B_TimedOut.",
+      "property": "G(B_Healthy = (B_MonitorEnable AND !B_TimedOut))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_Main shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Main AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C05_H02_star_delta_sequence",
+    "base_b": "C05_M02_heartbeat_watchdog",
+    "direction": "A_to_B",
+    "activation_output": "A_Main"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

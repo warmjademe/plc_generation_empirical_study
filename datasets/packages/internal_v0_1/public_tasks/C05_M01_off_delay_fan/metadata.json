@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C05_M01_off_delay_fan",
+  "title": "Off-delay ventilation fan",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "TIME",
+    "TOF",
+    "IF"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 3,
+    "stateful_blocks": 1,
+    "interactions": 2,
+    "fault_modes": 1,
+    "horizon_scans": 6,
+    "inputs": 2,
+    "outputs": 2,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Demand",
+        "type": "BOOL",
+        "description": "Ventilation demand"
+      },
+      {
+        "name": "SafetyTrip",
+        "type": "BOOL",
+        "description": "Immediate safety shutdown"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Fan",
+        "type": "BOOL",
+        "description": "Fan command"
+      },
+      {
+        "name": "RunOn",
+        "type": "BOOL",
+        "description": "Fan is in off-delay run-on"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Demand is held TRUE for at least one scan before an off-delay test.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Fan shall turn on without delay when Demand becomes TRUE and SafetyTrip is FALSE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "After Demand becomes FALSE, Fan shall remain on for 300 ms unless SafetyTrip occurs.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "SafetyTrip shall turn Fan and RunOn off immediately.",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "RunOn shall indicate the interval in which Demand is FALSE but the off-delay output remains TRUE.",
+      "safety_critical": false
+    }
+  ]
+}

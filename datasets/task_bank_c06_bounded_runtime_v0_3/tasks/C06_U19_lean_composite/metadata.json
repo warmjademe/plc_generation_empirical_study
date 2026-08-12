@@ -1,0 +1,237 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C06_U19_lean_composite",
+  "title": "Composed supervisory control: Bounded up/down inventory counter -> Mode-dependent command selection",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "AND",
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "NOT",
+    "OR",
+    "bounded counter",
+    "compositional control",
+    "dual edge detection",
+    "latched readiness",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 10,
+    "stateful_blocks": 2,
+    "interactions": 11,
+    "fault_modes": 4,
+    "horizon_scans": 11,
+    "inputs": 11,
+    "outputs": 8,
+    "requirements": 11
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_AddItem",
+        "type": "BOOL",
+        "description": "Subsystem A: Add one item"
+      },
+      {
+        "name": "A_RemoveItem",
+        "type": "BOOL",
+        "description": "Subsystem A: Remove one item"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Reset inventory"
+      },
+      {
+        "name": "A_Capacity",
+        "type": "INT",
+        "description": "Subsystem A: Maximum count, assumed positive"
+      },
+      {
+        "name": "B_AutoMode",
+        "type": "BOOL",
+        "description": "Subsystem B: TRUE selects automatic mode"
+      },
+      {
+        "name": "B_AutoDemand",
+        "type": "BOOL",
+        "description": "Subsystem B: Automatic request"
+      },
+      {
+        "name": "B_ManualDemand",
+        "type": "BOOL",
+        "description": "Subsystem B: Manual request"
+      },
+      {
+        "name": "B_SafetyOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Common safety permission"
+      },
+      {
+        "name": "B_Inhibit",
+        "type": "BOOL",
+        "description": "Subsystem B: High-priority inhibit"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Count",
+        "type": "INT",
+        "description": "Subsystem A: Inventory count"
+      },
+      {
+        "name": "A_Empty",
+        "type": "BOOL",
+        "description": "Subsystem A: Count is zero"
+      },
+      {
+        "name": "A_Full",
+        "type": "BOOL",
+        "description": "Subsystem A: Count reached Capacity"
+      },
+      {
+        "name": "A_Conflict",
+        "type": "BOOL",
+        "description": "Subsystem A: Add and Remove rose together"
+      },
+      {
+        "name": "B_Command",
+        "type": "BOOL",
+        "description": "Subsystem B: Selected command"
+      },
+      {
+        "name": "B_Blocked",
+        "type": "BOOL",
+        "description": "Subsystem B: A request exists but is blocked"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Empty"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: A_Capacity remains constant during a test and is positive.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults.",
+    "A_Capacity remains within the closed interval [-4, 4] during a test."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A lone rising A_AddItem edge increments A_Count when below A_Capacity.",
+      "property": "G((rose(A_AddItem) AND !rose(A_RemoveItem) AND prev(A_Count)<A_Capacity AND !A_Reset) -> A_Count=prev(A_Count)+1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A lone rising A_RemoveItem edge decrements A_Count when above zero.",
+      "property": "G((rose(A_RemoveItem) AND !rose(A_AddItem) AND prev(A_Count)>0 AND !A_Reset) -> A_Count=prev(A_Count)-1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Simultaneous rising edges shall leave A_Count unchanged and set A_Conflict for one scan.",
+      "property": "G((rose(A_AddItem) AND rose(A_RemoveItem) AND !A_Reset) -> ((A_Count=prev(A_Count)) AND A_Conflict))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Count shall remain within zero and A_Capacity; A_Empty and A_Full reflect the boundaries.",
+      "property": "G((A_Count>=0) AND (A_Count<=A_Capacity) AND (A_Empty=(A_Count=0)) AND (A_Full=(A_Count>=A_Capacity)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Count and A_Conflict.",
+      "property": "G(A_Reset -> ((A_Count=0) AND !A_Conflict))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Command shall follow B_AutoDemand in automatic mode and B_ManualDemand in manual mode, but only when B_SafetyOK is TRUE and B_Inhibit is FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Command = (((B_AutoMode AND B_AutoDemand) OR ((!B_AutoMode) AND B_ManualDemand)) AND B_SafetyOK AND (!B_Inhibit))))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Blocked shall be TRUE when the selected request is TRUE but safety is not OK or B_Inhibit is TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Blocked = (((B_AutoMode AND B_AutoDemand) OR ((!B_AutoMode) AND B_ManualDemand)) AND ((!B_SafetyOK) OR B_Inhibit))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "A TRUE A_Empty shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Empty AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Command AND NOT B_Blocked)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Command AND NOT B_Blocked))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C06_M02_bounded_up_down_counter",
+    "base_b": "C01_M02_mode_dependent_command",
+    "direction": "A_to_B",
+    "activation_output": "A_Empty",
+    "runtime_design": "one stateful subsystem plus one stateless Boolean subsystem"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

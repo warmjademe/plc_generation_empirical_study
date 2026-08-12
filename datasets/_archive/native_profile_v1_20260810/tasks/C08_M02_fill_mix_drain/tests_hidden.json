@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C08_M02_fill_mix_drain",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "abort_each_active_stage",
+      "description": "Abort from an active stage.",
+      "requirement_ids": [
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "HighLevel": false,
+            "MixDone": false,
+            "LowLevel": false,
+            "Abort": false
+          },
+          "expect": {
+            "FillValve": true,
+            "Mixer": false,
+            "DrainValve": false,
+            "Complete": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "HighLevel": false,
+            "MixDone": false,
+            "LowLevel": false,
+            "Abort": true
+          },
+          "expect": {
+            "FillValve": false,
+            "Mixer": false,
+            "DrainValve": false,
+            "Complete": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

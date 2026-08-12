@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C06_E01_three_part_counter",
+  "title": "Three-part completion counter",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained state",
+    "edge detection",
+    "counter"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 3,
+    "stateful_blocks": 1,
+    "interactions": 0,
+    "fault_modes": 0,
+    "horizon_scans": 8,
+    "inputs": 2,
+    "outputs": 2,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "PartPulse",
+        "type": "BOOL",
+        "description": "One-scan part pulse"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Counter reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Count",
+        "type": "INT",
+        "description": "Current count"
+      },
+      {
+        "name": "Complete",
+        "type": "BOOL",
+        "description": "Count reached three"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Each rising PartPulse shall increment Count once until Count reaches three.",
+      "property": "G((rose(PartPulse) AND prev(Count)<3 AND !Reset) -> (Count=prev(Count)+1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Count shall saturate at three.",
+      "property": "G((Count >= 0) AND (Count <= 3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Complete shall be TRUE exactly when Count equals three.",
+      "property": "G(Complete = (Count = 3))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Reset shall clear Count and Complete.",
+      "property": "G(Reset -> ((Count=0) AND !Complete))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

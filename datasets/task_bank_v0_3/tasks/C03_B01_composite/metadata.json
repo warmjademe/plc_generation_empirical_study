@@ -1,0 +1,283 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C03_B01_composite",
+  "title": "Composed supervisory control: Three-conveyor downstream interlock -> Safety-zone actuator arbitration",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "arbitration",
+    "cascaded interlocks",
+    "compositional control",
+    "latched readiness",
+    "priority",
+    "safety interlock",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 13,
+    "stateful_blocks": 0,
+    "interactions": 18,
+    "fault_modes": 8,
+    "horizon_scans": 5,
+    "inputs": 15,
+    "outputs": 10,
+    "requirements": 14
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_RunRequest",
+        "type": "BOOL",
+        "description": "Subsystem A: Line run request"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: Common stop"
+      },
+      {
+        "name": "A_C1Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 1 clear"
+      },
+      {
+        "name": "A_C2Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 2 clear"
+      },
+      {
+        "name": "A_C3Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 3 clear"
+      },
+      {
+        "name": "A_C2Available",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 2 available"
+      },
+      {
+        "name": "A_C3Available",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 3 available"
+      },
+      {
+        "name": "B_RobotRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Robot requests the shared zone"
+      },
+      {
+        "name": "B_ConveyorRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Conveyor requests the shared zone"
+      },
+      {
+        "name": "B_ManualRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Manual maintenance request"
+      },
+      {
+        "name": "B_GuardClosed",
+        "type": "BOOL",
+        "description": "Subsystem B: Guard status"
+      },
+      {
+        "name": "B_EStopOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Emergency-stop chain healthy"
+      },
+      {
+        "name": "B_ManualKey",
+        "type": "BOOL",
+        "description": "Subsystem B: Manual mode authorization"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_C1Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Upstream conveyor command"
+      },
+      {
+        "name": "A_C2Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Middle conveyor command"
+      },
+      {
+        "name": "A_C3Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Downstream conveyor command"
+      },
+      {
+        "name": "A_Blocked",
+        "type": "BOOL",
+        "description": "Subsystem A: Run request blocked by availability or occupancy"
+      },
+      {
+        "name": "B_RobotEnable",
+        "type": "BOOL",
+        "description": "Subsystem B: Robot zone grant"
+      },
+      {
+        "name": "B_ConveyorEnable",
+        "type": "BOOL",
+        "description": "Subsystem B: Conveyor zone grant"
+      },
+      {
+        "name": "B_ManualEnable",
+        "type": "BOOL",
+        "description": "Subsystem B: Manual zone grant"
+      },
+      {
+        "name": "B_Conflict",
+        "type": "BOOL",
+        "description": "Subsystem B: More than one eligible request"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_C1Run"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_C3Run shall require A_RunRequest, A_C3Available, A_C3Clear, and not A_Stop.",
+      "property": "G(A_C3Run = (A_RunRequest AND A_C3Available AND A_C3Clear AND !A_Stop))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_C2Run shall require A_C3Run, A_C2Available, and A_C2Clear.",
+      "property": "G(A_C2Run -> (A_C3Run AND A_C2Available AND A_C2Clear))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_C1Run shall require A_C2Run and A_C1Clear.",
+      "property": "G(A_C1Run -> (A_C2Run AND A_C1Clear))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Stop shall turn all three commands off.",
+      "property": "G(A_Stop -> (!A_C1Run AND !A_C2Run AND !A_C3Run))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Blocked shall indicate A_RunRequest with at least one unavailable or uncleared stage.",
+      "property": "G(A_Blocked = (A_RunRequest AND (!A_C1Clear OR !A_C2Clear OR !A_C3Clear OR !A_C2Available OR !A_C3Available)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Loss of B_GuardClosed or B_EStopOK shall disable all grants.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((!B_GuardClosed OR !B_EStopOK) -> (!B_RobotEnable AND !B_ConveyorEnable AND !B_ManualEnable)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Authorized B_ManualRequest has highest priority.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_ManualRequest AND B_ManualKey AND B_GuardClosed AND B_EStopOK) -> B_ManualEnable))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_RobotRequest has priority over B_ConveyorRequest when manual mode is not granted.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_RobotRequest AND !B_ManualEnable AND B_GuardClosed AND B_EStopOK) -> B_RobotEnable))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: At most one grant shall be TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (at_most_one(B_RobotEnable,B_ConveyorEnable,B_ManualEnable)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Conflict shall indicate more than one eligible request before arbitration.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Conflict = more_than_one(B_RobotRequest,B_ConveyorRequest,(B_ManualRequest AND B_ManualKey))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "A TRUE A_C1Run shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_C1Run AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_RobotEnable AND NOT B_ConveyorEnable AND NOT B_ManualEnable AND NOT B_Conflict)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_RobotEnable AND NOT B_ConveyorEnable AND NOT B_ManualEnable AND NOT B_Conflict))",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R14",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C03_H01_conveyor_cascade_interlock",
+    "base_b": "C03_H02_safety_zone_arbitration",
+    "direction": "A_to_B",
+    "activation_output": "A_C1Run"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

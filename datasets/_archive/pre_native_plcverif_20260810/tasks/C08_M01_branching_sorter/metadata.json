@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C08_M01_branching_sorter",
+  "title": "Branching item sorter sequence",
+  "category_id": "C08",
+  "category": "Sequential state machines",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "CASE",
+    "branching state machine"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 5,
+    "stateful_blocks": 0,
+    "interactions": 2,
+    "fault_modes": 1,
+    "horizon_scans": 4,
+    "inputs": 4,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "ItemPresent",
+        "type": "BOOL",
+        "description": "Item at inspection point"
+      },
+      {
+        "name": "RejectClass",
+        "type": "BOOL",
+        "description": "Item classified for rejection"
+      },
+      {
+        "name": "TransferDone",
+        "type": "BOOL",
+        "description": "Transfer completed"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Reset sequence"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Inspect",
+        "type": "BOOL",
+        "description": "Inspection active"
+      },
+      {
+        "name": "AcceptGate",
+        "type": "BOOL",
+        "description": "Accept path selected"
+      },
+      {
+        "name": "RejectGate",
+        "type": "BOOL",
+        "description": "Reject path selected"
+      },
+      {
+        "name": "State",
+        "type": "INT",
+        "description": "0 wait, 1 inspect, 2 accept, 3 reject"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "ItemPresent in wait state shall enter inspection.",
+      "property": "G((State=0 AND ItemPresent AND !Reset) -> X(State=1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Inspection shall branch to reject when RejectClass is TRUE and to accept otherwise.",
+      "property": "G((State=1 AND RejectClass) -> X(State=3)) AND G((State=1 AND !RejectClass) -> X(State=2))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "TransferDone in either transfer state shall return to wait.",
+      "property": "G(((State=2 OR State=3) AND TransferDone) -> X(State=0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Inspect, AcceptGate, and RejectGate shall be mutually exclusive and match State.",
+      "property": "G(outputs_match_sorter_state)",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Reset shall return to wait and close both gates.",
+      "property": "G(Reset -> (State=0 AND !Inspect AND !AcceptGate AND !RejectGate))",
+      "safety_critical": true
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C10_M02_lead_lag_demand_control",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "lead_and_high_demand",
+      "description": "Run the lead alone, then both pumps.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "LowDemand": true,
+            "HighDemand": false,
+            "LeadIsPump1": true,
+            "Pump1Available": true,
+            "Pump2Available": true
+          },
+          "expect": {
+            "Pump1Run": true,
+            "Pump2Run": false,
+            "CapacityShortfall": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "LowDemand": true,
+            "HighDemand": true,
+            "LeadIsPump1": true,
+            "Pump1Available": true,
+            "Pump2Available": true
+          },
+          "expect": {
+            "Pump1Run": true,
+            "Pump2Run": true,
+            "CapacityShortfall": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

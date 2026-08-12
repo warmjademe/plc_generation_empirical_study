@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C03_H01_conveyor_cascade_interlock",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "downstream_failures",
+      "description": "Propagate downstream restrictions and enforce stop.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RunRequest": true,
+            "Stop": false,
+            "C1Clear": true,
+            "C2Clear": true,
+            "C3Clear": true,
+            "C2Available": true,
+            "C3Available": false
+          },
+          "expect": {
+            "C1Run": false,
+            "C2Run": false,
+            "C3Run": false,
+            "Blocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RunRequest": true,
+            "Stop": false,
+            "C1Clear": true,
+            "C2Clear": false,
+            "C3Clear": true,
+            "C2Available": true,
+            "C3Available": true
+          },
+          "expect": {
+            "C1Run": false,
+            "C2Run": false,
+            "C3Run": true,
+            "Blocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RunRequest": true,
+            "Stop": true,
+            "C1Clear": true,
+            "C2Clear": true,
+            "C3Clear": true,
+            "C2Available": true,
+            "C3Available": true
+          },
+          "expect": {
+            "C1Run": false,
+            "C2Run": false,
+            "C3Run": false,
+            "Blocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

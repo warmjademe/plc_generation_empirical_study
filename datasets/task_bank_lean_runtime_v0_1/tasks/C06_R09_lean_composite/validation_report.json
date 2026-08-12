@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "task_id": "C06_R09_lean_composite",
+  "structural": {
+    "status": "not_run"
+  },
+  "external": {
+    "matiec": {
+      "status": "not_run"
+    },
+    "plcverif": {
+      "status": "not_run"
+    },
+    "openplc": {
+      "status": "not_run"
+    }
+  },
+  "screening": {
+    "kimi_k3_direct_once": "not_run"
+  }
+}

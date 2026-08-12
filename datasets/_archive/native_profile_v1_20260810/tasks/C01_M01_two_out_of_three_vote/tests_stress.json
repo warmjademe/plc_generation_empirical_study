@@ -1,0 +1,1942 @@
+{
+  "schema_version": "1.0",
+  "suite": "stress",
+  "task_id": "C01_M01_two_out_of_three_vote",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "frozen_reference_st_differential_trace",
+  "independent_requirement_oracle": false,
+  "seed": 20260810,
+  "cases": [
+    {
+      "id": "ST001",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST002",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST003",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST004",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST005",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST006",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST007",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST008",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST009",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST010",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST011",
+      "name": "hold_S1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST012",
+      "name": "hold_S2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST013",
+      "name": "hold_S3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST014",
+      "name": "conflict_S1_S2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST015",
+      "name": "conflict_S1_S3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST016",
+      "name": "conflict_S2_S3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST017",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST018",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST019",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST020",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": true,
+            "S3": true
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": false,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

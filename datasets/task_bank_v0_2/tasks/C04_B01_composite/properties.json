@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(A_Reset -> ((A_Count = 0) AND !A_AcceptedPulse))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(A_AcceptedPulse = (rose(A_Event) AND A_Qualify AND (prev(A_Count) < A_MaxCount) AND !A_Reset))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(A_Count <= A_MaxCount)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(A_AtLimit = (A_Count >= A_MaxCount))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(B_Reset -> (!B_Captured AND (B_Code = 0) AND !B_Pulse))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P6",
+      "requirement_ids": [
+        "R6"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((B_Arm AND !prev(B_Captured) AND rose(B_EventA) AND !B_Reset) -> (B_Captured AND (B_Code = 1) AND B_Pulse))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P7",
+      "requirement_ids": [
+        "R7"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((B_Arm AND rose(B_EventA) AND rose(B_EventB) AND !prev(B_Captured) AND !B_Reset) -> (B_Code = 1))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P8",
+      "requirement_ids": [
+        "R8"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((B_Arm AND !prev(B_Captured) AND !rose(B_EventA) AND rose(B_EventB) AND !B_Reset) -> (B_Code = 2))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P9",
+      "requirement_ids": [
+        "R9"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((prev(B_Captured) AND !B_Reset) -> (B_Captured AND (B_Code = prev(B_Code)) AND !B_Pulse))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P10",
+      "requirement_ids": [
+        "R10"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> !CrossReady) AND G((A_AcceptedPulse AND !CrossReset)->CrossReady)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P11",
+      "requirement_ids": [
+        "R11"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P12",
+      "requirement_ids": [
+        "R12"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P13",
+      "requirement_ids": [
+        "R13"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "source": "independently authored from the requirement contract"
+    }
+  ]
+}

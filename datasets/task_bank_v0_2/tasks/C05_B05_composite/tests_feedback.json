@@ -1,0 +1,547 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C05_B05_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": false,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": false,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": false,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": false,
+            "A_Delta": true,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": false,
+            "A_Delta": true,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Permit": false,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": false,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": true,
+            "B_Stop": false,
+            "B_Permit": true,
+            "B_Stage1Feedback": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": true,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": true,
+            "B_Stop": false,
+            "B_Permit": true,
+            "B_Stage1Feedback": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": true,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": true,
+            "B_Stop": false,
+            "B_Permit": true,
+            "B_Stage1Feedback": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": true,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": true,
+            "B_Stop": false,
+            "B_Permit": true,
+            "B_Stage1Feedback": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": true,
+            "B_Stage2": false,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": true,
+            "B_Stop": false,
+            "B_Permit": true,
+            "B_Stage1Feedback": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": true,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": true,
+            "B_Stage2": true,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Overload": false,
+            "A_Reset": false,
+            "B_Start": true,
+            "B_Stop": false,
+            "B_Permit": true,
+            "B_Stage1Feedback": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Main": true,
+            "A_Star": false,
+            "A_Delta": false,
+            "A_Fault": false,
+            "B_Stage1": true,
+            "B_Stage2": true,
+            "B_Fault": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

@@ -1,0 +1,7256 @@
+{
+  "schema_version": "1.0",
+  "suite": "stress",
+  "task_id": "C07_X01_plausible_rate_limited_fusion",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "frozen_reference_st_differential_trace",
+  "independent_requirement_oracle": false,
+  "seed": 20260810,
+  "cases": [
+    {
+      "id": "ST001",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 11.0,
+            "ValidOutput": true,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 50.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 12.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST002",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": true,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 13.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 15.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST003",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 1.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 2.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST004",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST005",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 2.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": -0.5,
+            "ValidOutput": true,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST006",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.5,
+            "SensorB": 13.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST007",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 1.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 1.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST008",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 11.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST009",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": -1.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST010",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 10.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST011",
+      "name": "boundary_009",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST012",
+      "name": "boundary_010",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST013",
+      "name": "boundary_011",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 1.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.0,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST014",
+      "name": "boundary_012",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST015",
+      "name": "boundary_013",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.5,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST016",
+      "name": "boundary_014",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.5,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST017",
+      "name": "boundary_015",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST018",
+      "name": "boundary_016",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST019",
+      "name": "boundary_017",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 12.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST020",
+      "name": "boundary_018",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.5,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 12.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST021",
+      "name": "boundary_019",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST022",
+      "name": "boundary_020",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST023",
+      "name": "boundary_021",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": -1.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.5,
+            "MaxRate": 5.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST024",
+      "name": "boundary_022",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 1.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 12.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST025",
+      "name": "boundary_023",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST026",
+      "name": "boundary_024",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 10.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST027",
+      "name": "boundary_025",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": -1.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST028",
+      "name": "boundary_026",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 5.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST029",
+      "name": "boundary_027",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.5,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST030",
+      "name": "boundary_028",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST031",
+      "name": "boundary_029",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.5,
+            "SensorB": 1.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 5.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST032",
+      "name": "boundary_030",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.5,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST033",
+      "name": "boundary_031",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": -1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST034",
+      "name": "boundary_032",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST035",
+      "name": "boundary_033",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": -1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST036",
+      "name": "boundary_034",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST037",
+      "name": "boundary_035",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": -1.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 2.5,
+            "MaxRate": 4.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST038",
+      "name": "boundary_036",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST039",
+      "name": "boundary_037",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 1.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 1.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 1.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST040",
+      "name": "boundary_038",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST041",
+      "name": "boundary_039",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST042",
+      "name": "boundary_040",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST043",
+      "name": "boundary_041",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST044",
+      "name": "boundary_042",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 2.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST045",
+      "name": "boundary_043",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 2.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST046",
+      "name": "boundary_044",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 4.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST047",
+      "name": "boundary_045",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST048",
+      "name": "boundary_046",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST049",
+      "name": "boundary_047",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": -1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST050",
+      "name": "boundary_048",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 4.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST051",
+      "name": "boundary_049",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST052",
+      "name": "boundary_050",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.0,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST053",
+      "name": "boundary_051",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST054",
+      "name": "boundary_052",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST055",
+      "name": "boundary_053",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 1.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST056",
+      "name": "boundary_054",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 1.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 1.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST057",
+      "name": "boundary_055",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": -1.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST058",
+      "name": "boundary_056",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 12.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST059",
+      "name": "boundary_057",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 1.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST060",
+      "name": "boundary_058",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST061",
+      "name": "boundary_059",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 11.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST062",
+      "name": "boundary_060",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST063",
+      "name": "boundary_061",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 5.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST064",
+      "name": "boundary_062",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.5,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": -1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST065",
+      "name": "boundary_063",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST066",
+      "name": "boundary_064",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 11.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST067",
+      "name": "hold_ValidA",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST068",
+      "name": "hold_ValidB",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST069",
+      "name": "hold_Enable",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST070",
+      "name": "hold_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST071",
+      "name": "conflict_ValidA_ValidB",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST072",
+      "name": "conflict_ValidA_Enable",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST073",
+      "name": "conflict_ValidA_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST074",
+      "name": "conflict_ValidB_Enable",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST075",
+      "name": "conflict_ValidB_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST076",
+      "name": "conflict_Enable_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST077",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.5,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.5,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.5,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.5,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.5,
+            "MaxRate": 2.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 1.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 1.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 1.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 4.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST078",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 0.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 1.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 1.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 1.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 10.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 10.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 12.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST079",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 1.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 5.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 5.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 5.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 5.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 10.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.5,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.5,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 0.5,
+            "MaxRate": 1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 13.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 2.0,
+            "MaxRate": -1.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": 11.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": -1.0,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 12.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 13.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 1.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 1.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 1.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 1.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 0.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 1.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 0.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": -1.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 11.5,
+            "SensorB": 13.0,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST080",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 9.5,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 0.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 12.5,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 10.5,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 0.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 9.5,
+            "SensorB": 9.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.5,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 1.5,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": -1.0,
+            "SensorB": 11.5,
+            "ValidA": false,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 2.0,
+            "MaxRate": -1.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 9.5,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 1.0,
+            "SensorB": -1.0,
+            "ValidA": false,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.5,
+            "MaxRate": 1.5,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": -1.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": false,
+            "MaxDifference": 0.0,
+            "MaxRate": 5.5,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": -1.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

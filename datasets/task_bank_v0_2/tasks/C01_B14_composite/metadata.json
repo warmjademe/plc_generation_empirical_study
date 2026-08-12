@@ -1,0 +1,226 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C01_B14_composite",
+  "title": "Composed supervisory control: Mode-dependent command selection -> Redundant-channel safety gate",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "AND",
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "NOT",
+    "OR",
+    "compositional control",
+    "inequality",
+    "latched readiness",
+    "priority",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 10,
+    "stateful_blocks": 0,
+    "interactions": 13,
+    "fault_modes": 5,
+    "horizon_scans": 5,
+    "inputs": 12,
+    "outputs": 7,
+    "requirements": 10
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_AutoMode",
+        "type": "BOOL",
+        "description": "Subsystem A: TRUE selects automatic mode"
+      },
+      {
+        "name": "A_AutoDemand",
+        "type": "BOOL",
+        "description": "Subsystem A: Automatic request"
+      },
+      {
+        "name": "A_ManualDemand",
+        "type": "BOOL",
+        "description": "Subsystem A: Manual request"
+      },
+      {
+        "name": "A_SafetyOK",
+        "type": "BOOL",
+        "description": "Subsystem A: Common safety permission"
+      },
+      {
+        "name": "A_Inhibit",
+        "type": "BOOL",
+        "description": "Subsystem A: High-priority inhibit"
+      },
+      {
+        "name": "B_ChA",
+        "type": "BOOL",
+        "description": "Subsystem B: Safety channel A"
+      },
+      {
+        "name": "B_ChB",
+        "type": "BOOL",
+        "description": "Subsystem B: Safety channel B"
+      },
+      {
+        "name": "B_TestMode",
+        "type": "BOOL",
+        "description": "Subsystem B: Maintenance test mode"
+      },
+      {
+        "name": "B_TestPermit",
+        "type": "BOOL",
+        "description": "Subsystem B: Independent test authorization"
+      },
+      {
+        "name": "B_ProcessRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Process run request"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Command",
+        "type": "BOOL",
+        "description": "Subsystem A: Selected command"
+      },
+      {
+        "name": "A_Blocked",
+        "type": "BOOL",
+        "description": "Subsystem A: A request exists but is blocked"
+      },
+      {
+        "name": "B_SafeEnable",
+        "type": "BOOL",
+        "description": "Subsystem B: Permitted process output"
+      },
+      {
+        "name": "B_Disagree",
+        "type": "BOOL",
+        "description": "Subsystem B: Channel disagreement"
+      },
+      {
+        "name": "B_TestActive",
+        "type": "BOOL",
+        "description": "Subsystem B: Authorized test-mode indication"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Command"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Command shall follow A_AutoDemand in automatic mode and A_ManualDemand in manual mode, but only when A_SafetyOK is TRUE and A_Inhibit is FALSE.",
+      "property": "G(A_Command = (((A_AutoMode AND A_AutoDemand) OR ((!A_AutoMode) AND A_ManualDemand)) AND A_SafetyOK AND (!A_Inhibit)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Blocked shall be TRUE when the selected request is TRUE but safety is not OK or A_Inhibit is TRUE.",
+      "property": "G(A_Blocked = (((A_AutoMode AND A_AutoDemand) OR ((!A_AutoMode) AND A_ManualDemand)) AND ((!A_SafetyOK) OR A_Inhibit)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Disagree shall be TRUE exactly when B_ChA and B_ChB differ.",
+      "property": "G(B_Disagree = (B_ChA <> B_ChB))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Normal B_SafeEnable requires B_ProcessRequest and both channels TRUE.",
+      "property": "G((!B_TestMode) -> (B_SafeEnable = (B_ProcessRequest AND B_ChA AND B_ChB)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Test mode may bypass B_ChB only when B_TestPermit and B_ChA are TRUE.",
+      "property": "G(B_TestMode -> (B_SafeEnable = (B_ProcessRequest AND B_TestPermit AND B_ChA)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_TestActive shall indicate B_TestMode and B_TestPermit together.",
+      "property": "G(B_TestActive = (B_TestMode AND B_TestPermit))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "A TRUE A_Command shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Command AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C01_M02_mode_dependent_command",
+    "base_b": "C01_H02_redundant_channel_gate",
+    "direction": "A_to_B",
+    "activation_output": "A_Command"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

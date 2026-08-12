@@ -1,0 +1,218 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C07_B15_composite",
+  "title": "Composed supervisory control: Temperature control with hysteresis -> Clamped analog scaling with range status",
+  "category_id": "C07",
+  "category": "Analog processing",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "REAL",
+    "clamping",
+    "compositional control",
+    "conversion",
+    "hysteresis",
+    "latched readiness",
+    "retained output",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 8,
+    "stateful_blocks": 0,
+    "interactions": 10,
+    "fault_modes": 5,
+    "horizon_scans": 7,
+    "inputs": 7,
+    "outputs": 7,
+    "requirements": 12
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Temperature",
+        "type": "REAL",
+        "description": "Subsystem A: Measured temperature"
+      },
+      {
+        "name": "A_LowThreshold",
+        "type": "REAL",
+        "description": "Subsystem A: Heater-on threshold"
+      },
+      {
+        "name": "A_HighThreshold",
+        "type": "REAL",
+        "description": "Subsystem A: Heater-off threshold"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Controller enable"
+      },
+      {
+        "name": "B_Raw",
+        "type": "INT",
+        "description": "Subsystem B: Raw input nominally 0 through 4095"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Heater",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched heater command"
+      },
+      {
+        "name": "A_ConfigError",
+        "type": "BOOL",
+        "description": "Subsystem A: Threshold configuration invalid"
+      },
+      {
+        "name": "B_Engineering",
+        "type": "REAL",
+        "description": "Subsystem B: Scaled output 0.0 through 10.0"
+      },
+      {
+        "name": "B_UnderRange",
+        "type": "BOOL",
+        "description": "Subsystem B: Raw below zero"
+      },
+      {
+        "name": "B_OverRange",
+        "type": "BOOL",
+        "description": "Subsystem B: Raw above 4095"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Heater"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_ConfigError shall be TRUE when A_LowThreshold is not less than A_HighThreshold.",
+      "property": "G(A_ConfigError = (A_LowThreshold>=A_HighThreshold))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Disable or A_ConfigError shall turn A_Heater off.",
+      "property": "G((!A_Enable OR A_ConfigError) -> !A_Heater)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: While enabled with valid thresholds, A_Temperature below or equal to A_LowThreshold shall turn A_Heater on.",
+      "property": "G((A_Enable AND !A_ConfigError AND A_Temperature<=A_LowThreshold) -> A_Heater)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Temperature above or equal to A_HighThreshold shall turn A_Heater off.",
+      "property": "G((A_Enable AND !A_ConfigError AND A_Temperature>=A_HighThreshold) -> !A_Heater)",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: Between thresholds, A_Heater shall retain its previous state.",
+      "property": "G((A_Enable AND !A_ConfigError AND A_Temperature>A_LowThreshold AND A_Temperature<A_HighThreshold) -> A_Heater=prev(A_Heater))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Raw below zero shall set B_UnderRange, clear B_OverRange, and clamp B_Engineering to 0.0.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Raw<0) -> (B_UnderRange AND !B_OverRange AND B_Engineering=0.0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Raw above 4095 shall set B_OverRange, clear B_UnderRange, and clamp B_Engineering to 10.0.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Raw>4095) -> (B_OverRange AND !B_UnderRange AND B_Engineering=10.0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: In-range B_Raw shall clear both flags and scale linearly to 0.0 through 10.0.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Raw>=0 AND B_Raw<=4095) -> (!B_UnderRange AND !B_OverRange AND B_Engineering=INT_TO_REAL(B_Raw)*10.0/4095.0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "A TRUE A_Heater shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Heater AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND B_Engineering=0.0 AND NOT B_UnderRange AND NOT B_OverRange)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (B_Engineering=0.0 AND NOT B_UnderRange AND NOT B_OverRange))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C07_M02_temperature_hysteresis",
+    "base_b": "C07_M01_clamped_scaling",
+    "direction": "A_to_B",
+    "activation_output": "A_Heater"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

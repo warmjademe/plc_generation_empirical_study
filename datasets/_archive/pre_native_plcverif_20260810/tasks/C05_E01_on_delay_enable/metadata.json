@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C05_E01_on_delay_enable",
+  "title": "On-delay enable",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "TIME",
+    "TON"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 2,
+    "stateful_blocks": 1,
+    "interactions": 0,
+    "fault_modes": 0,
+    "horizon_scans": 5,
+    "inputs": 2,
+    "outputs": 1,
+    "requirements": 2
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Input to be delayed"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Immediate reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Delayed",
+        "type": "BOOL",
+        "description": "Delayed output"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Timer tests check exact boundaries with a declared one-scan infrastructure tolerance and stable states without tolerance.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Delayed shall remain FALSE until Enable has remained TRUE continuously for 300 ms.",
+      "property": "G((continuous(Enable,3) AND !Reset) -> Delayed)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Reset or Enable FALSE shall make Delayed FALSE without an additional delay.",
+      "property": "G((Reset OR !Enable) -> !Delayed)",
+      "safety_critical": true
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

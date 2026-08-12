@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C02_X01_restart_inhibit_latch",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "safety_loss_restart_sequence",
+      "description": "Require release of the selected start before reset.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AutoMode": false,
+            "AutoStart": false,
+            "ManualStart": true,
+            "Stop": false,
+            "Enable": true,
+            "SafetyOK": true,
+            "Reset": false
+          },
+          "expect": {
+            "Running": true,
+            "RestartRequired": false,
+            "RejectedStart": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AutoMode": false,
+            "AutoStart": false,
+            "ManualStart": true,
+            "Stop": false,
+            "Enable": true,
+            "SafetyOK": false,
+            "Reset": false
+          },
+          "expect": {
+            "Running": false,
+            "RestartRequired": true,
+            "RejectedStart": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AutoMode": false,
+            "AutoStart": false,
+            "ManualStart": true,
+            "Stop": false,
+            "Enable": true,
+            "SafetyOK": true,
+            "Reset": true
+          },
+          "expect": {
+            "Running": false,
+            "RestartRequired": true,
+            "RejectedStart": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AutoMode": false,
+            "AutoStart": false,
+            "ManualStart": false,
+            "Stop": false,
+            "Enable": true,
+            "SafetyOK": true,
+            "Reset": true
+          },
+          "expect": {
+            "Running": false,
+            "RestartRequired": false,
+            "RejectedStart": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

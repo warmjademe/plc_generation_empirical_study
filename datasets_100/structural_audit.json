@@ -1,0 +1,31 @@
+{
+  "category_counts": {
+    "C01": 10,
+    "C02": 10,
+    "C03": 10,
+    "C04": 10,
+    "C05": 10,
+    "C06": 10,
+    "C07": 10,
+    "C08": 10,
+    "C09": 10,
+    "C10": 10
+  },
+  "error_count": 0,
+  "errors": [],
+  "known_exclusions_absent": true,
+  "schema_version": "1.0",
+  "scope": [
+    "task count and category balance",
+    "known data-quality exclusions",
+    "required artifacts and identities",
+    "feedback/sealed OpenPLC case presence",
+    "interface-to-oracle variable consistency",
+    "requirement identifiers referenced by runtime cases",
+    "nonempty formal properties",
+    "manifest file hashes",
+    "historical runtime cap and qualified-reference hash"
+  ],
+  "success": true,
+  "task_count": 100
+}

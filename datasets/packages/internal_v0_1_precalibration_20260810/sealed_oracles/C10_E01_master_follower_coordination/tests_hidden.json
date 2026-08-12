@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C10_E01_master_follower_coordination",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "readiness_interlocks",
+      "description": "Check master dependency and follower availability.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RunRequest": true,
+            "MasterReady": false,
+            "FollowerReady": true
+          },
+          "expect": {
+            "MasterRun": false,
+            "FollowerRun": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RunRequest": true,
+            "MasterReady": true,
+            "FollowerReady": false
+          },
+          "expect": {
+            "MasterRun": true,
+            "FollowerRun": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

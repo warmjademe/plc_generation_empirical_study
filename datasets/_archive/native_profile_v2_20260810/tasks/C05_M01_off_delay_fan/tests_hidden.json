@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C05_M01_off_delay_fan",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "trip_during_run_on",
+      "description": "Safety trip overrides the remaining off delay.",
+      "requirement_ids": [
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Demand": true,
+            "SafetyTrip": false
+          },
+          "expect": {
+            "Fan": true,
+            "RunOn": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Demand": false,
+            "SafetyTrip": false
+          },
+          "expect": {
+            "Fan": true,
+            "RunOn": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Demand": false,
+            "SafetyTrip": true
+          },
+          "expect": {
+            "Fan": false,
+            "RunOn": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

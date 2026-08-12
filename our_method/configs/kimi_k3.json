@@ -1,0 +1,20 @@
+{
+  "provider": {
+    "name": "kimi-coding",
+    "base_url": "https://api.kimi.com/coding/v1",
+    "api_key_env": "KIMI_API_KEY",
+    "requested_model": "k3",
+    "allowed_resolved_models": ["k3"],
+    "timeout_seconds": 180,
+    "max_output_tokens": 8192,
+    "history_mode": "full"
+  },
+  "experiment": {
+    "max_candidates": 10,
+    "max_feedback_chars": 6000,
+    "required_visible_gates": ["interface", "compiler", "feedback_tests", "formal"],
+    "sealed_gate": "sealed_openplc",
+    "stop_on_visible_pass": true
+  },
+  "validators": []
+}

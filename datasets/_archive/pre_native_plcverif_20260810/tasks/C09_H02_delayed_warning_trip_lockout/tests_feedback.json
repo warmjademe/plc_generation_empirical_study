@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C09_H02_delayed_warning_trip_lockout",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "warning_delay_and_ack",
+      "description": "Qualify a warning across three elapsed intervals and acknowledge it.",
+      "requirement_ids": [
+        "R1",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "WarningCondition": true,
+            "TripCondition": false,
+            "Enable": true,
+            "Acknowledge": false,
+            "Reset": false
+          },
+          "expect": {
+            "Warning": true,
+            "Trip": false,
+            "Unacked": true,
+            "LockedOut": false
+          },
+          "repeat": 4,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "WarningCondition": true,
+            "TripCondition": false,
+            "Enable": true,
+            "Acknowledge": true,
+            "Reset": false
+          },
+          "expect": {
+            "Warning": true,
+            "Trip": false,
+            "Unacked": false,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

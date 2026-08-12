@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C09_H02_delayed_warning_trip_lockout",
+  "title": "Delayed warning with trip lockout and acknowledgement",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "TIME",
+    "TON",
+    "edge memory",
+    "alarm acknowledgement",
+    "trip lockout"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 8,
+    "stateful_blocks": 1,
+    "interactions": 7,
+    "fault_modes": 2,
+    "horizon_scans": 7,
+    "inputs": 5,
+    "outputs": 4,
+    "requirements": 6
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "WarningCondition",
+        "type": "BOOL",
+        "description": "Warning-level condition"
+      },
+      {
+        "name": "TripCondition",
+        "type": "BOOL",
+        "description": "Immediate trip condition"
+      },
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Alarm system enable"
+      },
+      {
+        "name": "Acknowledge",
+        "type": "BOOL",
+        "description": "Operator acknowledgement"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Qualified trip reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Warning",
+        "type": "BOOL",
+        "description": "Time-qualified warning"
+      },
+      {
+        "name": "Trip",
+        "type": "BOOL",
+        "description": "Latched trip"
+      },
+      {
+        "name": "Unacked",
+        "type": "BOOL",
+        "description": "Unacknowledged active event"
+      },
+      {
+        "name": "LockedOut",
+        "type": "BOOL",
+        "description": "Equipment lockout"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Acknowledge has priority over a new Unacked indication within the same scan.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "WarningCondition shall assert Warning only after it remains enabled for 300 ms.",
+      "property": "G(within(3, (Enable AND WarningCondition), Warning))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "TripCondition while enabled shall immediately latch Trip and LockedOut.",
+      "property": "G((Enable AND TripCondition) -> (Trip AND LockedOut))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "A newly asserted Warning or Trip shall set Unacked.",
+      "property": "G((rose(Warning) OR rose(Trip)) -> Unacked)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Acknowledge shall clear Unacked without clearing active Warning or latched Trip.",
+      "property": "G(Acknowledge -> !Unacked)",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Reset shall clear Trip and LockedOut only while both conditions and Enable are FALSE.",
+      "property": "G((Reset AND !Enable AND !WarningCondition AND !TripCondition) -> (!Trip AND !LockedOut))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "Disabling the system shall clear the non-latched Warning but not an existing Trip.",
+      "property": "G(!Enable -> !Warning)",
+      "safety_critical": true
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C07_B07_composite",
+  "title": "Composed supervisory control: Rate-of-change monitoring with latched trip -> Temperature control with hysteresis",
+  "category_id": "C07",
+  "category": "Analog processing",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "REAL",
+    "arithmetic",
+    "boundary monitoring",
+    "compositional control",
+    "fault latch",
+    "hysteresis",
+    "latched readiness",
+    "retained output",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 12,
+    "stateful_blocks": 0,
+    "interactions": 13,
+    "fault_modes": 5,
+    "horizon_scans": 9,
+    "inputs": 11,
+    "outputs": 7,
+    "requirements": 14
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Value",
+        "type": "REAL",
+        "description": "Subsystem A: Current process value"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Monitoring enable"
+      },
+      {
+        "name": "A_MaxRise",
+        "type": "REAL",
+        "description": "Subsystem A: Maximum permitted positive change per scan"
+      },
+      {
+        "name": "A_MaxFall",
+        "type": "REAL",
+        "description": "Subsystem A: Maximum permitted negative change magnitude per scan"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Trip reset"
+      },
+      {
+        "name": "B_Temperature",
+        "type": "REAL",
+        "description": "Subsystem B: Measured temperature"
+      },
+      {
+        "name": "B_LowThreshold",
+        "type": "REAL",
+        "description": "Subsystem B: Heater-on threshold"
+      },
+      {
+        "name": "B_HighThreshold",
+        "type": "REAL",
+        "description": "Subsystem B: Heater-off threshold"
+      },
+      {
+        "name": "B_Enable",
+        "type": "BOOL",
+        "description": "Subsystem B: Controller enable"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Delta",
+        "type": "REAL",
+        "description": "Subsystem A: Current minus previous value"
+      },
+      {
+        "name": "A_Trip",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched rate trip"
+      },
+      {
+        "name": "A_Ready",
+        "type": "BOOL",
+        "description": "Subsystem A: A previous enabled sample exists"
+      },
+      {
+        "name": "B_Heater",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched heater command"
+      },
+      {
+        "name": "B_ConfigError",
+        "type": "BOOL",
+        "description": "Subsystem B: Threshold configuration invalid"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Trip"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem A: A_MaxRise and A_MaxFall are non-negative and remain constant during a test.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: The first enabled sample shall initialize history, set A_Ready, and shall not A_Trip.",
+      "property": "G(rose(A_Enable) -> (A_Ready AND !A_Trip))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: For subsequent enabled samples, A_Delta shall equal A_Value minus the A_Previous enabled A_Value.",
+      "property": "G((A_Enable AND prev(A_Ready)) -> A_Delta=A_Value-prev(A_Value))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A A_Delta above A_MaxRise or below negative A_MaxFall shall latch A_Trip.",
+      "property": "G((A_Ready AND (A_Delta>A_MaxRise OR A_Delta<(-A_MaxFall))) -> A_Trip)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Trip shall remain set until A_Reset occurs while A_Enable is FALSE.",
+      "property": "G((A_Trip AND !(A_Reset AND !A_Enable)) -> X(A_Trip))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: Disabling monitoring shall clear A_Ready but shall not by itself clear A_Trip.",
+      "property": "G(!A_Enable -> !A_Ready)",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_ConfigError shall be TRUE when B_LowThreshold is not less than B_HighThreshold.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_ConfigError = (B_LowThreshold>=B_HighThreshold)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Disable or B_ConfigError shall turn B_Heater off.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((!B_Enable OR B_ConfigError) -> !B_Heater))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: While enabled with valid thresholds, B_Temperature below or equal to B_LowThreshold shall turn B_Heater on.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Enable AND !B_ConfigError AND B_Temperature<=B_LowThreshold) -> B_Heater))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Temperature above or equal to B_HighThreshold shall turn B_Heater off.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Enable AND !B_ConfigError AND B_Temperature>=B_HighThreshold) -> !B_Heater))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Between thresholds, B_Heater shall retain its previous state.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Enable AND !B_ConfigError AND B_Temperature>B_LowThreshold AND B_Temperature<B_HighThreshold) -> B_Heater=prev(B_Heater)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "A TRUE A_Trip shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Trip AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Heater AND NOT B_ConfigError)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Heater AND NOT B_ConfigError))",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R14",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C07_H02_rate_of_change_trip",
+    "base_b": "C07_M02_temperature_hysteresis",
+    "direction": "A_to_B",
+    "activation_output": "A_Trip"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

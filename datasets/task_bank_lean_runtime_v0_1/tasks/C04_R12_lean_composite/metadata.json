@@ -1,0 +1,220 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C04_R12_lean_composite",
+  "title": "Composed supervisory control: Armed falling-edge pulse -> Redundant-channel safety gate",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "compositional control",
+    "falling edge",
+    "inequality",
+    "latched readiness",
+    "priority",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 11,
+    "stateful_blocks": 1,
+    "interactions": 11,
+    "fault_modes": 5,
+    "horizon_scans": 8,
+    "inputs": 9,
+    "outputs": 7,
+    "requirements": 11
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Signal",
+        "type": "BOOL",
+        "description": "Subsystem A: Observed signal"
+      },
+      {
+        "name": "A_Arm",
+        "type": "BOOL",
+        "description": "Subsystem A: Enable edge reporting"
+      },
+      {
+        "name": "B_ChA",
+        "type": "BOOL",
+        "description": "Subsystem B: Safety channel A"
+      },
+      {
+        "name": "B_ChB",
+        "type": "BOOL",
+        "description": "Subsystem B: Safety channel B"
+      },
+      {
+        "name": "B_TestMode",
+        "type": "BOOL",
+        "description": "Subsystem B: Maintenance test mode"
+      },
+      {
+        "name": "B_TestPermit",
+        "type": "BOOL",
+        "description": "Subsystem B: Independent test authorization"
+      },
+      {
+        "name": "B_ProcessRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Process run request"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Pulse",
+        "type": "BOOL",
+        "description": "Subsystem A: One-scan falling-edge pulse"
+      },
+      {
+        "name": "A_Armed",
+        "type": "BOOL",
+        "description": "Subsystem A: Current armed status"
+      },
+      {
+        "name": "B_SafeEnable",
+        "type": "BOOL",
+        "description": "Subsystem B: Permitted process output"
+      },
+      {
+        "name": "B_Disagree",
+        "type": "BOOL",
+        "description": "Subsystem B: Channel disagreement"
+      },
+      {
+        "name": "B_TestActive",
+        "type": "BOOL",
+        "description": "Subsystem B: Authorized test-mode indication"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Pulse"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Armed shall equal A_Arm at the end of each scan.",
+      "property": "G(A_Armed = A_Arm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Pulse shall occur on a TRUE-to-FALSE A_Signal transition only when A_Arm is TRUE.",
+      "property": "G(A_Pulse = (A_Arm AND fell(A_Signal)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Disarming shall suppress A_Pulse without corrupting future edge detection.",
+      "property": "G(!A_Arm -> !A_Pulse)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Disagree shall be TRUE exactly when B_ChA and B_ChB differ.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Disagree = (B_ChA <> B_ChB)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Normal B_SafeEnable requires B_ProcessRequest and both channels TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((!B_TestMode) -> (B_SafeEnable = (B_ProcessRequest AND B_ChA AND B_ChB))))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Test mode may bypass B_ChB only when B_TestPermit and B_ChA are TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_TestMode -> (B_SafeEnable = (B_ProcessRequest AND B_TestPermit AND B_ChA))))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_TestActive shall indicate B_TestMode and B_TestPermit together.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_TestActive = (B_TestMode AND B_TestPermit)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "A TRUE A_Pulse shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Pulse AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_SafeEnable AND NOT B_Disagree AND NOT B_TestActive)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_SafeEnable AND NOT B_Disagree AND NOT B_TestActive))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C04_M01_falling_edge_pulse",
+    "base_b": "C01_H02_redundant_channel_gate",
+    "direction": "A_to_B",
+    "activation_output": "A_Pulse",
+    "runtime_design": "one stateful primary subsystem plus one stateless Boolean subsystem"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

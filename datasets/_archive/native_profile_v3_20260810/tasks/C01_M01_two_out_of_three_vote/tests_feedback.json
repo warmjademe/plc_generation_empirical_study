@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C01_M01_two_out_of_three_vote",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "majority_cases",
+      "description": "One positive and one negative majority case.",
+      "requirement_ids": [
+        "R1"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "S1": true,
+            "S2": true,
+            "S3": false
+          },
+          "expect": {
+            "Vote": true,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "S1": true,
+            "S2": false,
+            "S3": false
+          },
+          "expect": {
+            "Vote": false,
+            "Unanimous": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

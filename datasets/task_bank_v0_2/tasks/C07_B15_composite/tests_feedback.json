@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C07_B15_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Temperature": 18.0,
+            "A_LowThreshold": 19.0,
+            "A_HighThreshold": 21.0,
+            "A_Enable": true,
+            "B_Raw": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heater": true,
+            "A_ConfigError": false,
+            "B_Engineering": 0.0,
+            "B_UnderRange": false,
+            "B_OverRange": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Temperature": 20.0,
+            "A_LowThreshold": 19.0,
+            "A_HighThreshold": 21.0,
+            "A_Enable": true,
+            "B_Raw": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heater": true,
+            "A_ConfigError": false,
+            "B_Engineering": 0.0,
+            "B_UnderRange": false,
+            "B_OverRange": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Temperature": 21.0,
+            "A_LowThreshold": 19.0,
+            "A_HighThreshold": 21.0,
+            "A_Enable": true,
+            "B_Raw": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heater": false,
+            "A_ConfigError": false,
+            "B_Engineering": 0.0,
+            "B_UnderRange": false,
+            "B_OverRange": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Temperature": 18.0,
+            "A_LowThreshold": 19.0,
+            "A_HighThreshold": 21.0,
+            "A_Enable": true,
+            "B_Raw": 0,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heater": true,
+            "A_ConfigError": false,
+            "B_Engineering": 0.0,
+            "B_UnderRange": false,
+            "B_OverRange": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Temperature": 18.0,
+            "A_LowThreshold": 19.0,
+            "A_HighThreshold": 21.0,
+            "A_Enable": true,
+            "B_Raw": -1,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heater": true,
+            "A_ConfigError": false,
+            "B_Engineering": 0.0,
+            "B_UnderRange": true,
+            "B_OverRange": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Temperature": 18.0,
+            "A_LowThreshold": 19.0,
+            "A_HighThreshold": 21.0,
+            "A_Enable": true,
+            "B_Raw": 4096,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Heater": true,
+            "A_ConfigError": false,
+            "B_Engineering": 10.0,
+            "B_UnderRange": false,
+            "B_OverRange": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

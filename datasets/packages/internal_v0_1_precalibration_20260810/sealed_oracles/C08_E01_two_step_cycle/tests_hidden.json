@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C08_E01_two_step_cycle",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "ignore_wrong_completion_and_reset",
+      "description": "Ignore completion signals in idle and reset from an active state.",
+      "requirement_ids": [
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": false,
+            "Step1Done": true,
+            "Step2Done": true,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": false,
+            "Step2": false,
+            "Complete": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Step1Done": false,
+            "Step2Done": false,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": true,
+            "Step2": false,
+            "Complete": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Step1Done": false,
+            "Step2Done": false,
+            "Reset": true
+          },
+          "expect": {
+            "Step1": false,
+            "Step2": false,
+            "Complete": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C08_E01_two_step_cycle",
+  "title": "Two-step process cycle",
+  "category_id": "C08",
+  "category": "Sequential state machines",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "CASE",
+    "state machine",
+    "retained output"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 4,
+    "stateful_blocks": 0,
+    "interactions": 1,
+    "fault_modes": 0,
+    "horizon_scans": 4,
+    "inputs": 4,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start cycle"
+      },
+      {
+        "name": "Step1Done",
+        "type": "BOOL",
+        "description": "Step 1 completion"
+      },
+      {
+        "name": "Step2Done",
+        "type": "BOOL",
+        "description": "Step 2 completion"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Return to idle"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Step1",
+        "type": "BOOL",
+        "description": "Step 1 active"
+      },
+      {
+        "name": "Step2",
+        "type": "BOOL",
+        "description": "Step 2 active"
+      },
+      {
+        "name": "Complete",
+        "type": "BOOL",
+        "description": "Cycle complete"
+      },
+      {
+        "name": "State",
+        "type": "INT",
+        "description": "0 idle, 1 step 1, 2 step 2, 3 complete"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Start in idle shall enter Step 1.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Step1Done in Step 1 shall enter Step 2.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Step2Done in Step 2 shall enter complete state.",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Only the output corresponding to the current active step shall be TRUE; Complete is TRUE only in state 3.",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Reset shall return to idle from any state.",
+      "safety_critical": false
+    }
+  ]
+}

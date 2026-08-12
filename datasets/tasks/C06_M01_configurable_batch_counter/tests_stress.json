@@ -1,0 +1,4130 @@
+{
+  "schema_version": "1.0",
+  "suite": "stress",
+  "task_id": "C06_M01_configurable_batch_counter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "frozen_reference_st_differential_trace",
+  "independent_requirement_oracle": false,
+  "seed": 20260810,
+  "cases": [
+    {
+      "id": "ST001",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST002",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 2,
+            "BatchDone": true,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 2,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 2,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST003",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST004",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST005",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST006",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST007",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST008",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST009",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST010",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST011",
+      "name": "boundary_009",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST012",
+      "name": "boundary_010",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST013",
+      "name": "boundary_011",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST014",
+      "name": "boundary_012",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST015",
+      "name": "boundary_013",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST016",
+      "name": "boundary_014",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST017",
+      "name": "boundary_015",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST018",
+      "name": "boundary_016",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST019",
+      "name": "boundary_017",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST020",
+      "name": "boundary_018",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST021",
+      "name": "boundary_019",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST022",
+      "name": "boundary_020",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST023",
+      "name": "boundary_021",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST024",
+      "name": "boundary_022",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST025",
+      "name": "boundary_023",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST026",
+      "name": "boundary_024",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST027",
+      "name": "boundary_025",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST028",
+      "name": "boundary_026",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": true,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST029",
+      "name": "boundary_027",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST030",
+      "name": "boundary_028",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST031",
+      "name": "boundary_029",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 3,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST032",
+      "name": "boundary_030",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST033",
+      "name": "boundary_031",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST034",
+      "name": "boundary_032",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST035",
+      "name": "boundary_033",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST036",
+      "name": "boundary_034",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST037",
+      "name": "boundary_035",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST038",
+      "name": "boundary_036",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST039",
+      "name": "boundary_037",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST040",
+      "name": "boundary_038",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST041",
+      "name": "boundary_039",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 3,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST042",
+      "name": "boundary_040",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST043",
+      "name": "hold_Item",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST044",
+      "name": "hold_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST045",
+      "name": "hold_Enable",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST046",
+      "name": "conflict_Item_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST047",
+      "name": "conflict_Item_Enable",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST048",
+      "name": "conflict_Reset_Enable",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST049",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST050",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": -1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST051",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "ST052",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 0,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 3,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 0,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": -1,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": true,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": true,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": true,
+            "Target": 1,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

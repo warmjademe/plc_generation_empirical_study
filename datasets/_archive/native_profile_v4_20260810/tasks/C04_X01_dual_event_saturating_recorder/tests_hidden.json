@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C04_X01_dual_event_saturating_recorder",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "saturation_and_qualified_reset",
+      "description": "Saturate at the configured boundary and reset only with both inputs low.",
+      "requirement_ids": [
+        "R3",
+        "R4",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Qualify": true,
+            "Inhibit": false,
+            "Reset": false,
+            "MaxCount": 2
+          },
+          "expect": {
+            "PulseA": false,
+            "PulseB": true,
+            "Count": 1,
+            "Locked": false,
+            "LastSource": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Qualify": true,
+            "Inhibit": false,
+            "Reset": false,
+            "MaxCount": 2
+          },
+          "expect": {
+            "PulseA": false,
+            "PulseB": false,
+            "Count": 1,
+            "Locked": false,
+            "LastSource": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Qualify": true,
+            "Inhibit": false,
+            "Reset": false,
+            "MaxCount": 2
+          },
+          "expect": {
+            "PulseA": true,
+            "PulseB": false,
+            "Count": 2,
+            "Locked": true,
+            "LastSource": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Qualify": true,
+            "Inhibit": false,
+            "Reset": true,
+            "MaxCount": 2
+          },
+          "expect": {
+            "PulseA": false,
+            "PulseB": false,
+            "Count": 0,
+            "Locked": false,
+            "LastSource": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

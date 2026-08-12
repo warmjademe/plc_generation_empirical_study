@@ -1,0 +1,8 @@
+FUNCTION_BLOCK C07_E01_linear_scaling
+VAR_INPUT
+    Raw : INT;
+END_VAR
+VAR_OUTPUT
+    Engineering : REAL;
+END_VAR
+END_FUNCTION_BLOCK

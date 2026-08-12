@@ -1,0 +1,295 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C03_B04_composite",
+  "title": "Composed supervisory control: Three-conveyor downstream interlock -> Ventilated heater startup with proof timeout",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "TIME",
+    "TON",
+    "cascaded interlocks",
+    "compositional control",
+    "interlock",
+    "latched readiness",
+    "priority",
+    "proof timeout",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 17,
+    "stateful_blocks": 2,
+    "interactions": 19,
+    "fault_modes": 8,
+    "horizon_scans": 16,
+    "inputs": 15,
+    "outputs": 11,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_RunRequest",
+        "type": "BOOL",
+        "description": "Subsystem A: Line run request"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: Common stop"
+      },
+      {
+        "name": "A_C1Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 1 clear"
+      },
+      {
+        "name": "A_C2Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 2 clear"
+      },
+      {
+        "name": "A_C3Clear",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 3 clear"
+      },
+      {
+        "name": "A_C2Available",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 2 available"
+      },
+      {
+        "name": "A_C3Available",
+        "type": "BOOL",
+        "description": "Subsystem A: Conveyor 3 available"
+      },
+      {
+        "name": "B_HeatRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Heat demand"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Stop command"
+      },
+      {
+        "name": "B_GuardClosed",
+        "type": "BOOL",
+        "description": "Subsystem B: Guard safety input"
+      },
+      {
+        "name": "B_DamperOpen",
+        "type": "BOOL",
+        "description": "Subsystem B: Damper proof"
+      },
+      {
+        "name": "B_AirflowOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Airflow proof"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Fault reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_C1Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Upstream conveyor command"
+      },
+      {
+        "name": "A_C2Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Middle conveyor command"
+      },
+      {
+        "name": "A_C3Run",
+        "type": "BOOL",
+        "description": "Subsystem A: Downstream conveyor command"
+      },
+      {
+        "name": "A_Blocked",
+        "type": "BOOL",
+        "description": "Subsystem A: Run request blocked by availability or occupancy"
+      },
+      {
+        "name": "B_DamperCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Open-damper command"
+      },
+      {
+        "name": "B_FanCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Ventilation fan command"
+      },
+      {
+        "name": "B_HeaterCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Heater command"
+      },
+      {
+        "name": "B_Fault",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched proof fault"
+      },
+      {
+        "name": "B_State",
+        "type": "INT",
+        "description": "Subsystem B: 0 idle, 1 proving ventilation, 2 heating"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_C1Run"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "The runtime scan period is 100 ms.",
+    "Proof inputs are sampled at scan start.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_C3Run shall require A_RunRequest, A_C3Available, A_C3Clear, and not A_Stop.",
+      "property": "G(A_C3Run = (A_RunRequest AND A_C3Available AND A_C3Clear AND !A_Stop))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_C2Run shall require A_C3Run, A_C2Available, and A_C2Clear.",
+      "property": "G(A_C2Run -> (A_C3Run AND A_C2Available AND A_C2Clear))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_C1Run shall require A_C2Run and A_C1Clear.",
+      "property": "G(A_C1Run -> (A_C2Run AND A_C1Clear))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Stop shall turn all three commands off.",
+      "property": "G(A_Stop -> (!A_C1Run AND !A_C2Run AND !A_C3Run))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Blocked shall indicate A_RunRequest with at least one unavailable or uncleared stage.",
+      "property": "G(A_Blocked = (A_RunRequest AND (!A_C1Clear OR !A_C2Clear OR !A_C3Clear OR !A_C2Available OR !A_C3Available)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A healthy B_HeatRequest shall enter ventilation proving and command the damper and fan before the heater.",
+      "property": "G((B_State=0 AND B_HeatRequest AND B_GuardClosed AND !B_Stop AND !B_Fault)->X(B_State=1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_HeaterCommand may energize only after B_DamperOpen and B_AirflowOK remain TRUE for 300 ms.",
+      "property": "G(B_HeaterCommand -> continuous(B_DamperOpen AND B_AirflowOK,3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Failure to establish both proofs within 600 ms shall latch B_Fault and force all commands FALSE.",
+      "property": "G(proof_timeout -> (B_Fault AND !B_DamperCommand AND !B_FanCommand AND !B_HeaterCommand))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Loss of B_GuardClosed, B_DamperOpen, or B_AirflowOK while heating shall immediately trip and latch B_Fault.",
+      "property": "G((B_State=2 AND (!B_GuardClosed OR !B_DamperOpen OR !B_AirflowOK)) -> B_Fault)",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Stop shall return to idle without clearing B_Fault; B_Reset clears B_Fault only while idle with B_HeatRequest FALSE.",
+      "property": "G(B_Stop -> B_State=0) AND G((B_Reset AND B_State=0 AND !B_HeatRequest)->!B_Fault)",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_HeaterCommand shall never be TRUE unless B_DamperCommand and B_FanCommand are both TRUE.",
+      "property": "G(B_HeaterCommand -> (B_DamperCommand AND B_FanCommand))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_C1Run shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_C1Run AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C03_H01_conveyor_cascade_interlock",
+    "base_b": "C03_X01_ventilated_heater_interlock",
+    "direction": "A_to_B",
+    "activation_output": "A_C1Run"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

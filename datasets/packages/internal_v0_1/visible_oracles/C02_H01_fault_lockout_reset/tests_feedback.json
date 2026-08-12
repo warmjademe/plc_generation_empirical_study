@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C02_H01_fault_lockout_reset",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "fault_latches",
+      "description": "Trip, latch, and reject start while locked out.",
+      "requirement_ids": [
+        "R1",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Fault": false,
+            "Reset": false,
+            "Permit": true
+          },
+          "expect": {
+            "Running": true,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stop": false,
+            "Fault": true,
+            "Reset": false,
+            "Permit": true
+          },
+          "expect": {
+            "Running": false,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stop": false,
+            "Fault": false,
+            "Reset": false,
+            "Permit": true
+          },
+          "expect": {
+            "Running": false,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

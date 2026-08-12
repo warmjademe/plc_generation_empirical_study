@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C10_M02_lead_lag_demand_control",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "fallback_shortfall_and_idle",
+      "description": "Exercise fallback, high-demand shortfall, and idle.",
+      "requirement_ids": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "LowDemand": true,
+            "HighDemand": false,
+            "LeadIsPump1": true,
+            "Pump1Available": false,
+            "Pump2Available": true
+          },
+          "expect": {
+            "Pump1Run": false,
+            "Pump2Run": true,
+            "CapacityShortfall": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "LowDemand": true,
+            "HighDemand": true,
+            "LeadIsPump1": false,
+            "Pump1Available": true,
+            "Pump2Available": false
+          },
+          "expect": {
+            "Pump1Run": true,
+            "Pump2Run": false,
+            "CapacityShortfall": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "LowDemand": false,
+            "HighDemand": false,
+            "LeadIsPump1": false,
+            "Pump1Available": true,
+            "Pump2Available": true
+          },
+          "expect": {
+            "Pump1Run": false,
+            "Pump2Run": false,
+            "CapacityShortfall": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

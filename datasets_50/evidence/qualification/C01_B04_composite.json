@@ -1,0 +1,108 @@
+{
+  "task_id": "C01_B04_composite",
+  "reference_ok": true,
+  "authored_negative_killed": true,
+  "qualified": true,
+  "candidates": {
+    "reference": {
+      "candidate_sha256": "b59dc6eebcf84354b1dad8ace316549cb12826e158e95d8c99917c4523d54330",
+      "gates": [
+        {
+          "name": "compiler",
+          "status": "pass",
+          "summary": "MatIEC accepted the IEC Structured Text candidate",
+          "evidence": [],
+          "passed_requirement_ids": [],
+          "duration_ms": 485,
+          "tool_version": "matiec-0.1"
+        },
+        {
+          "name": "plcverif",
+          "status": "pass",
+          "summary": "9/9 native PLCverif cases have no property counterexample",
+          "evidence": [],
+          "passed_requirement_ids": [
+            "R1",
+            "R10",
+            "R11",
+            "R13",
+            "R3",
+            "R4",
+            "R8"
+          ],
+          "duration_ms": 93732,
+          "tool_version": "PLCverif-1.0.0.202410210930+nuXmv-2.0.0+native-pattern-invariant-v1"
+        },
+        {
+          "name": "openplc",
+          "status": "pass",
+          "summary": "OpenPLC v3 passed 15/15 checked functional scan observations",
+          "evidence": [],
+          "passed_requirement_ids": [
+            "R1",
+            "R10",
+            "R11",
+            "R12",
+            "R13",
+            "R2",
+            "R3",
+            "R4",
+            "R5",
+            "R6",
+            "R7",
+            "R8",
+            "R9"
+          ],
+          "duration_ms": 11134,
+          "tool_version": "OpenPLC_v3@b5d41356dab4aeadca0dd7ca64ba542f870b595d+independent-functional-oracle-v1+one-scan-request-ack-v2"
+        }
+      ]
+    },
+    "authored_negative": {
+      "candidate_sha256": "29f4a51e0daced53fc64089223f40ab34e5505d951f4a738472a4e5d62f81eeb",
+      "gates": [
+        {
+          "name": "compiler",
+          "status": "pass",
+          "summary": "MatIEC accepted the IEC Structured Text candidate",
+          "evidence": [],
+          "passed_requirement_ids": [],
+          "duration_ms": 959,
+          "tool_version": "matiec-0.1"
+        },
+        {
+          "name": "plcverif",
+          "status": "fail",
+          "summary": "1 mandatory native PLCverif case was violated; stopped after 9/9 cases",
+          "evidence": [
+            {
+              "tool": "plcverif",
+              "kind": "formal_counterexample",
+              "summary": "native PLCverif case P13 is false",
+              "requirement_ids": [
+                "R13"
+              ],
+              "severity": "error",
+              "trace": {
+                "counterexample_tail": "-- invariant (EoC -> instance_CrossBlocked = (instance_SubsystemBEnable & !instance_CrossReady))  is false\n-- as demonstrated by the following execution sequence\nTrace Description: AG alpha Counterexample \nTrace Type: Counterexample \n  -> State: 1.1 <-\n    loc = init_pv\n    instance_A_Info = FALSE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = FALSE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = FALSE\n    instance_CrossReset = FALSE\n    instance_A_Active = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.2 <-\n    loc = loop_start\n    instance_A_Info = FALSE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = FALSE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = FALSE\n    instance_CrossReset = FALSE\n    instance_A_Active = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.3 <-\n    loc = prepare_BoC\n    instance_A_Info = TRUE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = TRUE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = TRUE\n    instance_A_Active = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = TRUE\n  -> State: 1.4 <-\n    loc = l_main_call\n    instance_A_Info = TRUE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = TRUE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = TRUE\n    instance_A_Active = FALSE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.5 <-\n    loc = verificationLoop_VerificationLoop_l19\n    instance_A_Info = TRUE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = TRUE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = TRUE\n    instance_A_Active = TRUE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.6 <-\n    loc = verificationLoop_VerificationLoop_l25\n    instance_A_Info = TRUE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = TRUE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = TRUE\n    instance_A_Active = TRUE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.7 <-\n    loc = x6\n    instance_A_Info = TRUE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = TRUE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = TRUE\n    instance_A_Active = TRUE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.8 <-\n    loc = verificationLoop_VerificationLoop_l46\n    instance_A_Info = TRUE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = TRUE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = TRUE\n    instance_A_Active = TRUE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.9 <-\n    loc = prepare_EoC\n    instance_A_Info = TRUE\n    instance_A_Warning = FALSE\n    instance_A_Trip = FALSE\n    instance_A_Emergency = TRUE\n    instance_A_Suppress = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = TRUE\n    instance_A_Active = TRUE\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    EoC = TRUE\n    BoC = FALSE\n"
+              },
+              "oracle_status": "formal_counterexample_pending_runtime_replay",
+              "raw_log_sha256": "35d750874b4b82e03be95e214fdc71723fd5d52cd865f10f5efdd92cf0d91614",
+              "signature": "f5e27a1d31cc2a09"
+            }
+          ],
+          "passed_requirement_ids": [
+            "R1",
+            "R10",
+            "R11",
+            "R3",
+            "R4",
+            "R8"
+          ],
+          "duration_ms": 89893,
+          "tool_version": "PLCverif-1.0.0.202410210930+nuXmv-2.0.0+native-pattern-invariant-v1"
+        }
+      ]
+    }
+  }
+}

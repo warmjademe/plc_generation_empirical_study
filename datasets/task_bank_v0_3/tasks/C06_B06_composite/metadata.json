@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C06_B06_composite",
+  "title": "Composed supervisory control: Inspection-window reject lockout -> Configurable batch counter",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "compositional control",
+    "configurable counter",
+    "edge detection",
+    "fault latch",
+    "latched readiness",
+    "retained counters",
+    "retained state",
+    "supervisory interlock",
+    "windowing"
+  ],
+  "complexity": {
+    "retained_state": 8,
+    "transitions": 14,
+    "stateful_blocks": 2,
+    "interactions": 13,
+    "fault_modes": 5,
+    "horizon_scans": 14,
+    "inputs": 11,
+    "outputs": 9,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Inspected",
+        "type": "BOOL",
+        "description": "Subsystem A: One item inspected"
+      },
+      {
+        "name": "A_Rejected",
+        "type": "BOOL",
+        "description": "Subsystem A: Current inspected item rejected"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Manual lockout reset"
+      },
+      {
+        "name": "A_WindowSize",
+        "type": "INT",
+        "description": "Subsystem A: Items per inspection window"
+      },
+      {
+        "name": "A_RejectLimit",
+        "type": "INT",
+        "description": "Subsystem A: Rejects allowed in one window"
+      },
+      {
+        "name": "B_Item",
+        "type": "BOOL",
+        "description": "Subsystem B: Item detection"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Reset current batch"
+      },
+      {
+        "name": "B_Target",
+        "type": "INT",
+        "description": "Subsystem B: Batch target, assumed 1 through 100"
+      },
+      {
+        "name": "B_Enable",
+        "type": "BOOL",
+        "description": "Subsystem B: Counting enable"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_WindowCount",
+        "type": "INT",
+        "description": "Subsystem A: Items in current window"
+      },
+      {
+        "name": "A_RejectCount",
+        "type": "INT",
+        "description": "Subsystem A: Rejects in current window"
+      },
+      {
+        "name": "A_LockedOut",
+        "type": "BOOL",
+        "description": "Subsystem A: Quality lockout"
+      },
+      {
+        "name": "A_WindowComplete",
+        "type": "BOOL",
+        "description": "Subsystem A: One-scan window-complete pulse"
+      },
+      {
+        "name": "B_Count",
+        "type": "INT",
+        "description": "Subsystem B: Accepted item count"
+      },
+      {
+        "name": "B_BatchDone",
+        "type": "BOOL",
+        "description": "Subsystem B: Target reached"
+      },
+      {
+        "name": "B_Accepted",
+        "type": "BOOL",
+        "description": "Subsystem B: Item accepted this scan"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_LockedOut"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: A_WindowSize is at least 1 and A_RejectLimit is non-negative.",
+    "Subsystem A: A_Rejected is sampled only on a rising A_Inspected edge.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_Target remains constant during a test and is between 1 and 100.",
+    "Subsystem B: B_Item pulses are separated by at least one low scan.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: Each rising A_Inspected edge shall add one to A_WindowCount and, when A_Rejected is TRUE, one to A_RejectCount.",
+      "property": "G(rose(A_Inspected) AND !A_Reset AND !A_LockedOut -> update_window_counts)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Completing A_WindowSize items shall pulse A_WindowComplete for one scan and then start a new zeroed window.",
+      "property": "G(A_WindowComplete -> ((A_WindowCount=0) AND (A_RejectCount=0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: If rejects in the completed window exceed A_RejectLimit, A_LockedOut shall latch TRUE.",
+      "property": "G(completed_rejects>A_RejectLimit -> A_LockedOut)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: No new items shall be counted while A_LockedOut.",
+      "property": "G(A_LockedOut AND !A_Reset -> (A_WindowCount=prev(A_WindowCount) AND A_RejectCount=prev(A_RejectCount)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear counts, A_WindowComplete, and A_LockedOut.",
+      "property": "G(A_Reset -> (A_WindowCount=0 AND A_RejectCount=0 AND !A_WindowComplete AND !A_LockedOut))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Only a rising B_Item edge while B_Enable and below B_Target shall increment B_Count.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Accepted = (rose(B_Item) AND B_Enable AND prev(B_Count)<B_Target AND !B_Reset)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Count shall remain between zero and B_Target.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Count>=0) AND (B_Count<=B_Target)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_BatchDone shall be TRUE when B_Count reaches B_Target.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_BatchDone = (B_Count>=B_Target)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_Count, B_BatchDone, and B_Accepted.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Reset -> ((B_Count=0) AND !B_BatchDone AND !B_Accepted)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_LockedOut shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_LockedOut AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND B_Count=0 AND NOT B_BatchDone AND NOT B_Accepted)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (B_Count=0 AND NOT B_BatchDone AND NOT B_Accepted))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C06_H02_inspection_window_lockout",
+    "base_b": "C06_M01_configurable_batch_counter",
+    "direction": "A_to_B",
+    "activation_output": "A_LockedOut"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

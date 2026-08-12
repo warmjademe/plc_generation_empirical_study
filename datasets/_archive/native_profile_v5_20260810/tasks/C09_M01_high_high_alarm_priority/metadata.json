@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C09_M01_high_high_alarm_priority",
+  "title": "High and high-high alarm priority",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "REAL",
+    "comparisons",
+    "retained alarms",
+    "priority"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 4,
+    "stateful_blocks": 0,
+    "interactions": 4,
+    "fault_modes": 2,
+    "horizon_scans": 3,
+    "inputs": 4,
+    "outputs": 3,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Value",
+        "type": "REAL",
+        "description": "Measured process value"
+      },
+      {
+        "name": "HighLimit",
+        "type": "REAL",
+        "description": "High threshold"
+      },
+      {
+        "name": "HighHighLimit",
+        "type": "REAL",
+        "description": "High-high threshold"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Latched alarm reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "HighAlarm",
+        "type": "BOOL",
+        "description": "Latched high alarm"
+      },
+      {
+        "name": "HighHighAlarm",
+        "type": "BOOL",
+        "description": "Latched high-high alarm"
+      },
+      {
+        "name": "Shutdown",
+        "type": "BOOL",
+        "description": "Latched shutdown command"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "HighHighLimit is greater than HighLimit.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Value at or above HighLimit shall latch HighAlarm.",
+      "property": "G((Value>=HighLimit) -> HighAlarm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Value at or above HighHighLimit shall latch both alarms and Shutdown.",
+      "property": "G((Value>=HighHighLimit) -> (HighAlarm AND HighHighAlarm AND Shutdown))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "A high alarm below HighHighLimit shall not by itself assert Shutdown.",
+      "property": "G((Value>=HighLimit AND Value<HighHighLimit AND !HighHighAlarm) -> !Shutdown)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Reset shall clear all latched outputs only below HighLimit.",
+      "property": "G((Reset AND Value<HighLimit) -> (!HighAlarm AND !HighHighAlarm AND !Shutdown))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

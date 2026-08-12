@@ -1,0 +1,277 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C04_B08_composite",
+  "title": "Composed supervisory control: Dual-event priority capture with lockout -> Qualified dual-edge recorder with saturation and re-arm",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "compositional control",
+    "edge detection",
+    "edge memory",
+    "latched readiness",
+    "priority",
+    "qualified reset",
+    "retained state",
+    "saturation",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 10,
+    "transitions": 18,
+    "stateful_blocks": 2,
+    "interactions": 18,
+    "fault_modes": 5,
+    "horizon_scans": 13,
+    "inputs": 12,
+    "outputs": 10,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_EventA",
+        "type": "BOOL",
+        "description": "Subsystem A: High-priority event"
+      },
+      {
+        "name": "A_EventB",
+        "type": "BOOL",
+        "description": "Subsystem A: Lower-priority event"
+      },
+      {
+        "name": "A_Arm",
+        "type": "BOOL",
+        "description": "Subsystem A: Capture enable"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Clear captured event"
+      },
+      {
+        "name": "B_EventA",
+        "type": "BOOL",
+        "description": "Subsystem B: Event channel A"
+      },
+      {
+        "name": "B_EventB",
+        "type": "BOOL",
+        "description": "Subsystem B: Event channel B"
+      },
+      {
+        "name": "B_Qualify",
+        "type": "BOOL",
+        "description": "Subsystem B: Event qualification"
+      },
+      {
+        "name": "B_Inhibit",
+        "type": "BOOL",
+        "description": "Subsystem B: Event inhibit"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Qualified reset"
+      },
+      {
+        "name": "B_MaxCount",
+        "type": "INT",
+        "description": "Subsystem B: Saturation count"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Captured",
+        "type": "BOOL",
+        "description": "Subsystem A: An event has been captured"
+      },
+      {
+        "name": "A_Code",
+        "type": "INT",
+        "description": "Subsystem A: 0 none, 1 event A, 2 event B"
+      },
+      {
+        "name": "A_Pulse",
+        "type": "BOOL",
+        "description": "Subsystem A: Capture occurred this scan"
+      },
+      {
+        "name": "B_PulseA",
+        "type": "BOOL",
+        "description": "Subsystem B: Accepted A pulse"
+      },
+      {
+        "name": "B_PulseB",
+        "type": "BOOL",
+        "description": "Subsystem B: Accepted B pulse"
+      },
+      {
+        "name": "B_Count",
+        "type": "INT",
+        "description": "Subsystem B: Accepted event count"
+      },
+      {
+        "name": "B_Locked",
+        "type": "BOOL",
+        "description": "Subsystem B: Saturation lockout"
+      },
+      {
+        "name": "B_LastSource",
+        "type": "INT",
+        "description": "Subsystem B: 0 none, 1 A, 2 B"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Captured"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_MaxCount remains constant during a test.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Captured, A_Code, and A_Pulse.",
+      "property": "G(A_Reset -> (!A_Captured AND (A_Code = 0) AND !A_Pulse))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: While armed and not A_Captured, a rising A_EventA shall capture A_Code 1.",
+      "property": "G((A_Arm AND !prev(A_Captured) AND rose(A_EventA) AND !A_Reset) -> (A_Captured AND (A_Code = 1) AND A_Pulse))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A simultaneous rising edge shall select A_EventA over A_EventB.",
+      "property": "G((A_Arm AND rose(A_EventA) AND rose(A_EventB) AND !prev(A_Captured) AND !A_Reset) -> (A_Code = 1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A rising A_EventB without A_EventA shall capture A_Code 2.",
+      "property": "G((A_Arm AND !prev(A_Captured) AND !rose(A_EventA) AND rose(A_EventB) AND !A_Reset) -> (A_Code = 2))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: After capture, later events shall not change A_Code until A_Reset.",
+      "property": "G((prev(A_Captured) AND !A_Reset) -> (A_Captured AND (A_Code = prev(A_Code)) AND !A_Pulse))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Only a qualified, non-inhibited rising edge observed while not previously B_Locked may be accepted.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_PulseA OR B_PulseB) -> (B_Qualify AND !B_Inhibit AND !prev(B_Locked))))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Simultaneous eligible edges shall accept A only.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((rose(B_EventA) AND rose(B_EventB) AND eligible) -> (B_PulseA AND !B_PulseB)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Each accepted event increments B_Count once and records B_LastSource.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_PulseA OR B_PulseB) -> (B_Count=prev(B_Count)+1)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Except for a qualified B_Reset scan, B_Count shall saturate at B_MaxCount and latch B_Locked; B_MaxCount less than or equal to zero locks without counting.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (((B_Count>=B_MaxCount OR B_MaxCount<=0) AND !(B_Reset AND !B_EventA AND !B_EventB))->B_Locked))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A held-high event shall not retrigger until observed low and then rising again.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_EventA AND prev(B_EventA))->!B_PulseA)) AND G((SubsystemBEnable AND CrossReady) -> ((B_EventB AND prev(B_EventB))->!B_PulseB))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset clears B_Count, B_Locked, and B_LastSource only while both events are low.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND !B_EventA AND !B_EventB)->(B_Count=0 AND !B_Locked AND B_LastSource=0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_Captured shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Captured AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_PulseA AND NOT B_PulseB AND B_Count=0 AND NOT B_Locked AND B_LastSource=0)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_PulseA AND NOT B_PulseB AND B_Count=0 AND NOT B_Locked AND B_LastSource=0))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C04_H02_dual_event_priority_lockout",
+    "base_b": "C04_X01_dual_event_saturating_recorder",
+    "direction": "A_to_B",
+    "activation_output": "A_Captured"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

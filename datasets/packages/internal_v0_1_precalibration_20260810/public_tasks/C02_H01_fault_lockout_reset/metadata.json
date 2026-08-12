@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C02_H01_fault_lockout_reset",
+  "title": "Fault lockout with qualified manual reset",
+  "category_id": "C02",
+  "category": "Start/stop and retained state",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "retained outputs",
+    "IF",
+    "priority",
+    "fault recovery"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 5,
+    "stateful_blocks": 2,
+    "interactions": 5,
+    "fault_modes": 2,
+    "horizon_scans": 6,
+    "inputs": 5,
+    "outputs": 2,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start command"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "Stop command"
+      },
+      {
+        "name": "Fault",
+        "type": "BOOL",
+        "description": "Active equipment fault"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Manual reset"
+      },
+      {
+        "name": "Permit",
+        "type": "BOOL",
+        "description": "External run permission"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Running",
+        "type": "BOOL",
+        "description": "Running state"
+      },
+      {
+        "name": "LockedOut",
+        "type": "BOOL",
+        "description": "Latched fault lockout"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Fault shall immediately stop Running and latch LockedOut TRUE.",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Reset shall clear LockedOut only when Fault is FALSE and Start is FALSE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Start shall not run the equipment while LockedOut, Stop, or loss of Permit is active.",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Clearing the lockout shall not automatically restart the equipment.",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "A new Start after a successful reset may latch Running TRUE.",
+      "safety_critical": false
+    }
+  ]
+}

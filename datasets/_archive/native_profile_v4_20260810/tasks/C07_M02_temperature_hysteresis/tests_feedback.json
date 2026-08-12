@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C07_M02_temperature_hysteresis",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "hysteresis_cycle",
+      "description": "Turn on, retain through deadband, and turn off.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Temperature": 18.0,
+            "LowThreshold": 19.0,
+            "HighThreshold": 21.0,
+            "Enable": true
+          },
+          "expect": {
+            "Heater": true,
+            "ConfigError": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Temperature": 20.0,
+            "LowThreshold": 19.0,
+            "HighThreshold": 21.0,
+            "Enable": true
+          },
+          "expect": {
+            "Heater": true,
+            "ConfigError": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Temperature": 21.0,
+            "LowThreshold": 19.0,
+            "HighThreshold": 21.0,
+            "Enable": true
+          },
+          "expect": {
+            "Heater": false,
+            "ConfigError": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

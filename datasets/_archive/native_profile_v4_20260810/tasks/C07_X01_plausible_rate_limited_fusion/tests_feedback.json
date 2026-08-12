@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C07_X01_plausible_rate_limited_fusion",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "average_degraded_and_equality",
+      "description": "Accept disagreement equality and then fall back to one valid sensor.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 11.0,
+            "ValidOutput": true,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 12.0,
+            "SensorB": 50.0,
+            "ValidA": true,
+            "ValidB": false,
+            "Enable": true,
+            "MaxDifference": 2.0,
+            "MaxRate": 5.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 12.0,
+            "ValidOutput": true,
+            "Degraded": true,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

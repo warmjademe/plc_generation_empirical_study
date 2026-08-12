@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C04_R05_lean_composite",
+  "title": "Composed supervisory control: Qualified event capture with saturation -> Voted permissive with qualified bypass and diagnostics",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "2oo3 voting",
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "compositional control",
+    "diagnostics",
+    "edge detection",
+    "latched readiness",
+    "priority",
+    "retained state",
+    "saturation",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 12,
+    "stateful_blocks": 1,
+    "interactions": 18,
+    "fault_modes": 6,
+    "horizon_scans": 12,
+    "inputs": 16,
+    "outputs": 9,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Event",
+        "type": "BOOL",
+        "description": "Subsystem A: Event input"
+      },
+      {
+        "name": "A_Qualify",
+        "type": "BOOL",
+        "description": "Subsystem A: Event qualification"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Reset count"
+      },
+      {
+        "name": "A_MaxCount",
+        "type": "INT",
+        "description": "Subsystem A: Saturation limit, assumed at least one"
+      },
+      {
+        "name": "B_Ch1",
+        "type": "BOOL",
+        "description": "Subsystem B: Permissive channel 1"
+      },
+      {
+        "name": "B_Ch2",
+        "type": "BOOL",
+        "description": "Subsystem B: Permissive channel 2"
+      },
+      {
+        "name": "B_Ch3",
+        "type": "BOOL",
+        "description": "Subsystem B: Permissive channel 3"
+      },
+      {
+        "name": "B_AutoMode",
+        "type": "BOOL",
+        "description": "Subsystem B: Automatic mode selection"
+      },
+      {
+        "name": "B_AutoRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Automatic run request"
+      },
+      {
+        "name": "B_ManualRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Manual run request"
+      },
+      {
+        "name": "B_BypassRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Maintenance bypass request"
+      },
+      {
+        "name": "B_BypassPermit",
+        "type": "BOOL",
+        "description": "Subsystem B: Independent bypass authorization"
+      },
+      {
+        "name": "B_SafetyOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Non-bypassable safety chain"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Bypass reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Count",
+        "type": "INT",
+        "description": "Subsystem A: Accepted event count"
+      },
+      {
+        "name": "A_AcceptedPulse",
+        "type": "BOOL",
+        "description": "Subsystem A: Accepted event this scan"
+      },
+      {
+        "name": "A_AtLimit",
+        "type": "BOOL",
+        "description": "Subsystem A: Count has reached MaxCount"
+      },
+      {
+        "name": "B_RunPermit",
+        "type": "BOOL",
+        "description": "Subsystem B: Final run permission"
+      },
+      {
+        "name": "B_Degraded",
+        "type": "BOOL",
+        "description": "Subsystem B: Run uses disagreement or bypass"
+      },
+      {
+        "name": "B_BypassActive",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched qualified bypass"
+      },
+      {
+        "name": "B_Blocked",
+        "type": "BOOL",
+        "description": "Subsystem B: Selected request cannot run"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_AcceptedPulse"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: A_MaxCount is constant during a test and is at least 1.",
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Count and A_AcceptedPulse.",
+      "property": "G(A_Reset -> ((A_Count = 0) AND !A_AcceptedPulse))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Only a rising A_Event edge with A_Qualify TRUE and A_Count below A_MaxCount shall increment A_Count.",
+      "property": "G(A_AcceptedPulse = (rose(A_Event) AND A_Qualify AND (prev(A_Count) < A_MaxCount) AND !A_Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_Count shall not exceed A_MaxCount.",
+      "property": "G(A_Count <= A_MaxCount)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_AtLimit shall be TRUE exactly when A_Count is at least A_MaxCount.",
+      "property": "G(A_AtLimit = (A_Count >= A_MaxCount))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: The selected request shall be B_AutoRequest in automatic mode and B_ManualRequest otherwise.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (selected_request = mux(B_AutoMode,B_AutoRequest,B_ManualRequest)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Without bypass, B_RunPermit requires B_SafetyOK and at least two TRUE channels.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_RunPermit AND !B_BypassActive) -> (B_SafetyOK AND vote2of3)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Bypass may latch only in manual mode when B_BypassRequest, B_BypassPermit, B_SafetyOK, and at least one channel are TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (rose(B_BypassActive) -> (!B_AutoMode AND B_BypassRequest AND B_BypassPermit AND B_SafetyOK AND any_channel)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset may clear B_BypassActive only when neither automatic nor manual request is active.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND !B_AutoRequest AND !B_ManualRequest) -> !B_BypassActive))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Degraded shall identify a permitted run with channel disagreement or active bypass; B_Blocked shall identify a selected request without B_RunPermit.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Degraded = (B_RunPermit AND ((!unanimous_channels) OR B_BypassActive)))) AND G((SubsystemBEnable AND CrossReady) -> (B_Blocked = (selected_request AND !B_RunPermit)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_AcceptedPulse shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_AcceptedPulse AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_RunPermit AND NOT B_Degraded AND NOT B_BypassActive AND NOT B_Blocked)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_RunPermit AND NOT B_Degraded AND NOT B_BypassActive AND NOT B_Blocked))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C04_H01_qualified_event_counter",
+    "base_b": "C01_X01_voted_bypass_permissive",
+    "direction": "A_to_B",
+    "activation_output": "A_AcceptedPulse",
+    "runtime_design": "one stateful primary subsystem plus one stateless Boolean subsystem"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

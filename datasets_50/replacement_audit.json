@@ -1,0 +1,46 @@
+{
+  "status": "pass",
+  "input_dataset": "/root/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/datasets_50",
+  "replacement_source": "/root/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/assemblies/datasets_50_superseded_local_20260811",
+  "replacements": [
+    {
+      "removed_task_id": "C06_B04_composite",
+      "replacement_task_id": "C06_W03_lean_composite",
+      "reason": "reference PLCverif runtime exceeded the configured 900-second validator budget",
+      "reference_plcverif_duration_ms": 20381,
+      "screening_status": "candidate_budget_exhausted",
+      "result_sha256": "b4a8e1cd3eac767da29aed510ef9d2e653bfe896c7f95f49d396df97e0a2f57d",
+      "ledger_sha256": "b8f28c8e4413e95eb69f389ac5dc5f02079216715b0a6e50e716171fe14bb402"
+    },
+    {
+      "removed_task_id": "C06_B05_composite",
+      "replacement_task_id": "C06_W06_lean_composite",
+      "reason": "reference PLCverif runtime exceeded the configured 900-second validator budget",
+      "reference_plcverif_duration_ms": 19154,
+      "screening_status": "candidate_budget_exhausted",
+      "result_sha256": "c9333c8831ffa30fb0c3f57017d187e1e9f6c4cd4e3327c20b3d3d8a7734abec",
+      "ledger_sha256": "64cfe01135650551ff8825bfef4d40b78e179170b949ce06bfb96d96786c1884"
+    }
+  ],
+  "unchanged_task_count": 48,
+  "unchanged_task_evidence_byte_identical": true,
+  "task_count": 50,
+  "category_counts": {
+    "C01": 5,
+    "C02": 5,
+    "C03": 5,
+    "C04": 5,
+    "C05": 5,
+    "C06": 5,
+    "C07": 5,
+    "C08": 5,
+    "C09": 5,
+    "C10": 5
+  },
+  "outcome_counts": {
+    "screening_failure": 49,
+    "verified_success": 1
+  },
+  "manifest_sha256": "049d1eb2cf732b7dee790b40254e0ee86c87635153e75915c0ef4df09f4199b1",
+  "selection_sha256": "2e3d56f01055df165ab0f2edfe36244fb280da9086b0e862cfbd667f6aaf5e5a"
+}

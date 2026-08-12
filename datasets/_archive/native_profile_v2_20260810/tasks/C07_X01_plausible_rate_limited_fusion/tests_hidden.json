@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C07_X01_plausible_rate_limited_fusion",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "disagreement_rate_trip_reset",
+      "description": "Latch a rate trip, preserve disagreement diagnostics, and reset only disabled.",
+      "requirement_ids": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": true,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 13.0,
+            "SensorB": 13.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": false
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 15.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": true,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": true,
+            "RateTrip": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "Enable": false,
+            "MaxDifference": 1.0,
+            "MaxRate": 2.0,
+            "Reset": true
+          },
+          "expect": {
+            "ProcessValue": 10.0,
+            "ValidOutput": false,
+            "Degraded": false,
+            "Disagree": false,
+            "RateTrip": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "task_id": "C08_B05_composite",
+  "reference_ok": true,
+  "authored_negative_killed": true,
+  "qualified": true,
+  "driver_protocol": "reference-all-properties_negative-predeclared-target-v2",
+  "candidates": {
+    "reference": {
+      "candidate_sha256": "c5de0984f167882818a7899a3c9fa31f74b4303743d3fb98ef3d1177012a16be",
+      "qualification_profile": "all_mandatory_properties",
+      "gates": [
+        {
+          "name": "compiler",
+          "status": "pass",
+          "summary": "MatIEC accepted the IEC Structured Text candidate",
+          "evidence": [],
+          "passed_requirement_ids": [],
+          "duration_ms": 688,
+          "tool_version": "matiec-0.1"
+        },
+        {
+          "name": "plcverif",
+          "status": "pass",
+          "summary": "9/9 native PLCverif cases have no property counterexample",
+          "evidence": [],
+          "passed_requirement_ids": [
+            "R10",
+            "R12",
+            "R13",
+            "R15",
+            "R4",
+            "R5",
+            "R9"
+          ],
+          "duration_ms": 81967,
+          "tool_version": "PLCverif-1.0.0.202410210930+nuXmv-2.0.0+native-pattern-invariant-v1"
+        },
+        {
+          "name": "openplc",
+          "status": "pass",
+          "summary": "OpenPLC v3 passed 20/20 checked functional scan observations",
+          "evidence": [],
+          "passed_requirement_ids": [
+            "R1",
+            "R10",
+            "R11",
+            "R12",
+            "R13",
+            "R14",
+            "R15",
+            "R2",
+            "R3",
+            "R4",
+            "R5",
+            "R6",
+            "R7",
+            "R8",
+            "R9"
+          ],
+          "duration_ms": 11808,
+          "tool_version": "OpenPLC_v3@b5d41356dab4aeadca0dd7ca64ba542f870b595d+independent-functional-oracle-v1+one-scan-request-ack-v2"
+        }
+      ]
+    },
+    "authored_negative": {
+      "candidate_sha256": "d95b0e3cc209df44dc577710fa1868fb3370ee58df86384eff90d43ddfef6560",
+      "qualification_profile": "predeclared_negative_target_only",
+      "gates": [
+        {
+          "name": "compiler",
+          "status": "pass",
+          "summary": "MatIEC accepted the IEC Structured Text candidate",
+          "evidence": [],
+          "passed_requirement_ids": [],
+          "duration_ms": 763,
+          "tool_version": "matiec-0.1"
+        },
+        {
+          "name": "plcverif",
+          "status": "fail",
+          "summary": "1 mandatory native PLCverif case was violated; stopped after 1/1 cases",
+          "evidence": [
+            {
+              "tool": "plcverif",
+              "kind": "formal_counterexample",
+              "summary": "native PLCverif case P15 is false",
+              "requirement_ids": [
+                "R15"
+              ],
+              "severity": "error",
+              "trace": {
+                "counterexample_tail": "A_Sensor2 = FALSE\n    instance_A_Stop = TRUE\n    instance_A_ResetFault = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_Fault = FALSE\n    instance_A_State = 0sd16_0\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    instance_A_StageTimeout_Q = FALSE\n    instance_A_StageTimeout_ET = 0sd32_0\n    EoC = FALSE\n    BoC = TRUE\n  -> State: 1.4 <-\n    loc = l_main_call\n    instance_A_Start = FALSE\n    instance_A_Sensor1 = FALSE\n    instance_A_Sensor2 = FALSE\n    instance_A_Stop = TRUE\n    instance_A_ResetFault = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_Fault = FALSE\n    instance_A_State = 0sd16_0\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    instance_A_StageTimeout_Q = FALSE\n    instance_A_StageTimeout_ET = 0sd32_0\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.5 <-\n    loc = verificationLoop_VerificationLoop_instance_C08_B05_composite_l17\n    instance_A_Start = FALSE\n    instance_A_Sensor1 = FALSE\n    instance_A_Sensor2 = FALSE\n    instance_A_Stop = TRUE\n    instance_A_ResetFault = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_Fault = FALSE\n    instance_A_State = 0sd16_0\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    instance_A_StageTimeout_Q = FALSE\n    instance_A_StageTimeout_ET = 0sd32_0\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.6 <-\n    loc = verificationLoop_VerificationLoop_l35\n    instance_A_Start = FALSE\n    instance_A_Sensor1 = FALSE\n    instance_A_Sensor2 = FALSE\n    instance_A_Stop = TRUE\n    instance_A_ResetFault = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_Fault = FALSE\n    instance_A_State = 0sd16_0\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    instance_A_StageTimeout_Q = FALSE\n    instance_A_StageTimeout_ET = 0sd32_0\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.7 <-\n    loc = verificationLoop_VerificationLoop_l43\n    instance_A_Start = FALSE\n    instance_A_Sensor1 = FALSE\n    instance_A_Sensor2 = FALSE\n    instance_A_Stop = TRUE\n    instance_A_ResetFault = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_Fault = FALSE\n    instance_A_State = 0sd16_0\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    instance_A_StageTimeout_Q = FALSE\n    instance_A_StageTimeout_ET = 0sd32_0\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.8 <-\n    loc = x10\n    instance_A_Start = FALSE\n    instance_A_Sensor1 = FALSE\n    instance_A_Sensor2 = FALSE\n    instance_A_Stop = TRUE\n    instance_A_ResetFault = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_Fault = FALSE\n    instance_A_State = 0sd16_0\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    instance_A_StageTimeout_Q = FALSE\n    instance_A_StageTimeout_ET = 0sd32_0\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.9 <-\n    loc = verificationLoop_VerificationLoop_l95\n    instance_A_Start = FALSE\n    instance_A_Sensor1 = FALSE\n    instance_A_Sensor2 = FALSE\n    instance_A_Stop = TRUE\n    instance_A_ResetFault = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_Fault = FALSE\n    instance_A_State = 0sd16_0\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    instance_A_StageTimeout_Q = FALSE\n    instance_A_StageTimeout_ET = 0sd32_0\n    EoC = FALSE\n    BoC = FALSE\n  -> State: 1.10 <-\n    loc = prepare_EoC\n    instance_A_Start = FALSE\n    instance_A_Sensor1 = FALSE\n    instance_A_Sensor2 = FALSE\n    instance_A_Stop = TRUE\n    instance_A_ResetFault = FALSE\n    instance_SubsystemBEnable = TRUE\n    instance_CrossReset = FALSE\n    instance_A_Fault = FALSE\n    instance_A_State = 0sd16_0\n    instance_CrossReady = FALSE\n    instance_CrossBlocked = FALSE\n    instance_A_StageTimeout_Q = FALSE\n    instance_A_StageTimeout_ET = 0sd32_0\n    EoC = TRUE\n    BoC = FALSE\n"
+              },
+              "oracle_status": "formal_counterexample_pending_runtime_replay",
+              "raw_log_sha256": "562dffe062e836846750cc7eec657d5a89ee1cd0c0588e369c97aa605da2a28c",
+              "signature": "36ebc89097ef2bab"
+            }
+          ],
+          "passed_requirement_ids": [],
+          "duration_ms": 8586,
+          "tool_version": "PLCverif-1.0.0.202410210930+nuXmv-2.0.0+native-pattern-invariant-v1"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C06_B20_composite",
+  "title": "Composed supervisory control: Edge-counted batch with consecutive-reject lockout -> Bounded up/down inventory counter",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "bounded counter",
+    "compositional control",
+    "dual edge detection",
+    "edge memory",
+    "latched readiness",
+    "lockout",
+    "qualified reset",
+    "retained state",
+    "saturating state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 10,
+    "transitions": 18,
+    "stateful_blocks": 2,
+    "interactions": 17,
+    "fault_modes": 6,
+    "horizon_scans": 16,
+    "inputs": 12,
+    "outputs": 11,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_ItemPulse",
+        "type": "BOOL",
+        "description": "Subsystem A: Item completion signal"
+      },
+      {
+        "name": "A_Rejected",
+        "type": "BOOL",
+        "description": "Subsystem A: Current item rejection flag"
+      },
+      {
+        "name": "A_Stop",
+        "type": "BOOL",
+        "description": "Subsystem A: Batch stop"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Qualified reset"
+      },
+      {
+        "name": "A_Target",
+        "type": "INT",
+        "description": "Subsystem A: Required accepted items"
+      },
+      {
+        "name": "A_RejectLimit",
+        "type": "INT",
+        "description": "Subsystem A: Consecutive rejects causing lockout"
+      },
+      {
+        "name": "B_AddItem",
+        "type": "BOOL",
+        "description": "Subsystem B: Add one item"
+      },
+      {
+        "name": "B_RemoveItem",
+        "type": "BOOL",
+        "description": "Subsystem B: Remove one item"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Reset inventory"
+      },
+      {
+        "name": "B_Capacity",
+        "type": "INT",
+        "description": "Subsystem B: Maximum count, assumed positive"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_AcceptedCount",
+        "type": "INT",
+        "description": "Subsystem A: Accepted item count"
+      },
+      {
+        "name": "A_RejectCount",
+        "type": "INT",
+        "description": "Subsystem A: Total reject count"
+      },
+      {
+        "name": "A_ConsecutiveRejects",
+        "type": "INT",
+        "description": "Subsystem A: Current consecutive reject count"
+      },
+      {
+        "name": "A_Complete",
+        "type": "BOOL",
+        "description": "Subsystem A: Accepted target reached"
+      },
+      {
+        "name": "A_LockedOut",
+        "type": "BOOL",
+        "description": "Subsystem A: Consecutive reject lockout"
+      },
+      {
+        "name": "B_Count",
+        "type": "INT",
+        "description": "Subsystem B: Inventory count"
+      },
+      {
+        "name": "B_Empty",
+        "type": "BOOL",
+        "description": "Subsystem B: Count is zero"
+      },
+      {
+        "name": "B_Full",
+        "type": "BOOL",
+        "description": "Subsystem B: Count reached Capacity"
+      },
+      {
+        "name": "B_Conflict",
+        "type": "BOOL",
+        "description": "Subsystem B: Add and Remove rose together"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Complete"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "Capacity remains constant during a test and is positive.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: Only a rising A_ItemPulse while not stopped, A_Complete, or locked shall count one item.",
+      "property": "G(count_change -> (rose(A_ItemPulse) AND !A_Stop AND !prev(A_Complete) AND !prev(A_LockedOut)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: An accepted item increments A_AcceptedCount and clears A_ConsecutiveRejects; a A_Rejected item increments both reject counters.",
+      "property": "G(accepted_edge -> (A_AcceptedCount=prev(A_AcceptedCount)+1 AND A_ConsecutiveRejects=0)) AND G(rejected_edge -> (A_RejectCount=prev(A_RejectCount)+1 AND A_ConsecutiveRejects=prev(A_ConsecutiveRejects)+1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_Complete shall latch when A_AcceptedCount reaches positive A_Target and no later item may change counts.",
+      "property": "G(A_Complete -> X(A_Complete))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_RejectLimit less than or equal to zero, or reaching A_RejectLimit consecutive rejects, shall latch A_LockedOut.",
+      "property": "G((A_RejectLimit<=0 OR A_ConsecutiveRejects>=A_RejectLimit)->A_LockedOut)",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Stop has priority over A_ItemPulse and prevents every count change.",
+      "property": "G(A_Stop -> stable(A_AcceptedCount,A_RejectCount,A_ConsecutiveRejects))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "Subsystem A shall satisfy: A_Reset clears all state only while A_Stop is TRUE and A_ItemPulse is FALSE.",
+      "property": "G((A_Reset AND A_Stop AND !A_ItemPulse)->(A_AcceptedCount=0 AND A_RejectCount=0 AND A_ConsecutiveRejects=0 AND !A_Complete AND !A_LockedOut))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A lone rising B_AddItem edge increments B_Count when below B_Capacity.",
+      "property": "G((rose(B_AddItem) AND !rose(B_RemoveItem) AND prev(B_Count)<B_Capacity AND !B_Reset) -> B_Count=prev(B_Count)+1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A lone rising B_RemoveItem edge decrements B_Count when above zero.",
+      "property": "G((rose(B_RemoveItem) AND !rose(B_AddItem) AND prev(B_Count)>0 AND !B_Reset) -> B_Count=prev(B_Count)-1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Simultaneous rising edges shall leave B_Count unchanged and set B_Conflict for one scan.",
+      "property": "G((rose(B_AddItem) AND rose(B_RemoveItem) AND !B_Reset) -> ((B_Count=prev(B_Count)) AND B_Conflict))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Count shall remain within zero and B_Capacity; B_Empty and B_Full reflect the boundaries.",
+      "property": "G((B_Count>=0) AND (B_Count<=B_Capacity) AND (B_Empty=(B_Count=0)) AND (B_Full=(B_Count>=B_Capacity)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_Count and B_Conflict.",
+      "property": "G(B_Reset -> ((B_Count=0) AND !B_Conflict))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_Complete shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Complete AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C06_X01_batch_quality_lockout",
+    "base_b": "C06_M02_bounded_up_down_counter",
+    "direction": "A_to_B",
+    "activation_output": "A_Complete"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

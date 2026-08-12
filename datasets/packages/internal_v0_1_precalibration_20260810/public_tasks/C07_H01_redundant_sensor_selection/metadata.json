@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C07_H01_redundant_sensor_selection",
+  "title": "Redundant analog sensor selection",
+  "category_id": "C07",
+  "category": "Analog processing",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "REAL",
+    "ABS",
+    "retained output",
+    "sensor voting",
+    "fault status"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 5,
+    "stateful_blocks": 0,
+    "interactions": 5,
+    "fault_modes": 3,
+    "horizon_scans": 3,
+    "inputs": 5,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "SensorA",
+        "type": "REAL",
+        "description": "Sensor A value"
+      },
+      {
+        "name": "SensorB",
+        "type": "REAL",
+        "description": "Sensor B value"
+      },
+      {
+        "name": "ValidA",
+        "type": "BOOL",
+        "description": "Sensor A validity"
+      },
+      {
+        "name": "ValidB",
+        "type": "BOOL",
+        "description": "Sensor B validity"
+      },
+      {
+        "name": "MaxDifference",
+        "type": "REAL",
+        "description": "Maximum agreement difference"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Selected",
+        "type": "REAL",
+        "description": "Selected process value"
+      },
+      {
+        "name": "Degraded",
+        "type": "BOOL",
+        "description": "Only one sensor valid"
+      },
+      {
+        "name": "Disagree",
+        "type": "BOOL",
+        "description": "Both valid but disagree"
+      },
+      {
+        "name": "NoValidSensor",
+        "type": "BOOL",
+        "description": "Neither sensor valid"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "MaxDifference is non-negative and constant during a test.",
+    "Selected initializes to 0.0 in a fresh instance.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "When both sensors are valid and agree within MaxDifference, Selected shall be their average.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "When both sensors are valid but disagree beyond MaxDifference, Disagree shall be TRUE and Selected shall retain its previous value.",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "When exactly one sensor is valid, Selected shall use that sensor and Degraded shall be TRUE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "When neither sensor is valid, NoValidSensor shall be TRUE and Selected shall retain its previous value.",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Degraded, Disagree, and NoValidSensor shall be mutually exclusive.",
+      "safety_critical": false
+    }
+  ]
+}

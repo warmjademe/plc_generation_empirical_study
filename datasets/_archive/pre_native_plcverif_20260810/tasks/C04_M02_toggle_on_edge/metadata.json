@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C04_M02_toggle_on_edge",
+  "title": "Toggle output on qualified rising edge",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "retained output",
+    "edge detection",
+    "priority"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 3,
+    "stateful_blocks": 1,
+    "interactions": 2,
+    "fault_modes": 1,
+    "horizon_scans": 5,
+    "inputs": 3,
+    "outputs": 2,
+    "requirements": 3
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Button",
+        "type": "BOOL",
+        "description": "Momentary button"
+      },
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Toggle permission"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Synchronous reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "State",
+        "type": "BOOL",
+        "description": "Toggled state"
+      },
+      {
+        "name": "AcceptedPulse",
+        "type": "BOOL",
+        "description": "Qualified edge accepted this scan"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Reset shall clear State and suppress AcceptedPulse with highest priority.",
+      "property": "G(Reset -> (!State AND !AcceptedPulse))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "A rising Button edge while Enable is TRUE shall invert State exactly once.",
+      "property": "G(AcceptedPulse = (Enable AND rose(Button) AND !Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Holding Button TRUE shall not repeatedly toggle State.",
+      "property": "G((Button AND prev(Button) AND !Reset) -> (State = prev(State)))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C03_B16_composite",
+  "title": "Composed supervisory control: Mutually exclusive heating and cooling with deadband -> Ventilated heater startup with proof timeout",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "REAL",
+    "TIME",
+    "TON",
+    "comparison",
+    "compositional control",
+    "interlock",
+    "latched readiness",
+    "proof timeout",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 14,
+    "stateful_blocks": 2,
+    "interactions": 16,
+    "fault_modes": 6,
+    "horizon_scans": 16,
+    "inputs": 12,
+    "outputs": 9,
+    "requirements": 14
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Temperature",
+        "type": "REAL",
+        "description": "Subsystem A: Measured temperature"
+      },
+      {
+        "name": "A_Setpoint",
+        "type": "REAL",
+        "description": "Subsystem A: Target temperature"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Controller enable"
+      },
+      {
+        "name": "A_SafetyTrip",
+        "type": "BOOL",
+        "description": "Subsystem A: Common safety trip"
+      },
+      {
+        "name": "B_HeatRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Heat demand"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Stop command"
+      },
+      {
+        "name": "B_GuardClosed",
+        "type": "BOOL",
+        "description": "Subsystem B: Guard safety input"
+      },
+      {
+        "name": "B_DamperOpen",
+        "type": "BOOL",
+        "description": "Subsystem B: Damper proof"
+      },
+      {
+        "name": "B_AirflowOK",
+        "type": "BOOL",
+        "description": "Subsystem B: Airflow proof"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Fault reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Heat",
+        "type": "BOOL",
+        "description": "Subsystem A: Heating output"
+      },
+      {
+        "name": "A_Cool",
+        "type": "BOOL",
+        "description": "Subsystem A: Cooling output"
+      },
+      {
+        "name": "B_DamperCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Open-damper command"
+      },
+      {
+        "name": "B_FanCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Ventilation fan command"
+      },
+      {
+        "name": "B_HeaterCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Heater command"
+      },
+      {
+        "name": "B_Fault",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched proof fault"
+      },
+      {
+        "name": "B_State",
+        "type": "INT",
+        "description": "Subsystem B: 0 idle, 1 proving ventilation, 2 heating"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Heat"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The runtime scan period is 100 ms.",
+    "Subsystem B: Proof inputs are sampled at scan start.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Heat shall turn on below A_Setpoint minus 1.0 while enabled and safe.",
+      "property": "G((A_Enable AND !A_SafetyTrip AND A_Temperature < A_Setpoint-1.0) -> A_Heat)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Cool shall turn on above A_Setpoint plus 1.0 while enabled and safe.",
+      "property": "G((A_Enable AND !A_SafetyTrip AND A_Temperature > A_Setpoint+1.0) -> A_Cool)",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Neither output shall be active inside the inclusive deadband.",
+      "property": "G((A_Temperature >= A_Setpoint-1.0 AND A_Temperature <= A_Setpoint+1.0) -> (!A_Heat AND !A_Cool))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Heat and A_Cool shall never be active together, and A_SafetyTrip shall turn both off.",
+      "property": "G((!(A_Heat AND A_Cool)) AND (A_SafetyTrip -> (!A_Heat AND !A_Cool)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A healthy B_HeatRequest shall enter ventilation proving and command the damper and fan before the heater.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_State=0 AND B_HeatRequest AND B_GuardClosed AND !B_Stop AND !B_Fault)->X(B_State=1)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_HeaterCommand may energize only after B_DamperOpen and B_AirflowOK remain TRUE for 300 ms.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_HeaterCommand -> continuous(B_DamperOpen AND B_AirflowOK,3)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Failure to establish both proofs within 600 ms shall latch B_Fault and force all commands FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (proof_timeout -> (B_Fault AND !B_DamperCommand AND !B_FanCommand AND !B_HeaterCommand)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Loss of B_GuardClosed, B_DamperOpen, or B_AirflowOK while heating shall immediately trip and latch B_Fault.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_State=2 AND (!B_GuardClosed OR !B_DamperOpen OR !B_AirflowOK)) -> B_Fault))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Stop shall return to idle without clearing B_Fault; B_Reset clears B_Fault only while idle with B_HeatRequest FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Stop -> B_State=0)) AND G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND B_State=0 AND !B_HeatRequest)->!B_Fault))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_HeaterCommand shall never be TRUE unless B_DamperCommand and B_FanCommand are both TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_HeaterCommand -> (B_DamperCommand AND B_FanCommand)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "A TRUE A_Heat shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Heat AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_DamperCommand AND NOT B_FanCommand AND NOT B_HeaterCommand AND NOT B_Fault AND B_State=0)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_DamperCommand AND NOT B_FanCommand AND NOT B_HeaterCommand AND NOT B_Fault AND B_State=0))",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R14",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C03_M02_heating_cooling_deadband",
+    "base_b": "C03_X01_ventilated_heater_interlock",
+    "direction": "A_to_B",
+    "activation_output": "A_Heat"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

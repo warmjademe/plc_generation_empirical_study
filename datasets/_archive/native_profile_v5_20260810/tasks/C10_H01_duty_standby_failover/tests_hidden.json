@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C10_H01_duty_standby_failover",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "feedback_timeout_failover_and_failure",
+      "description": "Give the duty and standby pumps separate feedback windows, then reset while idle.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Demand": true,
+            "DutyIsPump1": true,
+            "Pump1Available": true,
+            "Pump2Available": true,
+            "Pump1Feedback": false,
+            "Pump2Feedback": false,
+            "Reset": false
+          },
+          "expect": {
+            "Pump1Run": false,
+            "Pump2Run": true,
+            "FailoverActive": true,
+            "Failure": false
+          },
+          "repeat": 5,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "Demand": true,
+            "DutyIsPump1": true,
+            "Pump1Available": true,
+            "Pump2Available": true,
+            "Pump1Feedback": false,
+            "Pump2Feedback": false,
+            "Reset": false
+          },
+          "expect": {
+            "Pump1Run": false,
+            "Pump2Run": false,
+            "FailoverActive": true,
+            "Failure": true
+          },
+          "repeat": 4,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "Demand": false,
+            "DutyIsPump1": true,
+            "Pump1Available": true,
+            "Pump2Available": true,
+            "Pump1Feedback": false,
+            "Pump2Feedback": false,
+            "Reset": true
+          },
+          "expect": {
+            "Pump1Run": false,
+            "Pump2Run": false,
+            "FailoverActive": false,
+            "Failure": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

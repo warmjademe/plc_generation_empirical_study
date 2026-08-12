@@ -1,0 +1,8 @@
+FUNCTION_BLOCK C04_E01_rising_edge_pulse
+VAR_INPUT
+    Signal : BOOL;
+END_VAR
+VAR_OUTPUT
+    Pulse : BOOL;
+END_VAR
+END_FUNCTION_BLOCK

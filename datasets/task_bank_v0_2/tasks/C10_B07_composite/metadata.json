@@ -1,0 +1,273 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C10_B07_composite",
+  "title": "Composed supervisory control: Fair two-client resource arbiter with emergency lockout -> Lead-lag pump demand control",
+  "category_id": "C10",
+  "category": "Multi-device coordination",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "availability",
+    "compositional control",
+    "emergency lockout",
+    "latched readiness",
+    "lead-lag coordination",
+    "mutual exclusion",
+    "retained state",
+    "round-robin arbitration",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 6,
+    "transitions": 12,
+    "stateful_blocks": 0,
+    "interactions": 20,
+    "fault_modes": 6,
+    "horizon_scans": 10,
+    "inputs": 12,
+    "outputs": 10,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_RequestA",
+        "type": "BOOL",
+        "description": "Subsystem A: Client A requests the resource"
+      },
+      {
+        "name": "A_RequestB",
+        "type": "BOOL",
+        "description": "Subsystem A: Client B requests the resource"
+      },
+      {
+        "name": "A_Done",
+        "type": "BOOL",
+        "description": "Subsystem A: Current client releases the resource"
+      },
+      {
+        "name": "A_Emergency",
+        "type": "BOOL",
+        "description": "Subsystem A: Emergency resource shutdown"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Lockout reset"
+      },
+      {
+        "name": "B_LowDemand",
+        "type": "BOOL",
+        "description": "Subsystem B: At least one pump is required"
+      },
+      {
+        "name": "B_HighDemand",
+        "type": "BOOL",
+        "description": "Subsystem B: Both pumps are requested"
+      },
+      {
+        "name": "B_LeadIsPump1",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 1 is selected lead"
+      },
+      {
+        "name": "B_Pump1Available",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 1 availability"
+      },
+      {
+        "name": "B_Pump2Available",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 2 availability"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_GrantA",
+        "type": "BOOL",
+        "description": "Subsystem A: Resource grant to client A"
+      },
+      {
+        "name": "A_GrantB",
+        "type": "BOOL",
+        "description": "Subsystem A: Resource grant to client B"
+      },
+      {
+        "name": "A_Busy",
+        "type": "BOOL",
+        "description": "Subsystem A: Resource has an active owner"
+      },
+      {
+        "name": "A_Turn",
+        "type": "INT",
+        "description": "Subsystem A: Tie-break preference: 1 A, 2 B"
+      },
+      {
+        "name": "A_LockedOut",
+        "type": "BOOL",
+        "description": "Subsystem A: Emergency lockout"
+      },
+      {
+        "name": "B_Pump1Run",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 1 command"
+      },
+      {
+        "name": "B_Pump2Run",
+        "type": "BOOL",
+        "description": "Subsystem B: Pump 2 command"
+      },
+      {
+        "name": "B_CapacityShortfall",
+        "type": "BOOL",
+        "description": "Subsystem B: Requested capacity cannot be supplied"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_GrantA"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_GrantA and A_GrantB shall never be TRUE simultaneously.",
+      "property": "G(!(A_GrantA AND A_GrantB))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: When idle, a single request shall receive the resource; simultaneous requests shall follow A_Turn.",
+      "property": "G((!A_Busy AND request_present AND !A_LockedOut) -> X(A_Busy))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_Done shall release the current grant before a new owner is selected on a later scan.",
+      "property": "G(A_Done -> (!A_GrantA AND !A_GrantB AND !A_Busy))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: After A completes A_Turn shall prefer B, and after B completes A_Turn shall prefer A.",
+      "property": "G((A_Done AND A_GrantA)->X(A_Turn=2)) AND G((A_Done AND A_GrantB)->X(A_Turn=1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Emergency shall immediately revoke all grants and latch A_LockedOut.",
+      "property": "G(A_Emergency -> (!A_GrantA AND !A_GrantB AND !A_Busy AND A_LockedOut))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_LockedOut only while A_Emergency and both requests are FALSE.",
+      "property": "G((A_Reset AND !A_Emergency AND !A_RequestA AND !A_RequestB) -> !A_LockedOut)",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: With B_LowDemand only, the available selected lead pump shall run and the lag pump shall remain off.",
+      "property": "G((B_LowDemand AND !B_HighDemand AND lead_available) -> exactly_one_run)",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: With B_HighDemand, every available pump shall run.",
+      "property": "G(B_HighDemand -> (B_Pump1Run=B_Pump1Available AND B_Pump2Run=B_Pump2Available))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: If the selected lead is unavailable under B_LowDemand, the available lag pump shall run.",
+      "property": "G((B_LowDemand AND !B_HighDemand AND !lead_available AND lag_available) -> lag_runs)",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: No pump shall run when neither demand input is TRUE.",
+      "property": "G((!B_LowDemand AND !B_HighDemand) -> (!B_Pump1Run AND !B_Pump2Run))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_CapacityShortfall shall indicate zero available pumps for B_LowDemand or fewer than two for B_HighDemand.",
+      "property": "G(B_CapacityShortfall = insufficient_available_capacity)",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_GrantA shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_GrantA AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C10_H02_fair_resource_arbiter",
+    "base_b": "C10_M02_lead_lag_demand_control",
+    "direction": "A_to_B",
+    "activation_output": "A_GrantA"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

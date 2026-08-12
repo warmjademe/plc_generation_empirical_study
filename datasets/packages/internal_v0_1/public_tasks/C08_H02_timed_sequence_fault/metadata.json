@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C08_H02_timed_sequence_fault",
+  "title": "State sequence with per-stage timeout",
+  "category_id": "C08",
+  "category": "Sequential state machines",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "TIME",
+    "TON",
+    "CASE",
+    "state machine",
+    "timeout fault"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 8,
+    "stateful_blocks": 1,
+    "interactions": 6,
+    "fault_modes": 2,
+    "horizon_scans": 10,
+    "inputs": 5,
+    "outputs": 5,
+    "requirements": 6
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start sequence"
+      },
+      {
+        "name": "Sensor1",
+        "type": "BOOL",
+        "description": "Stage 1 completion sensor"
+      },
+      {
+        "name": "Sensor2",
+        "type": "BOOL",
+        "description": "Stage 2 completion sensor"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "Stop and reset-to-idle command"
+      },
+      {
+        "name": "ResetFault",
+        "type": "BOOL",
+        "description": "Fault reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Actuator1",
+        "type": "BOOL",
+        "description": "Stage 1 actuator"
+      },
+      {
+        "name": "Actuator2",
+        "type": "BOOL",
+        "description": "Stage 2 actuator"
+      },
+      {
+        "name": "Complete",
+        "type": "BOOL",
+        "description": "Completion pulse"
+      },
+      {
+        "name": "Fault",
+        "type": "BOOL",
+        "description": "Latched timeout fault"
+      },
+      {
+        "name": "State",
+        "type": "INT",
+        "description": "0 idle, 1 stage1, 2 stage2"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Sensor completion is expected within 500 ms of entering each stage.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Start in idle shall enter stage 1 and energize only Actuator1.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Sensor1 shall transition stage 1 to stage 2; Sensor2 shall complete stage 2 and return idle.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Either stage remaining incomplete for 500 ms shall latch Fault and return idle with both actuators off.",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Stop shall return idle and turn both actuators off without clearing Fault.",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "ResetFault clears Fault only while Stop is TRUE and Start is FALSE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "Complete shall pulse only on the stage-2-to-idle completion transition.",
+      "safety_critical": false
+    }
+  ]
+}

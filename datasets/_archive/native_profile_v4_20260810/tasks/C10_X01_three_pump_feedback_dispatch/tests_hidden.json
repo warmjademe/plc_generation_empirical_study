@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C10_X01_three_pump_feedback_dispatch",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "feedback_exclusion_capacity_fault_reset",
+      "description": "Exclude a failed lead, report capacity loss, and reset only idle.",
+      "requirement_ids": [
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "LowDemand": true,
+            "HighDemand": true,
+            "Lead": 1,
+            "Available1": true,
+            "Available2": true,
+            "Available3": true,
+            "Feedback1": false,
+            "Feedback2": true,
+            "Feedback3": true,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Run1": false,
+            "Run2": true,
+            "Run3": true,
+            "ActiveCount": 2,
+            "Failover": true,
+            "Fault": false
+          },
+          "repeat": 5,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "LowDemand": true,
+            "HighDemand": true,
+            "Lead": 1,
+            "Available1": false,
+            "Available2": true,
+            "Available3": false,
+            "Feedback1": false,
+            "Feedback2": true,
+            "Feedback3": false,
+            "Stop": false,
+            "Reset": false
+          },
+          "expect": {
+            "Run1": false,
+            "Run2": true,
+            "Run3": false,
+            "ActiveCount": 1,
+            "Failover": true,
+            "Fault": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "LowDemand": false,
+            "HighDemand": false,
+            "Lead": 1,
+            "Available1": true,
+            "Available2": true,
+            "Available3": true,
+            "Feedback1": false,
+            "Feedback2": false,
+            "Feedback3": false,
+            "Stop": false,
+            "Reset": true
+          },
+          "expect": {
+            "Run1": false,
+            "Run2": false,
+            "Run3": false,
+            "ActiveCount": 0,
+            "Failover": false,
+            "Fault": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

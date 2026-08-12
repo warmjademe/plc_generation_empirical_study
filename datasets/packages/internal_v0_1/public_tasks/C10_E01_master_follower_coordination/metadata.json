@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C10_E01_master_follower_coordination",
+  "title": "Master-follower motor coordination",
+  "category_id": "C10",
+  "category": "Multi-device coordination",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "AND",
+    "coordinated outputs"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 0,
+    "stateful_blocks": 0,
+    "interactions": 2,
+    "fault_modes": 2,
+    "horizon_scans": 1,
+    "inputs": 3,
+    "outputs": 2,
+    "requirements": 2
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "RunRequest",
+        "type": "BOOL",
+        "description": "Request to run both motors"
+      },
+      {
+        "name": "MasterReady",
+        "type": "BOOL",
+        "description": "Master motor is available"
+      },
+      {
+        "name": "FollowerReady",
+        "type": "BOOL",
+        "description": "Follower motor is available"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "MasterRun",
+        "type": "BOOL",
+        "description": "Master motor command"
+      },
+      {
+        "name": "FollowerRun",
+        "type": "BOOL",
+        "description": "Follower motor command"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "MasterRun shall be TRUE exactly when RunRequest and MasterReady are TRUE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "FollowerRun shall require RunRequest, MasterRun, and FollowerReady.",
+      "safety_critical": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "scope": "explicit numeric-bound and per-case-constant assumptions",
+  "task_count": 100,
+  "violating_task_count": 0,
+  "violation_count": 0,
+  "tasks": []
+}

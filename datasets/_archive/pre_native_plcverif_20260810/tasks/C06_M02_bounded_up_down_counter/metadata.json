@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C06_M02_bounded_up_down_counter",
+  "title": "Bounded up/down inventory counter",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "retained state",
+    "dual edge detection",
+    "bounded counter"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 5,
+    "stateful_blocks": 2,
+    "interactions": 3,
+    "fault_modes": 1,
+    "horizon_scans": 7,
+    "inputs": 4,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "AddItem",
+        "type": "BOOL",
+        "description": "Add one item"
+      },
+      {
+        "name": "RemoveItem",
+        "type": "BOOL",
+        "description": "Remove one item"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Reset inventory"
+      },
+      {
+        "name": "Capacity",
+        "type": "INT",
+        "description": "Maximum count, assumed positive"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Count",
+        "type": "INT",
+        "description": "Inventory count"
+      },
+      {
+        "name": "Empty",
+        "type": "BOOL",
+        "description": "Count is zero"
+      },
+      {
+        "name": "Full",
+        "type": "BOOL",
+        "description": "Count reached Capacity"
+      },
+      {
+        "name": "Conflict",
+        "type": "BOOL",
+        "description": "Add and Remove rose together"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Capacity remains constant during a test and is positive.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "A lone rising AddItem edge increments Count when below Capacity.",
+      "property": "G((rose(AddItem) AND !rose(RemoveItem) AND prev(Count)<Capacity AND !Reset) -> Count=prev(Count)+1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "A lone rising RemoveItem edge decrements Count when above zero.",
+      "property": "G((rose(RemoveItem) AND !rose(AddItem) AND prev(Count)>0 AND !Reset) -> Count=prev(Count)-1)",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Simultaneous rising edges shall leave Count unchanged and set Conflict for one scan.",
+      "property": "G((rose(AddItem) AND rose(RemoveItem) AND !Reset) -> ((Count=prev(Count)) AND Conflict))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Count shall remain within zero and Capacity; Empty and Full reflect the boundaries.",
+      "property": "G((Count>=0) AND (Count<=Capacity) AND (Empty=(Count=0)) AND (Full=(Count>=Capacity)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Reset shall clear Count and Conflict.",
+      "property": "G(Reset -> ((Count=0) AND !Conflict))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

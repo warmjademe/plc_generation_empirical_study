@@ -1,0 +1,657 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "C04_R15_lean_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "independent_base_oracles_plus_explicit_composition_rules",
+  "independent_requirement_oracle": true,
+  "cases": [
+    {
+      "name": "A_feedback_1",
+      "description": "Subsystem-A expectations are copied from its independently authored base oracle.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Signal": true,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": false,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": true,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": false,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_A",
+      "id": "OT01"
+    },
+    {
+      "name": "B_feedback_1",
+      "description": "Subsystem-B expectations are copied from its independent base oracle after an authored A activation trace.",
+      "requirement_ids": [
+        "R4",
+        "R5",
+        "R8"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Signal": true,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": false,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": true,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": true,
+            "B_Ch2": true,
+            "B_Ch3": false,
+            "B_AutoMode": true,
+            "B_AutoRequest": true,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_RunPermit": true,
+            "B_Degraded": true,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": true,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": true,
+            "B_AutoRequest": true,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_B_after_A_activation",
+      "id": "OT02"
+    },
+    {
+      "name": "A_hidden_1",
+      "description": "Subsystem-A expectations are copied from its independently authored base oracle.",
+      "requirement_ids": [
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Signal": true,
+            "A_Arm": false,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": false,
+            "A_Armed": false,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": false,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": false,
+            "A_Armed": false,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": true,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": false,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": true,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_A",
+      "id": "OT03"
+    },
+    {
+      "name": "B_hidden_1",
+      "description": "Subsystem-B expectations are copied from its independent base oracle after an authored A activation trace.",
+      "requirement_ids": [
+        "R5",
+        "R6",
+        "R7",
+        "R8"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Signal": true,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": false,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": true,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": true,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": true,
+            "B_BypassRequest": true,
+            "B_BypassPermit": true,
+            "B_SafetyOK": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_RunPermit": true,
+            "B_Degraded": true,
+            "B_BypassActive": true,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": true,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": true,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": true,
+            "B_Blocked": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": true,
+            "B_Reset": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_B_after_A_activation",
+      "id": "OT04"
+    },
+    {
+      "name": "cross_reset_priority",
+      "description": "The explicitly specified supervisory reset isolates B in the same scan.",
+      "requirement_ids": [
+        "R9",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Signal": true,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": false,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": false,
+            "B_Ch2": false,
+            "B_Ch3": false,
+            "B_AutoMode": false,
+            "B_AutoRequest": false,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Pulse": true,
+            "A_Armed": true,
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": true,
+            "B_Ch2": true,
+            "B_Ch3": false,
+            "B_AutoMode": true,
+            "B_AutoRequest": true,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_RunPermit": true,
+            "B_Degraded": true,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Signal": false,
+            "A_Arm": true,
+            "B_Ch1": true,
+            "B_Ch2": true,
+            "B_Ch3": false,
+            "B_AutoMode": true,
+            "B_AutoRequest": true,
+            "B_ManualRequest": false,
+            "B_BypassRequest": false,
+            "B_BypassPermit": false,
+            "B_SafetyOK": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": true
+          },
+          "expect": {
+            "B_RunPermit": false,
+            "B_Degraded": false,
+            "B_BypassActive": false,
+            "B_Blocked": false,
+            "CrossReady": false,
+            "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_specified_supervisory_contract",
+      "id": "OT05"
+    }
+  ]
+}

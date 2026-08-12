@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C03_M01_pump_valve_interlock",
+  "title": "Pump and discharge-valve interlock",
+  "category_id": "C03",
+  "category": "Interlocks and safe outputs",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "interlock",
+    "feedback monitoring"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 2,
+    "stateful_blocks": 0,
+    "interactions": 3,
+    "fault_modes": 1,
+    "horizon_scans": 2,
+    "inputs": 5,
+    "outputs": 3,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "RunRequest",
+        "type": "BOOL",
+        "description": "Process run request"
+      },
+      {
+        "name": "TankLevelOK",
+        "type": "BOOL",
+        "description": "Suction tank level permissive"
+      },
+      {
+        "name": "ValveFeedbackOpen",
+        "type": "BOOL",
+        "description": "Discharge valve open feedback"
+      },
+      {
+        "name": "PumpFeedback",
+        "type": "BOOL",
+        "description": "Pump running feedback"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "Stop command"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "ValveCommand",
+        "type": "BOOL",
+        "description": "Discharge valve command"
+      },
+      {
+        "name": "PumpCommand",
+        "type": "BOOL",
+        "description": "Pump command"
+      },
+      {
+        "name": "InterlockAlarm",
+        "type": "BOOL",
+        "description": "Unsafe feedback combination"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "ValveCommand shall follow a valid RunRequest while TankLevelOK and not Stop hold.",
+      "property": "G(ValveCommand = (RunRequest AND TankLevelOK AND !Stop))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "PumpCommand requires ValveFeedbackOpen in addition to the valve-command permissives.",
+      "property": "G(PumpCommand -> ValveFeedbackOpen)",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "PumpCommand shall be FALSE when Stop or loss of TankLevelOK is active.",
+      "property": "G((Stop OR !TankLevelOK) -> !PumpCommand)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "InterlockAlarm shall be TRUE when PumpFeedback is TRUE while valve feedback is closed.",
+      "property": "G(InterlockAlarm = (PumpFeedback AND !ValveFeedbackOpen))",
+      "safety_critical": true
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

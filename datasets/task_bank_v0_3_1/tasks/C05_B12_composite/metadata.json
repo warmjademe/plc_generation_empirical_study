@@ -1,0 +1,255 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C05_B12_composite",
+  "title": "Composed supervisory control: Off-delay ventilation fan -> Pre-lube motor lifecycle with feedback fault and cooldown",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "TIME",
+    "TOF",
+    "TON",
+    "compositional control",
+    "cooldown",
+    "feedback timeout",
+    "latched readiness",
+    "state machine",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 6,
+    "transitions": 17,
+    "stateful_blocks": 4,
+    "interactions": 16,
+    "fault_modes": 7,
+    "horizon_scans": 20,
+    "inputs": 10,
+    "outputs": 9,
+    "requirements": 14
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Demand",
+        "type": "BOOL",
+        "description": "Subsystem A: Ventilation demand"
+      },
+      {
+        "name": "A_SafetyTrip",
+        "type": "BOOL",
+        "description": "Subsystem A: Immediate safety shutdown"
+      },
+      {
+        "name": "B_Start",
+        "type": "BOOL",
+        "description": "Subsystem B: Start request"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Stop request"
+      },
+      {
+        "name": "B_Permit",
+        "type": "BOOL",
+        "description": "Subsystem B: Safety permission"
+      },
+      {
+        "name": "B_OilPressure",
+        "type": "BOOL",
+        "description": "Subsystem B: Lubrication pressure proof"
+      },
+      {
+        "name": "B_MotorFeedback",
+        "type": "BOOL",
+        "description": "Subsystem B: Motor running feedback"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Fault reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Fan",
+        "type": "BOOL",
+        "description": "Subsystem A: Fan command"
+      },
+      {
+        "name": "A_RunOn",
+        "type": "BOOL",
+        "description": "Subsystem A: Fan is in off-delay run-on"
+      },
+      {
+        "name": "B_LubePump",
+        "type": "BOOL",
+        "description": "Subsystem B: Lubrication pump command"
+      },
+      {
+        "name": "B_MotorCommand",
+        "type": "BOOL",
+        "description": "Subsystem B: Motor command"
+      },
+      {
+        "name": "B_Cooldown",
+        "type": "BOOL",
+        "description": "Subsystem B: Cooldown state indication"
+      },
+      {
+        "name": "B_Fault",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched startup or oil fault"
+      },
+      {
+        "name": "B_State",
+        "type": "INT",
+        "description": "Subsystem B: 0 idle, 1 pre-lube, 2 feedback proving, 3 running, 4 cooldown"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Fan"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: A_Demand is held TRUE for at least one scan before an off-delay test.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The runtime scan period is 100 ms.",
+    "Subsystem B: B_Start may remain TRUE through startup.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Fan shall turn on without delay when A_Demand becomes TRUE and A_SafetyTrip is FALSE.",
+      "property": "G((A_Demand AND !A_SafetyTrip) -> A_Fan)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: After A_Demand becomes FALSE, A_Fan shall remain on for 300 ms unless A_SafetyTrip occurs.",
+      "property": "G((fell(A_Demand) AND !A_SafetyTrip) -> hold(A_Fan,3))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_SafetyTrip shall turn A_Fan and A_RunOn off immediately.",
+      "property": "G(A_SafetyTrip -> (!A_Fan AND !A_RunOn))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_RunOn shall indicate the interval in which A_Demand is FALSE but the off-delay output remains TRUE.",
+      "property": "G(A_RunOn = (!A_Demand AND A_Fan))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A permitted B_Start shall enter pre-lube with B_LubePump TRUE and B_MotorCommand FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_State=0 AND B_Start AND B_Permit AND !B_Stop AND !B_Fault)->X(B_State=1)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_MotorCommand may B_Start only after B_OilPressure remains TRUE for 300 ms.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_MotorCommand -> continuous(B_OilPressure,3)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Failure to receive B_MotorFeedback within 400 ms of B_MotorCommand shall latch B_Fault and enter B_Cooldown.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (feedback_timeout -> (B_Fault AND B_State=4 AND !B_MotorCommand)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_OilPressure loss while running shall immediately B_Stop the motor, latch B_Fault, and enter B_Cooldown.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_State=3 AND !B_OilPressure)->(B_Fault AND !B_MotorCommand AND B_State=4)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Stop or B_Permit loss shall B_Stop B_MotorCommand and enter a 300 ms B_Cooldown with B_LubePump remaining TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (((B_Stop OR !B_Permit) AND prev(B_State)>0)->(B_State=4 AND !B_MotorCommand)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset clears B_Fault only in idle with B_Start FALSE; B_Cooldown completion returns idle without clearing B_Fault.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND B_State=0 AND !B_Start)->!B_Fault))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "A TRUE A_Fan shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Fan AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_LubePump AND NOT B_MotorCommand AND NOT B_Cooldown AND NOT B_Fault AND B_State=0)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_LubePump AND NOT B_MotorCommand AND NOT B_Cooldown AND NOT B_Fault AND B_State=0))",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R14",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C05_M01_off_delay_fan",
+    "base_b": "C05_X01_pre_lube_motor_lifecycle",
+    "direction": "A_to_B",
+    "activation_output": "A_Fan"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

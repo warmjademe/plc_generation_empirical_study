@@ -1,0 +1,3970 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "C04_H02_dual_event_priority_lockout",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "independently_authored_base_task_oracles",
+  "independent_requirement_oracle": true,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "simultaneous_priority",
+      "description": "Event A wins simultaneous capture.",
+      "requirement_ids": [
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_feedback_oracle"
+    },
+    {
+      "id": "HT01",
+      "name": "lockout_and_reset",
+      "description": "Capture B, reject a later A, and reset.",
+      "requirement_ids": [
+        "R1",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_hidden_oracle"
+    },
+    {
+      "id": "ST01",
+      "name": "authored_replay_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST02",
+      "name": "authored_replay_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST03",
+      "name": "boundary_001",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST04",
+      "name": "boundary_002",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST05",
+      "name": "boundary_003",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST06",
+      "name": "boundary_004",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST07",
+      "name": "boundary_005",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST08",
+      "name": "boundary_006",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST09",
+      "name": "boundary_007",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST10",
+      "name": "boundary_008",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST11",
+      "name": "boundary_009",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST12",
+      "name": "boundary_010",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST13",
+      "name": "boundary_011",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST14",
+      "name": "boundary_012",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST15",
+      "name": "boundary_013",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST16",
+      "name": "boundary_014",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST17",
+      "name": "boundary_015",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST18",
+      "name": "boundary_016",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST19",
+      "name": "hold_EventA",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST20",
+      "name": "hold_EventB",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST21",
+      "name": "hold_Arm",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST22",
+      "name": "hold_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST23",
+      "name": "conflict_EventA_EventB",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST24",
+      "name": "conflict_EventA_Arm",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST25",
+      "name": "conflict_EventA_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST26",
+      "name": "conflict_EventB_Arm",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST27",
+      "name": "conflict_EventB_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST28",
+      "name": "conflict_Arm_Reset",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST29",
+      "name": "seeded_hold_1",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST30",
+      "name": "seeded_hold_2",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST31",
+      "name": "seeded_hold_3",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    },
+    {
+      "id": "ST32",
+      "name": "seeded_hold_4",
+      "description": "Sealed boundary/state trace generated from the frozen reference implementation.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 1,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": false,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": false,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_authored_stress_oracle"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C04_M02_toggle_on_edge",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "second_toggle_and_reset",
+      "description": "Toggle a second time and apply reset while held.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": false,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": true,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Button": true,
+            "Enable": true,
+            "Reset": true
+          },
+          "expect": {
+            "State": false,
+            "AcceptedPulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

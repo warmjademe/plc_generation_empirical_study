@@ -1,0 +1,237 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C01_B01_composite",
+  "title": "Composed supervisory control: Four-level alarm priority encoder -> Redundant-channel safety gate",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "compositional control",
+    "inequality",
+    "latched readiness",
+    "priority",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 13,
+    "stateful_blocks": 0,
+    "interactions": 15,
+    "fault_modes": 5,
+    "horizon_scans": 5,
+    "inputs": 12,
+    "outputs": 7,
+    "requirements": 12
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Info",
+        "type": "BOOL",
+        "description": "Subsystem A: Information condition"
+      },
+      {
+        "name": "A_Warning",
+        "type": "BOOL",
+        "description": "Subsystem A: Warning condition"
+      },
+      {
+        "name": "A_Trip",
+        "type": "BOOL",
+        "description": "Subsystem A: Trip condition"
+      },
+      {
+        "name": "A_Emergency",
+        "type": "BOOL",
+        "description": "Subsystem A: Emergency condition"
+      },
+      {
+        "name": "A_Suppress",
+        "type": "BOOL",
+        "description": "Subsystem A: Suppress non-emergency indications"
+      },
+      {
+        "name": "B_ChA",
+        "type": "BOOL",
+        "description": "Subsystem B: Safety channel A"
+      },
+      {
+        "name": "B_ChB",
+        "type": "BOOL",
+        "description": "Subsystem B: Safety channel B"
+      },
+      {
+        "name": "B_TestMode",
+        "type": "BOOL",
+        "description": "Subsystem B: Maintenance test mode"
+      },
+      {
+        "name": "B_TestPermit",
+        "type": "BOOL",
+        "description": "Subsystem B: Independent test authorization"
+      },
+      {
+        "name": "B_ProcessRequest",
+        "type": "BOOL",
+        "description": "Subsystem B: Process run request"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Active",
+        "type": "BOOL",
+        "description": "Subsystem A: At least one reportable condition"
+      },
+      {
+        "name": "A_Level",
+        "type": "INT",
+        "description": "Subsystem A: 0 none, 1 info, 2 warning, 3 trip, 4 emergency"
+      },
+      {
+        "name": "B_SafeEnable",
+        "type": "BOOL",
+        "description": "Subsystem B: Permitted process output"
+      },
+      {
+        "name": "B_Disagree",
+        "type": "BOOL",
+        "description": "Subsystem B: Channel disagreement"
+      },
+      {
+        "name": "B_TestActive",
+        "type": "BOOL",
+        "description": "Subsystem B: Authorized test-mode indication"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Active"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Emergency shall always produce A_Level 4 and A_Active TRUE, even when A_Suppress is TRUE.",
+      "property": "G(A_Emergency -> (A_Active AND (A_Level = 4)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: When not suppressed, the highest A_Active condition shall determine A_Level.",
+      "property": "G((!A_Suppress AND !A_Emergency) -> (A_Level = max_priority(A_Info,A_Warning,A_Trip)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_Suppress shall force A_Level 0 and A_Active FALSE when A_Emergency is FALSE.",
+      "property": "G((A_Suppress AND !A_Emergency) -> ((!A_Active) AND (A_Level = 0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Level 0 shall be equivalent to A_Active FALSE.",
+      "property": "G((A_Level = 0) = (!A_Active))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Disagree shall be TRUE exactly when B_ChA and B_ChB differ.",
+      "property": "G(B_Disagree = (B_ChA <> B_ChB))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Normal B_SafeEnable requires B_ProcessRequest and both channels TRUE.",
+      "property": "G((!B_TestMode) -> (B_SafeEnable = (B_ProcessRequest AND B_ChA AND B_ChB)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Test mode may bypass B_ChB only when B_TestPermit and B_ChA are TRUE.",
+      "property": "G(B_TestMode -> (B_SafeEnable = (B_ProcessRequest AND B_TestPermit AND B_ChA)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_TestActive shall indicate B_TestMode and B_TestPermit together.",
+      "property": "G(B_TestActive = (B_TestMode AND B_TestPermit))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "A TRUE A_Active shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Active AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C01_H01_four_level_priority",
+    "base_b": "C01_H02_redundant_channel_gate",
+    "direction": "A_to_B",
+    "activation_output": "A_Active"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

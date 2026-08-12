@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C05_E01_on_delay_enable",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "interrupted_timing",
+      "description": "Interrupt the timing interval and require a fresh full interval.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "Delayed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": false,
+            "Reset": false
+          },
+          "expect": {
+            "Delayed": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "Delayed": true
+          },
+          "repeat": 5,
+          "check": "last_only"
+        }
+      ]
+    }
+  ]
+}

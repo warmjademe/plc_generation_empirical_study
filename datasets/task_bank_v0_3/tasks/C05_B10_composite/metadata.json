@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C05_B10_composite",
+  "title": "Composed supervisory control: Off-delay ventilation fan -> Star-delta motor transition",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "TIME",
+    "TOF",
+    "TON",
+    "compositional control",
+    "interlock",
+    "latched readiness",
+    "retained outputs",
+    "supervisory interlock",
+    "timed transition"
+  ],
+  "complexity": {
+    "retained_state": 7,
+    "transitions": 13,
+    "stateful_blocks": 3,
+    "interactions": 13,
+    "fault_modes": 5,
+    "horizon_scans": 16,
+    "inputs": 8,
+    "outputs": 8,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Demand",
+        "type": "BOOL",
+        "description": "Subsystem A: Ventilation demand"
+      },
+      {
+        "name": "A_SafetyTrip",
+        "type": "BOOL",
+        "description": "Subsystem A: Immediate safety shutdown"
+      },
+      {
+        "name": "B_Start",
+        "type": "BOOL",
+        "description": "Subsystem B: Start command"
+      },
+      {
+        "name": "B_Stop",
+        "type": "BOOL",
+        "description": "Subsystem B: Stop command"
+      },
+      {
+        "name": "B_Overload",
+        "type": "BOOL",
+        "description": "Subsystem B: Motor overload"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Fault reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Fan",
+        "type": "BOOL",
+        "description": "Subsystem A: Fan command"
+      },
+      {
+        "name": "A_RunOn",
+        "type": "BOOL",
+        "description": "Subsystem A: Fan is in off-delay run-on"
+      },
+      {
+        "name": "B_Main",
+        "type": "BOOL",
+        "description": "Subsystem B: Main contactor"
+      },
+      {
+        "name": "B_Star",
+        "type": "BOOL",
+        "description": "Subsystem B: Star contactor"
+      },
+      {
+        "name": "B_Delta",
+        "type": "BOOL",
+        "description": "Subsystem B: Delta contactor"
+      },
+      {
+        "name": "B_Fault",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched overload fault"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Fan"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: A_Demand is held TRUE for at least one scan before an off-delay test.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The runtime scan period is 100 ms.",
+    "Subsystem B: B_Start may remain TRUE during normal operation.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Fan shall turn on without delay when A_Demand becomes TRUE and A_SafetyTrip is FALSE.",
+      "property": "G((A_Demand AND !A_SafetyTrip) -> A_Fan)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: After A_Demand becomes FALSE, A_Fan shall remain on for 300 ms unless A_SafetyTrip occurs.",
+      "property": "G((fell(A_Demand) AND !A_SafetyTrip) -> hold(A_Fan,3))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_SafetyTrip shall turn A_Fan and A_RunOn off immediately.",
+      "property": "G(A_SafetyTrip -> (!A_Fan AND !A_RunOn))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_RunOn shall indicate the interval in which A_Demand is FALSE but the off-delay output remains TRUE.",
+      "property": "G(A_RunOn = (!A_Demand AND A_Fan))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Start shall energize B_Main and B_Star when no B_Fault, B_Stop, or B_Overload is active.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Start AND !B_Stop AND !B_Overload AND !B_Fault AND phase=idle) -> (B_Main AND B_Star AND !B_Delta)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: After 500 ms in B_Star, B_Star shall turn off before B_Delta turns on after a 200 ms transition gap.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Delta -> (B_Main AND !B_Star AND elapsed_star>=7)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Star and B_Delta shall never be TRUE together.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (!(B_Star AND B_Delta)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Stop or B_Overload shall immediately turn off all contactors; B_Overload latches B_Fault.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Stop OR B_Overload) -> (!B_Main AND !B_Star AND !B_Delta)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset clears B_Fault only while B_Start is FALSE and B_Overload is FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND !B_Start AND !B_Overload) -> !B_Fault))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_Fan shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Fan AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Main AND NOT B_Star AND NOT B_Delta AND NOT B_Fault)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Main AND NOT B_Star AND NOT B_Delta AND NOT B_Fault))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C05_M01_off_delay_fan",
+    "base_b": "C05_H02_star_delta_sequence",
+    "direction": "A_to_B",
+    "activation_output": "A_Fan"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

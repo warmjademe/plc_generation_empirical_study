@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C03_E01_forward_reverse_interlock",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "conflict_and_permit",
+      "description": "Reject conflicting commands and lost permission.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "ForwardRequest": true,
+            "ReverseRequest": true,
+            "Permit": true
+          },
+          "expect": {
+            "Forward": false,
+            "Reverse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ForwardRequest": true,
+            "ReverseRequest": false,
+            "Permit": false
+          },
+          "expect": {
+            "Forward": false,
+            "Reverse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

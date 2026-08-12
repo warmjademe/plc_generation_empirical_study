@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C01_H01_four_level_priority",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "priority_order",
+      "description": "Check highest-active-condition selection.",
+      "requirement_ids": [
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Info": true,
+            "Warning": true,
+            "Trip": false,
+            "Emergency": false,
+            "Suppress": false
+          },
+          "expect": {
+            "Active": true,
+            "Level": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Info": true,
+            "Warning": true,
+            "Trip": true,
+            "Emergency": false,
+            "Suppress": false
+          },
+          "expect": {
+            "Active": true,
+            "Level": 3
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

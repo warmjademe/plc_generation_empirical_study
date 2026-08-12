@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C06_M01_configurable_batch_counter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "enabled_counting",
+      "description": "Reject disabled events and accept an enabled edge.",
+      "requirement_ids": [
+        "R1",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": false
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": false,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 0,
+            "BatchDone": false,
+            "Accepted": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Item": true,
+            "Reset": false,
+            "Target": 2,
+            "Enable": true
+          },
+          "expect": {
+            "Count": 1,
+            "BatchDone": false,
+            "Accepted": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C01_H01_four_level_priority",
+  "title": "Four-level alarm priority encoder",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "IF",
+    "ELSIF",
+    "priority"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 5,
+    "stateful_blocks": 0,
+    "interactions": 5,
+    "fault_modes": 1,
+    "horizon_scans": 1,
+    "inputs": 5,
+    "outputs": 2,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Info",
+        "type": "BOOL",
+        "description": "Information condition"
+      },
+      {
+        "name": "Warning",
+        "type": "BOOL",
+        "description": "Warning condition"
+      },
+      {
+        "name": "Trip",
+        "type": "BOOL",
+        "description": "Trip condition"
+      },
+      {
+        "name": "Emergency",
+        "type": "BOOL",
+        "description": "Emergency condition"
+      },
+      {
+        "name": "Suppress",
+        "type": "BOOL",
+        "description": "Suppress non-emergency indications"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Active",
+        "type": "BOOL",
+        "description": "At least one reportable condition"
+      },
+      {
+        "name": "Level",
+        "type": "INT",
+        "description": "0 none, 1 info, 2 warning, 3 trip, 4 emergency"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Emergency shall always produce Level 4 and Active TRUE, even when Suppress is TRUE.",
+      "property": "G(Emergency -> (Active AND (Level = 4)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "When not suppressed, the highest active condition shall determine Level.",
+      "property": "G((!Suppress AND !Emergency) -> (Level = max_priority(Info,Warning,Trip)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Suppress shall force Level 0 and Active FALSE when Emergency is FALSE.",
+      "property": "G((Suppress AND !Emergency) -> ((!Active) AND (Level = 0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Level 0 shall be equivalent to Active FALSE.",
+      "property": "G((Level = 0) = (!Active))",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

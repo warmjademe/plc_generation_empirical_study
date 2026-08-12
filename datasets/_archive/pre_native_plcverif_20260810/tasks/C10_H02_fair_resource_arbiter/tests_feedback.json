@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C10_H02_fair_resource_arbiter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "tie_break_and_release",
+      "description": "Use A first, release for one scan, then prefer B.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RequestA": false,
+            "RequestB": false,
+            "Done": false,
+            "Emergency": false,
+            "Reset": true
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": true,
+            "GrantB": false,
+            "Busy": true,
+            "Turn": 1,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": true,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": false,
+            "Busy": false,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RequestA": true,
+            "RequestB": true,
+            "Done": false,
+            "Emergency": false,
+            "Reset": false
+          },
+          "expect": {
+            "GrantA": false,
+            "GrantB": true,
+            "Busy": true,
+            "Turn": 2,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

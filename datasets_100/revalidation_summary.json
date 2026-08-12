@@ -1,0 +1,21 @@
+{
+  "calibration_summary_sha256": "0bc61125409cd758b1de6b204ff93501a9822dddd6d2524be2e1fe42bc16ba44",
+  "manifest_sha256": "7d5d18522deef51321466eacdbfbfd829c2c3ff737f220514a44a613383c2ab9",
+  "pass_count": 100,
+  "reference_duration_ms": {
+    "maximum": 580944,
+    "median": 231935.5,
+    "minimum": 37348,
+    "p90": 367740
+  },
+  "schema_version": "1.0",
+  "success": true,
+  "task_count": 100,
+  "toolchain": [
+    "MatIEC",
+    "PLCverif",
+    "OpenPLC feedback",
+    "OpenPLC sealed"
+  ],
+  "validator_config_sha256": "434026ea91648573a7ee3b1f6621ad9300d43526a6b541bab9f752d2c97b8405"
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C07_M02_temperature_hysteresis",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "configuration_and_boundaries",
+      "description": "Exercise inclusive low boundary, invalid thresholds, and disable.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Temperature": 19.0,
+            "LowThreshold": 19.0,
+            "HighThreshold": 21.0,
+            "Enable": true
+          },
+          "expect": {
+            "Heater": true,
+            "ConfigError": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Temperature": 20.0,
+            "LowThreshold": 21.0,
+            "HighThreshold": 21.0,
+            "Enable": true
+          },
+          "expect": {
+            "Heater": false,
+            "ConfigError": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Temperature": 18.0,
+            "LowThreshold": 19.0,
+            "HighThreshold": 21.0,
+            "Enable": false
+          },
+          "expect": {
+            "Heater": false,
+            "ConfigError": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

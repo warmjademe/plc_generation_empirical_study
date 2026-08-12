@@ -1,0 +1,26 @@
+{
+  "dataset": "IEC-ST-VerifyBench-TaskBank",
+  "version": "0.3.1-dev",
+  "task_count": 200,
+  "category_counts": {
+    "C01": 20,
+    "C02": 20,
+    "C03": 20,
+    "C04": 20,
+    "C05": 20,
+    "C06": 20,
+    "C07": 20,
+    "C08": 20,
+    "C09": 20,
+    "C10": 20
+  },
+  "difficulty_stratification": "not_used",
+  "construction_rule": "all ordered non-self pairs among five base behaviors in each category",
+  "openplc_oracle": "independent base oracles plus explicit composition rules",
+  "screening_model": "kimi-k3",
+  "screening_attempts_per_task": 1,
+  "selection_target": 50,
+  "selection_quota_per_category": 5,
+  "selection_status": "not_run",
+  "model_calls_used_to_build_oracles": false
+}

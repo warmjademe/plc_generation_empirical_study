@@ -1,0 +1,243 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C02_B01_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Fault": false,
+            "A_Reset": false,
+            "A_Permit": true,
+            "B_PowerOK": false,
+            "B_SafetyOK": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Running": true,
+            "A_LockedOut": false,
+            "B_Running": false,
+            "B_RestartInhibit": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": false,
+            "A_Stop": false,
+            "A_Fault": true,
+            "A_Reset": false,
+            "A_Permit": true,
+            "B_PowerOK": false,
+            "B_SafetyOK": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Running": false,
+            "A_LockedOut": true,
+            "B_Running": false,
+            "B_RestartInhibit": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Fault": false,
+            "A_Reset": false,
+            "A_Permit": true,
+            "B_PowerOK": false,
+            "B_SafetyOK": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Running": false,
+            "A_LockedOut": true,
+            "B_Running": false,
+            "B_RestartInhibit": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Fault": false,
+            "A_Reset": false,
+            "A_Permit": true,
+            "B_PowerOK": false,
+            "B_SafetyOK": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Running": true,
+            "A_LockedOut": false,
+            "B_Running": false,
+            "B_RestartInhibit": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Fault": false,
+            "A_Reset": false,
+            "A_Permit": true,
+            "B_PowerOK": true,
+            "B_SafetyOK": true,
+            "B_Start": true,
+            "B_Stop": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Running": true,
+            "A_LockedOut": false,
+            "B_Running": true,
+            "B_RestartInhibit": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Fault": false,
+            "A_Reset": false,
+            "A_Permit": true,
+            "B_PowerOK": true,
+            "B_SafetyOK": false,
+            "B_Start": false,
+            "B_Stop": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Running": true,
+            "A_LockedOut": false,
+            "B_Running": false,
+            "B_RestartInhibit": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Start": true,
+            "A_Stop": false,
+            "A_Fault": false,
+            "A_Reset": false,
+            "A_Permit": true,
+            "B_PowerOK": true,
+            "B_SafetyOK": true,
+            "B_Start": true,
+            "B_Stop": false,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Running": true,
+            "A_LockedOut": false,
+            "B_Running": false,
+            "B_RestartInhibit": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

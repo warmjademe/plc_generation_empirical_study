@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C09_M02_qualified_sensor_disagreement",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "short_then_sustained_disagreement",
+      "description": "Reject a transient and accept a sustained disagreement; the activation scan precedes three elapsed scan intervals.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 13.0,
+            "MaxDifference": 2.0,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "Alarm": false,
+            "Disagreeing": true
+          },
+          "repeat": 2,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 10.5,
+            "MaxDifference": 2.0,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "Alarm": false,
+            "Disagreeing": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 13.0,
+            "MaxDifference": 2.0,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "Alarm": true,
+            "Disagreeing": true
+          },
+          "repeat": 4,
+          "check": "last_only"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C03_M02_heating_cooling_deadband",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "deadband_edges",
+      "description": "Exercise both sides and center of the deadband.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Temperature": 18.9,
+            "Setpoint": 20.0,
+            "Enable": true,
+            "SafetyTrip": false
+          },
+          "expect": {
+            "Heat": true,
+            "Cool": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Temperature": 20.0,
+            "Setpoint": 20.0,
+            "Enable": true,
+            "SafetyTrip": false
+          },
+          "expect": {
+            "Heat": false,
+            "Cool": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Temperature": 21.1,
+            "Setpoint": 20.0,
+            "Enable": true,
+            "SafetyTrip": false
+          },
+          "expect": {
+            "Heat": false,
+            "Cool": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

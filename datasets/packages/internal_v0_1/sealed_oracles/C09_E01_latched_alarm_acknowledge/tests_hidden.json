@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C09_E01_latched_alarm_acknowledge",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "qualified_reset",
+      "description": "Reject reset while active and accept it after the condition clears.",
+      "requirement_ids": [
+        "R1",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "AlarmCondition": true,
+            "Acknowledge": false,
+            "Reset": false
+          },
+          "expect": {
+            "AlarmActive": true,
+            "AlarmUnacked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AlarmCondition": true,
+            "Acknowledge": false,
+            "Reset": true
+          },
+          "expect": {
+            "AlarmActive": true,
+            "AlarmUnacked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "AlarmCondition": false,
+            "Acknowledge": false,
+            "Reset": true
+          },
+          "expect": {
+            "AlarmActive": false,
+            "AlarmUnacked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,441 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "C03_B11_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "independent_base_oracles_plus_explicit_composition_rules",
+  "independent_requirement_oracle": true,
+  "cases": [
+    {
+      "name": "A_feedback_1",
+      "description": "Subsystem-A expectations are copied from its independently authored base oracle.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 0.0,
+            "B_Setpoint": 0.0,
+            "B_Enable": false,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_ValveCommand": true,
+            "A_PumpCommand": false,
+            "A_InterlockAlarm": false,
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": true,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 0.0,
+            "B_Setpoint": 0.0,
+            "B_Enable": false,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_ValveCommand": true,
+            "A_PumpCommand": true,
+            "A_InterlockAlarm": false,
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_A",
+      "id": "OT01"
+    },
+    {
+      "name": "B_feedback_1",
+      "description": "Subsystem-B expectations are copied from its independent base oracle after an authored A activation trace.",
+      "requirement_ids": [
+        "R5",
+        "R6",
+        "R7"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 0.0,
+            "B_Setpoint": 0.0,
+            "B_Enable": false,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_ValveCommand": true,
+            "A_PumpCommand": false,
+            "A_InterlockAlarm": false,
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 18.9,
+            "B_Setpoint": 20.0,
+            "B_Enable": true,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_Heat": true,
+            "B_Cool": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 20.0,
+            "B_Setpoint": 20.0,
+            "B_Enable": true,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 21.1,
+            "B_Setpoint": 20.0,
+            "B_Enable": true,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_Heat": false,
+            "B_Cool": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_B_after_A_activation",
+      "id": "OT02"
+    },
+    {
+      "name": "A_hidden_1",
+      "description": "Subsystem-A expectations are copied from its independently authored base oracle.",
+      "requirement_ids": [
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": true,
+            "A_Stop": false,
+            "B_Temperature": 0.0,
+            "B_Setpoint": 0.0,
+            "B_Enable": false,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_ValveCommand": true,
+            "A_PumpCommand": false,
+            "A_InterlockAlarm": true,
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": true,
+            "A_PumpFeedback": true,
+            "A_Stop": true,
+            "B_Temperature": 0.0,
+            "B_Setpoint": 0.0,
+            "B_Enable": false,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_ValveCommand": false,
+            "A_PumpCommand": false,
+            "A_InterlockAlarm": false,
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_A",
+      "id": "OT03"
+    },
+    {
+      "name": "B_hidden_1",
+      "description": "Subsystem-B expectations are copied from its independent base oracle after an authored A activation trace.",
+      "requirement_ids": [
+        "R7",
+        "R8"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 0.0,
+            "B_Setpoint": 0.0,
+            "B_Enable": false,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_ValveCommand": true,
+            "A_PumpCommand": false,
+            "A_InterlockAlarm": false,
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 19.0,
+            "B_Setpoint": 20.0,
+            "B_Enable": true,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 21.0,
+            "B_Setpoint": 20.0,
+            "B_Enable": true,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 10.0,
+            "B_Setpoint": 20.0,
+            "B_Enable": true,
+            "B_SafetyTrip": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independent_base_oracle_B_after_A_activation",
+      "id": "OT04"
+    },
+    {
+      "name": "cross_reset_priority",
+      "description": "The explicitly specified supervisory reset isolates B in the same scan.",
+      "requirement_ids": [
+        "R9",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 0.0,
+            "B_Setpoint": 0.0,
+            "B_Enable": false,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_ValveCommand": true,
+            "A_PumpCommand": false,
+            "A_InterlockAlarm": false,
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossBlocked": false,
+            "CrossReady": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 18.9,
+            "B_Setpoint": 20.0,
+            "B_Enable": true,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "B_Heat": true,
+            "B_Cool": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RunRequest": true,
+            "A_TankLevelOK": true,
+            "A_ValveFeedbackOpen": false,
+            "A_PumpFeedback": false,
+            "A_Stop": false,
+            "B_Temperature": 18.9,
+            "B_Setpoint": 20.0,
+            "B_Enable": true,
+            "B_SafetyTrip": false,
+            "SubsystemBEnable": true,
+            "CrossReset": true
+          },
+          "expect": {
+            "B_Heat": false,
+            "B_Cool": false,
+            "CrossReady": false,
+            "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "independently_specified_supervisory_contract",
+      "id": "OT05"
+    }
+  ]
+}

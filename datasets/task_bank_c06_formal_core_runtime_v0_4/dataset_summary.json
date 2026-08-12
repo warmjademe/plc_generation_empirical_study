@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "dataset": "IEC-ST-VerifyBench lean runtime replacement candidates",
+  "task_count": 25,
+  "category_counts": {
+    "C06": 25
+  },
+  "categories": {
+    "C06": "Counters and batch logic"
+  },
+  "construction_rule": "five-by-five cross-category composition; direction=stateful-second",
+  "eligibility_rule": "reference MatIEC -> PLCverif -> OpenPLC within 300 seconds",
+  "numeric_domain_policy": "C06 public parameters are fixed during a test and bounded to [-4,4]",
+  "formal_case_budget": 2,
+  "selection_status": "not_run",
+  "model_calls_used_to_build_oracles": false
+}

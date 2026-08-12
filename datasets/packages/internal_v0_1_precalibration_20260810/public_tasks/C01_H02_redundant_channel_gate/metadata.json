@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C01_H02_redundant_channel_gate",
+  "title": "Redundant-channel safety gate",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "IF",
+    "inequality",
+    "priority"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 5,
+    "stateful_blocks": 0,
+    "interactions": 5,
+    "fault_modes": 2,
+    "horizon_scans": 1,
+    "inputs": 5,
+    "outputs": 3,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "ChA",
+        "type": "BOOL",
+        "description": "Safety channel A"
+      },
+      {
+        "name": "ChB",
+        "type": "BOOL",
+        "description": "Safety channel B"
+      },
+      {
+        "name": "TestMode",
+        "type": "BOOL",
+        "description": "Maintenance test mode"
+      },
+      {
+        "name": "TestPermit",
+        "type": "BOOL",
+        "description": "Independent test authorization"
+      },
+      {
+        "name": "ProcessRequest",
+        "type": "BOOL",
+        "description": "Process run request"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "SafeEnable",
+        "type": "BOOL",
+        "description": "Permitted process output"
+      },
+      {
+        "name": "Disagree",
+        "type": "BOOL",
+        "description": "Channel disagreement"
+      },
+      {
+        "name": "TestActive",
+        "type": "BOOL",
+        "description": "Authorized test-mode indication"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Disagree shall be TRUE exactly when ChA and ChB differ.",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Normal SafeEnable requires ProcessRequest and both channels TRUE.",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Test mode may bypass ChB only when TestPermit and ChA are TRUE.",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "TestActive shall indicate TestMode and TestPermit together.",
+      "safety_critical": false
+    }
+  ]
+}

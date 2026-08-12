@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C10_E01_master_follower_coordination",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "both_ready",
+      "description": "Start and stop both ready devices.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RunRequest": true,
+            "MasterReady": true,
+            "FollowerReady": true
+          },
+          "expect": {
+            "MasterRun": true,
+            "FollowerRun": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RunRequest": false,
+            "MasterReady": true,
+            "FollowerReady": true
+          },
+          "expect": {
+            "MasterRun": false,
+            "FollowerRun": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

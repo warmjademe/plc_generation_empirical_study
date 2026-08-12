@@ -1,0 +1,222 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C01_B13_composite",
+  "title": "Composed supervisory control: Mode-dependent command selection -> Four-level alarm priority encoder",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "AND",
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "NOT",
+    "OR",
+    "compositional control",
+    "latched readiness",
+    "priority",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 10,
+    "stateful_blocks": 0,
+    "interactions": 13,
+    "fault_modes": 4,
+    "horizon_scans": 5,
+    "inputs": 12,
+    "outputs": 6,
+    "requirements": 10
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_AutoMode",
+        "type": "BOOL",
+        "description": "Subsystem A: TRUE selects automatic mode"
+      },
+      {
+        "name": "A_AutoDemand",
+        "type": "BOOL",
+        "description": "Subsystem A: Automatic request"
+      },
+      {
+        "name": "A_ManualDemand",
+        "type": "BOOL",
+        "description": "Subsystem A: Manual request"
+      },
+      {
+        "name": "A_SafetyOK",
+        "type": "BOOL",
+        "description": "Subsystem A: Common safety permission"
+      },
+      {
+        "name": "A_Inhibit",
+        "type": "BOOL",
+        "description": "Subsystem A: High-priority inhibit"
+      },
+      {
+        "name": "B_Info",
+        "type": "BOOL",
+        "description": "Subsystem B: Information condition"
+      },
+      {
+        "name": "B_Warning",
+        "type": "BOOL",
+        "description": "Subsystem B: Warning condition"
+      },
+      {
+        "name": "B_Trip",
+        "type": "BOOL",
+        "description": "Subsystem B: Trip condition"
+      },
+      {
+        "name": "B_Emergency",
+        "type": "BOOL",
+        "description": "Subsystem B: Emergency condition"
+      },
+      {
+        "name": "B_Suppress",
+        "type": "BOOL",
+        "description": "Subsystem B: Suppress non-emergency indications"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Command",
+        "type": "BOOL",
+        "description": "Subsystem A: Selected command"
+      },
+      {
+        "name": "A_Blocked",
+        "type": "BOOL",
+        "description": "Subsystem A: A request exists but is blocked"
+      },
+      {
+        "name": "B_Active",
+        "type": "BOOL",
+        "description": "Subsystem B: At least one reportable condition"
+      },
+      {
+        "name": "B_Level",
+        "type": "INT",
+        "description": "Subsystem B: 0 none, 1 info, 2 warning, 3 trip, 4 emergency"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Command"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Command shall follow A_AutoDemand in automatic mode and A_ManualDemand in manual mode, but only when A_SafetyOK is TRUE and A_Inhibit is FALSE.",
+      "property": "G(A_Command = (((A_AutoMode AND A_AutoDemand) OR ((!A_AutoMode) AND A_ManualDemand)) AND A_SafetyOK AND (!A_Inhibit)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Blocked shall be TRUE when the selected request is TRUE but safety is not OK or A_Inhibit is TRUE.",
+      "property": "G(A_Blocked = (((A_AutoMode AND A_AutoDemand) OR ((!A_AutoMode) AND A_ManualDemand)) AND ((!A_SafetyOK) OR A_Inhibit)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Emergency shall always produce B_Level 4 and B_Active TRUE, even when B_Suppress is TRUE.",
+      "property": "G(B_Emergency -> (B_Active AND (B_Level = 4)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: When not suppressed, the highest B_Active condition shall determine B_Level.",
+      "property": "G((!B_Suppress AND !B_Emergency) -> (B_Level = max_priority(B_Info,B_Warning,B_Trip)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Suppress shall force B_Level 0 and B_Active FALSE when B_Emergency is FALSE.",
+      "property": "G((B_Suppress AND !B_Emergency) -> ((!B_Active) AND (B_Level = 0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Level 0 shall be equivalent to B_Active FALSE.",
+      "property": "G((B_Level = 0) = (!B_Active))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "A TRUE A_Command shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Command AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C01_M02_mode_dependent_command",
+    "base_b": "C01_H01_four_level_priority",
+    "direction": "A_to_B",
+    "activation_output": "A_Command"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

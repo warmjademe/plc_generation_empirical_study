@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C08_X01_paused_three_stage_timeout",
+  "title": "Paused three-stage sequence with abort and per-stage timeout",
+  "category_id": "C08",
+  "category": "Sequential state machines",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "INT",
+    "TIME",
+    "TON",
+    "CASE",
+    "state machine",
+    "pause",
+    "abort",
+    "timeout"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 12,
+    "stateful_blocks": 1,
+    "interactions": 10,
+    "fault_modes": 3,
+    "horizon_scans": 15,
+    "inputs": 7,
+    "outputs": 7,
+    "requirements": 6
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Start",
+        "type": "BOOL",
+        "description": "Start sequence"
+      },
+      {
+        "name": "Stage1Done",
+        "type": "BOOL",
+        "description": "Stage 1 completion"
+      },
+      {
+        "name": "Stage2Done",
+        "type": "BOOL",
+        "description": "Stage 2 completion"
+      },
+      {
+        "name": "Stage3Done",
+        "type": "BOOL",
+        "description": "Stage 3 completion"
+      },
+      {
+        "name": "Pause",
+        "type": "BOOL",
+        "description": "Pause request"
+      },
+      {
+        "name": "Abort",
+        "type": "BOOL",
+        "description": "Abort request"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Fault reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Actuator1",
+        "type": "BOOL",
+        "description": "Stage 1 actuator"
+      },
+      {
+        "name": "Actuator2",
+        "type": "BOOL",
+        "description": "Stage 2 actuator"
+      },
+      {
+        "name": "Actuator3",
+        "type": "BOOL",
+        "description": "Stage 3 actuator"
+      },
+      {
+        "name": "Paused",
+        "type": "BOOL",
+        "description": "Sequence paused"
+      },
+      {
+        "name": "Complete",
+        "type": "BOOL",
+        "description": "One-scan completion pulse"
+      },
+      {
+        "name": "Fault",
+        "type": "BOOL",
+        "description": "Abort or timeout lockout"
+      },
+      {
+        "name": "State",
+        "type": "INT",
+        "description": "0 idle, 1 stage1, 2 stage2, 3 stage3"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Pausing resets rather than accumulates the stage timeout.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Start in idle shall enter stage 1; each matching Done input advances exactly one stage, and Stage3Done returns idle with a one-scan Complete pulse.",
+      "property": "G(stage_done -> next_stage)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Pause shall retain State while forcing every actuator FALSE; Done inputs while paused shall not advance.",
+      "property": "G(Pause -> (!Actuator1 AND !Actuator2 AND !Actuator3 AND X(State)=State))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "The active stage shall time out after 500 ms of unpaused execution and latch Fault.",
+      "property": "G(stage_timeout -> Fault)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Abort shall immediately return idle, force safe outputs, and latch Fault.",
+      "property": "G(Abort -> (State=0 AND Fault AND !Actuator1 AND !Actuator2 AND !Actuator3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Reset clears Fault only in idle while Start, Abort, and every Done input are FALSE.",
+      "property": "G(qualified_reset -> !Fault)",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "At most one actuator may be TRUE, and Complete shall never coincide with an actuator.",
+      "property": "G(at_most_one(Actuator1,Actuator2,Actuator3)) AND G(Complete -> (!Actuator1 AND !Actuator2 AND !Actuator3))",
+      "safety_critical": true
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

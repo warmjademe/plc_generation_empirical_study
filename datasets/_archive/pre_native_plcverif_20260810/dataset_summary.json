@@ -1,0 +1,28 @@
+{
+  "dataset": "IEC-ST-VerifyBench",
+  "version": "0.1.0",
+  "primary_task_count": 50,
+  "generation_opportunities_per_task": 10,
+  "maximum_primary_candidate_programs": 500,
+  "optional_negative_control_count": 50,
+  "negative_controls_use_llm": false,
+  "category_counts": {
+    "C01": 5,
+    "C02": 5,
+    "C03": 5,
+    "C04": 5,
+    "C05": 5,
+    "C06": 5,
+    "C07": 5,
+    "C08": 5,
+    "C09": 5,
+    "C10": 5
+  },
+  "difficulty_counts": {
+    "easy": 10,
+    "hard": 20,
+    "medium": 20
+  },
+  "scoring_unit": "task",
+  "primary_metric": "VerifiedSuccess@10"
+}

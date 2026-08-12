@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C07_H01_redundant_sensor_selection",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "normal_and_degraded",
+      "description": "Average agreeing channels and fall back to one valid channel.",
+      "requirement_ids": [
+        "R1",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 12.0,
+            "ValidA": true,
+            "ValidB": true,
+            "MaxDifference": 3.0
+          },
+          "expect": {
+            "Selected": 11.0,
+            "Degraded": false,
+            "Disagree": false,
+            "NoValidSensor": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 20.0,
+            "SensorB": 99.0,
+            "ValidA": true,
+            "ValidB": false,
+            "MaxDifference": 3.0
+          },
+          "expect": {
+            "Selected": 20.0,
+            "Degraded": true,
+            "Disagree": false,
+            "NoValidSensor": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

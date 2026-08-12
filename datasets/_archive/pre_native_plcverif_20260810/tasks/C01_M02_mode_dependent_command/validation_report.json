@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "task_id": "C01_M02_mode_dependent_command",
+  "structural": {
+    "status": "pass",
+    "validator": "tools/validate_dataset.py",
+    "checks": "schema, coverage, interfaces, value types, artifacts, controls, manifest hashes"
+  },
+  "external": {
+    "matiec": {
+      "status": "not_run",
+      "version": null,
+      "evidence": null
+    },
+    "rusty": {
+      "status": "not_run",
+      "version": null,
+      "evidence": null
+    },
+    "formal": {
+      "status": "not_run",
+      "version": null,
+      "evidence": null
+    },
+    "openplc": {
+      "status": "not_run",
+      "version": null,
+      "evidence": null
+    }
+  },
+  "negative_control": {
+    "status": "not_run",
+    "required_for_primary_experiment": false
+  },
+  "human_review": {
+    "status": "pending",
+    "reviewer": null
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C08_X01_paused_three_stage_timeout",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "timeout_abort_and_reset",
+      "description": "Time out, reset, and then verify abort priority.",
+      "requirement_ids": [
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stage1Done": false,
+            "Stage2Done": false,
+            "Stage3Done": false,
+            "Pause": false,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Actuator1": false,
+            "Actuator2": false,
+            "Actuator3": false,
+            "Paused": false,
+            "Complete": false,
+            "Fault": true,
+            "State": 0
+          },
+          "repeat": 8,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stage1Done": false,
+            "Stage2Done": false,
+            "Stage3Done": false,
+            "Pause": false,
+            "Abort": false,
+            "Reset": true
+          },
+          "expect": {
+            "Actuator1": false,
+            "Actuator2": false,
+            "Actuator3": false,
+            "Paused": false,
+            "Complete": false,
+            "Fault": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": true,
+            "Stage1Done": false,
+            "Stage2Done": false,
+            "Stage3Done": false,
+            "Pause": false,
+            "Abort": true,
+            "Reset": false
+          },
+          "expect": {
+            "Actuator1": false,
+            "Actuator2": false,
+            "Actuator3": false,
+            "Paused": false,
+            "Complete": false,
+            "Fault": true,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

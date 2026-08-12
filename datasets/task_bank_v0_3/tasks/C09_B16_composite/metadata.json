@@ -1,0 +1,270 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C09_B16_composite",
+  "title": "Composed supervisory control: Time-qualified sensor disagreement alarm -> Delayed warning, immediate trip, shelving, acknowledgement, and reset",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "ABS",
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "REAL",
+    "TIME",
+    "TON",
+    "acknowledgement",
+    "compositional control",
+    "latched readiness",
+    "priority",
+    "retained alarm",
+    "shelving",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 7,
+    "transitions": 18,
+    "stateful_blocks": 2,
+    "interactions": 19,
+    "fault_modes": 7,
+    "horizon_scans": 16,
+    "inputs": 13,
+    "outputs": 9,
+    "requirements": 14
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_SensorA",
+        "type": "REAL",
+        "description": "Subsystem A: First sensor value"
+      },
+      {
+        "name": "A_SensorB",
+        "type": "REAL",
+        "description": "Subsystem A: Second sensor value"
+      },
+      {
+        "name": "A_MaxDifference",
+        "type": "REAL",
+        "description": "Subsystem A: Allowed absolute difference"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Monitoring enable"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Alarm reset"
+      },
+      {
+        "name": "B_WarningCondition",
+        "type": "BOOL",
+        "description": "Subsystem B: Warning condition"
+      },
+      {
+        "name": "B_TripCondition",
+        "type": "BOOL",
+        "description": "Subsystem B: Trip condition"
+      },
+      {
+        "name": "B_Enable",
+        "type": "BOOL",
+        "description": "Subsystem B: Alarm enable"
+      },
+      {
+        "name": "B_Shelve",
+        "type": "BOOL",
+        "description": "Subsystem B: Warning shelving request"
+      },
+      {
+        "name": "B_Acknowledge",
+        "type": "BOOL",
+        "description": "Subsystem B: Operator acknowledgement"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Qualified trip reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Alarm",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched disagreement alarm"
+      },
+      {
+        "name": "A_Disagreeing",
+        "type": "BOOL",
+        "description": "Subsystem A: Current disagreement status"
+      },
+      {
+        "name": "B_Warning",
+        "type": "BOOL",
+        "description": "Subsystem B: Delayed warning indication"
+      },
+      {
+        "name": "B_Trip",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched trip"
+      },
+      {
+        "name": "B_Unacked",
+        "type": "BOOL",
+        "description": "Subsystem B: Active alarm not acknowledged"
+      },
+      {
+        "name": "B_Shelved",
+        "type": "BOOL",
+        "description": "Subsystem B: Warning display is shelved"
+      },
+      {
+        "name": "B_LockedOut",
+        "type": "BOOL",
+        "description": "Subsystem B: Trip lockout"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Alarm"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: A_MaxDifference is non-negative.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The runtime scan period is 100 ms.",
+    "Subsystem B: B_Acknowledge may be held for more than one scan.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Disagreeing shall be TRUE exactly when monitoring is enabled and the absolute difference exceeds A_MaxDifference.",
+      "property": "G(A_Disagreeing = (A_Enable AND ABS(A_SensorA-A_SensorB)>A_MaxDifference))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A disagreement lasting 300 ms shall latch A_Alarm.",
+      "property": "G(within(3, A_Disagreeing, A_Alarm))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A shorter disagreement shall not latch A_Alarm.",
+      "property": "G((A_Disagreeing AND duration(A_Disagreeing)<3) -> !A_Alarm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Alarm only while no disagreement is present.",
+      "property": "G((A_Reset AND !A_Disagreeing) -> !A_Alarm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: An enabled B_WarningCondition shall become B_Warning after 300 ms unless B_Shelved or a B_Trip is active.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Warning -> continuous(B_Enable AND B_WarningCondition AND !B_Shelved AND !B_Trip,3)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Shelve may suppress only warnings; B_TripCondition shall latch B_Trip and B_LockedOut immediately regardless of B_Shelve.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Enable AND B_TripCondition)->(B_Trip AND B_LockedOut)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Every newly displayed B_Warning or B_Trip shall set B_Unacked; B_Acknowledge clears B_Unacked without clearing active alarms.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (new_alarm -> B_Unacked))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Shelved follows B_Shelve only while no B_Trip is active; a B_Trip cancels B_Shelved.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Trip -> !B_Shelved))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Enable FALSE shall suppress B_Warning but shall not clear B_Trip or B_LockedOut.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (!B_Enable -> !B_Warning))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset clears B_Trip and B_LockedOut only when disabled and both conditions are FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND !B_Enable AND !B_WarningCondition AND !B_TripCondition)->(!B_Trip AND !B_LockedOut)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "A TRUE A_Alarm shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Alarm AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Warning AND NOT B_Trip AND NOT B_Unacked AND NOT B_Shelved AND NOT B_LockedOut)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Warning AND NOT B_Trip AND NOT B_Unacked AND NOT B_Shelved AND NOT B_LockedOut))",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R14",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C09_M02_qualified_sensor_disagreement",
+    "base_b": "C09_X01_shelved_alarm_lifecycle",
+    "direction": "A_to_B",
+    "activation_output": "A_Alarm"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

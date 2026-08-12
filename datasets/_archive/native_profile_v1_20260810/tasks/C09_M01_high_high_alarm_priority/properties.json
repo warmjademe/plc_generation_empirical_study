@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory; unsupported DSL is reported, never treated as verified",
+    "native_property_count": 4,
+    "fully_native_property_count": 4,
+    "total_property_count": 4
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Value>=HighLimit) -> HighAlarm)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(Value>=HighLimit) -> HighAlarm"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G((Value>=HighHighLimit) -> (HighAlarm AND HighHighAlarm AND Shutdown))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(Value>=HighHighLimit) -> (HighAlarm AND HighHighAlarm AND Shutdown)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Value>=HighLimit AND Value<HighHighLimit AND !HighHighAlarm) -> !Shutdown)",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(Value>=HighLimit AND Value<HighHighLimit AND !HighHighAlarm) -> !Shutdown"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((Reset AND Value<HighLimit) -> (!HighAlarm AND !HighHighAlarm AND !Shutdown))",
+      "source": "independently authored from the requirement contract",
+      "plcverif": {
+        "status": "required",
+        "cases": [
+          {
+            "backend": "nusmv",
+            "pattern_id": "pattern-invariant",
+            "parameters": [
+              "(Reset AND Value<HighLimit) -> (!HighAlarm AND !HighHighAlarm AND !Shutdown)"
+            ],
+            "mapping": "direct end-of-cycle invariant"
+          }
+        ],
+        "coverage": "complete"
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C06_M02_bounded_up_down_counter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "add_and_remove",
+      "description": "Increment and decrement within bounds.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Add": true,
+            "Remove": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Add": false,
+            "Remove": false,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 1,
+            "Empty": false,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Add": false,
+            "Remove": true,
+            "Reset": false,
+            "Capacity": 2
+          },
+          "expect": {
+            "Count": 0,
+            "Empty": true,
+            "Full": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

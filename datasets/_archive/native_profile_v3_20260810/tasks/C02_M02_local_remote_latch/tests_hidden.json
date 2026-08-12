@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C02_M02_local_remote_latch",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "remote_and_permit",
+      "description": "Reject non-selected start, accept remote, and trip on permit loss.",
+      "requirement_ids": [
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RemoteMode": true,
+            "LocalStart": true,
+            "RemoteStart": false,
+            "Stop": false,
+            "Permit": true
+          },
+          "expect": {
+            "Running": false,
+            "SelectedStart": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RemoteMode": true,
+            "LocalStart": false,
+            "RemoteStart": true,
+            "Stop": false,
+            "Permit": true
+          },
+          "expect": {
+            "Running": true,
+            "SelectedStart": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RemoteMode": true,
+            "LocalStart": false,
+            "RemoteStart": false,
+            "Stop": false,
+            "Permit": false
+          },
+          "expect": {
+            "Running": false,
+            "SelectedStart": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C05_B11_composite",
+  "title": "Composed supervisory control: Off-delay ventilation fan -> Heartbeat watchdog timeout",
+  "category_id": "C05",
+  "category": "Timers and timeouts",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "TIME",
+    "TOF",
+    "TON",
+    "compositional control",
+    "latched readiness",
+    "retained output",
+    "supervisory interlock",
+    "watchdog"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 10,
+    "stateful_blocks": 2,
+    "interactions": 10,
+    "fault_modes": 4,
+    "horizon_scans": 12,
+    "inputs": 7,
+    "outputs": 6,
+    "requirements": 12
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Demand",
+        "type": "BOOL",
+        "description": "Subsystem A: Ventilation demand"
+      },
+      {
+        "name": "A_SafetyTrip",
+        "type": "BOOL",
+        "description": "Subsystem A: Immediate safety shutdown"
+      },
+      {
+        "name": "B_MonitorEnable",
+        "type": "BOOL",
+        "description": "Subsystem B: Enable monitoring"
+      },
+      {
+        "name": "B_Heartbeat",
+        "type": "BOOL",
+        "description": "Subsystem B: One-scan heartbeat pulse"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Clear timeout latch"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Fan",
+        "type": "BOOL",
+        "description": "Subsystem A: Fan command"
+      },
+      {
+        "name": "A_RunOn",
+        "type": "BOOL",
+        "description": "Subsystem A: Fan is in off-delay run-on"
+      },
+      {
+        "name": "B_TimedOut",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched timeout"
+      },
+      {
+        "name": "B_Healthy",
+        "type": "BOOL",
+        "description": "Subsystem B: Monitor enabled and not timed out"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Fan"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: A_Demand is held TRUE for at least one scan before an off-delay test.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The runtime scan period is 100 ms.",
+    "Subsystem B: B_Heartbeat is a pulse lasting no more than one scan.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Fan shall turn on without delay when A_Demand becomes TRUE and A_SafetyTrip is FALSE.",
+      "property": "G((A_Demand AND !A_SafetyTrip) -> A_Fan)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: After A_Demand becomes FALSE, A_Fan shall remain on for 300 ms unless A_SafetyTrip occurs.",
+      "property": "G((fell(A_Demand) AND !A_SafetyTrip) -> hold(A_Fan,3))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_SafetyTrip shall turn A_Fan and A_RunOn off immediately.",
+      "property": "G(A_SafetyTrip -> (!A_Fan AND !A_RunOn))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_RunOn shall indicate the interval in which A_Demand is FALSE but the off-delay output remains TRUE.",
+      "property": "G(A_RunOn = (!A_Demand AND A_Fan))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: While monitoring, a B_Heartbeat shall restart the 400 ms B_Watchdog interval.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Heartbeat -> B_Reset(B_Watchdog)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Absence of B_Heartbeat for at least 400 ms shall latch B_TimedOut TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_MonitorEnable AND no_event(B_Heartbeat,4)) -> B_TimedOut))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_TimedOut only while B_MonitorEnable is FALSE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND !B_MonitorEnable) -> !B_TimedOut))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Healthy shall equal B_MonitorEnable and not B_TimedOut.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Healthy = (B_MonitorEnable AND !B_TimedOut)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "A TRUE A_Fan shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Fan AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_TimedOut AND NOT B_Healthy)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_TimedOut AND NOT B_Healthy))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C05_M01_off_delay_fan",
+    "base_b": "C05_M02_heartbeat_watchdog",
+    "direction": "A_to_B",
+    "activation_output": "A_Fan"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

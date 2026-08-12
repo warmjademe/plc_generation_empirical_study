@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C08_X01_paused_three_stage_timeout",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "pause_resume_progress",
+      "description": "Pause with a done input asserted, then consume it only after resume.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Stage1Done": false,
+            "Stage2Done": false,
+            "Stage3Done": false,
+            "Pause": false,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Actuator1": true,
+            "Actuator2": false,
+            "Actuator3": false,
+            "Paused": false,
+            "Complete": false,
+            "Fault": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stage1Done": true,
+            "Stage2Done": false,
+            "Stage3Done": false,
+            "Pause": true,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Actuator1": false,
+            "Actuator2": false,
+            "Actuator3": false,
+            "Paused": true,
+            "Complete": false,
+            "Fault": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Stage1Done": true,
+            "Stage2Done": false,
+            "Stage3Done": false,
+            "Pause": false,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Actuator1": false,
+            "Actuator2": true,
+            "Actuator3": false,
+            "Paused": false,
+            "Complete": false,
+            "Fault": false,
+            "State": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

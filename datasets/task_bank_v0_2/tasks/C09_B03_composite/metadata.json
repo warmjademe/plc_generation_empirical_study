@@ -1,0 +1,244 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.2.0-dev",
+  "id": "C09_B03_composite",
+  "title": "Composed supervisory control: First-out fault recorder with deterministic priority -> Time-qualified sensor disagreement alarm",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "ABS",
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "REAL",
+    "TIME",
+    "TON",
+    "compositional control",
+    "latched readiness",
+    "priority encoding",
+    "qualified reset",
+    "retained alarm",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 13,
+    "stateful_blocks": 1,
+    "interactions": 15,
+    "fault_modes": 6,
+    "horizon_scans": 10,
+    "inputs": 11,
+    "outputs": 7,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_FaultA",
+        "type": "BOOL",
+        "description": "Subsystem A: Fault channel A"
+      },
+      {
+        "name": "A_FaultB",
+        "type": "BOOL",
+        "description": "Subsystem A: Fault channel B"
+      },
+      {
+        "name": "A_FaultC",
+        "type": "BOOL",
+        "description": "Subsystem A: Fault channel C"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Recorder reset"
+      },
+      {
+        "name": "B_SensorA",
+        "type": "REAL",
+        "description": "Subsystem B: First sensor value"
+      },
+      {
+        "name": "B_SensorB",
+        "type": "REAL",
+        "description": "Subsystem B: Second sensor value"
+      },
+      {
+        "name": "B_MaxDifference",
+        "type": "REAL",
+        "description": "Subsystem B: Allowed absolute difference"
+      },
+      {
+        "name": "B_Enable",
+        "type": "BOOL",
+        "description": "Subsystem B: Monitoring enable"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Alarm reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_AnyFault",
+        "type": "BOOL",
+        "description": "Subsystem A: Current aggregate fault input"
+      },
+      {
+        "name": "A_LockedOut",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched lockout"
+      },
+      {
+        "name": "A_FirstFault",
+        "type": "INT",
+        "description": "Subsystem A: First fault code: 0 none, 1 A, 2 B, 3 C"
+      },
+      {
+        "name": "B_Alarm",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched disagreement alarm"
+      },
+      {
+        "name": "B_Disagreeing",
+        "type": "BOOL",
+        "description": "Subsystem B: Current disagreement status"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_AnyFault"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "The runtime scan period is 100 ms.",
+    "MaxDifference is non-negative.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_AnyFault shall equal the disjunction of all three fault inputs.",
+      "property": "G(A_AnyFault = (A_FaultA OR A_FaultB OR A_FaultC))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: The first observed fault shall latch A_LockedOut and its code in A_FirstFault.",
+      "property": "G((!A_LockedOut AND A_AnyFault) -> X(A_LockedOut AND A_FirstFault<>0))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Simultaneous first faults shall use priority A, then B, then C.",
+      "property": "G((!A_LockedOut AND A_FaultA)->X(A_FirstFault=1)) AND G((!A_LockedOut AND !A_FaultA AND A_FaultB)->X(A_FirstFault=2))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: Later faults shall not overwrite A_FirstFault while A_LockedOut is TRUE.",
+      "property": "G((A_LockedOut AND !qualified_reset) -> X(A_FirstFault=A_FirstFault))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_LockedOut and A_FirstFault only when all fault inputs are FALSE.",
+      "property": "G((A_Reset AND !A_AnyFault) -> (!A_LockedOut AND A_FirstFault=0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Disagreeing shall be TRUE exactly when monitoring is enabled and the absolute difference exceeds B_MaxDifference.",
+      "property": "G(B_Disagreeing = (B_Enable AND ABS(B_SensorA-B_SensorB)>B_MaxDifference))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A disagreement lasting 300 ms shall latch B_Alarm.",
+      "property": "G(within(3, B_Disagreeing, B_Alarm))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A shorter disagreement shall not latch B_Alarm.",
+      "property": "G((B_Disagreeing AND duration(B_Disagreeing)<3) -> !B_Alarm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_Alarm only while no disagreement is present.",
+      "property": "G((B_Reset AND !B_Disagreeing) -> !B_Alarm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_AnyFault shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_AnyFault AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C09_H01_first_out_fault_recorder",
+    "base_b": "C09_M02_qualified_sensor_disagreement",
+    "direction": "A_to_B",
+    "activation_output": "A_AnyFault"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C04_M01_falling_edge_pulse",
+  "title": "Armed falling-edge pulse",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "retained state",
+    "falling edge"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 3,
+    "stateful_blocks": 1,
+    "interactions": 1,
+    "fault_modes": 1,
+    "horizon_scans": 4,
+    "inputs": 2,
+    "outputs": 2,
+    "requirements": 3
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Signal",
+        "type": "BOOL",
+        "description": "Observed signal"
+      },
+      {
+        "name": "Arm",
+        "type": "BOOL",
+        "description": "Enable edge reporting"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Pulse",
+        "type": "BOOL",
+        "description": "One-scan falling-edge pulse"
+      },
+      {
+        "name": "Armed",
+        "type": "BOOL",
+        "description": "Current armed status"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Armed shall equal Arm at the end of each scan.",
+      "property": "G(Armed = Arm)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Pulse shall occur on a TRUE-to-FALSE Signal transition only when Arm is TRUE.",
+      "property": "G(Pulse = (Arm AND fell(Signal)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Disarming shall suppress Pulse without corrupting future edge detection.",
+      "property": "G(!Arm -> !Pulse)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

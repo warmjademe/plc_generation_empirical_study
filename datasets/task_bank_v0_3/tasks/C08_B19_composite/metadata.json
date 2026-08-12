@@ -1,0 +1,297 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C08_B19_composite",
+  "title": "Composed supervisory control: Paused three-stage sequence with abort and per-stage timeout -> Branching item sorter sequence",
+  "category_id": "C08",
+  "category": "Sequential state machines",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "CASE",
+    "FUNCTION_BLOCK",
+    "INT",
+    "TIME",
+    "TON",
+    "abort",
+    "branching state machine",
+    "compositional control",
+    "latched readiness",
+    "pause",
+    "state machine",
+    "supervisory interlock",
+    "timeout"
+  ],
+  "complexity": {
+    "retained_state": 6,
+    "transitions": 20,
+    "stateful_blocks": 1,
+    "interactions": 17,
+    "fault_modes": 6,
+    "horizon_scans": 19,
+    "inputs": 13,
+    "outputs": 13,
+    "requirements": 15
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Start",
+        "type": "BOOL",
+        "description": "Subsystem A: Start sequence"
+      },
+      {
+        "name": "A_Stage1Done",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 1 completion"
+      },
+      {
+        "name": "A_Stage2Done",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 2 completion"
+      },
+      {
+        "name": "A_Stage3Done",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 3 completion"
+      },
+      {
+        "name": "A_Pause",
+        "type": "BOOL",
+        "description": "Subsystem A: Pause request"
+      },
+      {
+        "name": "A_Abort",
+        "type": "BOOL",
+        "description": "Subsystem A: Abort request"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Fault reset"
+      },
+      {
+        "name": "B_ItemPresent",
+        "type": "BOOL",
+        "description": "Subsystem B: Item at inspection point"
+      },
+      {
+        "name": "B_RejectClass",
+        "type": "BOOL",
+        "description": "Subsystem B: Item classified for rejection"
+      },
+      {
+        "name": "B_TransferDone",
+        "type": "BOOL",
+        "description": "Subsystem B: Transfer completed"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Reset sequence"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Actuator1",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 1 actuator"
+      },
+      {
+        "name": "A_Actuator2",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 2 actuator"
+      },
+      {
+        "name": "A_Actuator3",
+        "type": "BOOL",
+        "description": "Subsystem A: Stage 3 actuator"
+      },
+      {
+        "name": "A_Paused",
+        "type": "BOOL",
+        "description": "Subsystem A: Sequence paused"
+      },
+      {
+        "name": "A_Complete",
+        "type": "BOOL",
+        "description": "Subsystem A: One-scan completion pulse"
+      },
+      {
+        "name": "A_Fault",
+        "type": "BOOL",
+        "description": "Subsystem A: Abort or timeout lockout"
+      },
+      {
+        "name": "A_State",
+        "type": "INT",
+        "description": "Subsystem A: 0 idle, 1 stage1, 2 stage2, 3 stage3"
+      },
+      {
+        "name": "B_Inspect",
+        "type": "BOOL",
+        "description": "Subsystem B: Inspection active"
+      },
+      {
+        "name": "B_AcceptGate",
+        "type": "BOOL",
+        "description": "Subsystem B: Accept path selected"
+      },
+      {
+        "name": "B_RejectGate",
+        "type": "BOOL",
+        "description": "Subsystem B: Reject path selected"
+      },
+      {
+        "name": "B_State",
+        "type": "INT",
+        "description": "Subsystem B: 0 wait, 1 inspect, 2 accept, 3 reject"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Actuator1"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: Pausing resets rather than accumulates the stage timeout.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Start in idle shall enter stage 1; each matching Done input advances exactly one stage, and A_Stage3Done returns idle with a one-scan A_Complete pulse.",
+      "property": "G(stage_done -> next_stage)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Pause shall retain A_State while forcing every actuator FALSE; Done inputs while A_Paused shall not advance.",
+      "property": "G(A_Pause -> (!A_Actuator1 AND !A_Actuator2 AND !A_Actuator3 AND X(A_State)=A_State))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: The active stage shall time out after 500 ms of unpaused execution and latch A_Fault.",
+      "property": "G(stage_timeout -> A_Fault)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Abort shall immediately return idle, force safe outputs, and latch A_Fault.",
+      "property": "G(A_Abort -> (A_State=0 AND A_Fault AND !A_Actuator1 AND !A_Actuator2 AND !A_Actuator3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Reset clears A_Fault only in idle while A_Start, A_Abort, and every Done input are FALSE.",
+      "property": "G(qualified_reset -> !A_Fault)",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "Subsystem A shall satisfy: At most one actuator may be TRUE, and A_Complete shall never coincide with an actuator.",
+      "property": "G(at_most_one(A_Actuator1,A_Actuator2,A_Actuator3)) AND G(A_Complete -> (!A_Actuator1 AND !A_Actuator2 AND !A_Actuator3))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_ItemPresent in wait B_State shall enter inspection.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_State=0 AND B_ItemPresent AND !B_Reset) -> X(B_State=1)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Inspection shall branch to reject when B_RejectClass is TRUE and to accept otherwise.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_State=1 AND B_RejectClass) -> X(B_State=3))) AND G((SubsystemBEnable AND CrossReady) -> ((B_State=1 AND !B_RejectClass) -> X(B_State=2)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_TransferDone in either transfer B_State shall return to wait.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (((B_State=2 OR B_State=3) AND B_TransferDone) -> X(B_State=0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Inspect, B_AcceptGate, and B_RejectGate shall be mutually exclusive and match B_State.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (outputs_match_sorter_state))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall return to wait and close both gates.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Reset -> (B_State=0 AND !B_Inspect AND !B_AcceptGate AND !B_RejectGate)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "A TRUE A_Actuator1 shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Actuator1 AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Inspect AND NOT B_AcceptGate AND NOT B_RejectGate AND B_State=0)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Inspect AND NOT B_AcceptGate AND NOT B_RejectGate AND B_State=0))",
+      "safety_critical": true
+    },
+    {
+      "id": "R14",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R15",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C08_X01_paused_three_stage_timeout",
+    "base_b": "C08_M01_branching_sorter",
+    "direction": "A_to_B",
+    "activation_output": "A_Actuator1"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

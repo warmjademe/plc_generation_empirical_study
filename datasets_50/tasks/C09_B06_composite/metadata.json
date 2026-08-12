@@ -1,0 +1,260 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C09_B06_composite",
+  "title": "Composed supervisory control: Delayed warning with trip lockout and acknowledgement -> High and high-high alarm priority",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "REAL",
+    "TIME",
+    "TON",
+    "alarm acknowledgement",
+    "comparisons",
+    "compositional control",
+    "edge memory",
+    "latched readiness",
+    "priority",
+    "retained alarms",
+    "supervisory interlock",
+    "trip lockout"
+  ],
+  "complexity": {
+    "retained_state": 9,
+    "transitions": 15,
+    "stateful_blocks": 1,
+    "interactions": 16,
+    "fault_modes": 6,
+    "horizon_scans": 11,
+    "inputs": 11,
+    "outputs": 9,
+    "requirements": 14
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_WarningCondition",
+        "type": "BOOL",
+        "description": "Subsystem A: Warning-level condition"
+      },
+      {
+        "name": "A_TripCondition",
+        "type": "BOOL",
+        "description": "Subsystem A: Immediate trip condition"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Alarm system enable"
+      },
+      {
+        "name": "A_Acknowledge",
+        "type": "BOOL",
+        "description": "Subsystem A: Operator acknowledgement"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Qualified trip reset"
+      },
+      {
+        "name": "B_Value",
+        "type": "REAL",
+        "description": "Subsystem B: Measured process value"
+      },
+      {
+        "name": "B_HighLimit",
+        "type": "REAL",
+        "description": "Subsystem B: High threshold"
+      },
+      {
+        "name": "B_HighHighLimit",
+        "type": "REAL",
+        "description": "Subsystem B: High-high threshold"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched alarm reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Warning",
+        "type": "BOOL",
+        "description": "Subsystem A: Time-qualified warning"
+      },
+      {
+        "name": "A_Trip",
+        "type": "BOOL",
+        "description": "Subsystem A: Latched trip"
+      },
+      {
+        "name": "A_Unacked",
+        "type": "BOOL",
+        "description": "Subsystem A: Unacknowledged active event"
+      },
+      {
+        "name": "A_LockedOut",
+        "type": "BOOL",
+        "description": "Subsystem A: Equipment lockout"
+      },
+      {
+        "name": "B_HighAlarm",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched high alarm"
+      },
+      {
+        "name": "B_HighHighAlarm",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched high-high alarm"
+      },
+      {
+        "name": "B_Shutdown",
+        "type": "BOOL",
+        "description": "Subsystem B: Latched shutdown command"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Warning"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The runtime scan period is 100 ms.",
+    "Subsystem A: A_Acknowledge has priority over a new A_Unacked indication within the same scan.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_HighHighLimit is greater than B_HighLimit.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_WarningCondition shall assert A_Warning only after it remains enabled for 300 ms.",
+      "property": "G(within(3, (A_Enable AND A_WarningCondition), A_Warning))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_TripCondition while enabled shall immediately latch A_Trip and A_LockedOut.",
+      "property": "G((A_Enable AND A_TripCondition) -> (A_Trip AND A_LockedOut))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A newly asserted A_Warning or A_Trip shall set A_Unacked.",
+      "property": "G((rose(A_Warning) OR rose(A_Trip)) -> A_Unacked)",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Acknowledge shall clear A_Unacked without clearing active A_Warning or latched A_Trip.",
+      "property": "G(A_Acknowledge -> !A_Unacked)",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Trip and A_LockedOut only while both conditions and A_Enable are FALSE.",
+      "property": "G((A_Reset AND !A_Enable AND !A_WarningCondition AND !A_TripCondition) -> (!A_Trip AND !A_LockedOut))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "Subsystem A shall satisfy: Disabling the system shall clear the non-latched A_Warning but not an existing A_Trip.",
+      "property": "G(!A_Enable -> !A_Warning)",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Value at or above B_HighLimit shall latch B_HighAlarm.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Value>=B_HighLimit) -> B_HighAlarm))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Value at or above B_HighHighLimit shall latch both alarms and B_Shutdown.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Value>=B_HighHighLimit) -> (B_HighAlarm AND B_HighHighAlarm AND B_Shutdown)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A high alarm below B_HighHighLimit shall not by itself assert B_Shutdown.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Value>=B_HighLimit AND B_Value<B_HighHighLimit AND !B_HighHighAlarm) -> !B_Shutdown))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear all latched outputs only below B_HighLimit.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Reset AND B_Value<B_HighLimit) -> (!B_HighAlarm AND !B_HighHighAlarm AND !B_Shutdown)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "A TRUE A_Warning shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Warning AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_HighAlarm AND NOT B_HighHighAlarm AND NOT B_Shutdown)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_HighAlarm AND NOT B_HighHighAlarm AND NOT B_Shutdown))",
+      "safety_critical": true
+    },
+    {
+      "id": "R13",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R14",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C09_H02_delayed_warning_trip_lockout",
+    "base_b": "C09_M01_high_high_alarm_priority",
+    "direction": "A_to_B",
+    "activation_output": "A_Warning"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

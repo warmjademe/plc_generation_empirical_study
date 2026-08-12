@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "IEC-ST-VerifyBench temporal DSL; see SCHEMA.md",
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": [
+        "R1"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((A_State=0 AND A_Start AND !A_Fault AND !A_Stop)->X(A_State=1))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P2",
+      "requirement_ids": [
+        "R2"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((A_State=1 AND A_Sensor1)->X(A_State=2)) AND G((A_State=2 AND A_Sensor2)->X(A_State=0))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P3",
+      "requirement_ids": [
+        "R3"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(stage_timeout -> (A_Fault AND A_State=0 AND !A_Actuator1 AND !A_Actuator2))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P4",
+      "requirement_ids": [
+        "R4"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(A_Stop -> (A_State=0 AND !A_Actuator1 AND !A_Actuator2))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P5",
+      "requirement_ids": [
+        "R5"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((A_ResetFault AND A_Stop AND !A_Start)->!A_Fault)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P6",
+      "requirement_ids": [
+        "R6"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(A_Complete = (prev(A_State)=2 AND A_Sensor2 AND !A_Stop AND !A_Fault))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P7",
+      "requirement_ids": [
+        "R7"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(stage_done -> next_stage)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P8",
+      "requirement_ids": [
+        "R8"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(B_Pause -> (!B_Actuator1 AND !B_Actuator2 AND !B_Actuator3 AND X(B_State)=B_State))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P9",
+      "requirement_ids": [
+        "R9"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(stage_timeout -> B_Fault)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P10",
+      "requirement_ids": [
+        "R10"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(B_Abort -> (B_State=0 AND B_Fault AND !B_Actuator1 AND !B_Actuator2 AND !B_Actuator3))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P11",
+      "requirement_ids": [
+        "R11"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G(qualified_reset -> !B_Fault)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P12",
+      "requirement_ids": [
+        "R12"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(at_most_one(B_Actuator1,B_Actuator2,B_Actuator3)) AND G(B_Complete -> (!B_Actuator1 AND !B_Actuator2 AND !B_Actuator3))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P13",
+      "requirement_ids": [
+        "R13"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> !CrossReady) AND G((A_Actuator1 AND !CrossReset)->CrossReady)",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P14",
+      "requirement_ids": [
+        "R14"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossReset -> (!CrossReady AND b_outputs_safe))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P15",
+      "requirement_ids": [
+        "R15"
+      ],
+      "kind": "functional",
+      "mandatory": true,
+      "expression": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "source": "independently authored from the requirement contract"
+    },
+    {
+      "id": "P16",
+      "requirement_ids": [
+        "R16"
+      ],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "source": "independently authored from the requirement contract"
+    }
+  ]
+}

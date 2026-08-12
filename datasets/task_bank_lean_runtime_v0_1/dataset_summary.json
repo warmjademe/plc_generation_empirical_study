@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "dataset": "IEC-ST-VerifyBench lean runtime replacement candidates",
+  "task_count": 50,
+  "category_counts": {
+    "C04": 25,
+    "C06": 25
+  },
+  "categories": {
+    "C04": "Edge and event handling",
+    "C06": "Counters and batch logic"
+  },
+  "construction_rule": "five stateful primary bases x five stateless C01 secondary bases",
+  "eligibility_rule": "reference MatIEC -> PLCverif -> OpenPLC within 300 seconds",
+  "selection_status": "not_run",
+  "model_calls_used_to_build_oracles": false
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C09_X01_shelved_alarm_lifecycle",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "trip_override_and_qualified_reset",
+      "description": "Override shelving with a trip and require disabled clear conditions.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "WarningCondition": true,
+            "TripCondition": true,
+            "Enable": true,
+            "Shelve": true,
+            "Acknowledge": false,
+            "Reset": false
+          },
+          "expect": {
+            "Warning": false,
+            "Trip": true,
+            "Unacked": true,
+            "Shelved": false,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "WarningCondition": false,
+            "TripCondition": false,
+            "Enable": true,
+            "Shelve": false,
+            "Acknowledge": true,
+            "Reset": true
+          },
+          "expect": {
+            "Warning": false,
+            "Trip": true,
+            "Unacked": false,
+            "Shelved": false,
+            "LockedOut": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "WarningCondition": false,
+            "TripCondition": false,
+            "Enable": false,
+            "Shelve": false,
+            "Acknowledge": false,
+            "Reset": true
+          },
+          "expect": {
+            "Warning": false,
+            "Trip": false,
+            "Unacked": false,
+            "Shelved": false,
+            "LockedOut": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

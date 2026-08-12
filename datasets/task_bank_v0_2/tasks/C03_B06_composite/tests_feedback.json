@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C03_B06_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "A_feedback_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": false,
+            "B_TankLevelOK": false,
+            "B_ValveFeedbackOpen": false,
+            "B_PumpFeedback": false,
+            "B_Stop": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_ValveCommand": false,
+            "B_PumpCommand": false,
+            "B_InterlockAlarm": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": true,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": true,
+            "B_RunRequest": false,
+            "B_TankLevelOK": false,
+            "B_ValveFeedbackOpen": false,
+            "B_PumpFeedback": false,
+            "B_Stop": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": false,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": true,
+            "A_Conflict": true,
+            "B_ValveCommand": false,
+            "B_PumpCommand": false,
+            "B_InterlockAlarm": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "FT02",
+      "name": "B_feedback_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": false,
+            "B_TankLevelOK": false,
+            "B_ValveFeedbackOpen": false,
+            "B_PumpFeedback": false,
+            "B_Stop": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_ValveCommand": false,
+            "B_PumpCommand": false,
+            "B_InterlockAlarm": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": true,
+            "B_TankLevelOK": true,
+            "B_ValveFeedbackOpen": false,
+            "B_PumpFeedback": false,
+            "B_Stop": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_ValveCommand": true,
+            "B_PumpCommand": false,
+            "B_InterlockAlarm": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": true,
+            "B_TankLevelOK": true,
+            "B_ValveFeedbackOpen": true,
+            "B_PumpFeedback": false,
+            "B_Stop": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_ValveCommand": true,
+            "B_PumpCommand": true,
+            "B_InterlockAlarm": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

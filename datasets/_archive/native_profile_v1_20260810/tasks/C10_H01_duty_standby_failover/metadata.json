@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C10_H01_duty_standby_failover",
+  "title": "Duty-standby pump feedback failover",
+  "category_id": "C10",
+  "category": "Multi-device coordination",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "TIME",
+    "TON",
+    "edge memory",
+    "duty standby",
+    "feedback failover"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 9,
+    "stateful_blocks": 2,
+    "interactions": 8,
+    "fault_modes": 3,
+    "horizon_scans": 10,
+    "inputs": 7,
+    "outputs": 4,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Demand",
+        "type": "BOOL",
+        "description": "Pump demand"
+      },
+      {
+        "name": "DutyIsPump1",
+        "type": "BOOL",
+        "description": "Selected duty pump"
+      },
+      {
+        "name": "Pump1Available",
+        "type": "BOOL",
+        "description": "Pump 1 availability"
+      },
+      {
+        "name": "Pump2Available",
+        "type": "BOOL",
+        "description": "Pump 2 availability"
+      },
+      {
+        "name": "Pump1Feedback",
+        "type": "BOOL",
+        "description": "Pump 1 running feedback"
+      },
+      {
+        "name": "Pump2Feedback",
+        "type": "BOOL",
+        "description": "Pump 2 running feedback"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Failure reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Pump1Run",
+        "type": "BOOL",
+        "description": "Pump 1 command"
+      },
+      {
+        "name": "Pump2Run",
+        "type": "BOOL",
+        "description": "Pump 2 command"
+      },
+      {
+        "name": "FailoverActive",
+        "type": "BOOL",
+        "description": "Standby is serving demand"
+      },
+      {
+        "name": "Failure",
+        "type": "BOOL",
+        "description": "Latched inability to establish running feedback"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The runtime scan period is 100 ms.",
+    "Pump feedback is sampled at scan start.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "A new Demand shall command the available duty pump, or the standby if the duty pump is unavailable.",
+      "property": "G(rose(Demand) -> selected_available_pump_runs)",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "If the commanded pump lacks feedback for 300 ms, control shall transfer to an available standby pump.",
+      "property": "G(command_without_feedback_for_3 -> standby_runs)",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Both run commands shall never be TRUE simultaneously.",
+      "property": "G(!(Pump1Run AND Pump2Run))",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Failure shall latch if demand cannot be served by an available pump with feedback after failover.",
+      "property": "G(unserved_after_failover -> Failure)",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Demand FALSE shall stop both pumps; Reset may clear Failure only with Demand FALSE.",
+      "property": "G(!Demand -> (!Pump1Run AND !Pump2Run)) AND G((Reset AND !Demand)->!Failure)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

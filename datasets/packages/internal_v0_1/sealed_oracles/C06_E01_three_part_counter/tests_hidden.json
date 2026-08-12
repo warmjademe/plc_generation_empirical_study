@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C06_E01_three_part_counter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "complete_saturate_reset",
+      "description": "Reach, saturate, and reset the batch count.",
+      "requirement_ids": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "PartPulse": true,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 1,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": false,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 1,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": true,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 2,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": false,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 2,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": true,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 3,
+            "Complete": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": false,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 3,
+            "Complete": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": true,
+            "Reset": false
+          },
+          "expect": {
+            "Count": 3,
+            "Complete": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "PartPulse": false,
+            "Reset": true
+          },
+          "expect": {
+            "Count": 0,
+            "Complete": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

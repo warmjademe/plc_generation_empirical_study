@@ -1,0 +1,91 @@
+FUNCTION_BLOCK C06_R25_lean_composite
+VAR_INPUT
+    A_ItemPulse : BOOL;
+    A_Rejected : BOOL;
+    A_Stop : BOOL;
+    A_Reset : BOOL;
+    A_Target : INT;
+    A_RejectLimit : INT;
+    B_Ch1 : BOOL;
+    B_Ch2 : BOOL;
+    B_Ch3 : BOOL;
+    B_AutoMode : BOOL;
+    B_AutoRequest : BOOL;
+    B_ManualRequest : BOOL;
+    B_BypassRequest : BOOL;
+    B_BypassPermit : BOOL;
+    B_SafetyOK : BOOL;
+    B_Reset : BOOL;
+    SubsystemBEnable : BOOL;
+    CrossReset : BOOL;
+END_VAR
+VAR_OUTPUT
+    A_AcceptedCount : INT;
+    A_RejectCount : INT;
+    A_ConsecutiveRejects : INT;
+    A_Complete : BOOL;
+    A_LockedOut : BOOL;
+    B_RunPermit : BOOL;
+    B_Degraded : BOOL;
+    B_BypassActive : BOOL;
+    B_Blocked : BOOL;
+    CrossReady : BOOL;
+    CrossBlocked : BOOL;
+END_VAR
+VAR
+    A_PrevItem : BOOL;
+    B_SelectedRequest : BOOL;
+    B_VoteOK : BOOL;
+    B_AnyChannel : BOOL;
+    B_Unanimous : BOOL;
+END_VAR
+
+IF A_Reset AND A_Stop AND (NOT A_ItemPulse) THEN
+    A_AcceptedCount := 0;
+    A_RejectCount := 0;
+    A_ConsecutiveRejects := 0;
+    A_Complete := FALSE;
+    A_LockedOut := FALSE;
+ELSIF A_RejectLimit <= 0 THEN
+    A_LockedOut := TRUE;
+ELSIF A_ItemPulse AND (NOT A_PrevItem) AND (NOT A_Stop) AND (NOT A_Complete) AND (NOT A_LockedOut) THEN
+    IF A_Rejected THEN
+        A_RejectCount := A_RejectCount + 1;
+        A_ConsecutiveRejects := A_ConsecutiveRejects + 1;
+        IF A_ConsecutiveRejects >= A_RejectLimit THEN A_LockedOut := TRUE; END_IF;
+    ELSE
+        A_AcceptedCount := A_AcceptedCount + 1;
+        A_ConsecutiveRejects := 0;
+        IF (A_Target > 0) AND (A_AcceptedCount >= A_Target) THEN A_Complete := TRUE; END_IF;
+    END_IF;
+END_IF;
+A_PrevItem := A_ItemPulse;
+
+IF CrossReset THEN
+    CrossReady := FALSE;
+ELSIF A_Complete THEN
+    CrossReady := TRUE;
+END_IF;
+CrossBlocked := SubsystemBEnable AND (NOT CrossReady);
+
+IF SubsystemBEnable AND CrossReady THEN
+    B_SelectedRequest := (B_AutoMode AND B_AutoRequest) OR ((NOT B_AutoMode) AND B_ManualRequest);
+    B_VoteOK := (B_Ch1 AND B_Ch2) OR (B_Ch1 AND B_Ch3) OR (B_Ch2 AND B_Ch3);
+    B_AnyChannel := B_Ch1 OR B_Ch2 OR B_Ch3;
+    B_Unanimous := (B_Ch1 AND B_Ch2 AND B_Ch3) OR ((NOT B_Ch1) AND (NOT B_Ch2) AND (NOT B_Ch3));
+    IF B_Reset AND (NOT B_AutoRequest) AND (NOT B_ManualRequest) THEN
+        B_BypassActive := FALSE;
+    ELSIF (NOT B_AutoMode) AND B_BypassRequest AND B_BypassPermit AND B_SafetyOK AND B_AnyChannel THEN
+        B_BypassActive := TRUE;
+    END_IF;
+    B_RunPermit := B_SelectedRequest AND B_SafetyOK AND (B_VoteOK OR B_BypassActive);
+    B_Degraded := B_RunPermit AND ((NOT B_Unanimous) OR B_BypassActive);
+    B_Blocked := B_SelectedRequest AND (NOT B_RunPermit);
+ELSE
+    B_RunPermit := FALSE;
+    B_Degraded := FALSE;
+    B_BypassActive := FALSE;
+    B_Blocked := FALSE;
+END_IF;
+
+END_FUNCTION_BLOCK

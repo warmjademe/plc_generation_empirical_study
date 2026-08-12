@@ -1,0 +1,10 @@
+FUNCTION_BLOCK C05_M01_off_delay_fan
+VAR_INPUT
+    Demand : BOOL;
+    SafetyTrip : BOOL;
+END_VAR
+VAR_OUTPUT
+    Fan : BOOL;
+    RunOn : BOOL;
+END_VAR
+END_FUNCTION_BLOCK

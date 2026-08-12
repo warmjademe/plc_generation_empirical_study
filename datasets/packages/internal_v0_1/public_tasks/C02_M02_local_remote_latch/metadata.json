@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C02_M02_local_remote_latch",
+  "title": "Local/remote command latch",
+  "category_id": "C02",
+  "category": "Start/stop and retained state",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "retained output",
+    "mode selection",
+    "priority"
+  ],
+  "complexity": {
+    "retained_state": 1,
+    "transitions": 3,
+    "stateful_blocks": 1,
+    "interactions": 3,
+    "fault_modes": 1,
+    "horizon_scans": 4,
+    "inputs": 5,
+    "outputs": 2,
+    "requirements": 4
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "RemoteMode",
+        "type": "BOOL",
+        "description": "TRUE selects remote controls"
+      },
+      {
+        "name": "LocalStart",
+        "type": "BOOL",
+        "description": "Local start command"
+      },
+      {
+        "name": "RemoteStart",
+        "type": "BOOL",
+        "description": "Remote start command"
+      },
+      {
+        "name": "Stop",
+        "type": "BOOL",
+        "description": "Common stop"
+      },
+      {
+        "name": "Permit",
+        "type": "BOOL",
+        "description": "Run permission"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Running",
+        "type": "BOOL",
+        "description": "Latched running state"
+      },
+      {
+        "name": "SelectedStart",
+        "type": "BOOL",
+        "description": "Start selected by the current mode"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "SelectedStart shall use RemoteStart in remote mode and LocalStart in local mode.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Stop or loss of Permit shall force Running FALSE.",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "The selected start shall latch Running only while Permit is TRUE and Stop is FALSE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "A start from the non-selected mode shall have no effect.",
+      "safety_critical": false
+    }
+  ]
+}

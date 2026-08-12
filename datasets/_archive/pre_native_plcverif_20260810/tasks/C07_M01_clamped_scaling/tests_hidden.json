@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C07_M01_clamped_scaling",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.0002,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "inclusive_boundaries",
+      "description": "Check inclusive endpoints and midpoint scaling.",
+      "requirement_ids": [
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 4095
+          },
+          "expect": {
+            "Engineering": 10.0,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 2048
+          },
+          "expect": {
+            "Engineering": 5.0012210012,
+            "UnderRange": false,
+            "OverRange": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

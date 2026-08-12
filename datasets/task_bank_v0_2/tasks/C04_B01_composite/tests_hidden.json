@@ -1,0 +1,552 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C04_B01_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "A_hidden_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": false,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": false,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": true,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": false,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 2,
+            "A_AcceptedPulse": true,
+            "A_AtLimit": true,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": false,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 2,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": true,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 2,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": true,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": false,
+            "A_Qualify": true,
+            "A_Reset": true,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT02",
+      "name": "B_hidden_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Event": false,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": true,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": true,
+            "B_Arm": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": true,
+            "B_Code": 2,
+            "B_Pulse": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": true,
+            "B_Code": 2,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": true,
+            "B_EventB": false,
+            "B_Arm": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": true,
+            "B_Code": 2,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": true,
+            "B_Reset": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT03",
+      "name": "cross_reset_priority",
+      "description": "Composed trace source: independently_specified_cross_contract; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Event": false,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 0,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": false,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": true,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Event": true,
+            "A_Qualify": true,
+            "A_Reset": false,
+            "A_MaxCount": 2,
+            "B_EventA": false,
+            "B_EventB": false,
+            "B_Arm": true,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": true
+          },
+          "expect": {
+            "A_Count": 1,
+            "A_AcceptedPulse": false,
+            "A_AtLimit": false,
+            "B_Captured": false,
+            "B_Code": 0,
+            "B_Pulse": false,
+            "CrossReady": false,
+            "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

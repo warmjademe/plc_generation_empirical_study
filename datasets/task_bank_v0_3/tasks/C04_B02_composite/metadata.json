@@ -1,0 +1,214 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C04_B02_composite",
+  "title": "Composed supervisory control: Qualified event capture with saturation -> Armed falling-edge pulse",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "compositional control",
+    "edge detection",
+    "falling edge",
+    "latched readiness",
+    "retained state",
+    "saturation",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 4,
+    "transitions": 11,
+    "stateful_blocks": 2,
+    "interactions": 10,
+    "fault_modes": 4,
+    "horizon_scans": 12,
+    "inputs": 8,
+    "outputs": 7,
+    "requirements": 11
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Event",
+        "type": "BOOL",
+        "description": "Subsystem A: Event input"
+      },
+      {
+        "name": "A_Qualify",
+        "type": "BOOL",
+        "description": "Subsystem A: Event qualification"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Reset count"
+      },
+      {
+        "name": "A_MaxCount",
+        "type": "INT",
+        "description": "Subsystem A: Saturation limit, assumed at least one"
+      },
+      {
+        "name": "B_Signal",
+        "type": "BOOL",
+        "description": "Subsystem B: Observed signal"
+      },
+      {
+        "name": "B_Arm",
+        "type": "BOOL",
+        "description": "Subsystem B: Enable edge reporting"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Count",
+        "type": "INT",
+        "description": "Subsystem A: Accepted event count"
+      },
+      {
+        "name": "A_AcceptedPulse",
+        "type": "BOOL",
+        "description": "Subsystem A: Accepted event this scan"
+      },
+      {
+        "name": "A_AtLimit",
+        "type": "BOOL",
+        "description": "Subsystem A: Count has reached MaxCount"
+      },
+      {
+        "name": "B_Pulse",
+        "type": "BOOL",
+        "description": "Subsystem B: One-scan falling-edge pulse"
+      },
+      {
+        "name": "B_Armed",
+        "type": "BOOL",
+        "description": "Subsystem B: Current armed status"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_AcceptedPulse"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: A_MaxCount is constant during a test and is at least 1.",
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_Count and A_AcceptedPulse.",
+      "property": "G(A_Reset -> ((A_Count = 0) AND !A_AcceptedPulse))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Only a rising A_Event edge with A_Qualify TRUE and A_Count below A_MaxCount shall increment A_Count.",
+      "property": "G(A_AcceptedPulse = (rose(A_Event) AND A_Qualify AND (prev(A_Count) < A_MaxCount) AND !A_Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_Count shall not exceed A_MaxCount.",
+      "property": "G(A_Count <= A_MaxCount)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_AtLimit shall be TRUE exactly when A_Count is at least A_MaxCount.",
+      "property": "G(A_AtLimit = (A_Count >= A_MaxCount))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Armed shall equal B_Arm at the end of each scan.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Armed = B_Arm))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Pulse shall occur on a TRUE-to-FALSE B_Signal transition only when B_Arm is TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Pulse = (B_Arm AND fell(B_Signal))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Disarming shall suppress B_Pulse without corrupting future edge detection.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (!B_Arm -> !B_Pulse))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "A TRUE A_AcceptedPulse shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_AcceptedPulse AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_Pulse AND NOT B_Armed)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_Pulse AND NOT B_Armed))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C04_H01_qualified_event_counter",
+    "base_b": "C04_M01_falling_edge_pulse",
+    "direction": "A_to_B",
+    "activation_output": "A_AcceptedPulse"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

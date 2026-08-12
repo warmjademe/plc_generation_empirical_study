@@ -1,0 +1,535 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C09_B06_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "A_hidden_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_WarningCondition": false,
+            "A_TripCondition": true,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": true,
+            "A_Unacked": true,
+            "A_LockedOut": true,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": false,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": true,
+            "A_Reset": true,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": true,
+            "A_Unacked": false,
+            "A_LockedOut": true,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": false,
+            "A_TripCondition": false,
+            "A_Enable": false,
+            "A_Acknowledge": false,
+            "A_Reset": true,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": false,
+            "A_Unacked": false,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT02",
+      "name": "B_hidden_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": false,
+            "A_Unacked": false,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": false,
+            "A_Unacked": false,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": false,
+            "A_Unacked": false,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": true,
+            "A_Trip": false,
+            "A_Unacked": true,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 95.0,
+            "B_HighLimit": 70.0,
+            "B_HighHighLimit": 90.0,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": true,
+            "A_Trip": false,
+            "A_Unacked": true,
+            "A_LockedOut": false,
+            "B_HighAlarm": true,
+            "B_HighHighAlarm": true,
+            "B_Shutdown": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 80.0,
+            "B_HighLimit": 70.0,
+            "B_HighHighLimit": 90.0,
+            "B_Reset": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": true,
+            "A_Trip": false,
+            "A_Unacked": true,
+            "A_LockedOut": false,
+            "B_HighAlarm": true,
+            "B_HighHighAlarm": true,
+            "B_Shutdown": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 60.0,
+            "B_HighLimit": 70.0,
+            "B_HighHighLimit": 90.0,
+            "B_Reset": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": true,
+            "A_Trip": false,
+            "A_Unacked": true,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT03",
+      "name": "cross_reset_priority",
+      "description": "Composed trace source: independently_specified_cross_contract; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": false,
+            "A_Unacked": false,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": false,
+            "A_Unacked": false,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": false,
+            "A_Trip": false,
+            "A_Unacked": false,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 0.0,
+            "B_HighLimit": 0.0,
+            "B_HighHighLimit": 0.0,
+            "B_Reset": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": true,
+            "A_Trip": false,
+            "A_Unacked": true,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 75.0,
+            "B_HighLimit": 70.0,
+            "B_HighHighLimit": 90.0,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_Warning": true,
+            "A_Trip": false,
+            "A_Unacked": true,
+            "A_LockedOut": false,
+            "B_HighAlarm": true,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_WarningCondition": true,
+            "A_TripCondition": false,
+            "A_Enable": true,
+            "A_Acknowledge": false,
+            "A_Reset": false,
+            "B_Value": 75.0,
+            "B_HighLimit": 70.0,
+            "B_HighHighLimit": 90.0,
+            "B_Reset": false,
+            "SubsystemBEnable": true,
+            "CrossReset": true
+          },
+          "expect": {
+            "A_Warning": true,
+            "A_Trip": false,
+            "A_Unacked": true,
+            "A_LockedOut": false,
+            "B_HighAlarm": false,
+            "B_HighHighAlarm": false,
+            "B_Shutdown": false,
+            "CrossReady": false,
+            "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}

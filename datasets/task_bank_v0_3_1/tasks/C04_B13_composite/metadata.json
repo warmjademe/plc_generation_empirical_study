@@ -1,0 +1,220 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C04_B13_composite",
+  "title": "Composed supervisory control: Toggle output on qualified rising edge -> Qualified event capture with saturation",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "INT",
+    "compositional control",
+    "edge detection",
+    "latched readiness",
+    "priority",
+    "retained output",
+    "retained state",
+    "saturation",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 5,
+    "transitions": 11,
+    "stateful_blocks": 2,
+    "interactions": 11,
+    "fault_modes": 4,
+    "horizon_scans": 12,
+    "inputs": 9,
+    "outputs": 7,
+    "requirements": 11
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Button",
+        "type": "BOOL",
+        "description": "Subsystem A: Momentary button"
+      },
+      {
+        "name": "A_Enable",
+        "type": "BOOL",
+        "description": "Subsystem A: Toggle permission"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Synchronous reset"
+      },
+      {
+        "name": "B_Event",
+        "type": "BOOL",
+        "description": "Subsystem B: Event input"
+      },
+      {
+        "name": "B_Qualify",
+        "type": "BOOL",
+        "description": "Subsystem B: Event qualification"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Reset count"
+      },
+      {
+        "name": "B_MaxCount",
+        "type": "INT",
+        "description": "Subsystem B: Saturation limit, assumed at least one"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_State",
+        "type": "BOOL",
+        "description": "Subsystem A: Toggled state"
+      },
+      {
+        "name": "A_AcceptedPulse",
+        "type": "BOOL",
+        "description": "Subsystem A: Qualified edge accepted this scan"
+      },
+      {
+        "name": "B_Count",
+        "type": "INT",
+        "description": "Subsystem B: Accepted event count"
+      },
+      {
+        "name": "B_AcceptedPulse",
+        "type": "BOOL",
+        "description": "Subsystem B: Accepted event this scan"
+      },
+      {
+        "name": "B_AtLimit",
+        "type": "BOOL",
+        "description": "Subsystem B: Count has reached MaxCount"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_State"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_MaxCount is constant during a test and is at least 1.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Reset shall clear A_State and suppress A_AcceptedPulse with highest priority.",
+      "property": "G(A_Reset -> (!A_State AND !A_AcceptedPulse))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A rising A_Button edge while A_Enable is TRUE shall invert A_State exactly once.",
+      "property": "G(A_AcceptedPulse = (A_Enable AND rose(A_Button) AND !A_Reset))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Holding A_Button TRUE shall not repeatedly toggle A_State.",
+      "property": "G((A_Button AND prev(A_Button) AND !A_Reset) -> (A_State = prev(A_State)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_Count and B_AcceptedPulse.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Reset -> ((B_Count = 0) AND !B_AcceptedPulse)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Only a rising B_Event edge with B_Qualify TRUE and B_Count below B_MaxCount shall increment B_Count.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_AcceptedPulse = (rose(B_Event) AND B_Qualify AND (prev(B_Count) < B_MaxCount) AND !B_Reset)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Count shall not exceed B_MaxCount.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Count <= B_MaxCount))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_AtLimit shall be TRUE exactly when B_Count is at least B_MaxCount.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_AtLimit = (B_Count >= B_MaxCount)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "A TRUE A_State shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_State AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R9",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND B_Count=0 AND NOT B_AcceptedPulse AND NOT B_AtLimit)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (B_Count=0 AND NOT B_AcceptedPulse AND NOT B_AtLimit))",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R11",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C04_M02_toggle_on_edge",
+    "base_b": "C04_H01_qualified_event_counter",
+    "direction": "A_to_B",
+    "activation_output": "A_State"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

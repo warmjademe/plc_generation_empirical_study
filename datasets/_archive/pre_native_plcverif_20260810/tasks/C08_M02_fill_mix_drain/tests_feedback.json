@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C08_M02_fill_mix_drain",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "normal_batch",
+      "description": "Traverse all batch stages.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "HighLevel": false,
+            "MixDone": false,
+            "LowLevel": false,
+            "Abort": false
+          },
+          "expect": {
+            "FillValve": true,
+            "Mixer": false,
+            "DrainValve": false,
+            "Complete": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "HighLevel": true,
+            "MixDone": false,
+            "LowLevel": false,
+            "Abort": false
+          },
+          "expect": {
+            "FillValve": false,
+            "Mixer": true,
+            "DrainValve": false,
+            "Complete": false,
+            "State": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "HighLevel": false,
+            "MixDone": true,
+            "LowLevel": false,
+            "Abort": false
+          },
+          "expect": {
+            "FillValve": false,
+            "Mixer": false,
+            "DrainValve": true,
+            "Complete": false,
+            "State": 3
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "HighLevel": false,
+            "MixDone": false,
+            "LowLevel": true,
+            "Abort": false
+          },
+          "expect": {
+            "FillValve": false,
+            "Mixer": false,
+            "DrainValve": false,
+            "Complete": true,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

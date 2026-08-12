@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C08_M01_branching_sorter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "reject_branch_and_reset",
+      "description": "Take the reject branch and reset safely.",
+      "requirement_ids": [
+        "R2",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "ItemPresent": true,
+            "RejectClass": true,
+            "TransferDone": false,
+            "Reset": false
+          },
+          "expect": {
+            "Inspect": true,
+            "AcceptGate": false,
+            "RejectGate": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ItemPresent": true,
+            "RejectClass": true,
+            "TransferDone": false,
+            "Reset": false
+          },
+          "expect": {
+            "Inspect": false,
+            "AcceptGate": false,
+            "RejectGate": true,
+            "State": 3
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ItemPresent": false,
+            "RejectClass": false,
+            "TransferDone": false,
+            "Reset": true
+          },
+          "expect": {
+            "Inspect": false,
+            "AcceptGate": false,
+            "RejectGate": false,
+            "State": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C09_M02_qualified_sensor_disagreement",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "disable_and_reset",
+      "description": "Qualify the alarm across three elapsed intervals, then disable and reset it.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 5.0,
+            "MaxDifference": 1.0,
+            "Enable": true,
+            "Reset": false
+          },
+          "expect": {
+            "Alarm": true,
+            "Disagreeing": true
+          },
+          "repeat": 4,
+          "check": "last_only"
+        },
+        {
+          "inputs": {
+            "SensorA": 0.0,
+            "SensorB": 5.0,
+            "MaxDifference": 1.0,
+            "Enable": false,
+            "Reset": true
+          },
+          "expect": {
+            "Alarm": false,
+            "Disagreeing": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

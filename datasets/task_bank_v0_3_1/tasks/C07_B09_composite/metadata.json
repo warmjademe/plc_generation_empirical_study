@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C07_B09_composite",
+  "title": "Composed supervisory control: Clamped analog scaling with range status -> Redundant analog sensor selection",
+  "category_id": "C07",
+  "category": "Analog processing",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "ABS",
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "REAL",
+    "clamping",
+    "compositional control",
+    "conversion",
+    "fault status",
+    "latched readiness",
+    "retained output",
+    "sensor voting",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 10,
+    "stateful_blocks": 0,
+    "interactions": 12,
+    "fault_modes": 7,
+    "horizon_scans": 7,
+    "inputs": 8,
+    "outputs": 9,
+    "requirements": 12
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Raw",
+        "type": "INT",
+        "description": "Subsystem A: Raw input nominally 0 through 4095"
+      },
+      {
+        "name": "B_SensorA",
+        "type": "REAL",
+        "description": "Subsystem B: Sensor A value"
+      },
+      {
+        "name": "B_SensorB",
+        "type": "REAL",
+        "description": "Subsystem B: Sensor B value"
+      },
+      {
+        "name": "B_ValidA",
+        "type": "BOOL",
+        "description": "Subsystem B: Sensor A validity"
+      },
+      {
+        "name": "B_ValidB",
+        "type": "BOOL",
+        "description": "Subsystem B: Sensor B validity"
+      },
+      {
+        "name": "B_MaxDifference",
+        "type": "REAL",
+        "description": "Subsystem B: Maximum agreement difference"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Engineering",
+        "type": "REAL",
+        "description": "Subsystem A: Scaled output 0.0 through 10.0"
+      },
+      {
+        "name": "A_UnderRange",
+        "type": "BOOL",
+        "description": "Subsystem A: Raw below zero"
+      },
+      {
+        "name": "A_OverRange",
+        "type": "BOOL",
+        "description": "Subsystem A: Raw above 4095"
+      },
+      {
+        "name": "B_Selected",
+        "type": "REAL",
+        "description": "Subsystem B: Selected process value"
+      },
+      {
+        "name": "B_Degraded",
+        "type": "BOOL",
+        "description": "Subsystem B: Only one sensor valid"
+      },
+      {
+        "name": "B_Disagree",
+        "type": "BOOL",
+        "description": "Subsystem B: Both valid but disagree"
+      },
+      {
+        "name": "B_NoValidSensor",
+        "type": "BOOL",
+        "description": "Subsystem B: Neither sensor valid"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_UnderRange"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_MaxDifference is non-negative and constant during a test.",
+    "Subsystem B: B_Selected initializes to 0.0 in a fresh instance.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Raw below zero shall set A_UnderRange, clear A_OverRange, and clamp A_Engineering to 0.0.",
+      "property": "G((A_Raw<0) -> (A_UnderRange AND !A_OverRange AND A_Engineering=0.0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: A_Raw above 4095 shall set A_OverRange, clear A_UnderRange, and clamp A_Engineering to 10.0.",
+      "property": "G((A_Raw>4095) -> (A_OverRange AND !A_UnderRange AND A_Engineering=10.0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: In-range A_Raw shall clear both flags and scale linearly to 0.0 through 10.0.",
+      "property": "G((A_Raw>=0 AND A_Raw<=4095) -> (!A_UnderRange AND !A_OverRange AND A_Engineering=INT_TO_REAL(A_Raw)*10.0/4095.0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: When both sensors are valid and agree within B_MaxDifference, B_Selected shall be their average.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_ValidA AND B_ValidB AND ABS(B_SensorA-B_SensorB)<=B_MaxDifference) -> B_Selected=(B_SensorA+B_SensorB)/2.0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: When both sensors are valid but B_Disagree beyond B_MaxDifference, B_Disagree shall be TRUE and B_Selected shall retain its previous value.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_ValidA AND B_ValidB AND ABS(B_SensorA-B_SensorB)>B_MaxDifference) -> (B_Disagree AND B_Selected=prev(B_Selected))))",
+      "safety_critical": true
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: When exactly one sensor is valid, B_Selected shall use that sensor and B_Degraded shall be TRUE.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_ValidA XOR B_ValidB) -> B_Degraded))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: When neither sensor is valid, B_NoValidSensor shall be TRUE and B_Selected shall retain its previous value.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((!B_ValidA AND !B_ValidB) -> (B_NoValidSensor AND B_Selected=prev(B_Selected))))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Degraded, B_Disagree, and B_NoValidSensor shall be mutually exclusive.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (at_most_one(B_Degraded,B_Disagree,B_NoValidSensor)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "A TRUE A_UnderRange shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_UnderRange AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND B_Selected=0.0 AND NOT B_Degraded AND NOT B_Disagree AND NOT B_NoValidSensor)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (B_Selected=0.0 AND NOT B_Degraded AND NOT B_Disagree AND NOT B_NoValidSensor))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C07_M01_clamped_scaling",
+    "base_b": "C07_H01_redundant_sensor_selection",
+    "direction": "A_to_B",
+    "activation_output": "A_UnderRange"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

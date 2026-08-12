@@ -1,0 +1,239 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.1-dev",
+  "id": "C06_V03_lean_composite",
+  "title": "Composed supervisory control: Four-level alarm priority encoder -> Configurable batch counter",
+  "category_id": "C06",
+  "category": "Counters and batch logic",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "ELSIF",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "compositional control",
+    "configurable counter",
+    "edge detection",
+    "latched readiness",
+    "priority",
+    "retained state",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 12,
+    "stateful_blocks": 1,
+    "interactions": 12,
+    "fault_modes": 4,
+    "horizon_scans": 11,
+    "inputs": 11,
+    "outputs": 7,
+    "requirements": 12
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_Info",
+        "type": "BOOL",
+        "description": "Subsystem A: Information condition"
+      },
+      {
+        "name": "A_Warning",
+        "type": "BOOL",
+        "description": "Subsystem A: Warning condition"
+      },
+      {
+        "name": "A_Trip",
+        "type": "BOOL",
+        "description": "Subsystem A: Trip condition"
+      },
+      {
+        "name": "A_Emergency",
+        "type": "BOOL",
+        "description": "Subsystem A: Emergency condition"
+      },
+      {
+        "name": "A_Suppress",
+        "type": "BOOL",
+        "description": "Subsystem A: Suppress non-emergency indications"
+      },
+      {
+        "name": "B_Item",
+        "type": "BOOL",
+        "description": "Subsystem B: Item detection"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Reset current batch"
+      },
+      {
+        "name": "B_Target",
+        "type": "INT",
+        "description": "Subsystem B: Batch target, assumed 1 through 100"
+      },
+      {
+        "name": "B_Enable",
+        "type": "BOOL",
+        "description": "Subsystem B: Counting enable"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_Active",
+        "type": "BOOL",
+        "description": "Subsystem A: At least one reportable condition"
+      },
+      {
+        "name": "A_Level",
+        "type": "INT",
+        "description": "Subsystem A: 0 none, 1 info, 2 warning, 3 trip, 4 emergency"
+      },
+      {
+        "name": "B_Count",
+        "type": "INT",
+        "description": "Subsystem B: Accepted item count"
+      },
+      {
+        "name": "B_BatchDone",
+        "type": "BOOL",
+        "description": "Subsystem B: Target reached"
+      },
+      {
+        "name": "B_Accepted",
+        "type": "BOOL",
+        "description": "Subsystem B: Item accepted this scan"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_Active"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem B: B_Target remains constant during a test and is between 1 and 100.",
+    "Subsystem B: B_Item pulses are separated by at least one low scan.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults.",
+    "B_Target remains within the closed interval [-4, 4] during a test."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: A_Emergency shall always produce A_Level 4 and A_Active TRUE, even when A_Suppress is TRUE.",
+      "property": "G(A_Emergency -> (A_Active AND (A_Level = 4)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: When not suppressed, the highest A_Active condition shall determine A_Level.",
+      "property": "G((!A_Suppress AND !A_Emergency) -> (A_Level = max_priority(A_Info,A_Warning,A_Trip)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: A_Suppress shall force A_Level 0 and A_Active FALSE when A_Emergency is FALSE.",
+      "property": "G((A_Suppress AND !A_Emergency) -> ((!A_Active) AND (A_Level = 0)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: A_Level 0 shall be equivalent to A_Active FALSE.",
+      "property": "G((A_Level = 0) = (!A_Active))",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Only a rising B_Item edge while B_Enable and below B_Target shall increment B_Count.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Accepted = (rose(B_Item) AND B_Enable AND prev(B_Count)<B_Target AND !B_Reset)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Count shall remain between zero and B_Target.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Count>=0) AND (B_Count<=B_Target)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_BatchDone shall be TRUE when B_Count reaches B_Target.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_BatchDone = (B_Count>=B_Target)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_Count, B_BatchDone, and B_Accepted.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Reset -> ((B_Count=0) AND !B_BatchDone AND !B_Accepted)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "A TRUE A_Active shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_Active AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R10",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND B_Count=0 AND NOT B_BatchDone AND NOT B_Accepted)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (B_Count=0 AND NOT B_BatchDone AND NOT B_Accepted))",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R12",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C01_H01_four_level_priority",
+    "base_b": "C06_M01_configurable_batch_counter",
+    "direction": "A_to_B",
+    "activation_output": "A_Active",
+    "runtime_design": "one stateful subsystem plus one stateless Boolean subsystem"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

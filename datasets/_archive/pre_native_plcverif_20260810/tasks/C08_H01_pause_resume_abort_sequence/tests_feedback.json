@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C08_H01_pause_resume_abort_sequence",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "pause_resume",
+      "description": "Pause without losing state, resume, and advance.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Start": true,
+            "Advance": false,
+            "Pause": false,
+            "Resume": false,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": true,
+            "Step2": false,
+            "Paused": false,
+            "Aborted": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Advance": false,
+            "Pause": true,
+            "Resume": false,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": false,
+            "Step2": false,
+            "Paused": true,
+            "Aborted": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Advance": true,
+            "Pause": false,
+            "Resume": false,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": false,
+            "Step2": false,
+            "Paused": true,
+            "Aborted": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Advance": false,
+            "Pause": false,
+            "Resume": true,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": true,
+            "Step2": false,
+            "Paused": false,
+            "Aborted": false,
+            "State": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Start": false,
+            "Advance": true,
+            "Pause": false,
+            "Resume": false,
+            "Abort": false,
+            "Reset": false
+          },
+          "expect": {
+            "Step1": false,
+            "Step2": true,
+            "Paused": false,
+            "Aborted": false,
+            "State": 2
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C03_H02_safety_zone_arbitration",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "safety_and_unauthorized_manual",
+      "description": "Reject unauthorized manual operation and enforce guard safety.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "RobotRequest": false,
+            "ConveyorRequest": false,
+            "ManualRequest": true,
+            "GuardClosed": true,
+            "EStopOK": true,
+            "ManualKey": false
+          },
+          "expect": {
+            "RobotEnable": false,
+            "ConveyorEnable": false,
+            "ManualEnable": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "RobotRequest": true,
+            "ConveyorRequest": false,
+            "ManualRequest": false,
+            "GuardClosed": false,
+            "EStopOK": true,
+            "ManualKey": false
+          },
+          "expect": {
+            "RobotEnable": false,
+            "ConveyorEnable": false,
+            "ManualEnable": false,
+            "Conflict": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

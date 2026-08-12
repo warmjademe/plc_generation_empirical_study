@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C01_H02_redundant_channel_gate",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "authorized_and_unauthorized_test",
+      "description": "Exercise authorization and retained channel-A requirement.",
+      "requirement_ids": [
+        "R3",
+        "R4"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "ChA": true,
+            "ChB": false,
+            "TestMode": true,
+            "TestPermit": false,
+            "ProcessRequest": true
+          },
+          "expect": {
+            "SafeEnable": false,
+            "Disagree": true,
+            "TestActive": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ChA": true,
+            "ChB": false,
+            "TestMode": true,
+            "TestPermit": true,
+            "ProcessRequest": true
+          },
+          "expect": {
+            "SafeEnable": true,
+            "Disagree": true,
+            "TestActive": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "ChA": false,
+            "ChB": true,
+            "TestMode": true,
+            "TestPermit": true,
+            "ProcessRequest": true
+          },
+          "expect": {
+            "SafeEnable": false,
+            "Disagree": true,
+            "TestActive": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

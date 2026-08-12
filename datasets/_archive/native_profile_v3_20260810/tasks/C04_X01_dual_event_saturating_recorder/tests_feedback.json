@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C04_X01_dual_event_saturating_recorder",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "priority_edge_and_rearm",
+      "description": "Accept A on a tie and reject held-high retriggers.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Qualify": true,
+            "Inhibit": false,
+            "Reset": false,
+            "MaxCount": 3
+          },
+          "expect": {
+            "PulseA": false,
+            "PulseB": false,
+            "Count": 0,
+            "Locked": false,
+            "LastSource": 0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Qualify": true,
+            "Inhibit": false,
+            "Reset": false,
+            "MaxCount": 3
+          },
+          "expect": {
+            "PulseA": true,
+            "PulseB": false,
+            "Count": 1,
+            "Locked": false,
+            "LastSource": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": true,
+            "Qualify": true,
+            "Inhibit": false,
+            "Reset": false,
+            "MaxCount": 3
+          },
+          "expect": {
+            "PulseA": false,
+            "PulseB": false,
+            "Count": 1,
+            "Locked": false,
+            "LastSource": 1
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.2.0-dev",
+  "id": "C07_H02_rate_of_change_trip",
+  "title": "Rate-of-change monitoring with latched trip",
+  "category_id": "C07",
+  "category": "Analog processing",
+  "difficulty": "hard",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "REAL",
+    "retained state",
+    "arithmetic",
+    "boundary monitoring",
+    "fault latch"
+  ],
+  "complexity": {
+    "retained_state": 3,
+    "transitions": 6,
+    "stateful_blocks": 0,
+    "interactions": 5,
+    "fault_modes": 2,
+    "horizon_scans": 5,
+    "inputs": 5,
+    "outputs": 3,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Value",
+        "type": "REAL",
+        "description": "Current process value"
+      },
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Monitoring enable"
+      },
+      {
+        "name": "MaxRise",
+        "type": "REAL",
+        "description": "Maximum permitted positive change per scan"
+      },
+      {
+        "name": "MaxFall",
+        "type": "REAL",
+        "description": "Maximum permitted negative change magnitude per scan"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Trip reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Delta",
+        "type": "REAL",
+        "description": "Current minus previous value"
+      },
+      {
+        "name": "Trip",
+        "type": "BOOL",
+        "description": "Latched rate trip"
+      },
+      {
+        "name": "Ready",
+        "type": "BOOL",
+        "description": "A previous enabled sample exists"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance.",
+    "MaxRise and MaxFall are non-negative and remain constant during a test."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "The first enabled sample shall initialize history, set Ready, and shall not trip.",
+      "property": "G(rose(Enable) -> (Ready AND !Trip))",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "For subsequent enabled samples, Delta shall equal Value minus the previous enabled Value.",
+      "property": "G((Enable AND prev(Ready)) -> Delta=Value-prev(Value))",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "A Delta above MaxRise or below negative MaxFall shall latch Trip.",
+      "property": "G((Ready AND (Delta>MaxRise OR Delta<(-MaxFall))) -> Trip)",
+      "safety_critical": true
+    },
+    {
+      "id": "R4",
+      "text": "Trip shall remain set until Reset occurs while Enable is FALSE.",
+      "property": "G((Trip AND !(Reset AND !Enable)) -> X(Trip))",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Disabling monitoring shall clear Ready but shall not by itself clear Trip.",
+      "property": "G(!Enable -> !Ready)",
+      "safety_critical": false
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

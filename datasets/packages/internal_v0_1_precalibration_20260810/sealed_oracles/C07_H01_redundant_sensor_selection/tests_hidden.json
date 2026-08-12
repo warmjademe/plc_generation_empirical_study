@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C07_H01_redundant_sensor_selection",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "disagreement_and_total_loss",
+      "description": "Retain the previous trusted value on disagreement and total loss.",
+      "requirement_ids": [
+        "R2",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 10.0,
+            "ValidA": true,
+            "ValidB": true,
+            "MaxDifference": 1.0
+          },
+          "expect": {
+            "Selected": 10.0,
+            "Degraded": false,
+            "Disagree": false,
+            "NoValidSensor": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 10.0,
+            "SensorB": 20.0,
+            "ValidA": true,
+            "ValidB": true,
+            "MaxDifference": 1.0
+          },
+          "expect": {
+            "Selected": 10.0,
+            "Degraded": false,
+            "Disagree": true,
+            "NoValidSensor": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "SensorA": 30.0,
+            "SensorB": 40.0,
+            "ValidA": false,
+            "ValidB": false,
+            "MaxDifference": 1.0
+          },
+          "expect": {
+            "Selected": 10.0,
+            "Degraded": false,
+            "Disagree": false,
+            "NoValidSensor": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

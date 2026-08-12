@@ -1,0 +1,20 @@
+{
+  "purpose": "optional local oracle calibration; excluded from LLM evaluation",
+  "count": 1,
+  "controls": [
+    {
+      "id": "NC1",
+      "operator": "boolean_literal_flip",
+      "description": "Flip the first TRUE literal.",
+      "target_requirement_ids": [
+        "R1"
+      ],
+      "expected_detection": [
+        "dynamic_test",
+        "formal_property"
+      ],
+      "equivalence_status": "unreviewed",
+      "validation_status": "not_run"
+    }
+  ]
+}

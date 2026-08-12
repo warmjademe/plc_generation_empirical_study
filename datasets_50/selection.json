@@ -1,0 +1,887 @@
+{
+  "schema_version": "1.0",
+  "selection_protocol": "qualification-backed Kimi-K3 Direct@1 screening outcomes with five tasks per category; runtime-ineligible tasks are replaced by previously qualified Direct@1 failures from the same category",
+  "task_count": 50,
+  "category_count": 10,
+  "per_category": 5,
+  "category_counts": {
+    "C01": 5,
+    "C02": 5,
+    "C03": 5,
+    "C04": 5,
+    "C05": 5,
+    "C06": 5,
+    "C07": 5,
+    "C08": 5,
+    "C09": 5,
+    "C10": 5
+  },
+  "outcome_counts": {
+    "screening_failure": 49,
+    "verified_success": 1
+  },
+  "verified_success_backfill_task_ids": [
+    "C06_W01_lean_composite"
+  ],
+  "excluded_task_ids": [
+    "C06_B04_composite",
+    "C06_B05_composite",
+    "C06_W20_lean_composite"
+  ],
+  "source_banks": [
+    {
+      "path": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/datasets/task_bank_v0_3_1",
+      "manifest_sha256": "314e35fd40e86f3de7f8ae9a50a911b03f9eba7e85c3c44cc4ade8e83e5d1a30"
+    },
+    {
+      "path": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/datasets/task_bank_c04_reverse_runtime_v0_3",
+      "manifest_sha256": "b4c0d85df6b51b0a3c701cbcb5d2350f03473076cda1ff1af7283a4e08850fb6"
+    },
+    {
+      "path": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/datasets/task_bank_runtime_replacements_v0_1",
+      "manifest_sha256": "61d460720b3d538c19dae0407be52142cc0c8ff3166bd973ac7970dc33f42912"
+    },
+    {
+      "path": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/datasets/task_bank_c06_formal_core_runtime_v0_4",
+      "manifest_sha256": "ec693ff4db428dcd96435534a18e3a288e2113f2e2de50614322f430b59d176c"
+    }
+  ],
+  "output_manifest_sha256": "049d1eb2cf732b7dee790b40254e0ee86c87635153e75915c0ef4df09f4199b1",
+  "qualification_roots": [
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/qualification/task_bank_v031_full200_final_20260811",
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/qualification/c04_reverse_runtime_v0_3_20260811",
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/qualification/runtime_replacements_v0_1_20260811",
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/qualification/c06_formal_core_runtime_v0_4_20260811"
+  ],
+  "screening_roots": [
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/kimi_k3_screen_200_v031_20260811",
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/kimi_k3_screen_balanced50_teamorouter_stream_by_category_20260811",
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/kimi_k3_screen_c04_reverse_runtime_v0_3_20260811",
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/kimi_k3_screen_runtime_replacements_v0_1_20260811",
+    "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/kimi_k3_screen_c06_formal_core_runtime_v0_4_20260811"
+  ],
+  "revalidation_roots": [],
+  "selected_tasks": [
+    {
+      "task_id": "C01_B01_composite",
+      "category_id": "C01",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C01_B01_composite/result.json",
+      "source_model_run_path": "evidence/screening/C01_B01_composite",
+      "result_sha256": "a4043b6a52f267860a04caa4f342634dd3b48c7d5901d7664ededafc681832a6",
+      "ledger_sha256": "dd12e9d569b692709b99a605f1a9311175304804c87deb7085dde468d9d4c1a6",
+      "qualification_path": "evidence/qualification/C01_B01_composite.json"
+    },
+    {
+      "task_id": "C01_B04_composite",
+      "category_id": "C01",
+      "outcome_class": "screening_failure",
+      "status": "sealed_failure",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C01_B04_composite/result.json",
+      "source_model_run_path": "evidence/screening/C01_B04_composite",
+      "result_sha256": "77de88ec33e206e044a5abd3f29bb4b6bcce44f7c545d04ce96bd1972f30dfa7",
+      "ledger_sha256": "0f348457719c08950fc584ff2ee06b0df39ceb17fdba059931d245b412011790",
+      "qualification_path": "evidence/qualification/C01_B04_composite.json"
+    },
+    {
+      "task_id": "C01_B05_composite",
+      "category_id": "C01",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C01_B05_composite/result.json",
+      "source_model_run_path": "evidence/screening/C01_B05_composite",
+      "result_sha256": "856aefe4d70cb2eaa09c84d00cdefdd9fbaa18103f8c58a3c2cf33067a45a5c0",
+      "ledger_sha256": "859cb5ba173f36bc4692b91205ac91b7324d41eee4c1233cf6879f4901ffab77",
+      "qualification_path": "evidence/qualification/C01_B05_composite.json"
+    },
+    {
+      "task_id": "C01_B06_composite",
+      "category_id": "C01",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C01_B06_composite/result.json",
+      "source_model_run_path": "evidence/screening/C01_B06_composite",
+      "result_sha256": "27e075c4691f050b4f217bd1193fc3e5937c0e867554cba8bcf2945df80d2a99",
+      "ledger_sha256": "e7b2537a76de0ea86a8261c95b5a772390d141e95655f9b94ab53c94c50038cf",
+      "qualification_path": "evidence/qualification/C01_B06_composite.json"
+    },
+    {
+      "task_id": "C01_B07_composite",
+      "category_id": "C01",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C01_B07_composite/result.json",
+      "source_model_run_path": "evidence/screening/C01_B07_composite",
+      "result_sha256": "5f1fa954aaa3e5efe2676763867e0998bc011583a54039c10d3d94f1202ddb7a",
+      "ledger_sha256": "7b79fdaccafe891ba48d64a16c5fbe4de8c5287c5d7b31de8adffaa427e81262",
+      "qualification_path": "evidence/qualification/C01_B07_composite.json"
+    },
+    {
+      "task_id": "C02_B02_composite",
+      "category_id": "C02",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C02_B02_composite/result.json",
+      "source_model_run_path": "evidence/screening/C02_B02_composite",
+      "result_sha256": "2470ec4404881577bb236943e60ab868ac5af37111448cae6abbd59a2a433e34",
+      "ledger_sha256": "e921d804f2afeb3c9adee83b0efc728f74573329166cf51d0ba081c6713d7c48",
+      "qualification_path": "evidence/qualification/C02_B02_composite.json"
+    },
+    {
+      "task_id": "C02_B08_composite",
+      "category_id": "C02",
+      "outcome_class": "screening_failure",
+      "status": "sealed_failure",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C02_B08_composite/result.json",
+      "source_model_run_path": "evidence/screening/C02_B08_composite",
+      "result_sha256": "a7d40a7eb2e8ad4373931e8be3cc7e7a7e67f6f4c29387a9763470b0fb61b850",
+      "ledger_sha256": "d1b789e4f79e53fb4fec8438594e60467f180f1e5752b31693f96a282d435ea2",
+      "qualification_path": "evidence/qualification/C02_B08_composite.json"
+    },
+    {
+      "task_id": "C02_B10_composite",
+      "category_id": "C02",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C02_B10_composite/result.json",
+      "source_model_run_path": "evidence/screening/C02_B10_composite",
+      "result_sha256": "7271a039e377971d2fe35207c8ee49d286c6a85497308d393c2c4b9a090ea2f3",
+      "ledger_sha256": "911ee5d20fded552147fc261a4b3821529b5e8d76d6072a6dc8ed4d3ece34ca0",
+      "qualification_path": "evidence/qualification/C02_B10_composite.json"
+    },
+    {
+      "task_id": "C02_B12_composite",
+      "category_id": "C02",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C02_B12_composite/result.json",
+      "source_model_run_path": "evidence/screening/C02_B12_composite",
+      "result_sha256": "6ad619d8c9f8da3bbbffb27d8d9a65d88bb6be7b91381d6cf2407f1b5a3febdc",
+      "ledger_sha256": "ee91374d3565a335b44d45725b4d10a3b0f82a9cf3c1a5559c6822a0a95fa6b6",
+      "qualification_path": "evidence/qualification/C02_B12_composite.json"
+    },
+    {
+      "task_id": "C02_B15_composite",
+      "category_id": "C02",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C02_B15_composite/result.json",
+      "source_model_run_path": "evidence/screening/C02_B15_composite",
+      "result_sha256": "b86f34c0a51b3ef91fedd3f65e95d2ea7474386352ddc20896facd8fca8a8d3e",
+      "ledger_sha256": "282cdb6c515f32dc8922522f039da1047f13b8426bcb8353428a36f9fc3a563d",
+      "qualification_path": "evidence/qualification/C02_B15_composite.json"
+    },
+    {
+      "task_id": "C03_B04_composite",
+      "category_id": "C03",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C03_B04_composite/result.json",
+      "source_model_run_path": "evidence/screening/C03_B04_composite",
+      "result_sha256": "f5f594ee7738e589cdb5aeb37511ccc25bf792d4cf46de609d3d9229d98245d3",
+      "ledger_sha256": "40eb0324663eb9ff13cfe2a4059bad90a6f0e6a24d232a6459146b6d320aeced",
+      "qualification_path": "evidence/qualification/C03_B04_composite.json"
+    },
+    {
+      "task_id": "C03_B08_composite",
+      "category_id": "C03",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C03_B08_composite/result.json",
+      "source_model_run_path": "evidence/screening/C03_B08_composite",
+      "result_sha256": "67e042447fcec6f0cb7d13c2c3c776cd43263c0ba16d7ae7e991c7f6b58917ab",
+      "ledger_sha256": "504639f0268b8d3f8f1398b77548c8d4e6f72fc6e9ad7d090d597c18bbde669c",
+      "qualification_path": "evidence/qualification/C03_B08_composite.json"
+    },
+    {
+      "task_id": "C03_B12_composite",
+      "category_id": "C03",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C03_B12_composite/result.json",
+      "source_model_run_path": "evidence/screening/C03_B12_composite",
+      "result_sha256": "1ac2745dcf3ad5fc82d27df78eeeae2ac581c97526cbfc659c163e1717195cec",
+      "ledger_sha256": "29a72c61a2be1f11e6def2450b2d467ef6c0e742f2dfd8525ba5a692fd7ceb0f",
+      "qualification_path": "evidence/qualification/C03_B12_composite.json"
+    },
+    {
+      "task_id": "C03_B16_composite",
+      "category_id": "C03",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C03_B16_composite/result.json",
+      "source_model_run_path": "evidence/screening/C03_B16_composite",
+      "result_sha256": "91dfd4700f26549028520177c2eb9ff2b6710fbbc44882731dc5b6a806f05e88",
+      "ledger_sha256": "e23ae31016cbd6069fcad0bf6e03a845f0e16f3a7ef8c4ee2594cd4241caa5ef",
+      "qualification_path": "evidence/qualification/C03_B16_composite.json"
+    },
+    {
+      "task_id": "C03_B17_composite",
+      "category_id": "C03",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C03_B17_composite/result.json",
+      "source_model_run_path": "evidence/screening/C03_B17_composite",
+      "result_sha256": "da5a640f3e5cdc8e2b0970604c59083193eccdbfdcd9245c745aa0fa1f276bc5",
+      "ledger_sha256": "bfe7200ef737f4f0e6e5ef35bc1a5f6fd0dc44a07f15345949a143a2b2731050",
+      "qualification_path": "evidence/qualification/C03_B17_composite.json"
+    },
+    {
+      "task_id": "C04_B16_composite",
+      "category_id": "C04",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C04_B16_composite/result.json",
+      "source_model_run_path": "evidence/screening/C04_B16_composite",
+      "result_sha256": "b65358cabf91e42da1da3f15d1fff1ebe87489c30f0f6c73a5091e0e460e2590",
+      "ledger_sha256": "606290c946548031caff9c7904e64c4b56fd059974234c4166118a3dd2ebc5ad",
+      "qualification_path": "evidence/qualification/C04_B16_composite.json"
+    },
+    {
+      "task_id": "C04_S07_lean_composite",
+      "category_id": "C04",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C04_S07_lean_composite/result.json",
+      "source_model_run_path": "evidence/screening/C04_S07_lean_composite",
+      "result_sha256": "1c7a0e8c4c77344272cccae2dba663600d6c5b60f42f2966cc25c0e6b3e6faa2",
+      "ledger_sha256": "1667bbeebfe0c428c87336d50a4c3dc60f60e68a3a8fa86a93d53439693e26bc",
+      "qualification_path": "evidence/qualification/C04_S07_lean_composite.json"
+    },
+    {
+      "task_id": "C04_S08_lean_composite",
+      "category_id": "C04",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C04_S08_lean_composite/result.json",
+      "source_model_run_path": "evidence/screening/C04_S08_lean_composite",
+      "result_sha256": "66d7806d059b51e2e6d73e2989aaa122bcbe32b59acd15a841b8bc919c1cb4cf",
+      "ledger_sha256": "3e1cd6ad35843841d602a0c48d3cfeae519344ffc609de02deed93d18d655525",
+      "qualification_path": "evidence/qualification/C04_S08_lean_composite.json"
+    },
+    {
+      "task_id": "C04_S09_lean_composite",
+      "category_id": "C04",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C04_S09_lean_composite/result.json",
+      "source_model_run_path": "evidence/screening/C04_S09_lean_composite",
+      "result_sha256": "19235f669a2a4fe04943c27abd4f1ef676f20e2da3b8d257fb33d8a25127be86",
+      "ledger_sha256": "8acfaadb74b3314338d67c1334e7c048099767d490b16bb2594e0b3ca7bc2c53",
+      "qualification_path": "evidence/qualification/C04_S09_lean_composite.json"
+    },
+    {
+      "task_id": "C04_S22_lean_composite",
+      "category_id": "C04",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C04_S22_lean_composite/result.json",
+      "source_model_run_path": "evidence/screening/C04_S22_lean_composite",
+      "result_sha256": "588d8573609f09ed6775ff5fd81657dbe0184037aea63ea8730ec799774b40f4",
+      "ledger_sha256": "6119a1a510ffc63f3a853af65ca7becb89faffc3dc4ae82c9f4899717329d77f",
+      "qualification_path": "evidence/qualification/C04_S22_lean_composite.json"
+    },
+    {
+      "task_id": "C05_B01_composite",
+      "category_id": "C05",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C05_B01_composite/result.json",
+      "source_model_run_path": "evidence/screening/C05_B01_composite",
+      "result_sha256": "e8f40251765406966c86cfe3e6482a086b80baa6ab846d4de1edc422c0ed7842",
+      "ledger_sha256": "a8298c76fae9cce879d32dcec421822d81b1cb4cdb4409a37fb1983c9baf621a",
+      "qualification_path": "evidence/qualification/C05_B01_composite.json"
+    },
+    {
+      "task_id": "C05_B03_composite",
+      "category_id": "C05",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C05_B03_composite/result.json",
+      "source_model_run_path": "evidence/screening/C05_B03_composite",
+      "result_sha256": "299c95ceb7bacf050ad71100213d70ae369b00137e5ccc9d907947c7fe194dc1",
+      "ledger_sha256": "d83a29f6bef0aaaa63d87ef1dfa6d6022c0c47cc8cf9f7e5708227a725120d89",
+      "qualification_path": "evidence/qualification/C05_B03_composite.json"
+    },
+    {
+      "task_id": "C05_B04_composite",
+      "category_id": "C05",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "k3",
+      "resolved_models": [
+        "k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C05_B04_composite/result.json",
+      "source_model_run_path": "evidence/screening/C05_B04_composite",
+      "result_sha256": "0751074011a59dd944744e3f006fd33189b79c5de17b30f8d9e1d1e123d8d8bb",
+      "ledger_sha256": "5f1d509ec6c558c644762995aae95f5e7d329fa96f95c025f024a4d81276311a",
+      "qualification_path": "evidence/qualification/C05_B04_composite.json"
+    },
+    {
+      "task_id": "C05_B06_composite",
+      "category_id": "C05",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C05_B06_composite/result.json",
+      "source_model_run_path": "evidence/screening/C05_B06_composite",
+      "result_sha256": "28748bea7805e364308bd4d5e3ae07003cb46b833c62344ce7eb8cb64e7764ee",
+      "ledger_sha256": "eef2486764fbcf6bf41170b485c3f231a11569a426119c9fbb93e8d4d1b4e5de",
+      "qualification_path": "evidence/qualification/C05_B06_composite.json"
+    },
+    {
+      "task_id": "C05_B07_composite",
+      "category_id": "C05",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C05_B07_composite/result.json",
+      "source_model_run_path": "evidence/screening/C05_B07_composite",
+      "result_sha256": "7c67585b23d111f0da8ad9dbbcce621af083baf61367b925e22e7cce519384f5",
+      "ledger_sha256": "7aa747127b59d91ecc8fdd1508e4d4c23aeb94eefe70709eeb26a2899acb062f",
+      "qualification_path": "evidence/qualification/C05_B07_composite.json"
+    },
+    {
+      "task_id": "C06_M02_bounded_up_down_counter",
+      "category_id": "C06",
+      "outcome_class": "screening_failure",
+      "status": "sealed_failure",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C06_M02_bounded_up_down_counter/result.json",
+      "source_model_run_path": "evidence/screening/C06_M02_bounded_up_down_counter",
+      "result_sha256": "86664f5a7912926087268975ed7186a5e4caf2c0e6f4ffd8c042f615661da902",
+      "ledger_sha256": "b4da9e9eda98d90dc9aeee7f17fdd94e7f690e3a82faa98b8af5ded453280146",
+      "qualification_path": "evidence/qualification/C06_M02_bounded_up_down_counter.json"
+    },
+    {
+      "task_id": "C06_W03_lean_composite",
+      "category_id": "C06",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C06_W03_lean_composite/result.json",
+      "source_model_run_path": "evidence/screening/C06_W03_lean_composite",
+      "result_sha256": "b4a8e1cd3eac767da29aed510ef9d2e653bfe896c7f95f49d396df97e0a2f57d",
+      "ledger_sha256": "b8f28c8e4413e95eb69f389ac5dc5f02079216715b0a6e50e716171fe14bb402",
+      "qualification_path": "evidence/qualification/C06_W03_lean_composite.json",
+      "outcome_class": "screening_failure"
+    },
+    {
+      "task_id": "C06_W06_lean_composite",
+      "category_id": "C06",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C06_W06_lean_composite/result.json",
+      "source_model_run_path": "evidence/screening/C06_W06_lean_composite",
+      "result_sha256": "c9333c8831ffa30fb0c3f57017d187e1e9f6c4cd4e3327c20b3d3d8a7734abec",
+      "ledger_sha256": "64cfe01135650551ff8825bfef4d40b78e179170b949ce06bfb96d96786c1884",
+      "qualification_path": "evidence/qualification/C06_W06_lean_composite.json",
+      "outcome_class": "screening_failure"
+    },
+    {
+      "task_id": "C06_W07_lean_composite",
+      "category_id": "C06",
+      "outcome_class": "screening_failure",
+      "status": "sealed_failure",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C06_W07_lean_composite/result.json",
+      "source_model_run_path": "evidence/screening/C06_W07_lean_composite",
+      "result_sha256": "1380b2bf595a96ec04bb02eb49c3aa69da61a71ac81f0d020a1d079f2dc75c33",
+      "ledger_sha256": "95c6b4cd1117f59be0b911e33857a120946d4e3479f42eb15a9cfef8e66b07f5",
+      "qualification_path": "evidence/qualification/C06_W07_lean_composite.json"
+    },
+    {
+      "task_id": "C06_W01_lean_composite",
+      "category_id": "C06",
+      "outcome_class": "verified_success",
+      "status": "verified_success",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C06_W01_lean_composite/result.json",
+      "source_model_run_path": "evidence/screening/C06_W01_lean_composite",
+      "result_sha256": "e41afafe9256c34173b40b73225eddadd7dbf32d3dab07351cca195dd9c80fff",
+      "ledger_sha256": "e8ddc475b5438e1356f51965196e59e721f404c3d641294d51915ebd1b1953f5",
+      "qualification_path": "evidence/qualification/C06_W01_lean_composite.json"
+    },
+    {
+      "task_id": "C07_B03_composite",
+      "category_id": "C07",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C07_B03_composite/result.json",
+      "source_model_run_path": "evidence/screening/C07_B03_composite",
+      "result_sha256": "7a26df1b52a10205bf113f2843de15d15776a49c29ec0606dad586a25d9036a5",
+      "ledger_sha256": "1d5cca439857fdd64f7d325a057422f2b4a0f045e53458fee7e965588f8c87d2",
+      "qualification_path": "evidence/qualification/C07_B03_composite.json"
+    },
+    {
+      "task_id": "C07_B04_composite",
+      "category_id": "C07",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C07_B04_composite/result.json",
+      "source_model_run_path": "evidence/screening/C07_B04_composite",
+      "result_sha256": "a75144fb917a17fa68e5fe4f90daf52564e98af7664bf09eeaef8b241ca61459",
+      "ledger_sha256": "03b0b76cc866a604862b74832501841b9bae84c8241b5eb31b731b9c02480003",
+      "qualification_path": "evidence/qualification/C07_B04_composite.json"
+    },
+    {
+      "task_id": "C07_B10_composite",
+      "category_id": "C07",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C07_B10_composite/result.json",
+      "source_model_run_path": "evidence/screening/C07_B10_composite",
+      "result_sha256": "f509e0aae86ea547b85c33dba928b10081d2c62746b82cbbce870a1c632b1396",
+      "ledger_sha256": "797f161fed2238f0b9a6df843eda118a5c57b939976de1b94fd5763da1dd0974",
+      "qualification_path": "evidence/qualification/C07_B10_composite.json"
+    },
+    {
+      "task_id": "C07_B12_composite",
+      "category_id": "C07",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C07_B12_composite/result.json",
+      "source_model_run_path": "evidence/screening/C07_B12_composite",
+      "result_sha256": "e24017397c808839f3d2f10010a476d2c2734b83abc5bb0cefe64551e45bf8e0",
+      "ledger_sha256": "c50203a6ef57137054a102e158505c34de72ea419eee3401551d53781f3d1582",
+      "qualification_path": "evidence/qualification/C07_B12_composite.json"
+    },
+    {
+      "task_id": "C07_B14_composite",
+      "category_id": "C07",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C07_B14_composite/result.json",
+      "source_model_run_path": "evidence/screening/C07_B14_composite",
+      "result_sha256": "4339560b657b70c9d7b31a236acfff2f73808186b7b716b531b184a9cef5e777",
+      "ledger_sha256": "06e5036f2de0ce5a13a80278e5e3666ecb80f2802c283644f096162291b9d4f1",
+      "qualification_path": "evidence/qualification/C07_B14_composite.json"
+    },
+    {
+      "task_id": "C08_B04_composite",
+      "category_id": "C08",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C08_B04_composite/result.json",
+      "source_model_run_path": "evidence/screening/C08_B04_composite",
+      "result_sha256": "86da793c990d0eba104a04e0858dbd75493d7d4b745a58f0b240e69ff25a3af0",
+      "ledger_sha256": "1328879d92d17c9b7d1d602fced868ef0f3f0871c12687191ba5cd5e0fde8376",
+      "qualification_path": "evidence/qualification/C08_B04_composite.json"
+    },
+    {
+      "task_id": "C08_B05_composite",
+      "category_id": "C08",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C08_B05_composite/result.json",
+      "source_model_run_path": "evidence/screening/C08_B05_composite",
+      "result_sha256": "a354b1eb2303b320497d7e19ef2a27cc41c1e1f8d058308d5b3df3bd48802c68",
+      "ledger_sha256": "ed23f251345fe5d1cc8b54139c65bb80356c3f8155143de1cf99449ef9508cbe",
+      "qualification_path": "evidence/qualification/C08_B05_composite.json"
+    },
+    {
+      "task_id": "C08_B07_composite",
+      "category_id": "C08",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C08_B07_composite/result.json",
+      "source_model_run_path": "evidence/screening/C08_B07_composite",
+      "result_sha256": "551e4ee78f2cdda94e728aa09977c4a62dc51a5ac4ea85b85b7f7d1391c4b4d8",
+      "ledger_sha256": "a1ae4a9d7b8b758fcf475b7f73d511ae694f44ce623e3aa45d47b7f5e6a27181",
+      "qualification_path": "evidence/qualification/C08_B07_composite.json"
+    },
+    {
+      "task_id": "C08_B08_composite",
+      "category_id": "C08",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C08_B08_composite/result.json",
+      "source_model_run_path": "evidence/screening/C08_B08_composite",
+      "result_sha256": "1cf0d5a745e2885b55890a0f8089d9ed8cb15394baaee0c009cf7a67d6c687e8",
+      "ledger_sha256": "b9384062d74fb9077733c605cad003ebd5e36e3cf60de26570b4132ae318a2f0",
+      "qualification_path": "evidence/qualification/C08_B08_composite.json"
+    },
+    {
+      "task_id": "C08_B12_composite",
+      "category_id": "C08",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C08_B12_composite/result.json",
+      "source_model_run_path": "evidence/screening/C08_B12_composite",
+      "result_sha256": "2cfc5af6536916a4590c92d8f9635d17e0d68ddd66531247da2d1ee960194e1b",
+      "ledger_sha256": "af83484fcf0ca5ea4d0c2d139ed904a9efedb0eb089d5e6169566586b0adfbb7",
+      "qualification_path": "evidence/qualification/C08_B12_composite.json"
+    },
+    {
+      "task_id": "C09_B04_composite",
+      "category_id": "C09",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C09_B04_composite/result.json",
+      "source_model_run_path": "evidence/screening/C09_B04_composite",
+      "result_sha256": "6456810122be9579d7d70b7278815ad941528786a32323ae187fcab923ab68fc",
+      "ledger_sha256": "8e746bda000bb7fe667cd2d506599baa66d6ad871f69d59eb4f19c7ac532e842",
+      "qualification_path": "evidence/qualification/C09_B04_composite.json"
+    },
+    {
+      "task_id": "C09_B06_composite",
+      "category_id": "C09",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C09_B06_composite/result.json",
+      "source_model_run_path": "evidence/screening/C09_B06_composite",
+      "result_sha256": "c4e920de93654f93bbd3af66ad7776b2855e4c59824c353d913f34ffb0947612",
+      "ledger_sha256": "e63e42fe215e578446ffce68c2a174efc066b224e349216595ca6e27528f5aa2",
+      "qualification_path": "evidence/qualification/C09_B06_composite.json"
+    },
+    {
+      "task_id": "C09_B08_composite",
+      "category_id": "C09",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C09_B08_composite/result.json",
+      "source_model_run_path": "evidence/screening/C09_B08_composite",
+      "result_sha256": "7daabba4d10e87f22b9392eea3b01157843383bdf8479dc5c2f77c7c86bf2731",
+      "ledger_sha256": "35753bf05f744df0ce2487989dbe6f3f855c3e6f496096393a5271bcfb365c20",
+      "qualification_path": "evidence/qualification/C09_B08_composite.json"
+    },
+    {
+      "task_id": "C09_B10_composite",
+      "category_id": "C09",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C09_B10_composite/result.json",
+      "source_model_run_path": "evidence/screening/C09_B10_composite",
+      "result_sha256": "511f2eb47865109b1b218fa666def3bd15f8e2b8134df849b88e78e9174c6ea2",
+      "ledger_sha256": "e7572c69b2f951f4a58e03ef747124b187797538d7b85220f3ad305236108ca1",
+      "qualification_path": "evidence/qualification/C09_B10_composite.json"
+    },
+    {
+      "task_id": "C09_B14_composite",
+      "category_id": "C09",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C09_B14_composite/result.json",
+      "source_model_run_path": "evidence/screening/C09_B14_composite",
+      "result_sha256": "ab9924c0b7d5f92b515b8ca6f4b7fc4669588b8102a3042291c80a6a6df670e1",
+      "ledger_sha256": "ed272972bbc52c7330ec6661ed9cadaab4b0be0b226f077276e92287b0701376",
+      "qualification_path": "evidence/qualification/C09_B14_composite.json"
+    },
+    {
+      "task_id": "C10_B01_composite",
+      "category_id": "C10",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C10_B01_composite/result.json",
+      "source_model_run_path": "evidence/screening/C10_B01_composite",
+      "result_sha256": "ff073c08c144daef2055bd4ac483e9106c16d08b9b70c8791eb51edbf1a4c211",
+      "ledger_sha256": "fe01b98118115bf6623f344d6143758ee6a3d758983010e53df0374328346b86",
+      "qualification_path": "evidence/qualification/C10_B01_composite.json"
+    },
+    {
+      "task_id": "C10_B02_composite",
+      "category_id": "C10",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C10_B02_composite/result.json",
+      "source_model_run_path": "evidence/screening/C10_B02_composite",
+      "result_sha256": "05b8ddf7139819f9424ad599964d323cb93d8a06315e4366572187120423962f",
+      "ledger_sha256": "445f3a25ecbf25a84e9186362a06038fd8598e8865d342ce93e56248d857f6bb",
+      "qualification_path": "evidence/qualification/C10_B02_composite.json"
+    },
+    {
+      "task_id": "C10_B03_composite",
+      "category_id": "C10",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C10_B03_composite/result.json",
+      "source_model_run_path": "evidence/screening/C10_B03_composite",
+      "result_sha256": "621e5be73a6cecdedae9c837edb03ab4c0347b38d8ccc16218ee2148efb311de",
+      "ledger_sha256": "f3d93d07305580d4e37f9461676f8fba5bf088fcff13fb3f2b05c4c32ce8ff97",
+      "qualification_path": "evidence/qualification/C10_B03_composite.json"
+    },
+    {
+      "task_id": "C10_B04_composite",
+      "category_id": "C10",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C10_B04_composite/result.json",
+      "source_model_run_path": "evidence/screening/C10_B04_composite",
+      "result_sha256": "0d634bfe9a7a78ba4cd47e009b70730aa78526d37ddc9c0aaee5fa9a8e6ccefd",
+      "ledger_sha256": "2513d4f6b230f0df80aa6431b37f1e3637b6b7675418cbcf1303808211d8567b",
+      "qualification_path": "evidence/qualification/C10_B04_composite.json"
+    },
+    {
+      "task_id": "C10_B05_composite",
+      "category_id": "C10",
+      "outcome_class": "screening_failure",
+      "status": "candidate_budget_exhausted",
+      "requested_model": "kimi-k3",
+      "resolved_models": [
+        "kimi-k3"
+      ],
+      "evidence_kind": "screening",
+      "result_path": "evidence/screening/C10_B05_composite/result.json",
+      "source_model_run_path": "evidence/screening/C10_B05_composite",
+      "result_sha256": "1fe9aa8e2931e6dd310a73611a9ee09678a15873d85a6ef08b874cdd730c1c62",
+      "ledger_sha256": "12bba1f05387a0456a3b15226ee245f83569d2901e4bad75a06a4ea88011705d",
+      "qualification_path": "evidence/qualification/C10_B05_composite.json"
+    }
+  ],
+  "runtime_replacements": [
+    {
+      "removed_task_id": "C06_B04_composite",
+      "replacement_task_id": "C06_W03_lean_composite",
+      "reason": "reference PLCverif runtime exceeded the configured 900-second validator budget",
+      "reference_plcverif_duration_ms": 20381,
+      "screening_status": "candidate_budget_exhausted",
+      "result_sha256": "b4a8e1cd3eac767da29aed510ef9d2e653bfe896c7f95f49d396df97e0a2f57d",
+      "ledger_sha256": "b8f28c8e4413e95eb69f389ac5dc5f02079216715b0a6e50e716171fe14bb402"
+    },
+    {
+      "removed_task_id": "C06_B05_composite",
+      "replacement_task_id": "C06_W06_lean_composite",
+      "reason": "reference PLCverif runtime exceeded the configured 900-second validator budget",
+      "reference_plcverif_duration_ms": 19154,
+      "screening_status": "candidate_budget_exhausted",
+      "result_sha256": "c9333c8831ffa30fb0c3f57017d187e1e9f6c4cd4e3327c20b3d3d8a7734abec",
+      "ledger_sha256": "64cfe01135650551ff8825bfef4d40b78e179170b949ce06bfb96d96786c1884"
+    }
+  ],
+  "max_reference_plcverif_ms": 900000
+}

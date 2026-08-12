@@ -1,0 +1,255 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "bank-0.3.0-dev",
+  "id": "C04_B20_composite",
+  "title": "Composed supervisory control: Qualified dual-edge recorder with saturation and re-arm -> Toggle output on qualified rising edge",
+  "category_id": "C04",
+  "category": "Edge and event handling",
+  "difficulty_stratification": "not_used",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "BOOL",
+    "FUNCTION_BLOCK",
+    "IF",
+    "INT",
+    "compositional control",
+    "edge detection",
+    "edge memory",
+    "latched readiness",
+    "priority",
+    "qualified reset",
+    "retained output",
+    "saturation",
+    "supervisory interlock"
+  ],
+  "complexity": {
+    "retained_state": 8,
+    "transitions": 15,
+    "stateful_blocks": 1,
+    "interactions": 15,
+    "fault_modes": 5,
+    "horizon_scans": 13,
+    "inputs": 11,
+    "outputs": 9,
+    "requirements": 13
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "A_EventA",
+        "type": "BOOL",
+        "description": "Subsystem A: Event channel A"
+      },
+      {
+        "name": "A_EventB",
+        "type": "BOOL",
+        "description": "Subsystem A: Event channel B"
+      },
+      {
+        "name": "A_Qualify",
+        "type": "BOOL",
+        "description": "Subsystem A: Event qualification"
+      },
+      {
+        "name": "A_Inhibit",
+        "type": "BOOL",
+        "description": "Subsystem A: Event inhibit"
+      },
+      {
+        "name": "A_Reset",
+        "type": "BOOL",
+        "description": "Subsystem A: Qualified reset"
+      },
+      {
+        "name": "A_MaxCount",
+        "type": "INT",
+        "description": "Subsystem A: Saturation count"
+      },
+      {
+        "name": "B_Button",
+        "type": "BOOL",
+        "description": "Subsystem B: Momentary button"
+      },
+      {
+        "name": "B_Enable",
+        "type": "BOOL",
+        "description": "Subsystem B: Toggle permission"
+      },
+      {
+        "name": "B_Reset",
+        "type": "BOOL",
+        "description": "Subsystem B: Synchronous reset"
+      },
+      {
+        "name": "SubsystemBEnable",
+        "type": "BOOL",
+        "description": "Request execution of subsystem B"
+      },
+      {
+        "name": "CrossReset",
+        "type": "BOOL",
+        "description": "High-priority supervisory readiness reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_PulseA",
+        "type": "BOOL",
+        "description": "Subsystem A: Accepted A pulse"
+      },
+      {
+        "name": "A_PulseB",
+        "type": "BOOL",
+        "description": "Subsystem A: Accepted B pulse"
+      },
+      {
+        "name": "A_Count",
+        "type": "INT",
+        "description": "Subsystem A: Accepted event count"
+      },
+      {
+        "name": "A_Locked",
+        "type": "BOOL",
+        "description": "Subsystem A: Saturation lockout"
+      },
+      {
+        "name": "A_LastSource",
+        "type": "INT",
+        "description": "Subsystem A: 0 none, 1 A, 2 B"
+      },
+      {
+        "name": "B_State",
+        "type": "BOOL",
+        "description": "Subsystem B: Toggled state"
+      },
+      {
+        "name": "B_AcceptedPulse",
+        "type": "BOOL",
+        "description": "Subsystem B: Qualified edge accepted this scan"
+      },
+      {
+        "name": "CrossReady",
+        "type": "BOOL",
+        "description": "Latched observation of A_PulseA"
+      },
+      {
+        "name": "CrossBlocked",
+        "type": "BOOL",
+        "description": "SubsystemBEnable is requested without CrossReady"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "Subsystem A: The function block is called exactly once per PLC scan.",
+    "Subsystem A: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem A: Each test starts from a fresh function-block instance.",
+    "Subsystem A: A_MaxCount remains constant during a test.",
+    "Subsystem B: The function block is called exactly once per PLC scan.",
+    "Subsystem B: Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Subsystem B: Each test starts from a fresh function-block instance.",
+    "Subsystem A executes before the supervisory latch and subsystem B within each scan.",
+    "Requirements inherited from subsystem B apply only while SubsystemBEnable and CrossReady are TRUE.",
+    "When subsystem B is isolated, its externally visible outputs take their type-safe defaults."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Subsystem A shall satisfy: Only a qualified, non-inhibited rising edge observed while not previously A_Locked may be accepted.",
+      "property": "G((A_PulseA OR A_PulseB) -> (A_Qualify AND !A_Inhibit AND !prev(A_Locked)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R2",
+      "text": "Subsystem A shall satisfy: Simultaneous eligible edges shall accept A only.",
+      "property": "G((rose(A_EventA) AND rose(A_EventB) AND eligible) -> (A_PulseA AND !A_PulseB))",
+      "safety_critical": true
+    },
+    {
+      "id": "R3",
+      "text": "Subsystem A shall satisfy: Each accepted event increments A_Count once and records A_LastSource.",
+      "property": "G((A_PulseA OR A_PulseB) -> (A_Count=prev(A_Count)+1))",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "Subsystem A shall satisfy: Except for a qualified A_Reset scan, A_Count shall saturate at A_MaxCount and latch A_Locked; A_MaxCount less than or equal to zero locks without counting.",
+      "property": "G(((A_Count>=A_MaxCount OR A_MaxCount<=0) AND !(A_Reset AND !A_EventA AND !A_EventB))->A_Locked)",
+      "safety_critical": true
+    },
+    {
+      "id": "R5",
+      "text": "Subsystem A shall satisfy: A held-high event shall not retrigger until observed low and then rising again.",
+      "property": "G((A_EventA AND prev(A_EventA))->!A_PulseA) AND G((A_EventB AND prev(A_EventB))->!A_PulseB)",
+      "safety_critical": false
+    },
+    {
+      "id": "R6",
+      "text": "Subsystem A shall satisfy: A_Reset clears A_Count, A_Locked, and A_LastSource only while both events are low.",
+      "property": "G((A_Reset AND !A_EventA AND !A_EventB)->(A_Count=0 AND !A_Locked AND A_LastSource=0))",
+      "safety_critical": false
+    },
+    {
+      "id": "R7",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: B_Reset shall clear B_State and suppress B_AcceptedPulse with highest priority.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_Reset -> (!B_State AND !B_AcceptedPulse)))",
+      "safety_critical": true
+    },
+    {
+      "id": "R8",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: A rising B_Button edge while B_Enable is TRUE shall invert B_State exactly once.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> (B_AcceptedPulse = (B_Enable AND rose(B_Button) AND !B_Reset)))",
+      "safety_critical": false
+    },
+    {
+      "id": "R9",
+      "text": "While SubsystemBEnable and CrossReady are TRUE, subsystem B shall satisfy: Holding B_Button TRUE shall not repeatedly toggle B_State.",
+      "property": "G((SubsystemBEnable AND CrossReady) -> ((B_Button AND prev(B_Button) AND !B_Reset) -> (B_State = prev(B_State))))",
+      "safety_critical": false
+    },
+    {
+      "id": "R10",
+      "text": "A TRUE A_PulseA shall latch CrossReady unless CrossReset is TRUE in the same scan.",
+      "property": "G(CrossReset -> !CrossReady) AND G((A_PulseA AND !CrossReset)->CrossReady)",
+      "safety_critical": true
+    },
+    {
+      "id": "R11",
+      "text": "CrossReset shall have priority, clear CrossReady, and isolate every subsystem-B output to its type-safe default.",
+      "property": "G(CrossReset -> (!CrossReady AND NOT B_State AND NOT B_AcceptedPulse)) AND G((NOT (SubsystemBEnable AND CrossReady)) -> (NOT B_State AND NOT B_AcceptedPulse))",
+      "safety_critical": true
+    },
+    {
+      "id": "R12",
+      "text": "Once set, CrossReady shall remain TRUE after the subsystem-A signal falls, until a later CrossReset scan.",
+      "property": "G((CrossReady AND !CrossReset)->X(CrossReady))",
+      "safety_critical": false
+    },
+    {
+      "id": "R13",
+      "text": "Subsystem B may execute only while SubsystemBEnable and CrossReady are TRUE; CrossBlocked is TRUE exactly when SubsystemBEnable is requested without CrossReady.",
+      "property": "G(CrossBlocked = (SubsystemBEnable AND !CrossReady))",
+      "safety_critical": true
+    }
+  ],
+  "composition": {
+    "base_a": "C04_X01_dual_event_saturating_recorder",
+    "base_b": "C04_M02_toggle_on_edge",
+    "direction": "A_to_B",
+    "activation_output": "A_PulseA"
+  },
+  "provenance": {
+    "origin": "deterministic ordered composition of independently specified base behaviors",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

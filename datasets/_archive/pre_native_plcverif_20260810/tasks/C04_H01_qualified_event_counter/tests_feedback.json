@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C04_H01_qualified_event_counter",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "qualified_edges",
+      "description": "Count a qualified edge once.",
+      "requirement_ids": [
+        "R1",
+        "R2"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Event": false,
+            "Qualify": true,
+            "Reset": false,
+            "MaxCount": 2
+          },
+          "expect": {
+            "Count": 0,
+            "AcceptedPulse": false,
+            "AtLimit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Event": true,
+            "Qualify": true,
+            "Reset": false,
+            "MaxCount": 2
+          },
+          "expect": {
+            "Count": 1,
+            "AcceptedPulse": true,
+            "AtLimit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Event": true,
+            "Qualify": true,
+            "Reset": false,
+            "MaxCount": 2
+          },
+          "expect": {
+            "Count": 1,
+            "AcceptedPulse": false,
+            "AtLimit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Event": false,
+            "Qualify": true,
+            "Reset": false,
+            "MaxCount": 2
+          },
+          "expect": {
+            "Count": 1,
+            "AcceptedPulse": false,
+            "AtLimit": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

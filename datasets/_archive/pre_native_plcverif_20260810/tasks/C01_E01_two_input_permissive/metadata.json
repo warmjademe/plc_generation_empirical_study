@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C01_E01_two_input_permissive",
+  "title": "Two-input run permissive",
+  "category_id": "C01",
+  "category": "Boolean and conditional logic",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "AND",
+    "assignment"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 0,
+    "stateful_blocks": 0,
+    "interactions": 0,
+    "fault_modes": 0,
+    "horizon_scans": 1,
+    "inputs": 2,
+    "outputs": 1,
+    "requirements": 1
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Enable",
+        "type": "BOOL",
+        "description": "Operator enable request"
+      },
+      {
+        "name": "GuardClosed",
+        "type": "BOOL",
+        "description": "Safety guard status"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "RunPermit",
+        "type": "BOOL",
+        "description": "Permission to run"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "RunPermit shall be TRUE exactly when Enable and GuardClosed are both TRUE.",
+      "property": "G(RunPermit = (Enable AND GuardClosed))",
+      "safety_critical": true
+    }
+  ],
+  "provenance": {
+    "origin": "newly authored for IEC-ST-VerifyBench",
+    "public_before_evaluation": false,
+    "license": "research-internal; public license pending"
+  },
+  "review": {
+    "author_review": "pending",
+    "independent_review": "pending"
+  }
+}

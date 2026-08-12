@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C07_E01_linear_scaling",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.0001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "scale_endpoints",
+      "description": "Scale both range endpoints.",
+      "requirement_ids": [
+        "R1"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Raw": 0
+          },
+          "expect": {
+            "Engineering": 0.0
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Raw": 1000
+          },
+          "expect": {
+            "Engineering": 100.0
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

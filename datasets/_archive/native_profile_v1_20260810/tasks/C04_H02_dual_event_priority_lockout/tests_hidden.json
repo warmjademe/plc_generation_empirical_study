@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C04_H02_dual_event_priority_lockout",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "lockout_and_reset",
+      "description": "Capture B, reject a later A, and reset.",
+      "requirement_ids": [
+        "R1",
+        "R4",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": true,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": true,
+            "EventB": false,
+            "Arm": true,
+            "Reset": false
+          },
+          "expect": {
+            "Captured": true,
+            "Code": 2,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "EventA": false,
+            "EventB": false,
+            "Arm": true,
+            "Reset": true
+          },
+          "expect": {
+            "Captured": false,
+            "Code": 0,
+            "Pulse": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

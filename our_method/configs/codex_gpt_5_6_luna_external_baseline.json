@@ -1,0 +1,35 @@
+{
+  "codex": {
+    "executable": "codex",
+    "model": "gpt-5.6-luna",
+    "reasoning_effort": "medium",
+    "timeout_seconds": 900,
+    "provider": {
+      "id": "teamorouter",
+      "name": "Teamorouter",
+      "base_url": "https://api.teamorouter.com/v1",
+      "api_key_env": "TEAMOROUTER_API_KEY",
+      "wire_api": "responses",
+      "supports_websockets": false
+    },
+    "pricing_usd_per_million_tokens": {
+      "input_per_million": 0.20,
+      "cached_input_per_million": 0.02,
+      "output_per_million": 1.20,
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      "checked_on": "2026-08-12"
+    }
+  },
+  "experiment": {
+    "method_revision": "baseline5-codex-gpt-5.6-luna-independent-pass-at-10-v2",
+    "max_candidates": 10,
+    "candidate_policy": "independent_pass_at_10",
+    "validator_feedback_to_model": false,
+    "required_visible_gates": ["compiler", "plcverif"],
+    "sealed_gate": "openplc",
+    "stop_on_visible_pass": true,
+    "development_only": false,
+    "verification_profile": "MatIEC -> PLCverif(all properties) -> OpenPLC(sealed)"
+  },
+  "validator_config": "common_external_judges.json"
+}

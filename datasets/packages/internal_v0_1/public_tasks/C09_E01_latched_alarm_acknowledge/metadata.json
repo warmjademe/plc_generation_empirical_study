@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C09_E01_latched_alarm_acknowledge",
+  "title": "Latched alarm with acknowledge and reset",
+  "category_id": "C09",
+  "category": "Alarms and fault recovery",
+  "difficulty": "easy",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "retained alarm",
+    "IF",
+    "acknowledge",
+    "qualified reset"
+  ],
+  "complexity": {
+    "retained_state": 2,
+    "transitions": 4,
+    "stateful_blocks": 0,
+    "interactions": 3,
+    "fault_modes": 1,
+    "horizon_scans": 3,
+    "inputs": 3,
+    "outputs": 2,
+    "requirements": 3
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "AlarmCondition",
+        "type": "BOOL",
+        "description": "Active alarm condition"
+      },
+      {
+        "name": "Acknowledge",
+        "type": "BOOL",
+        "description": "Operator acknowledgement"
+      },
+      {
+        "name": "Reset",
+        "type": "BOOL",
+        "description": "Alarm reset"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "AlarmActive",
+        "type": "BOOL",
+        "description": "Latched alarm status"
+      },
+      {
+        "name": "AlarmUnacked",
+        "type": "BOOL",
+        "description": "Alarm requires acknowledgement"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "AlarmCondition shall latch AlarmActive and AlarmUnacked TRUE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "Acknowledge may clear AlarmUnacked while AlarmActive remains latched.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "Reset shall clear both outputs only while AlarmCondition is FALSE.",
+      "safety_critical": false
+    }
+  ]
+}

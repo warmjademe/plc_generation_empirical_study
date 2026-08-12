@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "suite": "feedback",
+  "task_id": "C10_H01_duty_standby_failover",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "healthy_duty_start",
+      "description": "Start a healthy duty pump and stop on demand loss.",
+      "requirement_ids": [
+        "R1",
+        "R3",
+        "R5"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Demand": true,
+            "DutyIsPump1": true,
+            "Pump1Available": true,
+            "Pump2Available": true,
+            "Pump1Feedback": true,
+            "Pump2Feedback": false,
+            "Reset": false
+          },
+          "expect": {
+            "Pump1Run": true,
+            "Pump2Run": false,
+            "FailoverActive": false,
+            "Failure": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Demand": false,
+            "DutyIsPump1": true,
+            "Pump1Available": true,
+            "Pump2Available": true,
+            "Pump1Feedback": false,
+            "Pump2Feedback": false,
+            "Reset": false
+          },
+          "expect": {
+            "Pump1Run": false,
+            "Pump2Run": false,
+            "FailoverActive": false,
+            "Failure": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

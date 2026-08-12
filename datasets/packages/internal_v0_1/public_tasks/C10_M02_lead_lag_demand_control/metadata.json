@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "0.1.0",
+  "id": "C10_M02_lead_lag_demand_control",
+  "title": "Lead-lag pump demand control",
+  "category_id": "C10",
+  "category": "Multi-device coordination",
+  "difficulty": "medium",
+  "iec_profile": "IEC-ST Core v1",
+  "iec_features": [
+    "FUNCTION_BLOCK",
+    "BOOL",
+    "IF",
+    "lead-lag coordination",
+    "availability"
+  ],
+  "complexity": {
+    "retained_state": 0,
+    "transitions": 0,
+    "stateful_blocks": 0,
+    "interactions": 7,
+    "fault_modes": 2,
+    "horizon_scans": 1,
+    "inputs": 5,
+    "outputs": 3,
+    "requirements": 5
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "LowDemand",
+        "type": "BOOL",
+        "description": "At least one pump is required"
+      },
+      {
+        "name": "HighDemand",
+        "type": "BOOL",
+        "description": "Both pumps are requested"
+      },
+      {
+        "name": "LeadIsPump1",
+        "type": "BOOL",
+        "description": "Pump 1 is selected lead"
+      },
+      {
+        "name": "Pump1Available",
+        "type": "BOOL",
+        "description": "Pump 1 availability"
+      },
+      {
+        "name": "Pump2Available",
+        "type": "BOOL",
+        "description": "Pump 2 availability"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Pump1Run",
+        "type": "BOOL",
+        "description": "Pump 1 command"
+      },
+      {
+        "name": "Pump2Run",
+        "type": "BOOL",
+        "description": "Pump 2 command"
+      },
+      {
+        "name": "CapacityShortfall",
+        "type": "BOOL",
+        "description": "Requested capacity cannot be supplied"
+      }
+    ]
+  },
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end",
+    "initialization": "fresh function-block instance for every test case"
+  },
+  "assumptions": [
+    "The function block is called exactly once per PLC scan.",
+    "Inputs are sampled at scan start and outputs are checked at scan end.",
+    "Each test starts from a fresh function-block instance."
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "With LowDemand only, the available selected lead pump shall run and the lag pump shall remain off.",
+      "safety_critical": false
+    },
+    {
+      "id": "R2",
+      "text": "With HighDemand, every available pump shall run.",
+      "safety_critical": false
+    },
+    {
+      "id": "R3",
+      "text": "If the selected lead is unavailable under LowDemand, the available lag pump shall run.",
+      "safety_critical": false
+    },
+    {
+      "id": "R4",
+      "text": "No pump shall run when neither demand input is TRUE.",
+      "safety_critical": false
+    },
+    {
+      "id": "R5",
+      "text": "CapacityShortfall shall indicate zero available pumps for LowDemand or fewer than two for HighDemand.",
+      "safety_critical": false
+    }
+  ]
+}

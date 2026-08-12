@@ -1,0 +1,384 @@
+{
+  "schema_version": "1.0",
+  "suite": "hidden",
+  "task_id": "C03_B05_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "cases": [
+    {
+      "id": "HT01",
+      "name": "A_hidden_1",
+      "description": "Composed trace source: independent_base_trace_A; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RobotRequest": false,
+            "A_ConveyorRequest": false,
+            "A_ManualRequest": true,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": false,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": false,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": false,
+            "A_ManualRequest": false,
+            "A_GuardClosed": false,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": false,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": false,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT02",
+      "name": "B_hidden_1",
+      "description": "Composed trace source: independent_base_trace_B_after_A_activation; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": true,
+            "B_Stop": false,
+            "B_C1Clear": true,
+            "B_C2Clear": true,
+            "B_C3Clear": true,
+            "B_C2Available": true,
+            "B_C3Available": false,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": true,
+            "B_Stop": false,
+            "B_C1Clear": true,
+            "B_C2Clear": false,
+            "B_C3Clear": true,
+            "B_C2Available": true,
+            "B_C3Available": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": true,
+            "B_Blocked": true,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": true,
+            "B_Stop": true,
+            "B_C1Clear": true,
+            "B_C2Clear": true,
+            "B_C3Clear": true,
+            "B_C2Available": true,
+            "B_C3Available": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    },
+    {
+      "id": "HT03",
+      "name": "cross_reset_priority",
+      "description": "Composed trace source: independently_specified_cross_contract; expected outputs frozen from the qualified composite reference.",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": true,
+            "B_Stop": false,
+            "B_C1Clear": true,
+            "B_C2Clear": true,
+            "B_C3Clear": true,
+            "B_C2Available": true,
+            "B_C3Available": true,
+            "SubsystemBEnable": true,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_C1Run": true,
+            "B_C2Run": true,
+            "B_C3Run": true,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": true,
+            "A_ManualRequest": false,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": true,
+            "B_Stop": false,
+            "B_C1Clear": true,
+            "B_C2Clear": true,
+            "B_C3Clear": true,
+            "B_C2Available": true,
+            "B_C3Available": true,
+            "SubsystemBEnable": true,
+            "CrossReset": true
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": false,
+            "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ],
+      "oracle_source": "composed_reference_trace",
+      "independent_requirement_oracle": false
+    }
+  ]
+}
