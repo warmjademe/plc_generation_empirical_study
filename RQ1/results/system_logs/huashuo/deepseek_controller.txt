@@ -1,0 +1,5 @@
+2026-08-12T07:33:52+08:00 datasets100 DeepSeek baseline controller started
+2026-08-12T07:33:52+08:00 started baseline1_llm4plc pid=585639 workers=5
+2026-08-12T07:33:52+08:00 started baseline2_agents4plc pid=585641 workers=5
+2026-08-12T07:33:52+08:00 started baseline3_chatdev pid=585643 workers=5
+2026-08-12T11:04:35+08:00 datasets100 DeepSeek baseline controller finished failed=0

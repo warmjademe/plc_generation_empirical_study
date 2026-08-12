@@ -1,0 +1,13 @@
+model,baseline,paired_complete_tasks,both_success,proposed_only,baseline_only,both_failure,risk_difference_pp,bootstrap_95ci_low_pp,bootstrap_95ci_high_pp,mcnemar_exact_p,both_protocols_ok,bh_fdr_p
+DeepSeek-V4-Flash,LLM4PLC-adapted,72,20,34,3,15,43.1,29.2,55.6,1.23312929645e-07,true,2.95951031148e-07
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,72,23,31,1,17,41.7,29.2,54.2,1.53668224812e-08,true,6.14672899246e-08
+DeepSeek-V4-Flash,ChatDev-adapted,75,23,32,3,17,38.7,25.3,50.7,4.17698174715e-07,true,8.17435128348e-07
+GPT-5.6 Luna,LLM4PLC-adapted,72,43,22,0,7,30.6,20.8,41.7,4.76837158203e-07,false,8.17435128348e-07
+GPT-5.6 Luna,Agents4PLC-reimplemented,78,50,20,0,8,25.6,16.7,35.9,1.90734863281e-06,false,2.54313151042e-06
+GPT-5.6 Luna,ChatDev-adapted,77,45,24,1,7,29.9,19.5,40.3,1.54972076416e-06,false,2.32458114624e-06
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,80,36,26,2,16,30.0,18.8,41.2,3.03238630295e-06,true,3.63886356354e-06
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,79,40,22,3,14,24.1,12.7,35.4,0.00015652179718,true,0.00015652179718
+Gemini-3.5-Flash-Lite,ChatDev-adapted,79,39,22,2,16,25.3,15.2,36.7,3.58819961548e-05,true,3.91439958052e-05
+Claude Sonnet 5,LLM4PLC-adapted,77,44,29,0,4,37.7,27.3,48.1,3.72529029846e-09,true,2.23517417908e-08
+Claude Sonnet 5,Agents4PLC-reimplemented,77,47,26,0,4,33.8,23.4,44.2,2.98023223877e-08,true,8.94069671631e-08
+Claude Sonnet 5,ChatDev-adapted,75,40,30,0,5,40.0,29.3,50.7,1.86264514923e-09,true,2.23517417908e-08

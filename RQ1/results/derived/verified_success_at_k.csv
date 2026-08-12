@@ -1,0 +1,181 @@
+model,method,k,verified_success,rate_pct
+DeepSeek-V4-Flash,本文方法,1,17,17.0
+DeepSeek-V4-Flash,本文方法,2,31,31.0
+DeepSeek-V4-Flash,本文方法,3,40,40.0
+DeepSeek-V4-Flash,本文方法,4,54,54.0
+DeepSeek-V4-Flash,本文方法,5,58,58.0
+DeepSeek-V4-Flash,本文方法,6,62,62.0
+DeepSeek-V4-Flash,本文方法,7,64,64.0
+DeepSeek-V4-Flash,本文方法,8,68,68.0
+DeepSeek-V4-Flash,本文方法,9,68,68.0
+DeepSeek-V4-Flash,本文方法,10,70,70.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,1,14,14.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,2,19,19.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,3,20,20.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,4,21,21.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,5,22,22.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,6,22,22.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,7,23,23.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,8,23,23.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,9,23,23.0
+DeepSeek-V4-Flash,LLM4PLC-adapted,10,23,23.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,1,15,15.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,2,18,18.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,3,22,22.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,4,22,22.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,5,22,22.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,6,22,22.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,7,23,23.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,8,23,23.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,9,24,24.0
+DeepSeek-V4-Flash,Agents4PLC-reimplemented,10,24,24.0
+DeepSeek-V4-Flash,ChatDev-adapted,1,13,13.0
+DeepSeek-V4-Flash,ChatDev-adapted,2,18,18.0
+DeepSeek-V4-Flash,ChatDev-adapted,3,21,21.0
+DeepSeek-V4-Flash,ChatDev-adapted,4,22,22.0
+DeepSeek-V4-Flash,ChatDev-adapted,5,22,22.0
+DeepSeek-V4-Flash,ChatDev-adapted,6,23,23.0
+DeepSeek-V4-Flash,ChatDev-adapted,7,23,23.0
+DeepSeek-V4-Flash,ChatDev-adapted,8,25,25.0
+DeepSeek-V4-Flash,ChatDev-adapted,9,26,26.0
+DeepSeek-V4-Flash,ChatDev-adapted,10,26,26.0
+GPT-5.6 Luna,本文方法,1,52,52.0
+GPT-5.6 Luna,本文方法,2,75,75.0
+GPT-5.6 Luna,本文方法,3,81,81.0
+GPT-5.6 Luna,本文方法,4,84,84.0
+GPT-5.6 Luna,本文方法,5,84,84.0
+GPT-5.6 Luna,本文方法,6,86,86.0
+GPT-5.6 Luna,本文方法,7,86,86.0
+GPT-5.6 Luna,本文方法,8,86,86.0
+GPT-5.6 Luna,本文方法,9,87,87.0
+GPT-5.6 Luna,本文方法,10,88,88.0
+GPT-5.6 Luna,LLM4PLC-adapted,1,41,41.0
+GPT-5.6 Luna,LLM4PLC-adapted,2,44,44.0
+GPT-5.6 Luna,LLM4PLC-adapted,3,44,44.0
+GPT-5.6 Luna,LLM4PLC-adapted,4,44,44.0
+GPT-5.6 Luna,LLM4PLC-adapted,5,44,44.0
+GPT-5.6 Luna,LLM4PLC-adapted,6,44,44.0
+GPT-5.6 Luna,LLM4PLC-adapted,7,44,44.0
+GPT-5.6 Luna,LLM4PLC-adapted,8,44,44.0
+GPT-5.6 Luna,LLM4PLC-adapted,9,44,44.0
+GPT-5.6 Luna,LLM4PLC-adapted,10,44,44.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,1,47,47.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,2,51,51.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,3,51,51.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,4,51,51.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,5,51,51.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,6,51,51.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,7,51,51.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,8,51,51.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,9,51,51.0
+GPT-5.6 Luna,Agents4PLC-reimplemented,10,51,51.0
+GPT-5.6 Luna,ChatDev-adapted,1,41,41.0
+GPT-5.6 Luna,ChatDev-adapted,2,42,42.0
+GPT-5.6 Luna,ChatDev-adapted,3,43,43.0
+GPT-5.6 Luna,ChatDev-adapted,4,45,45.0
+GPT-5.6 Luna,ChatDev-adapted,5,47,47.0
+GPT-5.6 Luna,ChatDev-adapted,6,47,47.0
+GPT-5.6 Luna,ChatDev-adapted,7,47,47.0
+GPT-5.6 Luna,ChatDev-adapted,8,47,47.0
+GPT-5.6 Luna,ChatDev-adapted,9,47,47.0
+GPT-5.6 Luna,ChatDev-adapted,10,47,47.0
+GPT-5.6 Luna,Codex,1,51,51.0
+GPT-5.6 Luna,Codex,2,63,63.0
+GPT-5.6 Luna,Codex,3,66,66.0
+GPT-5.6 Luna,Codex,4,68,68.0
+GPT-5.6 Luna,Codex,5,68,68.0
+GPT-5.6 Luna,Codex,6,68,68.0
+GPT-5.6 Luna,Codex,7,68,68.0
+GPT-5.6 Luna,Codex,8,68,68.0
+GPT-5.6 Luna,Codex,9,68,68.0
+GPT-5.6 Luna,Codex,10,69,69.0
+Gemini-3.5-Flash-Lite,本文方法,1,30,30.0
+Gemini-3.5-Flash-Lite,本文方法,2,52,52.0
+Gemini-3.5-Flash-Lite,本文方法,3,55,55.0
+Gemini-3.5-Flash-Lite,本文方法,4,63,63.0
+Gemini-3.5-Flash-Lite,本文方法,5,65,65.0
+Gemini-3.5-Flash-Lite,本文方法,6,68,68.0
+Gemini-3.5-Flash-Lite,本文方法,7,69,69.0
+Gemini-3.5-Flash-Lite,本文方法,8,72,72.0
+Gemini-3.5-Flash-Lite,本文方法,9,72,72.0
+Gemini-3.5-Flash-Lite,本文方法,10,75,75.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,1,31,31.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,2,35,35.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,3,37,37.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,4,37,37.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,5,38,38.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,6,38,38.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,7,38,38.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,8,38,38.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,9,38,38.0
+Gemini-3.5-Flash-Lite,LLM4PLC-adapted,10,38,38.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,1,19,19.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,2,29,29.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,3,33,33.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,4,36,36.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,5,41,41.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,6,41,41.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,7,41,41.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,8,41,41.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,9,43,43.0
+Gemini-3.5-Flash-Lite,Agents4PLC-reimplemented,10,43,43.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,1,25,25.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,2,28,28.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,3,29,29.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,4,31,31.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,5,32,32.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,6,35,35.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,7,36,36.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,8,38,38.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,9,41,41.0
+Gemini-3.5-Flash-Lite,ChatDev-adapted,10,41,41.0
+Claude Sonnet 5,本文方法,1,48,48.0
+Claude Sonnet 5,本文方法,2,77,77.0
+Claude Sonnet 5,本文方法,3,83,83.0
+Claude Sonnet 5,本文方法,4,87,87.0
+Claude Sonnet 5,本文方法,5,89,89.0
+Claude Sonnet 5,本文方法,6,90,90.0
+Claude Sonnet 5,本文方法,7,91,91.0
+Claude Sonnet 5,本文方法,8,92,92.0
+Claude Sonnet 5,本文方法,9,94,94.0
+Claude Sonnet 5,本文方法,10,95,95.0
+Claude Sonnet 5,LLM4PLC-adapted,1,33,33.0
+Claude Sonnet 5,LLM4PLC-adapted,2,38,38.0
+Claude Sonnet 5,LLM4PLC-adapted,3,41,41.0
+Claude Sonnet 5,LLM4PLC-adapted,4,42,42.0
+Claude Sonnet 5,LLM4PLC-adapted,5,42,42.0
+Claude Sonnet 5,LLM4PLC-adapted,6,42,42.0
+Claude Sonnet 5,LLM4PLC-adapted,7,43,43.0
+Claude Sonnet 5,LLM4PLC-adapted,8,44,44.0
+Claude Sonnet 5,LLM4PLC-adapted,9,44,44.0
+Claude Sonnet 5,LLM4PLC-adapted,10,44,44.0
+Claude Sonnet 5,Agents4PLC-reimplemented,1,29,29.0
+Claude Sonnet 5,Agents4PLC-reimplemented,2,39,39.0
+Claude Sonnet 5,Agents4PLC-reimplemented,3,44,44.0
+Claude Sonnet 5,Agents4PLC-reimplemented,4,45,45.0
+Claude Sonnet 5,Agents4PLC-reimplemented,5,45,45.0
+Claude Sonnet 5,Agents4PLC-reimplemented,6,45,45.0
+Claude Sonnet 5,Agents4PLC-reimplemented,7,45,45.0
+Claude Sonnet 5,Agents4PLC-reimplemented,8,46,46.0
+Claude Sonnet 5,Agents4PLC-reimplemented,9,46,46.0
+Claude Sonnet 5,Agents4PLC-reimplemented,10,47,47.0
+Claude Sonnet 5,ChatDev-adapted,1,38,38.0
+Claude Sonnet 5,ChatDev-adapted,2,39,39.0
+Claude Sonnet 5,ChatDev-adapted,3,39,39.0
+Claude Sonnet 5,ChatDev-adapted,4,39,39.0
+Claude Sonnet 5,ChatDev-adapted,5,39,39.0
+Claude Sonnet 5,ChatDev-adapted,6,40,40.0
+Claude Sonnet 5,ChatDev-adapted,7,40,40.0
+Claude Sonnet 5,ChatDev-adapted,8,40,40.0
+Claude Sonnet 5,ChatDev-adapted,9,40,40.0
+Claude Sonnet 5,ChatDev-adapted,10,40,40.0
+Claude Sonnet 5,Claude Code,1,48,48.0
+Claude Sonnet 5,Claude Code,2,58,58.0
+Claude Sonnet 5,Claude Code,3,63,63.0
+Claude Sonnet 5,Claude Code,4,67,67.0
+Claude Sonnet 5,Claude Code,5,69,69.0
+Claude Sonnet 5,Claude Code,6,69,69.0
+Claude Sonnet 5,Claude Code,7,69,69.0
+Claude Sonnet 5,Claude Code,8,71,71.0
+Claude Sonnet 5,Claude Code,9,71,71.0
+Claude Sonnet 5,Claude Code,10,71,71.0

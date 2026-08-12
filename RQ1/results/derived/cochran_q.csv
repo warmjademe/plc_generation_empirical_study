@@ -1,0 +1,5 @@
+model,complete_case_tasks,cochran_q,df,p_value,all_protocols_ok
+DeepSeek-V4-Flash,64,43.722581,3,1.72849388356e-09,true
+GPT-5.6 Luna,68,36.831325,3,4.99543100374e-08,false
+Gemini-3.5-Flash-Lite,75,28.258741,3,3.2050428797e-06,true
+Claude Sonnet 5,69,54.711864,3,7.91008716793e-12,true

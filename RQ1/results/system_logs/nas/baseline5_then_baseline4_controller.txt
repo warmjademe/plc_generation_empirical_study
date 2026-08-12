@@ -1,0 +1,4 @@
+2026-08-12T19:31:36+08:00 sequential controller started workers=4
+2026-08-12T19:31:36+08:00 baseline5 starting output=/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/RQ1/runs/baseline5_codex_gpt_5_6_luna_datasets100_20260812_v4_independent_pass_at_10
+2026-08-12T21:57:55+08:00 baseline5 finished rc=2
+2026-08-12T21:57:55+08:00 baseline4 starting output=/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/RQ1/runs/baseline4_claude_code_sonnet5_datasets100_20260812_v4_independent_pass_at_10

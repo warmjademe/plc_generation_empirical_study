@@ -1,0 +1,3055 @@
+{
+  "schema_version": "1.0",
+  "protocol": "evidence@10; MatIEC -> PLCverif -> OpenPLC; early stop on verified success",
+  "method": "evidence",
+  "provider": "deepseek-official",
+  "requested_model": "deepseek-v4-flash",
+  "workers": 12,
+  "task_count": 100,
+  "success_count": 70,
+  "success_rate": 0.7,
+  "verified_success_at_k": {
+    "1": 17,
+    "2": 31,
+    "3": 40,
+    "4": 54,
+    "5": 58,
+    "6": 62,
+    "7": 64,
+    "8": 68,
+    "9": 68,
+    "10": 70
+  },
+  "status_counts": {
+    "candidate_budget_exhausted": 23,
+    "infrastructure_error": 2,
+    "sealed_failure": 5,
+    "verified_success": 70
+  },
+  "terminal_failure_stage_counts": {
+    "candidate_budget": 2,
+    "compiler": 1,
+    "infrastructure": 2,
+    "openplc": 11,
+    "openplc_feedback": 7,
+    "plcverif": 7
+  },
+  "total_candidates_used": 523,
+  "usage_total": {
+    "completion_tokens": 754526,
+    "prompt_cache_hit_tokens": 548480,
+    "prompt_cache_miss_tokens": 2182280,
+    "prompt_tokens": 2730760,
+    "total_tokens": 3485286
+  },
+  "all_ledgers_valid": true,
+  "all_model_identities_valid": true,
+  "sealed_judge_count_valid": true,
+  "inconclusive_restart_count_valid": true,
+  "runs": [
+    {
+      "task_id": "C01_B02_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6979,
+        "completion_tokens": 1354,
+        "total_tokens": 8333,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 6979
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2824,
+        "completion_tokens": 738,
+        "total_tokens": 3562,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2824
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 19110,
+        "completion_tokens": 4331,
+        "total_tokens": 23441,
+        "prompt_cache_hit_tokens": 6784,
+        "prompt_cache_miss_tokens": 12326
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2908,
+        "completion_tokens": 625,
+        "total_tokens": 3533,
+        "prompt_cache_hit_tokens": 2816,
+        "prompt_cache_miss_tokens": 92
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B06_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B06_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6992,
+        "completion_tokens": 1159,
+        "total_tokens": 8151,
+        "prompt_cache_hit_tokens": 3840,
+        "prompt_cache_miss_tokens": 3152
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 13267,
+        "completion_tokens": 1913,
+        "total_tokens": 15180,
+        "prompt_cache_hit_tokens": 4864,
+        "prompt_cache_miss_tokens": 8403
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B08_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": 10,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 45275,
+        "completion_tokens": 11509,
+        "total_tokens": 56784,
+        "prompt_cache_hit_tokens": 10496,
+        "prompt_cache_miss_tokens": 34779
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B11_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2911,
+        "completion_tokens": 533,
+        "total_tokens": 3444,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2911
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B12_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B12_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 5,
+      "candidate_budget": 10,
+      "winning_attempt": 5,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 22295,
+        "completion_tokens": 4560,
+        "total_tokens": 26855,
+        "prompt_cache_hit_tokens": 3072,
+        "prompt_cache_miss_tokens": 19223
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B20_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C01_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 8,
+      "candidate_budget": 10,
+      "winning_attempt": 8,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 36192,
+        "completion_tokens": 9758,
+        "total_tokens": 45950,
+        "prompt_cache_hit_tokens": 7808,
+        "prompt_cache_miss_tokens": 28384
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2989,
+        "completion_tokens": 705,
+        "total_tokens": 3694,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2989
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B04_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 48263,
+        "completion_tokens": 10232,
+        "total_tokens": 58495,
+        "prompt_cache_hit_tokens": 10240,
+        "prompt_cache_miss_tokens": 38023
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": 6,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 30560,
+        "completion_tokens": 5873,
+        "total_tokens": 36433,
+        "prompt_cache_hit_tokens": 4608,
+        "prompt_cache_miss_tokens": 25952
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3041,
+        "completion_tokens": 816,
+        "total_tokens": 3857,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 3041
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B09_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B09_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2965,
+        "completion_tokens": 760,
+        "total_tokens": 3725,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2965
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B10_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B10_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 17163,
+        "completion_tokens": 3073,
+        "total_tokens": 20236,
+        "prompt_cache_hit_tokens": 6016,
+        "prompt_cache_miss_tokens": 11147
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B11_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2887,
+        "completion_tokens": 653,
+        "total_tokens": 3540,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2887
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B18_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 45328,
+        "completion_tokens": 10132,
+        "total_tokens": 55460,
+        "prompt_cache_hit_tokens": 11264,
+        "prompt_cache_miss_tokens": 34064
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B19_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B19_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": 10,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 48256,
+        "completion_tokens": 9481,
+        "total_tokens": 57737,
+        "prompt_cache_hit_tokens": 9344,
+        "prompt_cache_miss_tokens": 38912
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B20_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C02_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 7,
+      "candidate_budget": 10,
+      "winning_attempt": 7,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 31682,
+        "completion_tokens": 7218,
+        "total_tokens": 38900,
+        "prompt_cache_hit_tokens": 6784,
+        "prompt_cache_miss_tokens": 24898
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7720,
+        "completion_tokens": 1640,
+        "total_tokens": 9360,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 7720
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B04_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 57156,
+        "completion_tokens": 13700,
+        "total_tokens": 70856,
+        "prompt_cache_hit_tokens": 14720,
+        "prompt_cache_miss_tokens": 42436
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7675,
+        "completion_tokens": 1733,
+        "total_tokens": 9408,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 7675
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 13575,
+        "completion_tokens": 2936,
+        "total_tokens": 16511,
+        "prompt_cache_hit_tokens": 1024,
+        "prompt_cache_miss_tokens": 12551
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B08_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 55823,
+        "completion_tokens": 12625,
+        "total_tokens": 68448,
+        "prompt_cache_hit_tokens": 15488,
+        "prompt_cache_miss_tokens": 40335
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B09_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B09_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7789,
+        "completion_tokens": 1570,
+        "total_tokens": 9359,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 7789
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B10_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B10_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2988,
+        "completion_tokens": 786,
+        "total_tokens": 3774,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2988
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B12_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B12_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 56528,
+        "completion_tokens": 17887,
+        "total_tokens": 74415,
+        "prompt_cache_hit_tokens": 14592,
+        "prompt_cache_miss_tokens": 41936
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B15_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B15_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3147,
+        "completion_tokens": 712,
+        "total_tokens": 3859,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 3147
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B17_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C03_B17_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "candidate_budget",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 61523,
+        "completion_tokens": 16230,
+        "total_tokens": 77753,
+        "prompt_cache_hit_tokens": 14720,
+        "prompt_cache_miss_tokens": 46803
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S02_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S02_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8176,
+        "completion_tokens": 1662,
+        "total_tokens": 9838,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 8176
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S04_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S04_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8015,
+        "completion_tokens": 1297,
+        "total_tokens": 9312,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 8015
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S07_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S07_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 18782,
+        "completion_tokens": 2897,
+        "total_tokens": 21679,
+        "prompt_cache_hit_tokens": 6400,
+        "prompt_cache_miss_tokens": 12382
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S08_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S08_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 11917,
+        "completion_tokens": 2361,
+        "total_tokens": 14278,
+        "prompt_cache_hit_tokens": 4864,
+        "prompt_cache_miss_tokens": 7053
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S09_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S09_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6935,
+        "completion_tokens": 1267,
+        "total_tokens": 8202,
+        "prompt_cache_hit_tokens": 3840,
+        "prompt_cache_miss_tokens": 3095
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S12_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S12_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2851,
+        "completion_tokens": 801,
+        "total_tokens": 3652,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2851
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S17_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S17_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 12395,
+        "completion_tokens": 2896,
+        "total_tokens": 15291,
+        "prompt_cache_hit_tokens": 1024,
+        "prompt_cache_miss_tokens": 11371
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S22_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S22_lean_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc_feedback",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 60228,
+        "completion_tokens": 12647,
+        "total_tokens": 72875,
+        "prompt_cache_hit_tokens": 15872,
+        "prompt_cache_miss_tokens": 44356
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S23_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S23_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": 6,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 29530,
+        "completion_tokens": 6635,
+        "total_tokens": 36165,
+        "prompt_cache_hit_tokens": 4096,
+        "prompt_cache_miss_tokens": 25434
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S24_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C04_S24_lean_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 52687,
+        "completion_tokens": 10908,
+        "total_tokens": 63595,
+        "prompt_cache_hit_tokens": 9216,
+        "prompt_cache_miss_tokens": 43471
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B02_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 5,
+      "candidate_budget": 10,
+      "winning_attempt": 5,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 21994,
+        "completion_tokens": 5847,
+        "total_tokens": 27841,
+        "prompt_cache_hit_tokens": 3072,
+        "prompt_cache_miss_tokens": 18922
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2939,
+        "completion_tokens": 1066,
+        "total_tokens": 4005,
+        "prompt_cache_hit_tokens": 2816,
+        "prompt_cache_miss_tokens": 123
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B05_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 52274,
+        "completion_tokens": 15644,
+        "total_tokens": 67918,
+        "prompt_cache_hit_tokens": 8192,
+        "prompt_cache_miss_tokens": 44082
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 1,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B06_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B06_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 16549,
+        "completion_tokens": 4920,
+        "total_tokens": 21469,
+        "prompt_cache_hit_tokens": 6144,
+        "prompt_cache_miss_tokens": 10405
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2985,
+        "completion_tokens": 1096,
+        "total_tokens": 4081,
+        "prompt_cache_hit_tokens": 2944,
+        "prompt_cache_miss_tokens": 41
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B11_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 19286,
+        "completion_tokens": 3688,
+        "total_tokens": 22974,
+        "prompt_cache_hit_tokens": 2048,
+        "prompt_cache_miss_tokens": 17238
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B16_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B16_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "failure_stage": "infrastructure",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 58233,
+        "completion_tokens": 17299,
+        "total_tokens": 75532,
+        "prompt_cache_hit_tokens": 9600,
+        "prompt_cache_miss_tokens": 48633
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B17_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B17_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc_feedback",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 66113,
+        "completion_tokens": 19714,
+        "total_tokens": 85827,
+        "prompt_cache_hit_tokens": 10240,
+        "prompt_cache_miss_tokens": 55873
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B18_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "failure_stage": "infrastructure",
+      "candidates_used": 7,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 35049,
+        "completion_tokens": 12712,
+        "total_tokens": 47761,
+        "prompt_cache_hit_tokens": 6400,
+        "prompt_cache_miss_tokens": 28649
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 1,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B19_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C05_B19_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc_feedback",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 58891,
+        "completion_tokens": 17524,
+        "total_tokens": 76415,
+        "prompt_cache_hit_tokens": 9728,
+        "prompt_cache_miss_tokens": 49163
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W01_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W01_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7848,
+        "completion_tokens": 2239,
+        "total_tokens": 10087,
+        "prompt_cache_hit_tokens": 4224,
+        "prompt_cache_miss_tokens": 3624
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W02_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W02_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7722,
+        "completion_tokens": 1738,
+        "total_tokens": 9460,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 7722
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W04_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W04_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 13065,
+        "completion_tokens": 3012,
+        "total_tokens": 16077,
+        "prompt_cache_hit_tokens": 1024,
+        "prompt_cache_miss_tokens": 12041
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W06_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W06_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3074,
+        "completion_tokens": 1027,
+        "total_tokens": 4101,
+        "prompt_cache_hit_tokens": 3072,
+        "prompt_cache_miss_tokens": 2
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W07_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W07_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 7,
+      "candidate_budget": 10,
+      "winning_attempt": 7,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 31323,
+        "completion_tokens": 6812,
+        "total_tokens": 38135,
+        "prompt_cache_hit_tokens": 10240,
+        "prompt_cache_miss_tokens": 21083
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W08_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W08_lean_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 21468,
+        "completion_tokens": 4956,
+        "total_tokens": 26424,
+        "prompt_cache_hit_tokens": 4864,
+        "prompt_cache_miss_tokens": 16604
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W09_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W09_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 5,
+      "candidate_budget": 10,
+      "winning_attempt": 5,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 24889,
+        "completion_tokens": 4020,
+        "total_tokens": 28909,
+        "prompt_cache_hit_tokens": 3328,
+        "prompt_cache_miss_tokens": 21561
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W12_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W12_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 5977,
+        "completion_tokens": 1543,
+        "total_tokens": 7520,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 5977
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W16_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W16_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3010,
+        "completion_tokens": 1071,
+        "total_tokens": 4081,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 3010
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W17_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C06_W17_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 9350,
+        "completion_tokens": 2747,
+        "total_tokens": 12097,
+        "prompt_cache_hit_tokens": 1152,
+        "prompt_cache_miss_tokens": 8198
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B02_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2911,
+        "completion_tokens": 793,
+        "total_tokens": 3704,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2911
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 18877,
+        "completion_tokens": 4005,
+        "total_tokens": 22882,
+        "prompt_cache_hit_tokens": 6400,
+        "prompt_cache_miss_tokens": 12477
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 5,
+      "candidate_budget": 10,
+      "winning_attempt": 5,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 23659,
+        "completion_tokens": 4517,
+        "total_tokens": 28176,
+        "prompt_cache_hit_tokens": 3456,
+        "prompt_cache_miss_tokens": 20203
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 8,
+      "candidate_budget": 10,
+      "winning_attempt": 8,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 41384,
+        "completion_tokens": 6907,
+        "total_tokens": 48291,
+        "prompt_cache_hit_tokens": 6912,
+        "prompt_cache_miss_tokens": 34472
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B10_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B10_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 18702,
+        "completion_tokens": 4064,
+        "total_tokens": 22766,
+        "prompt_cache_hit_tokens": 6400,
+        "prompt_cache_miss_tokens": 12302
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B15_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B15_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6645,
+        "completion_tokens": 1243,
+        "total_tokens": 7888,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 6645
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B16_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B16_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 53765,
+        "completion_tokens": 12524,
+        "total_tokens": 66289,
+        "prompt_cache_hit_tokens": 10240,
+        "prompt_cache_miss_tokens": 43525
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B17_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B17_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 51874,
+        "completion_tokens": 13308,
+        "total_tokens": 65182,
+        "prompt_cache_hit_tokens": 11136,
+        "prompt_cache_miss_tokens": 40738
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B18_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 50795,
+        "completion_tokens": 13640,
+        "total_tokens": 64435,
+        "prompt_cache_hit_tokens": 11136,
+        "prompt_cache_miss_tokens": 39659
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B19_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C07_B19_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 18177,
+        "completion_tokens": 4513,
+        "total_tokens": 22690,
+        "prompt_cache_hit_tokens": 2304,
+        "prompt_cache_miss_tokens": 15873
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B01_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B01_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 18540,
+        "completion_tokens": 5453,
+        "total_tokens": 23993,
+        "prompt_cache_hit_tokens": 2560,
+        "prompt_cache_miss_tokens": 15980
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B02_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 18697,
+        "completion_tokens": 6807,
+        "total_tokens": 25504,
+        "prompt_cache_hit_tokens": 2304,
+        "prompt_cache_miss_tokens": 16393
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 17912,
+        "completion_tokens": 5353,
+        "total_tokens": 23265,
+        "prompt_cache_hit_tokens": 2304,
+        "prompt_cache_miss_tokens": 15608
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B04_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc_feedback",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 61749,
+        "completion_tokens": 21095,
+        "total_tokens": 82844,
+        "prompt_cache_hit_tokens": 15872,
+        "prompt_cache_miss_tokens": 45877
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B06_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B06_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": 6,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 31871,
+        "completion_tokens": 8415,
+        "total_tokens": 40286,
+        "prompt_cache_hit_tokens": 4608,
+        "prompt_cache_miss_tokens": 27263
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 8,
+      "candidate_budget": 10,
+      "winning_attempt": 8,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 48532,
+        "completion_tokens": 12987,
+        "total_tokens": 61519,
+        "prompt_cache_hit_tokens": 12160,
+        "prompt_cache_miss_tokens": 36372
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 1,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B08_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 64474,
+        "completion_tokens": 21636,
+        "total_tokens": 86110,
+        "prompt_cache_hit_tokens": 18688,
+        "prompt_cache_miss_tokens": 45786
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B11_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B11_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "candidate_budget",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 49952,
+        "completion_tokens": 12244,
+        "total_tokens": 62196,
+        "prompt_cache_hit_tokens": 9216,
+        "prompt_cache_miss_tokens": 40736
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B12_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B12_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 8,
+      "candidate_budget": 10,
+      "winning_attempt": 8,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 45409,
+        "completion_tokens": 12507,
+        "total_tokens": 57916,
+        "prompt_cache_hit_tokens": 12032,
+        "prompt_cache_miss_tokens": 33377
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B20_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C08_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 10558,
+        "completion_tokens": 2909,
+        "total_tokens": 13467,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 10558
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B01_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B01_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 20398,
+        "completion_tokens": 4789,
+        "total_tokens": 25187,
+        "prompt_cache_hit_tokens": 2304,
+        "prompt_cache_miss_tokens": 18094
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3231,
+        "completion_tokens": 1281,
+        "total_tokens": 4512,
+        "prompt_cache_hit_tokens": 3200,
+        "prompt_cache_miss_tokens": 31
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 12475,
+        "completion_tokens": 2993,
+        "total_tokens": 15468,
+        "prompt_cache_hit_tokens": 1152,
+        "prompt_cache_miss_tokens": 11323
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 1,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B08_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 19142,
+        "completion_tokens": 5830,
+        "total_tokens": 24972,
+        "prompt_cache_hit_tokens": 7168,
+        "prompt_cache_miss_tokens": 11974
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 1,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B13_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B13_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7153,
+        "completion_tokens": 1878,
+        "total_tokens": 9031,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 7153
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B14_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B14_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 14657,
+        "completion_tokens": 3141,
+        "total_tokens": 17798,
+        "prompt_cache_hit_tokens": 5248,
+        "prompt_cache_miss_tokens": 9409
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B16_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B16_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 60727,
+        "completion_tokens": 13644,
+        "total_tokens": 74371,
+        "prompt_cache_hit_tokens": 9856,
+        "prompt_cache_miss_tokens": 50871
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B17_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B17_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3219,
+        "completion_tokens": 1173,
+        "total_tokens": 4392,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 3219
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B18_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": 6,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 35882,
+        "completion_tokens": 8047,
+        "total_tokens": 43929,
+        "prompt_cache_hit_tokens": 5248,
+        "prompt_cache_miss_tokens": 30634
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B20_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C09_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 14477,
+        "completion_tokens": 4036,
+        "total_tokens": 18513,
+        "prompt_cache_hit_tokens": 1152,
+        "prompt_cache_miss_tokens": 13325
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B05_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 60336,
+        "completion_tokens": 18227,
+        "total_tokens": 78563,
+        "prompt_cache_hit_tokens": 15488,
+        "prompt_cache_miss_tokens": 44848
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B07_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc_feedback",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 59345,
+        "completion_tokens": 14366,
+        "total_tokens": 73711,
+        "prompt_cache_hit_tokens": 9728,
+        "prompt_cache_miss_tokens": 49617
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B08_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "compiler",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 63741,
+        "completion_tokens": 25067,
+        "total_tokens": 88808,
+        "prompt_cache_hit_tokens": 14080,
+        "prompt_cache_miss_tokens": 49661
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B09_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B09_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 8,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 41356,
+        "completion_tokens": 17171,
+        "total_tokens": 58527,
+        "prompt_cache_hit_tokens": 7808,
+        "prompt_cache_miss_tokens": 33548
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B10_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B10_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 66707,
+        "completion_tokens": 17436,
+        "total_tokens": 84143,
+        "prompt_cache_hit_tokens": 10752,
+        "prompt_cache_miss_tokens": 55955
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B12_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B12_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc_feedback",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 83180,
+        "completion_tokens": 38219,
+        "total_tokens": 121399,
+        "prompt_cache_hit_tokens": 10240,
+        "prompt_cache_miss_tokens": 72940
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B13_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B13_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 15689,
+        "completion_tokens": 7681,
+        "total_tokens": 23370,
+        "prompt_cache_hit_tokens": 2048,
+        "prompt_cache_miss_tokens": 13641
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B15_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B15_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc_feedback",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 60449,
+        "completion_tokens": 14745,
+        "total_tokens": 75194,
+        "prompt_cache_hit_tokens": 9216,
+        "prompt_cache_miss_tokens": 51233
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B16_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B16_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 23985,
+        "completion_tokens": 15636,
+        "total_tokens": 39621,
+        "prompt_cache_hit_tokens": 2560,
+        "prompt_cache_miss_tokens": 21425
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1/C10_B18_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "deepseek-v4-flash"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 70762,
+        "completion_tokens": 36958,
+        "total_tokens": 107720,
+        "prompt_cache_hit_tokens": 10624,
+        "prompt_cache_miss_tokens": 60138
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 1,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    }
+  ],
+  "config_path": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/configs/deepseek_v4_flash_agentic_context_v5_2.json",
+  "config_sha256": "434026ea91648573a7ee3b1f6621ad9300d43526a6b541bab9f752d2c97b8405",
+  "dataset_root": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/datasets_100",
+  "dataset_manifest_sha256": "7d5d18522deef51321466eacdbfbfd829c2c3ff737f220514a44a613383c2ab9"
+}

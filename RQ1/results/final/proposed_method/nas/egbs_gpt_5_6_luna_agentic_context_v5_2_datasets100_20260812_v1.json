@@ -1,0 +1,2841 @@
+{
+  "schema_version": "1.0",
+  "protocol": "evidence@10; MatIEC -> PLCverif -> OpenPLC; early stop on verified success",
+  "method": "evidence",
+  "provider": "teamorouter",
+  "requested_model": "gpt-5.6-luna",
+  "workers": 12,
+  "task_count": 100,
+  "success_count": 88,
+  "success_rate": 0.88,
+  "verified_success_at_k": {
+    "1": 52,
+    "2": 75,
+    "3": 81,
+    "4": 84,
+    "5": 84,
+    "6": 86,
+    "7": 86,
+    "8": 86,
+    "9": 87,
+    "10": 88
+  },
+  "status_counts": {
+    "candidate_budget_exhausted": 3,
+    "infrastructure_error": 4,
+    "sealed_failure": 5,
+    "verified_success": 88
+  },
+  "terminal_failure_stage_counts": {
+    "infrastructure": 4,
+    "openplc": 5,
+    "openplc_feedback": 1,
+    "plcverif": 2
+  },
+  "total_candidates_used": 212,
+  "usage_total": {
+    "claude_cache_creation_1_h_tokens": 0,
+    "claude_cache_creation_5_m_tokens": 0,
+    "completion_tokens": 514286,
+    "input_tokens": 2831,
+    "output_tokens": 1637,
+    "prompt_tokens": 848454,
+    "total_tokens": 1362740
+  },
+  "all_ledgers_valid": true,
+  "all_model_identities_valid": true,
+  "sealed_judge_count_valid": true,
+  "inconclusive_restart_count_valid": true,
+  "runs": [
+    {
+      "task_id": "C01_B02_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2650,
+        "completion_tokens": 897,
+        "total_tokens": 3547
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2691,
+        "completion_tokens": 1285,
+        "total_tokens": 3976
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 5919,
+        "completion_tokens": 4649,
+        "total_tokens": 10568
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6695,
+        "completion_tokens": 2176,
+        "total_tokens": 8871
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B06_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B06_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6516,
+        "completion_tokens": 1652,
+        "total_tokens": 8168
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6624,
+        "completion_tokens": 1961,
+        "total_tokens": 8585
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B08_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 14868,
+        "completion_tokens": 7545,
+        "total_tokens": 22413
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B11_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2768,
+        "completion_tokens": 1170,
+        "total_tokens": 3938
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B12_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B12_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2908,
+        "completion_tokens": 2607,
+        "total_tokens": 5515
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C01_B20_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C01_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2892,
+        "completion_tokens": 2208,
+        "total_tokens": 5100
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2852,
+        "completion_tokens": 1534,
+        "total_tokens": 4386
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3016,
+        "completion_tokens": 2706,
+        "total_tokens": 5722
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2894,
+        "completion_tokens": 2252,
+        "total_tokens": 5146
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2904,
+        "completion_tokens": 1478,
+        "total_tokens": 4382
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B09_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B09_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 16215,
+        "completion_tokens": 9069,
+        "total_tokens": 25284
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B10_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B10_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 4,
+      "candidate_budget": 10,
+      "winning_attempt": 4,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 16551,
+        "completion_tokens": 6856,
+        "total_tokens": 23407
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B11_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6680,
+        "completion_tokens": 3150,
+        "total_tokens": 9830
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B18_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6251,
+        "completion_tokens": 4779,
+        "total_tokens": 11030
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B19_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B19_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 9,
+      "candidate_budget": 10,
+      "winning_attempt": 9,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 35946,
+        "completion_tokens": 21562,
+        "total_tokens": 57508
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C02_B20_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C02_B20_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8951,
+        "completion_tokens": 6841,
+        "total_tokens": 15792
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2816,
+        "completion_tokens": 1045,
+        "total_tokens": 3861
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B04_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 26215,
+        "completion_tokens": 15636,
+        "total_tokens": 41851
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2929,
+        "completion_tokens": 1215,
+        "total_tokens": 4144
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2804,
+        "completion_tokens": 1056,
+        "total_tokens": 3860
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B08_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 25947,
+        "completion_tokens": 18724,
+        "total_tokens": 44671
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B09_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B09_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2869,
+        "completion_tokens": 1078,
+        "total_tokens": 3947
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B10_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B10_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2857,
+        "completion_tokens": 1474,
+        "total_tokens": 4331
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B12_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B12_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 52672,
+        "completion_tokens": 25760,
+        "total_tokens": 78432
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B15_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B15_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2997,
+        "completion_tokens": 1152,
+        "total_tokens": 4149
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C03_B17_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C03_B17_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": 6,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 25868,
+        "completion_tokens": 15672,
+        "total_tokens": 41540
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S02_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S02_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2831,
+        "completion_tokens": 1637,
+        "total_tokens": 4468,
+        "input_tokens": 2831,
+        "output_tokens": 1637,
+        "claude_cache_creation_5_m_tokens": 0,
+        "claude_cache_creation_1_h_tokens": 0
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S04_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S04_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2726,
+        "completion_tokens": 1610,
+        "total_tokens": 4336
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S07_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S07_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6972,
+        "completion_tokens": 3149,
+        "total_tokens": 10121
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S08_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S08_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6535,
+        "completion_tokens": 2394,
+        "total_tokens": 8929
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S09_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S09_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6553,
+        "completion_tokens": 2688,
+        "total_tokens": 9241
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S12_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S12_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2720,
+        "completion_tokens": 2185,
+        "total_tokens": 4905
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S17_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S17_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2751,
+        "completion_tokens": 1331,
+        "total_tokens": 4082
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S22_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S22_lean_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "failure_stage": "infrastructure",
+      "candidates_used": 0,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [],
+      "model_identity_valid": false,
+      "usage_total": {},
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S23_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S23_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 10040,
+        "completion_tokens": 4863,
+        "total_tokens": 14903
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C04_S24_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C04_S24_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 5807,
+        "completion_tokens": 4345,
+        "total_tokens": 10152
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B02_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2852,
+        "completion_tokens": 2455,
+        "total_tokens": 5307
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2815,
+        "completion_tokens": 2455,
+        "total_tokens": 5270
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2897,
+        "completion_tokens": 3200,
+        "total_tokens": 6097
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B06_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B06_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2898,
+        "completion_tokens": 2376,
+        "total_tokens": 5274
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2861,
+        "completion_tokens": 2408,
+        "total_tokens": 5269
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B11_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2825,
+        "completion_tokens": 1680,
+        "total_tokens": 4505
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B16_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B16_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "plcverif",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 56143,
+        "completion_tokens": 25724,
+        "total_tokens": 81867
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B17_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B17_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": 10,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 62756,
+        "completion_tokens": 31113,
+        "total_tokens": 93869
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B18_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 6,
+      "candidate_budget": 10,
+      "winning_attempt": 6,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 35111,
+        "completion_tokens": 17955,
+        "total_tokens": 53066
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C05_B19_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C05_B19_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "failure_stage": "openplc_feedback",
+      "candidates_used": 10,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 57466,
+        "completion_tokens": 26096,
+        "total_tokens": 83562
+      },
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W01_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W01_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2951,
+        "completion_tokens": 2334,
+        "total_tokens": 5285
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W02_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W02_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2941,
+        "completion_tokens": 2353,
+        "total_tokens": 5294
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W04_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W04_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2831,
+        "completion_tokens": 2259,
+        "total_tokens": 5090
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W06_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W06_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2930,
+        "completion_tokens": 2535,
+        "total_tokens": 5465
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W07_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W07_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2920,
+        "completion_tokens": 1823,
+        "total_tokens": 4743
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W08_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W08_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2853,
+        "completion_tokens": 2581,
+        "total_tokens": 5434
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W09_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W09_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2810,
+        "completion_tokens": 1654,
+        "total_tokens": 4464
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W12_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W12_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2842,
+        "completion_tokens": 1622,
+        "total_tokens": 4464
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W16_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W16_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2871,
+        "completion_tokens": 2098,
+        "total_tokens": 4969
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C06_W17_lean_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C06_W17_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2879,
+        "completion_tokens": 2330,
+        "total_tokens": 5209
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B02_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B02_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "failure_stage": "infrastructure",
+      "candidates_used": 0,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [],
+      "model_identity_valid": false,
+      "usage_total": {},
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B03_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "failure_stage": "infrastructure",
+      "candidates_used": 0,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [],
+      "model_identity_valid": false,
+      "usage_total": {},
+      "sealed_events": 0,
+      "sealed_files": 0,
+      "sealed_records": 0,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2956,
+        "completion_tokens": 1745,
+        "total_tokens": 4701
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2931,
+        "completion_tokens": 2028,
+        "total_tokens": 4959
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B10_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B10_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7146,
+        "completion_tokens": 4038,
+        "total_tokens": 11184
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B15_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B15_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 6349,
+        "completion_tokens": 1680,
+        "total_tokens": 8029
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B16_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B16_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 11730,
+        "completion_tokens": 8509,
+        "total_tokens": 20239
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B17_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B17_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3025,
+        "completion_tokens": 2216,
+        "total_tokens": 5241
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B18_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7939,
+        "completion_tokens": 5860,
+        "total_tokens": 13799
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C07_B19_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C07_B19_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7124,
+        "completion_tokens": 3643,
+        "total_tokens": 10767
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B01_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B01_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3085,
+        "completion_tokens": 3255,
+        "total_tokens": 6340
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B02_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2924,
+        "completion_tokens": 2662,
+        "total_tokens": 5586
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B03_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2974,
+        "completion_tokens": 2325,
+        "total_tokens": 5299
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 11915,
+        "completion_tokens": 9368,
+        "total_tokens": 21283
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B06_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B06_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2957,
+        "completion_tokens": 2472,
+        "total_tokens": 5429
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3007,
+        "completion_tokens": 2702,
+        "total_tokens": 5709
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B08_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8499,
+        "completion_tokens": 5834,
+        "total_tokens": 14333
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B11_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2873,
+        "completion_tokens": 1744,
+        "total_tokens": 4617
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B12_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B12_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3009,
+        "completion_tokens": 2710,
+        "total_tokens": 5719
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C08_B20_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C08_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 11356,
+        "completion_tokens": 8110,
+        "total_tokens": 19466
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B01_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B01_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7604,
+        "completion_tokens": 4644,
+        "total_tokens": 12248
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B04_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3095,
+        "completion_tokens": 3672,
+        "total_tokens": 6767
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3008,
+        "completion_tokens": 1749,
+        "total_tokens": 4757
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B08_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8144,
+        "completion_tokens": 5356,
+        "total_tokens": 13500
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B13_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B13_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 2867,
+        "completion_tokens": 1781,
+        "total_tokens": 4648
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B14_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B14_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7558,
+        "completion_tokens": 5748,
+        "total_tokens": 13306
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B16_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B16_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3010,
+        "completion_tokens": 3326,
+        "total_tokens": 6336
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B17_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B17_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3084,
+        "completion_tokens": 2406,
+        "total_tokens": 5490
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B18_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3111,
+        "completion_tokens": 2906,
+        "total_tokens": 6017
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B20_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C09_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 1,
+      "candidate_budget": 10,
+      "winning_attempt": 1,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 3011,
+        "completion_tokens": 2911,
+        "total_tokens": 5922
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B05_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B05_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "failure_stage": "infrastructure",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8383,
+        "completion_tokens": 5541,
+        "total_tokens": 13924
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B07_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 9141,
+        "completion_tokens": 3964,
+        "total_tokens": 13105
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B08_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B08_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 9292,
+        "completion_tokens": 6702,
+        "total_tokens": 15994
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B09_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B09_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8963,
+        "completion_tokens": 11827,
+        "total_tokens": 20790
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B10_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B10_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 7881,
+        "completion_tokens": 5211,
+        "total_tokens": 13092
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B12_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B12_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 12646,
+        "completion_tokens": 12156,
+        "total_tokens": 24802
+      },
+      "sealed_events": 2,
+      "sealed_files": 2,
+      "sealed_records": 2,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B13_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B13_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "failure_stage": "openplc",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": null,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8939,
+        "completion_tokens": 10475,
+        "total_tokens": 19414
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B15_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B15_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 8079,
+        "completion_tokens": 5260,
+        "total_tokens": 13339
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B16_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B16_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 3,
+      "candidate_budget": 10,
+      "winning_attempt": 3,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 9439,
+        "completion_tokens": 10582,
+        "total_tokens": 20021
+      },
+      "sealed_events": 3,
+      "sealed_files": 3,
+      "sealed_records": 3,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B18_composite",
+      "run_dir": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/runs/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1/C10_B18_composite",
+      "status": "verified_success",
+      "success": true,
+      "failure_stage": "none",
+      "candidates_used": 2,
+      "candidate_budget": 10,
+      "winning_attempt": 2,
+      "resolved_models": [
+        "gpt-5.6-luna"
+      ],
+      "model_identity_valid": true,
+      "usage_total": {
+        "prompt_tokens": 10248,
+        "completion_tokens": 6726,
+        "total_tokens": 16974
+      },
+      "sealed_events": 1,
+      "sealed_files": 1,
+      "sealed_records": 1,
+      "sealed_attempt_budget": 3,
+      "inconclusive_restart_events": 0,
+      "inconclusive_restart_budget": 1,
+      "inconclusive_restart_count_valid": true,
+      "ledger_valid": true,
+      "resumed": false
+    }
+  ],
+  "config_path": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/our_method/configs/teamorouter_gpt_5_6_luna_agentic_context_v5_2.json",
+  "config_sha256": "147d10df893ffc0b2b0e2fe5683c931730d1da5600d51f99f9d7980556c61a80",
+  "dataset_root": "/home/qyb/RESEARCH/PLC_Generation/PLC_Generation_Empirical_Study/source_codes/datasets_100",
+  "dataset_manifest_sha256": "7d5d18522deef51321466eacdbfbfd829c2c3ff737f220514a44a613383c2ab9"
+}

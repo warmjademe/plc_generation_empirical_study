@@ -1,0 +1,227 @@
+{
+  "scope": "frozen Balanced-100 runs only",
+  "task_count": 100,
+  "task_id_set_sha256": "1faeed453f6bbbfea6994a1a282732d81b21892774c83f7186c260712f4b6d0c",
+  "summary_count": 18,
+  "controller_log_count": 9,
+  "artifacts": [
+    {
+      "path": "final/proposed_method/nas/egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1.json",
+      "bytes": 105385,
+      "sha256": "e800a0c8f1746d41cb4f57ba0b383e6cdf640ca7223cd23d115bf12fc8368b2c",
+      "host": "nas",
+      "method": "本文方法",
+      "model": "DeepSeek-V4-Flash",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/proposed_method/nas/egbs_gpt_5_6_luna_agentic_context_v5_2_datasets100_20260812_v1.json",
+      "bytes": 95343,
+      "sha256": "5b8e7a90efdb7c466219ec0b3c85bcb4054769f46c777be55152c83a6c46aa3c",
+      "host": "nas",
+      "method": "本文方法",
+      "model": "GPT-5.6 Luna",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/proposed_method/nas/egbs_gemini_3_5_flash_lite_agentic_context_v5_2_datasets100_20260812_v1.json",
+      "bytes": 112519,
+      "sha256": "8a2bc346ab159c47a6471acc190dcd26c1f9d13e8150cedff2cd38b57075ef09",
+      "host": "nas",
+      "method": "本文方法",
+      "model": "Gemini-3.5-Flash-Lite",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/proposed_method/nas/egbs_claude_sonnet_5_agentic_context_v5_2_datasets100_20260812_v1.json",
+      "bytes": 111453,
+      "sha256": "71b27c592ba47867586dc944b34dcbcd06652c0cc362ae2fb1b0ceff2e63ab96",
+      "host": "nas",
+      "method": "本文方法",
+      "model": "Claude Sonnet 5",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline1_llm4plc_deepseek_v4_flash_datasets100_20260812_v1.json",
+      "bytes": 61163,
+      "sha256": "faaa337285559f0e0da18f2da7b372f7103cd5d3b8a913e7d126df25e6f12cee",
+      "host": "huashuo",
+      "method": "LLM4PLC-adapted",
+      "model": "DeepSeek-V4-Flash",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline1_llm4plc_gpt_5_6_luna_datasets100_20260812_v1.json",
+      "bytes": 52599,
+      "sha256": "63098748436d733e15dfd6f5fcc53426b1991842f8764452412d8fadc84f0699",
+      "host": "huashuo",
+      "method": "LLM4PLC-adapted",
+      "model": "GPT-5.6 Luna",
+      "protocol_ok": false
+    },
+    {
+      "path": "final/baselines/huashuo/baseline1_llm4plc_gemini_3_5_flash_lite_datasets100_20260812_v1.json",
+      "bytes": 67680,
+      "sha256": "711ebfd6648db8c2ad6646a9269fcfa61c53c46e00ac3c12ecdef768bf301039",
+      "host": "huashuo",
+      "method": "LLM4PLC-adapted",
+      "model": "Gemini-3.5-Flash-Lite",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline1_llm4plc_claude_sonnet_5_datasets100_20260812_v1.json",
+      "bytes": 68101,
+      "sha256": "478550c2f4858db2c1e9cd00a38102605c75382b5df988a0b28085c6073f2048",
+      "host": "huashuo",
+      "method": "LLM4PLC-adapted",
+      "model": "Claude Sonnet 5",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline2_agents4plc_deepseek_v4_flash_datasets100_20260812_v1.json",
+      "bytes": 60994,
+      "sha256": "0b5644f5bc0e0bf2053231cd5963980eab280c3979a55414814f804fc6375611",
+      "host": "huashuo",
+      "method": "Agents4PLC-reimplemented",
+      "model": "DeepSeek-V4-Flash",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline2_agents4plc_gpt_5_6_luna_datasets100_20260812_v1.json",
+      "bytes": 52689,
+      "sha256": "44a249dbb2ed8381f378f685f62fc1ee0e2c93101c0013407ee2d23adb788d3a",
+      "host": "huashuo",
+      "method": "Agents4PLC-reimplemented",
+      "model": "GPT-5.6 Luna",
+      "protocol_ok": false
+    },
+    {
+      "path": "final/baselines/huashuo/baseline2_agents4plc_gemini_3_5_flash_lite_datasets100_20260812_v1.json",
+      "bytes": 67636,
+      "sha256": "7e47ea9123c9669ec09c91149466df96be79898755793b572ae53c0854d89433",
+      "host": "huashuo",
+      "method": "Agents4PLC-reimplemented",
+      "model": "Gemini-3.5-Flash-Lite",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline2_agents4plc_claude_sonnet_5_datasets100_20260812_v1.json",
+      "bytes": 68301,
+      "sha256": "b221422e3c6ec9e98410585eda1dabb26710cada94d1837338590766f6fb802a",
+      "host": "huashuo",
+      "method": "Agents4PLC-reimplemented",
+      "model": "Claude Sonnet 5",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline3_chatdev_deepseek_v4_flash_datasets100_20260812_v1.json",
+      "bytes": 61164,
+      "sha256": "5f199cb2da32311a2599be336270267bc4b162e443c10d6ff584eb3b643990a7",
+      "host": "huashuo",
+      "method": "ChatDev-adapted",
+      "model": "DeepSeek-V4-Flash",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline3_chatdev_gpt_5_6_luna_datasets100_20260812_v1.json",
+      "bytes": 53104,
+      "sha256": "c34f2b62419b23fc3800b1f1d5cb0fe94efd9de8b0fecb0d8a772c4e5037c6cb",
+      "host": "huashuo",
+      "method": "ChatDev-adapted",
+      "model": "GPT-5.6 Luna",
+      "protocol_ok": false
+    },
+    {
+      "path": "final/baselines/huashuo/baseline3_chatdev_gemini_3_5_flash_lite_datasets100_20260812_v1.json",
+      "bytes": 67816,
+      "sha256": "747ccf95994247f45340e33d358590e8c8ddc301796ed4512741ec8915c19cbe",
+      "host": "huashuo",
+      "method": "ChatDev-adapted",
+      "model": "Gemini-3.5-Flash-Lite",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/huashuo/baseline3_chatdev_claude_sonnet_5_datasets100_20260812_v1.json",
+      "bytes": 68546,
+      "sha256": "0cde0c7bc616781f99f61c577e4c0c8d23710daa7ade5f56bd16949533b2623e",
+      "host": "huashuo",
+      "method": "ChatDev-adapted",
+      "model": "Claude Sonnet 5",
+      "protocol_ok": true
+    },
+    {
+      "path": "final/baselines/nas/baseline4_claude_code_sonnet5_datasets100_20260812_v4_independent_pass_at_10.json",
+      "bytes": 71761,
+      "sha256": "e959834985ae9bc2565590321fcd4288e2f859581efa7d3b48504fd77b177b55",
+      "host": "nas",
+      "method": "Claude Code",
+      "model": "Claude Sonnet 5",
+      "protocol_ok": false
+    },
+    {
+      "path": "final/baselines/nas/baseline5_codex_gpt_5_6_luna_datasets100_20260812_v4_independent_pass_at_10.json",
+      "bytes": 79467,
+      "sha256": "92323048ac4e8b40cb270e6a8564a862bf9c1c0bc4d4d28c2795c5db4e91aa51",
+      "host": "nas",
+      "method": "Codex",
+      "model": "GPT-5.6 Luna",
+      "protocol_ok": false
+    }
+  ],
+  "controller_logs": [
+    {
+      "path": "system_logs/huashuo/claude_sonnet_5_controller.txt",
+      "bytes": 12158,
+      "sha256": "bf7156f941d0fab96bf6d8aea54ce72bddba7655870ba7034168a58a6e495e51",
+      "host": "huashuo"
+    },
+    {
+      "path": "system_logs/huashuo/deepseek_controller.txt",
+      "bytes": 382,
+      "sha256": "14f62d09dfb9fe8a4c3695fff709343f37878e244ccfacf38c3b5a7e2a82f7c2",
+      "host": "huashuo"
+    },
+    {
+      "path": "system_logs/huashuo/gpt_5_6_luna_controller.txt",
+      "bytes": 304,
+      "sha256": "d2e5b46217f1529ca13e8a4ce1609eb0ed4eaca76d2778ba01077e1f077867fa",
+      "host": "huashuo"
+    },
+    {
+      "path": "system_logs/nas/baseline4_retry_controller.txt",
+      "bytes": 11251,
+      "sha256": "37717fbea7a50d6f17b1e4f2367bfcfbdd6a3e8a5d357ab0a4aae7afb554d1fb",
+      "host": "nas"
+    },
+    {
+      "path": "system_logs/nas/baseline5_then_baseline4_controller.txt",
+      "bytes": 547,
+      "sha256": "db9f43de55935f035bc877803ea24fb614ba4d6fc4d772fe8286c2ca1d254dc6",
+      "host": "nas"
+    },
+    {
+      "path": "system_logs/nas/egbs_claude_sonnet_5_controller.txt",
+      "bytes": 12441,
+      "sha256": "9efe13d2196f289d344d95a746c2833d7d1e316db8cb65aa62e3ae0af8f1e09c",
+      "host": "nas"
+    },
+    {
+      "path": "system_logs/nas/egbs_deepseek_v4_flash_controller.txt",
+      "bytes": 12818,
+      "sha256": "a6e19800dc909c5a8c1043150686e91f36591e6706aeae06b501003cac4e8d54",
+      "host": "nas"
+    },
+    {
+      "path": "system_logs/nas/egbs_gemini_3_5_flash_lite_controller.txt",
+      "bytes": 12247,
+      "sha256": "bc233ed274ae9298f7e5cbbc1924574c70939dcc9af2436533930dc975351c09",
+      "host": "nas"
+    },
+    {
+      "path": "system_logs/nas/egbs_gpt_5_6_luna_controller.txt",
+      "bytes": 12453,
+      "sha256": "952ea8fb46a2e4be9012eea7cb0359cc3276a85b4dd7b9350e01fd1818e6386d",
+      "host": "nas"
+    }
+  ]
+}

@@ -1,0 +1,1934 @@
+{
+  "schema_version": "1.0",
+  "id": "baseline2_agents4plc",
+  "label": "Agents4PLC-paper-reimplementation",
+  "implementation_status": "paper-reimplemented-full-upstream-workflow-not-public",
+  "upstream_url": "https://github.com/Luoji-zju/Agents4PLC_release",
+  "upstream_commit": "aac8a8073a2ec55a492a9f790f3c1b946b74a4c2",
+  "config_sha256": "ccb9b29be23205a162d5a17c25eeb8a4a5f764639c6e4365d270304c24b4ac9c",
+  "dataset_tree_sha256": "2d095c30aa637286c4f6599e749d5628c56328ca39fb3128a9906390637c699b",
+  "qualification_sha256": "0bc61125409cd758b1de6b204ff93501a9822dddd6d2524be2e1fe42bc16ba44",
+  "public_corpus_sha256": "2a7ddca35c2d1ae25e4fa46ae506200c94c605dcd0c49109f9ea34c7d1e81f8e",
+  "task_ids": [
+    "C01_B02_composite",
+    "C01_B03_composite",
+    "C01_B04_composite",
+    "C01_B05_composite",
+    "C01_B06_composite",
+    "C01_B07_composite",
+    "C01_B08_composite",
+    "C01_B11_composite",
+    "C01_B12_composite",
+    "C01_B20_composite",
+    "C02_B03_composite",
+    "C02_B04_composite",
+    "C02_B05_composite",
+    "C02_B07_composite",
+    "C02_B09_composite",
+    "C02_B10_composite",
+    "C02_B11_composite",
+    "C02_B18_composite",
+    "C02_B19_composite",
+    "C02_B20_composite",
+    "C03_B03_composite",
+    "C03_B04_composite",
+    "C03_B05_composite",
+    "C03_B07_composite",
+    "C03_B08_composite",
+    "C03_B09_composite",
+    "C03_B10_composite",
+    "C03_B12_composite",
+    "C03_B15_composite",
+    "C03_B17_composite",
+    "C04_S02_lean_composite",
+    "C04_S04_lean_composite",
+    "C04_S07_lean_composite",
+    "C04_S08_lean_composite",
+    "C04_S09_lean_composite",
+    "C04_S12_lean_composite",
+    "C04_S17_lean_composite",
+    "C04_S22_lean_composite",
+    "C04_S23_lean_composite",
+    "C04_S24_lean_composite",
+    "C05_B02_composite",
+    "C05_B03_composite",
+    "C05_B05_composite",
+    "C05_B06_composite",
+    "C05_B07_composite",
+    "C05_B11_composite",
+    "C05_B16_composite",
+    "C05_B17_composite",
+    "C05_B18_composite",
+    "C05_B19_composite",
+    "C06_W01_lean_composite",
+    "C06_W02_lean_composite",
+    "C06_W04_lean_composite",
+    "C06_W06_lean_composite",
+    "C06_W07_lean_composite",
+    "C06_W08_lean_composite",
+    "C06_W09_lean_composite",
+    "C06_W12_lean_composite",
+    "C06_W16_lean_composite",
+    "C06_W17_lean_composite",
+    "C07_B02_composite",
+    "C07_B03_composite",
+    "C07_B05_composite",
+    "C07_B07_composite",
+    "C07_B10_composite",
+    "C07_B15_composite",
+    "C07_B16_composite",
+    "C07_B17_composite",
+    "C07_B18_composite",
+    "C07_B19_composite",
+    "C08_B01_composite",
+    "C08_B02_composite",
+    "C08_B03_composite",
+    "C08_B04_composite",
+    "C08_B06_composite",
+    "C08_B07_composite",
+    "C08_B08_composite",
+    "C08_B11_composite",
+    "C08_B12_composite",
+    "C08_B20_composite",
+    "C09_B01_composite",
+    "C09_B04_composite",
+    "C09_B05_composite",
+    "C09_B08_composite",
+    "C09_B13_composite",
+    "C09_B14_composite",
+    "C09_B16_composite",
+    "C09_B17_composite",
+    "C09_B18_composite",
+    "C09_B20_composite",
+    "C10_B05_composite",
+    "C10_B07_composite",
+    "C10_B08_composite",
+    "C10_B09_composite",
+    "C10_B10_composite",
+    "C10_B12_composite",
+    "C10_B13_composite",
+    "C10_B15_composite",
+    "C10_B16_composite",
+    "C10_B18_composite"
+  ],
+  "task_count": 100,
+  "success_count": 51,
+  "total_candidates_used": 288,
+  "total_model_calls_used": 577,
+  "usage_total": {
+    "prompt_tokens": 1937251,
+    "completion_tokens": 1274313,
+    "total_tokens": 3211564,
+    "input_tokens": 4348,
+    "output_tokens": 3594,
+    "claude_cache_creation_5_m_tokens": 0,
+    "claude_cache_creation_1_h_tokens": 0
+  },
+  "protocol_ok": false,
+  "runs": [
+    {
+      "task_id": "C01_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 3890,
+        "completion_tokens": 2389,
+        "total_tokens": 6279
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4186,
+        "completion_tokens": 3290,
+        "total_tokens": 7476
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5070,
+        "completion_tokens": 4907,
+        "total_tokens": 9977
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B05_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 51587,
+        "completion_tokens": 24606,
+        "total_tokens": 76193
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B06_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 49530,
+        "completion_tokens": 22434,
+        "total_tokens": 71964
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B07_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 52739,
+        "completion_tokens": 22238,
+        "total_tokens": 74977
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B08_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 65431,
+        "completion_tokens": 31569,
+        "total_tokens": 97000
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 3909,
+        "completion_tokens": 2954,
+        "total_tokens": 6863
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B12_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4932,
+        "completion_tokens": 4867,
+        "total_tokens": 9799
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C01_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4613,
+        "completion_tokens": 3886,
+        "total_tokens": 8499
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 8957,
+        "completion_tokens": 3767,
+        "total_tokens": 12724
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B04_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5524,
+        "completion_tokens": 5643,
+        "total_tokens": 11167
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 2,
+      "model_calls_used": 4,
+      "winning_attempt": 2,
+      "usage_total": {
+        "prompt_tokens": 10580,
+        "completion_tokens": 6513,
+        "total_tokens": 17093
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4791,
+        "completion_tokens": 3595,
+        "total_tokens": 8386
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B09_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 7,
+      "model_calls_used": 15,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 45440,
+        "completion_tokens": 35194,
+        "total_tokens": 80634
+      },
+      "ledger_valid": true,
+      "request_count_valid": false,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B10_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 61528,
+        "completion_tokens": 44328,
+        "total_tokens": 105856
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B11_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 49681,
+        "completion_tokens": 31489,
+        "total_tokens": 81170
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B18_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5129,
+        "completion_tokens": 4806,
+        "total_tokens": 9935
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B19_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 62705,
+        "completion_tokens": 47547,
+        "total_tokens": 110252
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C02_B20_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4799,
+        "completion_tokens": 4595,
+        "total_tokens": 9394
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B03_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4769,
+        "completion_tokens": 2975,
+        "total_tokens": 7744
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B04_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 83032,
+        "completion_tokens": 47569,
+        "total_tokens": 130601
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5070,
+        "completion_tokens": 3916,
+        "total_tokens": 8986
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B07_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4453,
+        "completion_tokens": 3596,
+        "total_tokens": 8049
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B08_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 5,
+      "model_calls_used": 10,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 51658,
+        "completion_tokens": 27822,
+        "total_tokens": 79480
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B09_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4502,
+        "completion_tokens": 2999,
+        "total_tokens": 7501
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B10_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4607,
+        "completion_tokens": 3614,
+        "total_tokens": 8221
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B12_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 4,
+      "model_calls_used": 8,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 30257,
+        "completion_tokens": 22260,
+        "total_tokens": 52517
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B15_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4291,
+        "completion_tokens": 2987,
+        "total_tokens": 7278
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C03_B17_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 88616,
+        "completion_tokens": 58726,
+        "total_tokens": 147342
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S02_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4497,
+        "completion_tokens": 3772,
+        "total_tokens": 8269
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S04_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4232,
+        "completion_tokens": 3403,
+        "total_tokens": 7635
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S07_lean_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 57206,
+        "completion_tokens": 28732,
+        "total_tokens": 85938
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S08_lean_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 48492,
+        "completion_tokens": 30502,
+        "total_tokens": 78994
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S09_lean_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 55292,
+        "completion_tokens": 32502,
+        "total_tokens": 87794
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S12_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4585,
+        "completion_tokens": 4353,
+        "total_tokens": 8938
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S17_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4638,
+        "completion_tokens": 3850,
+        "total_tokens": 8488
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S22_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5298,
+        "completion_tokens": 5192,
+        "total_tokens": 10490
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S23_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4537,
+        "completion_tokens": 4276,
+        "total_tokens": 8813
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C04_S24_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4099,
+        "completion_tokens": 3926,
+        "total_tokens": 8025
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5248,
+        "completion_tokens": 7015,
+        "total_tokens": 12263
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5062,
+        "completion_tokens": 7035,
+        "total_tokens": 12097
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 2,
+      "model_calls_used": 4,
+      "winning_attempt": 2,
+      "usage_total": {
+        "prompt_tokens": 15004,
+        "completion_tokens": 11055,
+        "total_tokens": 26059
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B06_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5039,
+        "completion_tokens": 5405,
+        "total_tokens": 10444
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4866,
+        "completion_tokens": 5234,
+        "total_tokens": 10100
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4937,
+        "completion_tokens": 5395,
+        "total_tokens": 10332
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B16_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 80312,
+        "completion_tokens": 52141,
+        "total_tokens": 132453
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B17_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "completion_tokens": 57087,
+        "prompt_tokens": 90363,
+        "total_tokens": 147450
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B18_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 98108,
+        "completion_tokens": 62203,
+        "total_tokens": 160311
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C05_B19_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 83008,
+        "completion_tokens": 56157,
+        "total_tokens": 139165
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W01_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4778,
+        "completion_tokens": 3475,
+        "total_tokens": 8253
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W02_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4751,
+        "completion_tokens": 4468,
+        "total_tokens": 9219
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W04_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4566,
+        "completion_tokens": 3301,
+        "total_tokens": 7867
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W06_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4527,
+        "completion_tokens": 4796,
+        "total_tokens": 9323
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W07_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4939,
+        "completion_tokens": 5531,
+        "total_tokens": 10470
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W08_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4891,
+        "completion_tokens": 4757,
+        "total_tokens": 9648
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W09_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4646,
+        "completion_tokens": 4113,
+        "total_tokens": 8759
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W12_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4786,
+        "completion_tokens": 5098,
+        "total_tokens": 9884
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W16_lean_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4956,
+        "completion_tokens": 4142,
+        "total_tokens": 9098
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C06_W17_lean_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4733,
+        "completion_tokens": 3911,
+        "total_tokens": 8644
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B02_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4423,
+        "completion_tokens": 2870,
+        "total_tokens": 7293
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B03_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4769,
+        "completion_tokens": 3846,
+        "total_tokens": 8615
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B05_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4971,
+        "completion_tokens": 4013,
+        "total_tokens": 8984
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B07_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4884,
+        "completion_tokens": 3949,
+        "total_tokens": 8833
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B10_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4700,
+        "completion_tokens": 4668,
+        "total_tokens": 9368
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B15_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4421,
+        "completion_tokens": 2817,
+        "total_tokens": 7238
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B16_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5714,
+        "completion_tokens": 6354,
+        "total_tokens": 12068
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B17_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5462,
+        "completion_tokens": 4833,
+        "total_tokens": 10295
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B18_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5803,
+        "completion_tokens": 5832,
+        "total_tokens": 11635
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C07_B19_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 4775,
+        "completion_tokens": 4230,
+        "total_tokens": 9005
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B01_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 2,
+      "model_calls_used": 4,
+      "winning_attempt": 2,
+      "usage_total": {
+        "prompt_tokens": 18111,
+        "completion_tokens": 8311,
+        "total_tokens": 26422
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B02_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 9651,
+        "completion_tokens": 4345,
+        "total_tokens": 13996
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B03_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5252,
+        "completion_tokens": 5145,
+        "total_tokens": 10397
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 6114,
+        "completion_tokens": 6943,
+        "total_tokens": 13057
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B06_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4885,
+        "completion_tokens": 4414,
+        "total_tokens": 9299
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B07_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 2,
+      "model_calls_used": 4,
+      "winning_attempt": 2,
+      "usage_total": {
+        "prompt_tokens": 12170,
+        "completion_tokens": 7395,
+        "total_tokens": 19565
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B08_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5427,
+        "completion_tokens": 5855,
+        "total_tokens": 11282
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B11_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 4772,
+        "completion_tokens": 4183,
+        "total_tokens": 8955
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B12_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5225,
+        "completion_tokens": 5822,
+        "total_tokens": 11047
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C08_B20_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5690,
+        "completion_tokens": 6714,
+        "total_tokens": 12404
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C09_B01_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5251,
+        "completion_tokens": 6329,
+        "total_tokens": 11580
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C09_B04_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5847,
+        "completion_tokens": 6265,
+        "total_tokens": 12112
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C09_B05_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5661,
+        "completion_tokens": 5069,
+        "total_tokens": 10730
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": true
+    },
+    {
+      "task_id": "C09_B08_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5896,
+        "completion_tokens": 6643,
+        "total_tokens": 12539
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B13_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "completion_tokens": 4252,
+        "total_tokens": 9295,
+        "prompt_tokens": 5043
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B14_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "completion_tokens": 5386,
+        "prompt_tokens": 4996,
+        "total_tokens": 10382
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B16_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5045,
+        "completion_tokens": 6244,
+        "total_tokens": 11289
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B17_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5551,
+        "completion_tokens": 5931,
+        "total_tokens": 11482
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B18_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 5403,
+        "completion_tokens": 6450,
+        "total_tokens": 11853
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C09_B20_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5152,
+        "completion_tokens": 5724,
+        "total_tokens": 10876
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B05_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 107468,
+        "completion_tokens": 51398,
+        "total_tokens": 158866
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B07_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 88194,
+        "completion_tokens": 37784,
+        "total_tokens": 125978
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B08_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5982,
+        "completion_tokens": 8324,
+        "total_tokens": 14306
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B09_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5838,
+        "completion_tokens": 7343,
+        "total_tokens": 13181,
+        "input_tokens": 4348,
+        "output_tokens": 3594,
+        "claude_cache_creation_5_m_tokens": 0,
+        "claude_cache_creation_1_h_tokens": 0
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B10_composite",
+      "status": "candidate_budget_exhausted",
+      "success": false,
+      "candidates_used": 10,
+      "model_calls_used": 20,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 92324,
+        "completion_tokens": 52216,
+        "total_tokens": 144540
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B12_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 6347,
+        "completion_tokens": 7580,
+        "total_tokens": 13927
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B13_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 9692,
+        "completion_tokens": 6897,
+        "total_tokens": 16589
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B15_composite",
+      "status": "sealed_failure",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 5164,
+        "completion_tokens": 6942,
+        "total_tokens": 12106
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B16_composite",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": 1,
+      "usage_total": {
+        "prompt_tokens": 10269,
+        "completion_tokens": 7250,
+        "total_tokens": 17519
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    },
+    {
+      "task_id": "C10_B18_composite",
+      "status": "infrastructure_error",
+      "success": false,
+      "candidates_used": 1,
+      "model_calls_used": 2,
+      "winning_attempt": null,
+      "usage_total": {
+        "prompt_tokens": 6237,
+        "completion_tokens": 7839,
+        "total_tokens": 14076
+      },
+      "ledger_valid": true,
+      "request_count_valid": true,
+      "prompt_isolation_valid": true,
+      "resolved_model_valid": true,
+      "resumed": false
+    }
+  ]
+}

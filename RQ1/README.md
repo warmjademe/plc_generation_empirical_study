@@ -1,20 +1,22 @@
-# RQ1 exploratory failure-30 pilot
+# RQ1: comparison with PLC-generation agents
 
-This folder evaluates `baseline1_llm4plc.py` on the 30 semantic failures from the
-first frozen 68-task Kimi K3 Direct@1 screening batch. The purpose is to estimate
-how often the LLM4PLC-adapted planning and tool-feedback loop can recover a task
-that one direct Kimi candidate did not solve.
+RQ1 evaluates the proposed method and external agent workflows on the same frozen
+Balanced-100 task set. The task—not an individual candidate, requirement, or test
+observation—is the statistical unit. Every method receives at most ten complete
+ST candidates per task and uses the common MatIEC, PLCverif, and OpenPLC terminal
+decision chain.
 
-This is not the final RQ1 sample. The selection is intentionally conditioned on
-Direct@1 failure and is not category-balanced: C01 contributes 11 tasks, C02 10,
-C03 6, and C05 3. It must be reported as an exploratory pilot. The formal RQ1
-comparison will use the final balanced 50-task dataset and paired runs of all
-external baselines, internal controls, and the proposed method.
+The primary external comparisons are `baseline1_llm4plc.py`,
+`baseline2_agents4plc.py`, and `baseline3_chatdev.py`. Each is evaluated with
+DeepSeek-V4-Flash, GPT-5.6 Luna, Gemini-3.5-Flash-Lite, and Claude Sonnet 5.
+`baseline4_claude_code.py` and `baseline5_codex.py` are model-fixed general coding
+agent controls. The proposed method is evaluated under the same four model
+families as the primary comparisons.
 
-The frozen subset stores the source Kimi result and qualification record for every
-selected task. Baseline1 receives only `requirement.md` and `interface.st`; reference
-programs, properties, selection evidence, and OpenPLC tests are not placed in its
-prompt.
+Compact task-level result logs, controller logs, their hashes, and the scripts
+that rebuild all RQ1 tables are under [`results/`](results/). Only completed
+100-task batches are included there. Historical 30/50-task pilots and aborted
+launches are excluded from the paper result set.
 
 ## Baselines 4 and 5: independent coding-agent Pass@10
 
@@ -43,4 +45,7 @@ invalidates the protocol record.
 
 The dataset-100 launcher is `run_datasets100_codex_gpt56_luna_baseline5.sh`. It
 reuses existing Codex CLI authentication and does not store credentials in the
-experiment repository.
+experiment repository. Both coding-agent result batches are retained for audit;
+because their summaries contain infrastructure-error tasks and fail the strict
+whole-batch protocol predicate, they are reported descriptively rather than used
+for the primary confirmatory comparison.
