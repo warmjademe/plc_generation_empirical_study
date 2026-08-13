@@ -106,4 +106,3 @@ if [[ "$status" -ne 0 ]]; then
   exit "$status"
 fi
 echo "$(date -Is) RQ2 controller completed"
-
