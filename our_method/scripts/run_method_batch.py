@@ -65,6 +65,9 @@ def audit_completed_run(
     candidate_budget: int,
     allowed_models: tuple[str, ...],
     expected_config_sha256: str,
+    expected_ablation_id: str | None = None,
+    expected_component_1: bool | None = None,
+    expected_component_2: bool | None = None,
 ) -> dict[str, Any]:
     result = json.loads((run_dir / "result.json").read_text(encoding="utf-8"))
     if result.get("task_id") != task_id:
@@ -91,6 +94,21 @@ def audit_completed_run(
     sealed_files = len(list((run_dir / "attempts").glob("attempt_*/sealed_evaluation.json")))
     sealed_records = len(result.get("sealed_attempts") or [])
     mechanisms = result.get("mechanisms") or {}
+    if expected_ablation_id is not None:
+        observed = (
+            mechanisms.get("ablation_id"),
+            mechanisms.get("core_component_1_enabled"),
+            mechanisms.get("core_component_2_enabled"),
+        )
+        expected = (
+            expected_ablation_id,
+            expected_component_1,
+            expected_component_2,
+        )
+        if observed != expected:
+            raise ValueError(
+                f"ablation mechanism mismatch: observed={observed!r}, expected={expected!r}"
+            )
     sealed_attempt_budget = int(mechanisms.get("max_sealed_attempts", 1))
     inconclusive_restart_events = sum(
         entry.get("event_type") == "inconclusive_blind_restart_scheduled"
@@ -147,6 +165,9 @@ def audit_completed_run(
         "inconclusive_restart_budget": inconclusive_restart_budget,
         "inconclusive_restart_count_valid": inconclusive_restart_count_valid,
         "ledger_valid": True,
+        "ablation_id": mechanisms.get("ablation_id"),
+        "core_component_1_enabled": mechanisms.get("core_component_1_enabled"),
+        "core_component_2_enabled": mechanisms.get("core_component_2_enabled"),
     }
 
 
@@ -264,6 +285,13 @@ def main() -> int:
         "config_sha256": sha256(config_path),
         "dataset_root": str(args.dataset_root.resolve()),
         "dataset_manifest_sha256": sha256(manifest_path),
+        "ablation_id": config["experiment"].get("ablation_id"),
+        "core_component_1_enabled": config["experiment"].get(
+            "core_component_1_enabled"
+        ),
+        "core_component_2_enabled": config["experiment"].get(
+            "core_component_2_enabled"
+        ),
     }
 
     def run_task(task_dir: Path) -> dict[str, Any]:
@@ -283,6 +311,9 @@ def main() -> int:
             candidate_budget=candidate_budget,
             allowed_models=allowed_models,
             expected_config_sha256=run_identity["config_sha256"],
+            expected_ablation_id=run_identity["ablation_id"],
+            expected_component_1=run_identity["core_component_1_enabled"],
+            expected_component_2=run_identity["core_component_2_enabled"],
         )
         record["resumed"] = resumed
         return record

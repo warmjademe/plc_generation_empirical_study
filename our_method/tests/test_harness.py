@@ -592,6 +592,94 @@ class HarnessTests(unittest.TestCase):
             self.assertIn("BAD_TWO", client.calls[2][-1]["content"])
             self.assertNotIn("BAD_ONE", client.calls[2][-1]["content"])
 
+    def test_rq2_component_one_ablation_contract_and_metadata(self):
+        value = config(max_candidates=3)
+        value["experiment"].update({
+            "ablation_id": "M01_without_component_1",
+            "core_component_1_enabled": False,
+            "core_component_2_enabled": True,
+            "anchor_policy": "latest",
+            "repair_policy": "patch",
+            "pre_emit_review": False,
+            "contract_risk_analysis": False,
+            "duplicate_candidate_guard": False,
+            "sealed_rejection_policy": "blind_restart",
+            "max_sealed_attempts": 3,
+            "inconclusive_recovery_policy": "blind_restart",
+            "max_inconclusive_restarts": 1,
+        })
+        with tempfile.TemporaryDirectory() as directory:
+            result = BoundedSynthesisHarness(
+                value,
+                load_task(TASK),
+                Path(directory) / "run",
+                "raw_repair",
+                client=FakeClient([tagged("GOOD")]),
+                validators=[
+                    FakeValidator("visible"),
+                    FakeValidator("sealed", sealed=True),
+                ],
+            ).run()
+        self.assertEqual(result["mechanisms"]["ablation_id"], "M01_without_component_1")
+        self.assertFalse(result["mechanisms"]["core_component_1_enabled"])
+        self.assertTrue(result["mechanisms"]["core_component_2_enabled"])
+
+    def test_rq2_component_two_ablation_is_terminal_on_sealed_failure(self):
+        value = config(max_candidates=3)
+        value["experiment"].update({
+            "ablation_id": "M10_without_component_2",
+            "core_component_1_enabled": True,
+            "core_component_2_enabled": False,
+            "anchor_policy": "non_regression",
+            "repair_policy": "adaptive",
+            "pre_emit_review": True,
+            "contract_risk_analysis": True,
+            "duplicate_candidate_guard": True,
+            "domain_context": {"enabled": True, "max_cards": 3, "max_chars": 4000},
+            "sealed_rejection_policy": "terminal",
+            "max_sealed_attempts": 1,
+            "inconclusive_recovery_policy": "terminal",
+            "max_inconclusive_restarts": 0,
+        })
+        client = FakeClient([tagged("GOOD"), tagged("UNUSED")])
+        with tempfile.TemporaryDirectory() as directory:
+            result = BoundedSynthesisHarness(
+                value,
+                load_task(TASK),
+                Path(directory) / "run",
+                "evidence",
+                client=client,
+                validators=[
+                    FakeValidator("visible"),
+                    FakeValidator("sealed", sealed=True, sealed_status="fail"),
+                ],
+            ).run()
+        self.assertEqual(result["status"], "sealed_failure")
+        self.assertEqual(len(client.calls), 1)
+        self.assertTrue(result["mechanisms"]["core_component_1_enabled"])
+        self.assertFalse(result["mechanisms"]["core_component_2_enabled"])
+
+    def test_rq2_ablation_label_rejects_inconsistent_mechanism_flags(self):
+        value = config(max_candidates=3)
+        value["experiment"].update({
+            "ablation_id": "M10_without_component_2",
+            "core_component_1_enabled": True,
+            "core_component_2_enabled": True,
+        })
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, "RQ2 ablation contract"):
+                BoundedSynthesisHarness(
+                    value,
+                    load_task(TASK),
+                    Path(directory) / "run",
+                    "evidence",
+                    client=FakeClient([]),
+                    validators=[
+                        FakeValidator("visible"),
+                        FakeValidator("sealed", sealed=True),
+                    ],
+                )
+
     def test_optional_formal_inconclusive_does_not_pass_or_block_but_failure_blocks(self):
         optional_formal = FakeValidator("formal", inconclusive_is_blocking=False)
         harness = BoundedSynthesisHarness(

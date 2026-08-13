@@ -89,6 +89,17 @@ class BoundedSynthesisHarness:
         self.method = method
         self.provider = ProviderSettings.from_dict(config["provider"])
         self.experiment = dict(config["experiment"])
+        self.ablation_id = self.experiment.get("ablation_id")
+        self.core_component_1_enabled = bool(
+            self.experiment.get("core_component_1_enabled", method == "evidence")
+        )
+        self.core_component_2_enabled = bool(
+            self.experiment.get(
+                "core_component_2_enabled",
+                self.experiment.get("sealed_rejection_policy") == "blind_restart"
+                or self.experiment.get("inconclusive_recovery_policy") == "blind_restart",
+            )
+        )
         configured_max = int(self.experiment.get("max_candidates", 10))
         if configured_max < 1 or configured_max > 10:
             raise ValueError("max_candidates must be between 1 and 10")
@@ -191,6 +202,55 @@ class BoundedSynthesisHarness:
             load_pattern_cards(pattern_cards_path)
             if self.domain_context_enabled else []
         )
+        self._validate_ablation_contract()
+
+    def _validate_ablation_contract(self) -> None:
+        """Fail fast when an RQ2 label does not match the executed mechanisms."""
+        if self.ablation_id is None:
+            return
+        if self.ablation_id == "M01_without_component_1":
+            predicates = {
+                "method=raw_repair": self.method == "raw_repair",
+                "component_1=off": not self.core_component_1_enabled,
+                "component_2=on": self.core_component_2_enabled,
+                "domain_context=off": not self.domain_context_enabled,
+                "pre_emit_review=off": not self.pre_emit_review_enabled,
+                "contract_risk_analysis=off": not self.contract_risk_analysis_enabled,
+                "duplicate_guard=off": not self.duplicate_candidate_guard_enabled,
+                "anchor_policy=latest": self.anchor_policy == "latest",
+                "repair_policy=patch": self.repair_policy == "patch",
+                "sealed_restart=on": self.sealed_rejection_policy == "blind_restart",
+                "sealed_budget=3": self.max_sealed_attempts == 3,
+                "inconclusive_restart=on": (
+                    self.inconclusive_recovery_policy == "blind_restart"
+                    and self.max_inconclusive_restarts == 1
+                ),
+            }
+        elif self.ablation_id == "M10_without_component_2":
+            predicates = {
+                "method=evidence": self.method == "evidence",
+                "component_1=on": self.core_component_1_enabled,
+                "component_2=off": not self.core_component_2_enabled,
+                "domain_context=on": self.domain_context_enabled,
+                "pre_emit_review=on": self.pre_emit_review_enabled,
+                "contract_risk_analysis=on": self.contract_risk_analysis_enabled,
+                "duplicate_guard=on": self.duplicate_candidate_guard_enabled,
+                "anchor_policy=non_regression": self.anchor_policy == "non_regression",
+                "repair_policy=adaptive": self.repair_policy == "adaptive",
+                "sealed_restart=off": self.sealed_rejection_policy == "terminal",
+                "sealed_budget=1": self.max_sealed_attempts == 1,
+                "inconclusive_restart=off": (
+                    self.inconclusive_recovery_policy == "terminal"
+                    and self.max_inconclusive_restarts == 0
+                ),
+            }
+        else:
+            raise ValueError(f"unknown RQ2 ablation_id {self.ablation_id!r}")
+        failed = [name for name, accepted in predicates.items() if not accepted]
+        if failed:
+            raise ValueError(
+                f"RQ2 ablation contract {self.ablation_id} is inconsistent: {failed}"
+            )
 
     def preflight(self) -> None:
         by_name = {validator.name: validator for validator in self.validators}
@@ -435,6 +495,9 @@ class BoundedSynthesisHarness:
             "method_asset_sha256": self.method_asset_sha256,
             "verification_profile": self.experiment.get("verification_profile"),
             "mechanisms": {
+                "ablation_id": self.ablation_id,
+                "core_component_1_enabled": self.core_component_1_enabled,
+                "core_component_2_enabled": self.core_component_2_enabled,
                 "certificate_version": self.certificate_version,
                 "context_strategy": self.context_strategy,
                 "domain_context_enabled": self.domain_context_enabled,
@@ -492,6 +555,9 @@ class BoundedSynthesisHarness:
                 "method_revision": self.experiment.get("method_revision"),
                 "method_asset_sha256": self.method_asset_sha256,
                 "verification_profile": self.experiment.get("verification_profile"),
+                "ablation_id": self.ablation_id,
+                "core_component_1_enabled": self.core_component_1_enabled,
+                "core_component_2_enabled": self.core_component_2_enabled,
             },
         )
         if self.client is None:

@@ -1,0 +1,220 @@
+{
+  "schema_version": "1.0",
+  "research_question": "RQ2 two-component deletion ablation",
+  "task_count": 100,
+  "model": "deepseek-v4-flash",
+  "bootstrap_samples": 20000,
+  "bootstrap_seed": 20260813,
+  "inputs": {
+    "full": {
+      "file": "egbs_deepseek_v4_flash_agentic_context_v5_2_datasets100_20260812_v1.json",
+      "sha256": "e800a0c8f1746d41cb4f57ba0b383e6cdf640ca7223cd23d115bf12fc8368b2c"
+    },
+    "M01": {
+      "file": "M01_batch_summary.json",
+      "sha256": "0da0260366e5faf2919a37ee5f56bb1eaa3b025f54fb5839c3c56ff359ef9ea8"
+    },
+    "M10": {
+      "file": "M10_batch_summary.json",
+      "sha256": "0adf6296f73d41df39c790a3846f202edbaea13dd82946b969b372107c0bed42"
+    }
+  },
+  "overview": [
+    {
+      "arm": "full",
+      "success_count": 70,
+      "success_rate_lower": 0.7,
+      "success_rate_upper": 0.72,
+      "status_counts": {
+        "candidate_budget_exhausted": 23,
+        "infrastructure_error": 2,
+        "sealed_failure": 5,
+        "verified_success": 70
+      },
+      "total_candidates_used": 523,
+      "usage_total": {
+        "completion_tokens": 754526,
+        "prompt_cache_hit_tokens": 548480,
+        "prompt_cache_miss_tokens": 2182280,
+        "prompt_tokens": 2730760,
+        "total_tokens": 3485286
+      },
+      "verified_success_at_k": {
+        "1": 17,
+        "2": 31,
+        "3": 40,
+        "4": 54,
+        "5": 58,
+        "6": 62,
+        "7": 64,
+        "8": 68,
+        "9": 68,
+        "10": 70
+      }
+    },
+    {
+      "arm": "M01",
+      "success_count": 37,
+      "success_rate_lower": 0.37,
+      "success_rate_upper": 0.58,
+      "status_counts": {
+        "candidate_budget_exhausted": 42,
+        "infrastructure_error": 21,
+        "verified_success": 37
+      },
+      "total_candidates_used": 571,
+      "usage_total": {
+        "completion_tokens": 799636,
+        "prompt_cache_hit_tokens": 842240,
+        "prompt_cache_miss_tokens": 586623,
+        "prompt_tokens": 1428863,
+        "total_tokens": 2228499
+      },
+      "verified_success_at_k": {
+        "1": 22,
+        "2": 27,
+        "3": 31,
+        "4": 31,
+        "5": 32,
+        "6": 33,
+        "7": 35,
+        "8": 36,
+        "9": 37,
+        "10": 37
+      }
+    },
+    {
+      "arm": "M10",
+      "success_count": 51,
+      "success_rate_lower": 0.51,
+      "success_rate_upper": 0.78,
+      "status_counts": {
+        "candidate_budget_exhausted": 10,
+        "infrastructure_error": 27,
+        "sealed_failure": 12,
+        "verified_success": 51
+      },
+      "total_candidates_used": 328,
+      "usage_total": {
+        "completion_tokens": 480987,
+        "prompt_cache_hit_tokens": 584576,
+        "prompt_cache_miss_tokens": 1094956,
+        "prompt_tokens": 1679532,
+        "total_tokens": 2160519
+      },
+      "verified_success_at_k": {
+        "1": 14,
+        "2": 27,
+        "3": 37,
+        "4": 41,
+        "5": 45,
+        "6": 47,
+        "7": 49,
+        "8": 49,
+        "9": 49,
+        "10": 51
+      }
+    }
+  ],
+  "primary_comparisons": [
+    {
+      "comparison": "full_vs_M01",
+      "component_removed": 1,
+      "full_success": 70,
+      "ablation_success": 37,
+      "observed_all_task_risk_difference": 0.33,
+      "infrastructure_extreme_risk_difference": [
+        0.12,
+        0.35
+      ],
+      "risk_difference": 0.2564102564102564,
+      "risk_difference_ci95": [
+        0.14102564102564102,
+        0.3717948717948718
+      ],
+      "complete_case_count": 78,
+      "full_only_success": 23,
+      "ablation_only_success": 3,
+      "p_exact": 8.797645568847656e-05,
+      "p_bh": 0.00017595291137695312
+    },
+    {
+      "comparison": "full_vs_M10",
+      "component_removed": 2,
+      "full_success": 70,
+      "ablation_success": 51,
+      "observed_all_task_risk_difference": 0.19,
+      "infrastructure_extreme_risk_difference": [
+        -0.08,
+        0.21
+      ],
+      "risk_difference": 0.027777777777777776,
+      "risk_difference_ci95": [
+        -0.08333333333333333,
+        0.1388888888888889
+      ],
+      "complete_case_count": 72,
+      "full_only_success": 9,
+      "ablation_only_success": 7,
+      "p_exact": 0.803619384765625,
+      "p_bh": 0.803619384765625
+    }
+  ],
+  "category_success_counts": {
+    "C01": {
+      "full": 10,
+      "M01": 5,
+      "M10": 7
+    },
+    "C02": {
+      "full": 8,
+      "M01": 6,
+      "M10": 7
+    },
+    "C03": {
+      "full": 6,
+      "M01": 3,
+      "M10": 4
+    },
+    "C04": {
+      "full": 8,
+      "M01": 6,
+      "M10": 9
+    },
+    "C05": {
+      "full": 5,
+      "M01": 2,
+      "M10": 4
+    },
+    "C06": {
+      "full": 9,
+      "M01": 10,
+      "M10": 6
+    },
+    "C07": {
+      "full": 7,
+      "M01": 0,
+      "M10": 0
+    },
+    "C08": {
+      "full": 7,
+      "M01": 4,
+      "M10": 7
+    },
+    "C09": {
+      "full": 9,
+      "M01": 1,
+      "M10": 6
+    },
+    "C10": {
+      "full": 1,
+      "M01": 0,
+      "M10": 1
+    }
+  },
+  "limitations": [
+    "one frozen stochastic run per arm",
+    "full control ran on NAS; ablations ran concurrently on huashuo",
+    "no M00 joint ablation; component interaction is not estimated"
+  ]
+}
