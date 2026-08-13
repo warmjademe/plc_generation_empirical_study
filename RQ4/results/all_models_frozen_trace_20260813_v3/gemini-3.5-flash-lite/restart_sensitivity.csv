@@ -1,0 +1,6 @@
+parameter,value,success_count,candidate_count,affected_task_count,identification
+max_sealed_attempts,1,70,334,,observed-trace terminal truncation
+max_sealed_attempts,2,74,403,,observed-trace terminal truncation
+max_sealed_attempts,3,75,431,,observed-trace terminal truncation
+max_inconclusive_restarts,0,75,,1,observed-trace terminal truncation
+max_inconclusive_restarts,1,75,,1,observed configuration

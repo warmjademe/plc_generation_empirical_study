@@ -1,0 +1,339 @@
+{
+  "schema_version": "1.0",
+  "research_question": "RQ4 frozen-trace candidate-budget efficiency",
+  "model": "gpt-5.6-luna",
+  "task_count": 100,
+  "budgets": [
+    1,
+    3,
+    5,
+    7,
+    10
+  ],
+  "bootstrap_samples": 20000,
+  "bootstrap_seed": 20260813,
+  "input": {
+    "batch_summary_file": "batch_summary.json",
+    "batch_summary_sha256": "5b8e7a90efdb7c466219ec0b3c85bcb4054769f46c777be55152c83a6c46aa3c",
+    "config_sha256": "147d10df893ffc0b2b0e2fe5683c931730d1da5600d51f99f9d7980556c61a80",
+    "dataset_manifest_sha256": "7d5d18522deef51321466eacdbfbfd829c2c3ff737f220514a44a613383c2ab9",
+    "all_ledgers_valid": true,
+    "all_model_identities_valid": true
+  },
+  "pricing": null,
+  "budget_efficiency": [
+    {
+      "budget": 1,
+      "success_count": 52,
+      "success_rate_lower": 0.52,
+      "success_rate_upper": 0.55,
+      "terminal_infrastructure_count": 3,
+      "candidate_count": 97,
+      "completion_tokens": 229724,
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 0,
+      "prompt_tokens": 283735,
+      "total_tokens": 513459,
+      "estimated_api_cost_usd": null,
+      "validator_work_seconds": 10793.18,
+      "stage_seconds": {
+        "compiler": 68.187,
+        "openplc_feedback": 577.359,
+        "openplc_sealed": 609.825,
+        "plcverif": 9537.809,
+        "response_format": 0.0
+      },
+      "candidates_per_success": 1.8653846153846154,
+      "tokens_per_success": 9874.211538461539,
+      "api_cost_usd_per_success": null,
+      "validator_seconds_per_success": 207.56115384615384,
+      "previous_budget": 0,
+      "added_successes": 52,
+      "added_candidates": 97,
+      "added_tokens": 513459,
+      "added_api_cost_usd": null,
+      "added_validator_seconds": 10793.18,
+      "marginal_candidates_per_added_success": 1.8653846153846154,
+      "marginal_tokens_per_added_success": 9874.211538461539,
+      "success_rate_ci95": [
+        0.42,
+        0.62
+      ],
+      "candidates_per_success_ci95": [
+        1.5737704918032787,
+        2.2857142857142856
+      ],
+      "tokens_per_success_ci95": [
+        8213.655737704918,
+        12315.214285714286
+      ],
+      "validator_seconds_per_success_ci95": [
+        165.59577049180328,
+        266.3911777777778
+      ],
+      "added_success_rate_ci95": [
+        0.42,
+        0.62
+      ]
+    },
+    {
+      "budget": 3,
+      "success_count": 81,
+      "success_rate_lower": 0.81,
+      "success_rate_upper": 0.85,
+      "terminal_infrastructure_count": 4,
+      "candidate_count": 163,
+      "completion_tokens": 387291,
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 0,
+      "prompt_tokens": 576787,
+      "total_tokens": 964078,
+      "estimated_api_cost_usd": null,
+      "validator_work_seconds": 18787.38,
+      "stage_seconds": {
+        "compiler": 113.928,
+        "openplc_feedback": 948.03,
+        "openplc_sealed": 1016.473,
+        "plcverif": 16708.949,
+        "response_format": 0.0
+      },
+      "candidates_per_success": 2.0123456790123457,
+      "tokens_per_success": 11902.197530864198,
+      "api_cost_usd_per_success": null,
+      "validator_seconds_per_success": 231.94296296296298,
+      "previous_budget": 1,
+      "added_successes": 29,
+      "added_candidates": 66,
+      "added_tokens": 450619,
+      "added_api_cost_usd": null,
+      "added_validator_seconds": 7994.200000000001,
+      "marginal_candidates_per_added_success": 2.2758620689655173,
+      "marginal_tokens_per_added_success": 15538.586206896553,
+      "success_rate_ci95": [
+        0.73,
+        0.88
+      ],
+      "candidates_per_success_ci95": [
+        1.7078651685393258,
+        2.4
+      ],
+      "tokens_per_success_ci95": [
+        9764.298850574713,
+        14610.57142857143
+      ],
+      "validator_seconds_per_success_ci95": [
+        188.36501219512195,
+        285.46686111111114
+      ],
+      "added_success_rate_ci95": [
+        0.2,
+        0.38
+      ]
+    },
+    {
+      "budget": 5,
+      "success_count": 84,
+      "success_rate_lower": 0.84,
+      "success_rate_upper": 0.88,
+      "terminal_infrastructure_count": 4,
+      "candidate_count": 184,
+      "completion_tokens": 440835,
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 0,
+      "prompt_tokens": 680766,
+      "total_tokens": 1121601,
+      "estimated_api_cost_usd": null,
+      "validator_work_seconds": 20946.407,
+      "stage_seconds": {
+        "compiler": 128.117,
+        "openplc_feedback": 1015.977,
+        "openplc_sealed": 1065.748,
+        "plcverif": 18736.565,
+        "response_format": 0.0
+      },
+      "candidates_per_success": 2.1904761904761907,
+      "tokens_per_success": 13352.392857142857,
+      "api_cost_usd_per_success": null,
+      "validator_seconds_per_success": 249.36198809523808,
+      "previous_budget": 3,
+      "added_successes": 3,
+      "added_candidates": 21,
+      "added_tokens": 157523,
+      "added_api_cost_usd": null,
+      "added_validator_seconds": 2159.026999999998,
+      "marginal_candidates_per_added_success": 7.0,
+      "marginal_tokens_per_added_success": 52507.666666666664,
+      "success_rate_ci95": [
+        0.76,
+        0.91
+      ],
+      "candidates_per_success_ci95": [
+        1.8045977011494252,
+        2.6794871794871793
+      ],
+      "tokens_per_success_ci95": [
+        10527.813186813188,
+        16967.636363636364
+      ],
+      "validator_seconds_per_success_ci95": [
+        199.91061363636362,
+        309.8521298701299
+      ],
+      "added_success_rate_ci95": [
+        0.0,
+        0.07
+      ]
+    },
+    {
+      "budget": 7,
+      "success_count": 86,
+      "success_rate_lower": 0.86,
+      "success_rate_upper": 0.9,
+      "terminal_infrastructure_count": 4,
+      "candidate_count": 198,
+      "completion_tokens": 478280,
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 0,
+      "prompt_tokens": 762847,
+      "total_tokens": 1241127,
+      "estimated_api_cost_usd": null,
+      "validator_work_seconds": 22383.86,
+      "stage_seconds": {
+        "compiler": 137.571,
+        "openplc_feedback": 1067.796,
+        "openplc_sealed": 1116.375,
+        "plcverif": 20062.118,
+        "response_format": 0.0
+      },
+      "candidates_per_success": 2.302325581395349,
+      "tokens_per_success": 14431.709302325582,
+      "api_cost_usd_per_success": null,
+      "validator_seconds_per_success": 260.2774418604651,
+      "previous_budget": 5,
+      "added_successes": 2,
+      "added_candidates": 14,
+      "added_tokens": 119526,
+      "added_api_cost_usd": null,
+      "added_validator_seconds": 1437.4530000000013,
+      "marginal_candidates_per_added_success": 7.0,
+      "marginal_tokens_per_added_success": 59763.0,
+      "success_rate_ci95": [
+        0.79,
+        0.92
+      ],
+      "candidates_per_success_ci95": [
+        1.8555555555555556,
+        2.8674698795180724
+      ],
+      "tokens_per_success_ci95": [
+        11038.644444444444,
+        18785.829268292684
+      ],
+      "validator_seconds_per_success_ci95": [
+        206.50354545454547,
+        325.8255375
+      ],
+      "added_success_rate_ci95": [
+        0.0,
+        0.05
+      ]
+    },
+    {
+      "budget": 10,
+      "success_count": 88,
+      "success_rate_lower": 0.88,
+      "success_rate_upper": 0.92,
+      "terminal_infrastructure_count": 4,
+      "candidate_count": 212,
+      "completion_tokens": 514286,
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 0,
+      "prompt_tokens": 848454,
+      "total_tokens": 1362740,
+      "estimated_api_cost_usd": null,
+      "validator_work_seconds": 23679.051,
+      "stage_seconds": {
+        "compiler": 147.543,
+        "openplc_feedback": 1119.003,
+        "openplc_sealed": 1137.323,
+        "plcverif": 21275.182,
+        "response_format": 0.0
+      },
+      "candidates_per_success": 2.409090909090909,
+      "tokens_per_success": 15485.681818181818,
+      "api_cost_usd_per_success": null,
+      "validator_seconds_per_success": 269.080125,
+      "previous_budget": 7,
+      "added_successes": 2,
+      "added_candidates": 14,
+      "added_tokens": 121613,
+      "added_api_cost_usd": null,
+      "added_validator_seconds": 1295.190999999999,
+      "marginal_candidates_per_added_success": 7.0,
+      "marginal_tokens_per_added_success": 60806.5,
+      "success_rate_ci95": [
+        0.81,
+        0.94
+      ],
+      "candidates_per_success_ci95": [
+        1.898876404494382,
+        3.0476190476190474
+      ],
+      "tokens_per_success_ci95": [
+        11413.978260869566,
+        20631.951807228917
+      ],
+      "validator_seconds_per_success_ci95": [
+        210.80501111111113,
+        339.50262499999997
+      ],
+      "added_success_rate_ci95": [
+        0.0,
+        0.05
+      ]
+    }
+  ],
+  "restart_sensitivity": [
+    {
+      "parameter": "max_sealed_attempts",
+      "value": 1,
+      "success_count": 76,
+      "candidate_count": 172,
+      "identification": "observed-trace terminal truncation"
+    },
+    {
+      "parameter": "max_sealed_attempts",
+      "value": 2,
+      "success_count": 85,
+      "candidate_count": 198,
+      "identification": "observed-trace terminal truncation"
+    },
+    {
+      "parameter": "max_sealed_attempts",
+      "value": 3,
+      "success_count": 88,
+      "candidate_count": 212,
+      "identification": "observed-trace terminal truncation"
+    },
+    {
+      "parameter": "max_inconclusive_restarts",
+      "value": 0,
+      "success_count": 88,
+      "affected_task_count": 0,
+      "identification": "observed-trace terminal truncation"
+    },
+    {
+      "parameter": "max_inconclusive_restarts",
+      "value": 1,
+      "success_count": 88,
+      "affected_task_count": 0,
+      "identification": "observed configuration"
+    }
+  ],
+  "interpretation_limits": [
+    "K points are prefixes of one frozen K=10 stochastic run, not independent reruns",
+    "validator time is the sum of per-gate durations, not parallel batch wall-clock time",
+    "API pricing is omitted when providers do not share a comparable tariff basis",
+    "E_max and R_max results identify only terminal truncations of observed traces"
+  ]
+}

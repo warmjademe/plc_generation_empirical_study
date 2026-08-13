@@ -70,6 +70,26 @@ class BudgetEfficiencyTests(unittest.TestCase):
         self.assertEqual(rows[1]["added_candidates"], 3)
         self.assertEqual(rows[1]["marginal_tokens_per_added_success"], 30)
 
+    def test_cross_provider_analysis_can_omit_api_pricing(self):
+        task = {
+            "result": {
+                "status": "verified_success",
+                "candidates_used": 1,
+                "sealed_attempts": [
+                    {"attempt": 1, "result": {"status": "pass", "duration_ms": 1}}
+                ],
+            },
+            "attempts": [attempt(1)],
+        }
+        rows = [MODULE.aggregate_budget([task], 1, None)]
+        MODULE.add_marginal_costs(rows)
+        MODULE.add_bootstrap_intervals(
+            rows, [task], None, samples=100, seed=7
+        )
+        self.assertIsNone(rows[0]["estimated_api_cost_usd"])
+        self.assertIsNone(rows[0]["api_cost_usd_per_success"])
+        self.assertNotIn("api_cost_usd_per_success_ci95", rows[0])
+
     def test_sealed_limit_uses_first_n_queries(self):
         task = {
             "result": {
