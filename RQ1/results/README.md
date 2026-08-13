@@ -34,17 +34,15 @@ python3 results/summarize_rq1.py
 The script fails closed unless all 18 summaries contain exactly the same 100
 unique task identifiers. It produces:
 
-- `run_overview.csv`: success, functional failure, infrastructure error,
-  candidate cost, and protocol status by method and model;
+- `run_overview.csv`: success rate, candidate cost, and protocol status by
+  method and model;
 - `verified_success_at_k.csv`: cumulative task-level success for budgets 1--10;
-- `cochran_q.csv`: complete-case omnibus comparisons for the proposed method and
+- `cochran_q.csv`: all-100-task omnibus comparisons for the proposed method and
   the three PLC-agent workflows;
 - `pairwise_primary.csv`: paired risk differences, deterministic paired-bootstrap
   intervals, exact McNemar tests, and BH--FDR-adjusted p-values.
 
-`infrastructure_error` is not treated as a functional failure. The overview
-therefore gives a conservative lower bound (`verified_success/100`) and an
-optimistic upper bound that assumes every infrastructure-error task would have
-passed. Inferential comparisons use only task pairs with conclusive outcomes for
-both methods. Runs with `protocol_ok=false` remain available for audit but are
-descriptive rather than confirmatory evidence.
+All RQ1 success rates and paired tests use the fixed denominator of 100 tasks.
+Tasks that do not pass the complete Oracle are counted as unsuccessful without
+separating failure causes. Runs with `protocol_ok=false` remain available for
+audit but are descriptive rather than confirmatory evidence.

@@ -12,7 +12,6 @@ import hashlib
 import json
 import math
 import random
-from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -223,12 +222,7 @@ def main() -> None:
     for run in runs:
         document = run["document"]
         records = run["records"]
-        statuses = Counter(record["status"] for record in records)
-        verified = statuses["verified_success"]
-        infrastructure = statuses["infrastructure_error"]
-        functional_failure = (
-            statuses["candidate_budget_exhausted"] + statuses["sealed_failure"]
-        )
+        verified = sum(record.get("success") is True for record in records)
         candidates = document.get("total_candidates_used")
         if candidates is None:
             candidates = sum(record.get("candidates_used", 0) for record in records)
@@ -249,11 +243,7 @@ def main() -> None:
                 "host": run["host"],
                 "tasks": 100,
                 "verified_success": verified,
-                "functional_failure": functional_failure,
-                "infrastructure_error": infrastructure,
-                "success_lower_pct": f"{verified:.1f}",
-                "success_upper_pct": f"{verified + infrastructure:.1f}",
-                "conclusive_success_pct": f"{100.0 * verified / (100 - infrastructure):.1f}",
+                "success_rate_pct": f"{verified:.1f}",
                 "total_candidates": candidates,
                 "total_model_calls": calls,
                 "mean_candidates_per_task": f"{candidates / 100.0:.2f}",
@@ -313,20 +303,15 @@ def main() -> None:
     for model in MODEL_ORDER:
         selected = [index[(model, method)] for method in ("本文方法",) + plc_agents]
         common_ids = sorted(selected[0]["by_task"])
-        complete_ids = [
-            task_id
-            for task_id in common_ids
-            if all(run["by_task"][task_id]["status"] != "infrastructure_error" for run in selected)
-        ]
         matrix = [
             [int(run["by_task"][task_id].get("success") is True) for run in selected]
-            for task_id in complete_ids
+            for task_id in common_ids
         ]
         q_statistic, q_p = cochran_q(matrix)
         omnibus.append(
             {
                 "model": model,
-                "complete_case_tasks": len(complete_ids),
+                "paired_tasks": len(common_ids),
                 "cochran_q": f"{q_statistic:.6f}",
                 "df": 3,
                 "p_value": f"{q_p:.12g}",
@@ -336,12 +321,7 @@ def main() -> None:
         proposed = index[(model, "本文方法")]
         for baseline_name in plc_agents:
             baseline = index[(model, baseline_name)]
-            pair_ids = [
-                task_id
-                for task_id in common_ids
-                if proposed["by_task"][task_id]["status"] != "infrastructure_error"
-                and baseline["by_task"][task_id]["status"] != "infrastructure_error"
-            ]
+            pair_ids = common_ids
             differences = []
             proposed_only = 0
             baseline_only = 0
@@ -364,7 +344,7 @@ def main() -> None:
                 {
                     "model": model,
                     "baseline": baseline_name,
-                    "paired_complete_tasks": len(pair_ids),
+                    "paired_tasks": len(pair_ids),
                     "both_success": both_success,
                     "proposed_only": proposed_only,
                     "baseline_only": baseline_only,
