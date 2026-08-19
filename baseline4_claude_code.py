@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -200,7 +201,7 @@ def _cli_version(executable: str) -> str:
 class ClaudeCodeCLI:
     """Non-interactive Claude Code adapter with a single audited model family."""
 
-    def __init__(self, settings: dict[str, Any]):
+    def __init__(self, settings: dict[str, Any], provider: dict[str, Any]):
         self.executable = str(settings.get("executable", "claude"))
         self.requested_model = str(settings["model_selector"])
         self.expected_model = re.compile(str(settings["expected_resolved_model_regex"]))
@@ -209,6 +210,9 @@ class ClaudeCodeCLI:
         self.effort = str(settings.get("effort", "high"))
         self.safe_mode = bool(settings.get("safe_mode", True))
         self.tools = tuple(map(str, settings.get("tools", ["Read", "Write", "Edit"])))
+        self.provider_name = str(provider["name"])
+        self.base_url = str(provider["base_url"]).rstrip("/")
+        self.api_key_env = str(provider["api_key_env"])
 
     def preflight(self) -> str:
         executable = shutil.which(self.executable)
@@ -222,6 +226,14 @@ class ClaudeCodeCLI:
             raise ValueError("max_turns_per_candidate must be between 1 and 32")
         if self.requested_model != "sonnet" and not self.expected_model.fullmatch(self.requested_model):
             raise ValueError("model_selector must be the Sonnet alias or an explicit Sonnet 5 identifier")
+        if self.provider_name != "teamorouter":
+            raise ValueError("baseline4 provider must be exactly teamorouter")
+        if self.base_url != "https://api.teamorouter.com":
+            raise ValueError("baseline4 must use the audited Teamorouter Anthropic endpoint")
+        if self.api_key_env != "TEAMOROUTER_API_KEY":
+            raise ValueError("baseline4 must obtain its credential from TEAMOROUTER_API_KEY")
+        if not os.environ.get(self.api_key_env):
+            raise RuntimeError(f"{self.api_key_env} is required; no provider fallback is allowed")
         return _cli_version(executable)
 
     def invoke(
@@ -265,12 +277,16 @@ class ClaudeCodeCLI:
         command.append(prompt)
         _write_json(call_dir / "request.json", {
             "baseline_id": BASELINE_SPEC["id"],
+            "provider": self.provider_name,
+            "base_url": self.base_url,
             "requested_model": self.requested_model,
             "session_id": session_id,
             "resume": False,
             "no_session_persistence": True,
             "safe_mode": True,
             "strict_mcp_config": True,
+            "fresh_claude_config_dir": True,
+            "user_settings_loaded": False,
             "prompt": prompt,
             "command_options": command[1:-1],
             "workspace_public_files": sorted(PUBLIC_FILES),
@@ -280,12 +296,33 @@ class ClaudeCodeCLI:
         })
 
         started = time.monotonic()
-        try:
-            completed = run_captured(command, cwd=workspace, timeout=self.timeout_seconds)
-        except subprocess.TimeoutExpired as exc:
-            (call_dir / "claude.stdout.jsonl").write_text(str(exc.output or ""), encoding="utf-8")
-            (call_dir / "claude.stderr").write_text(str(exc.stderr or ""), encoding="utf-8")
-            raise RuntimeError(f"Claude Code timed out after {self.timeout_seconds}s") from exc
+        with tempfile.TemporaryDirectory(prefix="baseline4_claude_config_") as config_dir:
+            environment = os.environ.copy()
+            for name in (
+                "ANTHROPIC_API_KEY",
+                "ANTHROPIC_AUTH_TOKEN",
+                "ANTHROPIC_BASE_URL",
+                "ANTHROPIC_MODEL",
+                "ANTHROPIC_SMALL_FAST_MODEL",
+                "CLAUDE_CONFIG_DIR",
+            ):
+                environment.pop(name, None)
+            environment.update({
+                "ANTHROPIC_BASE_URL": self.base_url,
+                "ANTHROPIC_AUTH_TOKEN": os.environ[self.api_key_env],
+                "CLAUDE_CONFIG_DIR": config_dir,
+            })
+            try:
+                completed = run_captured(
+                    command,
+                    cwd=workspace,
+                    env=environment,
+                    timeout=self.timeout_seconds,
+                )
+            except subprocess.TimeoutExpired as exc:
+                (call_dir / "claude.stdout.jsonl").write_text(str(exc.output or ""), encoding="utf-8")
+                (call_dir / "claude.stderr").write_text(str(exc.stderr or ""), encoding="utf-8")
+                raise RuntimeError(f"Claude Code timed out after {self.timeout_seconds}s") from exc
         duration_ms = int((time.monotonic() - started) * 1000)
         (call_dir / "claude.stdout.jsonl").write_text(completed.stdout, encoding="utf-8")
         (call_dir / "claude.stderr").write_text(completed.stderr, encoding="utf-8")
@@ -356,7 +393,11 @@ class ClaudeCodeBaselineHarness:
         self.max_candidates = int(self.experiment["max_candidates"])
         self.required_visible = tuple(self.experiment["required_visible_gates"])
         self.sealed_name = str(self.experiment["sealed_gate"])
-        self.agent = agent if agent is not None else ClaudeCodeCLI(self.config["claude_code"])
+        self.agent = (
+            agent
+            if agent is not None
+            else ClaudeCodeCLI(self.config["claude_code"], self.config["provider"])
+        )
         validator_config_path = (self.config_path.parent / self.config["validator_config"]).resolve()
         self.validator_config_path = validator_config_path
         shared_config = json.loads(validator_config_path.read_text(encoding="utf-8"))
@@ -448,6 +489,7 @@ class ClaudeCodeBaselineHarness:
             "auxiliary_model_calls": 0,
             "winning_attempt": self.attempts[-1].number if status == "verified_success" else None,
             "requested_model": self.agent.requested_model,
+            "model_provider": getattr(self.agent, "provider_name", "test-double"),
             "model_constraint": "Claude Sonnet 5 only; no fallback model",
             "resolved_models": sorted(self.resolved_models),
             "claude_code_version": self.cli_version,
@@ -479,6 +521,7 @@ class ClaudeCodeBaselineHarness:
             "baseline_id": BASELINE_SPEC["id"],
             "candidate_budget": self.max_candidates,
             "requested_model": self.agent.requested_model,
+            "model_provider": getattr(self.agent, "provider_name", "test-double"),
             "model_constraint": "Sonnet 5 only; runtime model audit required",
             "claude_code_version": self.cli_version,
             "safe_mode": True,
@@ -590,7 +633,7 @@ def _load_qualified_tasks(path: Path) -> set[str]:
 
 
 def _validate_baseline4_config(config: dict[str, Any], config_path: Path) -> Path:
-    required = {"claude_code", "experiment", "validator_config"}
+    required = {"provider", "claude_code", "experiment", "validator_config"}
     if not required <= set(config):
         raise ValueError(f"baseline4 config is missing: {sorted(required - set(config))}")
     validator_path = (config_path.parent / str(config["validator_config"])).resolve()
@@ -602,7 +645,7 @@ def _validate_baseline4_config(config: dict[str, Any], config_path: Path) -> Pat
         "validators": shared["validators"],
     }
     _validate_config(comparison)
-    ClaudeCodeCLI(config["claude_code"]).preflight()
+    ClaudeCodeCLI(config["claude_code"], config["provider"]).preflight()
     return validator_path
 
 
@@ -657,6 +700,8 @@ def main(argv: list[str] | None = None) -> int:
         "adapter_sha256": _sha256(Path(__file__).resolve()),
         "claude_code_version": _cli_version(executable),
         "requested_model": config["claude_code"]["model_selector"],
+        "model_provider": config["provider"]["name"],
+        "provider_base_url": config["provider"]["base_url"],
         "expected_resolved_model_regex": config["claude_code"]["expected_resolved_model_regex"],
         "task_ids": [path.name for path in task_dirs],
     }
@@ -710,6 +755,13 @@ def main(argv: list[str] | None = None) -> int:
             and all(item.get("no_session_persistence") is True for item in request_payloads)
             and all(item.get("safe_mode") is True for item in request_payloads)
             and all(item.get("strict_mcp_config") is True for item in request_payloads)
+            and all(item.get("fresh_claude_config_dir") is True for item in request_payloads)
+            and all(item.get("user_settings_loaded") is False for item in request_payloads)
+            and all(item.get("provider") == "teamorouter" for item in request_payloads)
+            and all(
+                item.get("base_url") == "https://api.teamorouter.com"
+                for item in request_payloads
+            )
             and all(item.get("workspace_public_files") == sorted(PUBLIC_FILES) for item in request_payloads)
             and all(
                 item.get("workspace_inputs_sha256", {}).get("candidate.st") == interface_sha256

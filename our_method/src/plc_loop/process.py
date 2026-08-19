@@ -7,7 +7,7 @@ import signal
 import subprocess
 import time
 from pathlib import Path
-from typing import Sequence
+from typing import Mapping, Sequence
 
 
 def _terminate_process_tree(process: subprocess.Popen[str], grace_seconds: float) -> None:
@@ -58,6 +58,7 @@ def run_captured(
     command: Sequence[str],
     *,
     cwd: str | Path | None = None,
+    env: Mapping[str, str] | None = None,
     timeout: float | None = None,
     grace_seconds: float = 2.0,
 ) -> subprocess.CompletedProcess[str]:
@@ -66,6 +67,7 @@ def run_captured(
     process = subprocess.Popen(
         tuple(command),
         cwd=cwd,
+        env=env,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,

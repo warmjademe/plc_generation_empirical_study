@@ -1,4 +1,9 @@
 {
+  "provider": {
+    "name": "teamorouter",
+    "base_url": "https://api.teamorouter.com",
+    "api_key_env": "TEAMOROUTER_API_KEY"
+  },
   "claude_code": {
     "executable": "claude",
     "model_selector": "claude-sonnet-5",
@@ -10,7 +15,7 @@
     "tools": ["Read", "Write", "Edit"]
   },
   "experiment": {
-    "method_revision": "claude-code-sonnet5-independent-pass-at-10-v2",
+    "method_revision": "claude-code-sonnet5-independent-pass-at-10-v3-isolated-teamorouter",
     "max_candidates": 10,
     "candidate_policy": "independent_pass_at_10",
     "validator_feedback_to_model": false,

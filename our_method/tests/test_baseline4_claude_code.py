@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 
@@ -213,11 +215,18 @@ class ClaudeCodeBaselineTests(unittest.TestCase):
     def test_cli_adapter_uses_stream_audit_without_a_paid_call(self):
         fake_source = """#!/usr/bin/env python3
 import json
+import os
 import pathlib
 import sys
 if '--version' in sys.argv:
     print('fake-claude-code 1.0')
     raise SystemExit(0)
+if os.environ.get('ANTHROPIC_BASE_URL') != 'https://api.teamorouter.com':
+    raise SystemExit('unexpected provider URL')
+if os.environ.get('ANTHROPIC_AUTH_TOKEN') != 'test-teamorouter-token':
+    raise SystemExit('missing isolated provider token')
+if pathlib.Path(os.environ.get('CLAUDE_CONFIG_DIR', '')).resolve() == (pathlib.Path.home() / '.claude').resolve():
+    raise SystemExit('user Claude configuration was not isolated')
 args = sys.argv[1:]
 session_flag = '--resume' if '--resume' in args else '--session-id'
 session_id = args[args.index(session_flag) + 1]
@@ -245,23 +254,35 @@ for event in events:
             workspace.mkdir()
             for name in ("requirement.md", "interface.st", "candidate.st"):
                 (workspace / name).write_text("public", encoding="utf-8")
-            cli = ClaudeCodeCLI({
-                "executable": str(executable),
-                "model_selector": "claude-sonnet-5",
-                "expected_resolved_model_regex": r"^claude-sonnet-5$",
-                "timeout_seconds": 5,
-                "max_turns_per_candidate": 2,
-                "effort": "high",
-                "safe_mode": True,
-                "tools": ["Read", "Write", "Edit"],
-            })
-            self.assertEqual(cli.preflight(), "fake-claude-code 1.0")
-            result = cli.invoke(
-                workspace,
-                "write the candidate",
-                root / "call",
-                "00000000-0000-4000-8000-000000000001",
-            )
+            with mock.patch.dict(
+                os.environ,
+                {"TEAMOROUTER_API_KEY": "test-teamorouter-token"},
+                clear=False,
+            ):
+                cli = ClaudeCodeCLI(
+                    {
+                        "executable": str(executable),
+                        "model_selector": "claude-sonnet-5",
+                        "expected_resolved_model_regex": r"^claude-sonnet-5$",
+                        "timeout_seconds": 5,
+                        "max_turns_per_candidate": 2,
+                        "effort": "high",
+                        "safe_mode": True,
+                        "tools": ["Read", "Write", "Edit"],
+                    },
+                    {
+                        "name": "teamorouter",
+                        "base_url": "https://api.teamorouter.com",
+                        "api_key_env": "TEAMOROUTER_API_KEY",
+                    },
+                )
+                self.assertEqual(cli.preflight(), "fake-claude-code 1.0")
+                result = cli.invoke(
+                    workspace,
+                    "write the candidate",
+                    root / "call",
+                    "00000000-0000-4000-8000-000000000001",
+                )
             self.assertEqual(result.resolved_models, ("claude-sonnet-5",))
             self.assertTrue(result.access_audit_valid)
             self.assertEqual((workspace / "candidate.st").read_text(encoding="utf-8"), "GOOD")
@@ -270,6 +291,10 @@ for event in events:
             self.assertTrue(request["no_session_persistence"])
             self.assertTrue(request["safe_mode"])
             self.assertTrue(request["strict_mcp_config"])
+            self.assertTrue(request["fresh_claude_config_dir"])
+            self.assertFalse(request["user_settings_loaded"])
+            self.assertEqual(request["provider"], "teamorouter")
+            self.assertEqual(request["base_url"], "https://api.teamorouter.com")
             self.assertTrue(any("mcp__*" in option for option in request["command_options"]))
 
 
