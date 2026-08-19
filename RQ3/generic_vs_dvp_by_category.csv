@@ -1,0 +1,12 @@
+category_id,category,task_count,generic_iec_success,dvp_end_to_end_success,both_success,generic_only_success,dvp_only_success,neither_success,dvp_budget_exhausted,dvp_sealed_failure,dvp_infrastructure_error
+C01,Boolean and conditional logic,10,10,10,10,0,0,0,0,0,0
+C02,Start/stop and retained state,10,8,9,7,1,2,0,0,1,0
+C03,Interlocks and safe outputs,10,10,6,6,4,0,0,3,0,1
+C04,Edge and event handling,10,10,9,9,1,0,0,0,1,0
+C05,Timers and timeouts,10,9,7,7,2,0,1,2,0,1
+C06,Counters and batch logic,10,10,10,10,0,0,0,0,0,0
+C07,Analog processing,10,10,3,3,7,0,0,0,0,7
+C08,Sequential state machines,10,9,8,8,1,0,1,0,2,0
+C09,Alarms and fault recovery,10,10,6,6,4,0,0,0,0,4
+C10,Multi-device coordination,10,9,2,2,7,0,1,5,2,1
+TOTAL,All categories,100,95,70,68,27,2,3,10,6,14
