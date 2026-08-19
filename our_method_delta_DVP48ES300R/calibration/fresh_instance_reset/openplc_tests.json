@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "scan_period_ms": 100,
+  "independent_requirement_oracle": true,
+  "oracle_source": "fresh_instance_redownload_calibration",
+  "cases": [
+    {
+      "id": "FT_RESET_01",
+      "name": "feedback_set_retained_state",
+      "requirement_ids": ["CAL-SET"],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {"SetLatch": true},
+          "expect": {"Latched": true},
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "FT_RESET_02",
+      "name": "feedback_require_fresh_state_after_redownload",
+      "requirement_ids": ["CAL-RESET"],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {"SetLatch": false},
+          "expect": {"Latched": false},
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

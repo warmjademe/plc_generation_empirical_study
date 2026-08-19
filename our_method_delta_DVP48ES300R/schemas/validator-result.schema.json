@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "External validator result",
+  "type": "object",
+  "required": ["status", "summary", "evidence"],
+  "properties": {
+    "status": {"enum": ["pass", "fail", "inconclusive"]},
+    "summary": {"type": "string"},
+    "passed_requirement_ids": {"type": "array", "items": {"type": "string"}},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "summary"],
+        "properties": {
+          "kind": {"type": "string"},
+          "summary": {"type": "string"},
+          "requirement_ids": {"type": "array", "items": {"type": "string"}},
+          "trace": {"type": ["object", "array", "null"]},
+          "oracle_status": {
+            "enum": ["confirmed_candidate_defect", "not_replayable", "oracle_disagreement", "unconfirmed"]
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "C03_B05_composite",
+  "scan_period_ms": 100,
+  "real_absolute_tolerance": 0.001,
+  "oracle_source": "post_hoc_requirement_review_R5_pre_arbitration_eligibility",
+  "independent_requirement_oracle": true,
+  "cases": [
+    {
+      "id": "FT_DA01",
+      "name": "posthoc_feedback_conflict_survives_grant_isolation",
+      "description": "Conflict is computed from eligible requests before arbitration even when the safety guard prevents every grant.",
+      "requirement_ids": ["R1", "R2", "R4", "R5"],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": false,
+            "A_ManualRequest": true,
+            "A_GuardClosed": false,
+            "A_EStopOK": true,
+            "A_ManualKey": true,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": false,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": true,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": false,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "FT_DA02",
+      "name": "posthoc_feedback_unauthorized_manual_is_not_eligible",
+      "description": "An unkeyed manual request is not eligible and therefore does not conflict with the robot request.",
+      "requirement_ids": ["R2", "R5"],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_RobotRequest": true,
+            "A_ConveyorRequest": false,
+            "A_ManualRequest": true,
+            "A_GuardClosed": true,
+            "A_EStopOK": true,
+            "A_ManualKey": false,
+            "B_RunRequest": false,
+            "B_Stop": false,
+            "B_C1Clear": false,
+            "B_C2Clear": false,
+            "B_C3Clear": false,
+            "B_C2Available": false,
+            "B_C3Available": false,
+            "SubsystemBEnable": false,
+            "CrossReset": false
+          },
+          "expect": {
+            "A_RobotEnable": true,
+            "A_ConveyorEnable": false,
+            "A_ManualEnable": false,
+            "A_Conflict": false,
+            "B_C1Run": false,
+            "B_C2Run": false,
+            "B_C3Run": false,
+            "B_Blocked": false,
+            "CrossReady": true,
+            "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

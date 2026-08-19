@@ -1,0 +1,8 @@
+{
+  "id": "DVP_FRESH_INSTANCE_RESET",
+  "scan": {"period_ms": 100},
+  "interface": {
+    "inputs": [{"name": "SetLatch", "type": "BOOL"}],
+    "outputs": [{"name": "Latched", "type": "BOOL"}]
+  }
+}

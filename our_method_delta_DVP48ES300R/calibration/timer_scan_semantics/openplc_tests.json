@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "task_id": "DVP_TimerScanCalibration",
+  "scan_period_ms": 100,
+  "independent_requirement_oracle": true,
+  "oracle_source": "controlled_counter_vs_native_ton_scan-boundary calibration",
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "timer_feedback_scan_boundary",
+      "description": "A 300 ms TON and its four-call scan-boundary model shall cross the boundary together under the dataset's end-of-scan convention.",
+      "requirement_ids": [
+        "CAL-TIMER-1"
+      ],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Enable": true
+          },
+          "expect": {
+            "CounterDone": false,
+            "TimerDone": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": true
+          },
+          "expect": {
+            "CounterDone": false,
+            "TimerDone": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": true
+          },
+          "expect": {
+            "CounterDone": false,
+            "TimerDone": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "Enable": true
+          },
+          "expect": {
+            "CounterDone": true,
+            "TimerDone": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

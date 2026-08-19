@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "scan_period_ms": 100,
+  "independent_requirement_oracle": true,
+  "oracle_source": "post_hoc_reference_divergence_reproduction",
+  "cases": [
+    {
+      "id": "FT_DA01",
+      "name": "feedback_reference_divergence",
+      "description": "Reproduces the first reference-differential mismatch without changing formal scoring.",
+      "requirement_ids": ["R5", "R6", "R9"],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "A_Info": false, "A_Warning": false, "A_Trip": false,
+            "A_Emergency": false, "A_Suppress": false,
+            "B_Ch1": false, "B_Ch2": false, "B_Ch3": false,
+            "B_AutoMode": false, "B_AutoRequest": false, "B_ManualRequest": false,
+            "B_BypassRequest": false, "B_BypassPermit": false,
+            "B_SafetyOK": false, "B_Reset": false,
+            "SubsystemBEnable": false, "CrossReset": false
+          },
+          "expect": {
+            "A_Active": false, "A_Level": 0,
+            "B_RunPermit": false, "B_Degraded": false,
+            "B_BypassActive": false, "B_Blocked": false,
+            "CrossReady": false, "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Info": true, "A_Warning": true, "A_Trip": true,
+            "A_Emergency": true, "A_Suppress": true,
+            "B_Ch1": true, "B_Ch2": true, "B_Ch3": true,
+            "B_AutoMode": true, "B_AutoRequest": true, "B_ManualRequest": true,
+            "B_BypassRequest": true, "B_BypassPermit": true,
+            "B_SafetyOK": true, "B_Reset": true,
+            "SubsystemBEnable": true, "CrossReset": true
+          },
+          "expect": {
+            "A_Active": true, "A_Level": 4,
+            "B_RunPermit": false, "B_Degraded": false,
+            "B_BypassActive": false, "B_Blocked": false,
+            "CrossReady": false, "CrossBlocked": true
+          },
+          "repeat": 1,
+          "check": "each"
+        },
+        {
+          "inputs": {
+            "A_Info": false, "A_Warning": true, "A_Trip": false,
+            "A_Emergency": true, "A_Suppress": false,
+            "B_Ch1": true, "B_Ch2": false, "B_Ch3": true,
+            "B_AutoMode": false, "B_AutoRequest": true, "B_ManualRequest": false,
+            "B_BypassRequest": true, "B_BypassPermit": false,
+            "B_SafetyOK": true, "B_Reset": false,
+            "SubsystemBEnable": true, "CrossReset": false
+          },
+          "expect": {
+            "A_Active": true, "A_Level": 4,
+            "B_RunPermit": false, "B_Degraded": false,
+            "B_BypassActive": false, "B_Blocked": false,
+            "CrossReady": true, "CrossBlocked": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "provider": {
+    "name": "teamorouter",
+    "base_url": "https://api.teamorouter.com",
+    "api_key_env": "TEAMOROUTER_API_KEY"
+  },
+  "claude_code": {
+    "executable": "claude",
+    "model_selector": "claude-sonnet-5",
+    "expected_resolved_model_regex": "(?i)^claude[-_.]?sonnet[-_.]?5(?:[-_.][0-9A-Za-z]+)*$",
+    "timeout_seconds": 900,
+    "max_turns_per_candidate": 8,
+    "effort": "high",
+    "safe_mode": true,
+    "tools": ["Read", "Write", "Edit"]
+  },
+  "experiment": {
+    "method_revision": "claude-code-sonnet5-independent-pass-at-10-v3-isolated-teamorouter",
+    "max_candidates": 10,
+    "candidate_policy": "independent_pass_at_10",
+    "validator_feedback_to_model": false,
+    "required_visible_gates": ["compiler", "plcverif"],
+    "sealed_gate": "openplc",
+    "stop_on_visible_pass": true,
+    "development_only": false,
+    "verification_profile": "MatIEC -> PLCverif(all properties) -> OpenPLC(sealed)"
+  },
+  "validator_config": "common_external_judges.json"
+}

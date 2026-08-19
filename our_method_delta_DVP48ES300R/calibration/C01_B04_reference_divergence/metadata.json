@@ -1,0 +1,35 @@
+{
+  "id": "C01_B04_composite",
+  "scan": {"period_ms": 100},
+  "interface": {
+    "inputs": [
+      {"name": "A_Info", "type": "BOOL"},
+      {"name": "A_Warning", "type": "BOOL"},
+      {"name": "A_Trip", "type": "BOOL"},
+      {"name": "A_Emergency", "type": "BOOL"},
+      {"name": "A_Suppress", "type": "BOOL"},
+      {"name": "B_Ch1", "type": "BOOL"},
+      {"name": "B_Ch2", "type": "BOOL"},
+      {"name": "B_Ch3", "type": "BOOL"},
+      {"name": "B_AutoMode", "type": "BOOL"},
+      {"name": "B_AutoRequest", "type": "BOOL"},
+      {"name": "B_ManualRequest", "type": "BOOL"},
+      {"name": "B_BypassRequest", "type": "BOOL"},
+      {"name": "B_BypassPermit", "type": "BOOL"},
+      {"name": "B_SafetyOK", "type": "BOOL"},
+      {"name": "B_Reset", "type": "BOOL"},
+      {"name": "SubsystemBEnable", "type": "BOOL"},
+      {"name": "CrossReset", "type": "BOOL"}
+    ],
+    "outputs": [
+      {"name": "A_Active", "type": "BOOL"},
+      {"name": "A_Level", "type": "INT"},
+      {"name": "B_RunPermit", "type": "BOOL"},
+      {"name": "B_Degraded", "type": "BOOL"},
+      {"name": "B_BypassActive", "type": "BOOL"},
+      {"name": "B_Blocked", "type": "BOOL"},
+      {"name": "CrossReady", "type": "BOOL"},
+      {"name": "CrossBlocked", "type": "BOOL"}
+    ]
+  }
+}

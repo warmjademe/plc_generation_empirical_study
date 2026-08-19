@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-08-18T11:32:32.1557690+08:00",
+  "target": "DVP48ES300R",
+  "software": {
+    "ispsoft": "3.24",
+    "commgr": "2.11",
+    "driver": "DVP48ES300R_SIM"
+  },
+  "program": "M1 := M0;",
+  "mapping": {
+    "sdk_semantics": "logical_m_index",
+    "M0": 0,
+    "M1": 1,
+    "protocol_offset_not_used_by_sdk": "0x800"
+  },
+  "trials": [
+    {"M0": false, "write_ok": true, "M1": false, "read_ok": true},
+    {"M0": true, "write_ok": true, "M1": true, "read_ok": true},
+    {"M0": false, "write_ok": true, "M1": false, "read_ok": true}
+  ],
+  "status": "pass"
+}

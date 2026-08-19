@@ -1,0 +1,27 @@
+{
+  "id": "DVP_TimerScanCalibration",
+  "category": "calibration",
+  "scan": {
+    "period_ms": 100,
+    "input_sampling": "scan_start",
+    "output_observation": "scan_end"
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Enable",
+        "type": "BOOL"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "CounterDone",
+        "type": "BOOL"
+      },
+      {
+        "name": "TimerDone",
+        "type": "BOOL"
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "suite": "openplc",
+  "independent_requirement_oracle": true,
+  "oracle_source": "DVP type-availability calibration; output bypasses timer semantics",
+  "scan_period_ms": 100,
+  "cases": [
+    {
+      "id": "FT01",
+      "name": "feedback_false",
+      "requirement_ids": ["CAL-TP"],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Enable": false
+          },
+          "expect": {
+            "Active": false
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    },
+    {
+      "id": "FT02",
+      "name": "feedback_true",
+      "requirement_ids": ["CAL-TP"],
+      "fresh_instance": true,
+      "steps": [
+        {
+          "inputs": {
+            "Enable": true
+          },
+          "expect": {
+            "Active": true
+          },
+          "repeat": 1,
+          "check": "each"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+<GroupPOUFolder>
+<FBFolder>
+<FolderContent>
+ContentType=1
+ContentName=DUT2 [FB,ST]
+ContentPath=FB/DUT2 [FB,ST]
+</FolderContent>
+</FBFolder>
+</GroupPOUFolder>
+<POU>
+P_Name=DUT2
+P_En_Eno=TRUE
+P_Last_Chg=
+P_type=1
+P_Rtn_Type=
+P_Lang=4
+P_Step=0
+P_Version=1.00
+P_DeltaFB=FALSE
+P_Security=
+P_Active=TRUE
+P_Priority=9999
+P_DFBName=
+(*
+
+*)
+<LOCAL_VAR>
+<VAR>
+{
+InBool : BOOL :=  [@@] {VAR_INPUT}
+(*
+
+*)
+}
+{
+OutBool : BOOL :=  [@@] {VAR_OUTPUT}
+(*
+
+*)
+}
+</VAR>
+</LOCAL_VAR>
+<VAR_EXTERN>
+</VAR_EXTERN>
+<VAR_EXTERN_C>
+</VAR_EXTERN_C>
+<IL_ST_CODE>
+OutBool := NOT InBool;
+</IL_ST_CODE>
+</POU>

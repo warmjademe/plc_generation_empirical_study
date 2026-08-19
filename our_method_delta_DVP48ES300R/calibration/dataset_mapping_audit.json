@@ -1,0 +1,3018 @@
+{
+  "schema_version": "1.0",
+  "target": "DVP48ES300R",
+  "task_count": 100,
+  "qualified_task_count": 100,
+  "feedback_case_count": 200,
+  "sealed_case_count": 304,
+  "maximum_allocated_m": 1108,
+  "all_allocations_within_m8191": true,
+  "audit_pass": true,
+  "errors": [],
+  "tasks": [
+    {
+      "task_id": "C01_B02_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 10,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1019,
+          "last_m": 1083,
+          "input_count": 10,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C01_B03_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 12,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1021,
+          "last_m": 1085,
+          "input_count": 12,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C01_B04_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 17,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 17,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C01_B05_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 12,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 12,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C01_B06_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 10,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 10,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C01_B07_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 12,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 12,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C01_B08_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 17,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 17,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C01_B11_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 10,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 10,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C01_B12_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 15,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 15,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C01_B20_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 17,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 17,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C02_B03_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1019,
+          "last_m": 1083,
+          "input_count": 12,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1019,
+          "last_m": 1083,
+          "input_count": 12,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C02_B04_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 14,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 14,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C02_B05_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1019,
+          "last_m": 1083,
+          "input_count": 12,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1019,
+          "last_m": 1083,
+          "input_count": 12,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C02_B07_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1019,
+          "last_m": 1083,
+          "input_count": 12,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1019,
+          "last_m": 1083,
+          "input_count": 12,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C02_B09_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 10,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 10,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C02_B10_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 10,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 10,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C02_B11_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 10,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 10,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C02_B18_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 14,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 14,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C02_B19_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 12,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 12,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C02_B20_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 14,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 14,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C03_B03_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 13,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 13,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C03_B04_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1029,
+          "last_m": 1093,
+          "input_count": 15,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 15,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C03_B05_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 15,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 15,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C03_B07_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 12,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C03_B08_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 14,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 14,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C03_B09_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 14,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 14,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C03_B10_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 13,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 13,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C03_B12_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 13,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 13,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C03_B15_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1021,
+          "last_m": 1085,
+          "input_count": 11,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 11,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C03_B17_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 15,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 15,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C04_S02_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1021,
+          "last_m": 1085,
+          "input_count": 11,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 11,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C04_S04_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 10,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1019,
+          "last_m": 1083,
+          "input_count": 10,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C04_S07_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1021,
+          "last_m": 1085,
+          "input_count": 11,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1021,
+          "last_m": 1085,
+          "input_count": 11,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C04_S08_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 9,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 9,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C04_S09_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 10,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 10,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C04_S12_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 9,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 9,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C04_S17_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 11,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 11,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C04_S22_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 16,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 16,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C04_S23_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 14,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 14,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C04_S24_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 15,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 15,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C05_B02_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1016,
+          "last_m": 1080,
+          "input_count": 8,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1016,
+          "last_m": 1080,
+          "input_count": 8,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C05_B03_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 9,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 9,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C05_B05_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 10,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 10,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C05_B06_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 8,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1017,
+          "last_m": 1081,
+          "input_count": 8,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C05_B07_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 9,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1018,
+          "last_m": 1082,
+          "input_count": 9,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C05_B11_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1014,
+          "last_m": 1078,
+          "input_count": 7,
+          "output_count": 6
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1014,
+          "last_m": 1078,
+          "input_count": 7,
+          "output_count": 6
+        }
+      }
+    },
+    {
+      "task_id": "C05_B16_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 11,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 4,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05",
+            "OT06"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 11,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C05_B17_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 4,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05",
+            "OT06"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 12,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C05_B18_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 12,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 4,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05",
+            "OT06"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 12,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C05_B19_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 10,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 4,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05",
+            "OT06"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 10,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C06_W01_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 12,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1029,
+          "last_m": 1093,
+          "input_count": 12,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C06_W02_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 12,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C06_W04_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 11,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 11,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C06_W06_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 12,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 12,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C06_W07_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 12,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C06_W08_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 11,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 11,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C06_W09_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 11,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 11,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C06_W12_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 10,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 10,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C06_W16_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 12,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C06_W17_lean_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 12,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C07_B02_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 8,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1032,
+          "last_m": 1096,
+          "input_count": 8,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C07_B03_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 11,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1035,
+          "last_m": 1099,
+          "input_count": 11,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C07_B05_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1035,
+          "last_m": 1099,
+          "input_count": 12,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1034,
+          "last_m": 1098,
+          "input_count": 12,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C07_B07_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1030,
+          "last_m": 1094,
+          "input_count": 11,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 11,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C07_B10_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 8,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 8,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C07_B15_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1020,
+          "last_m": 1084,
+          "input_count": 7,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 7,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C07_B16_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1034,
+          "last_m": 1098,
+          "input_count": 14,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1039,
+          "last_m": 1103,
+          "input_count": 14,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C07_B17_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1037,
+          "last_m": 1101,
+          "input_count": 15,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1044,
+          "last_m": 1108,
+          "input_count": 15,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C07_B18_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1036,
+          "last_m": 1100,
+          "input_count": 15,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1038,
+          "last_m": 1102,
+          "input_count": 15,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C07_B19_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 11,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1034,
+          "last_m": 1098,
+          "input_count": 11,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C08_B01_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1029,
+          "last_m": 1093,
+          "input_count": 13,
+          "output_count": 12
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 13,
+          "output_count": 12
+        }
+      }
+    },
+    {
+      "task_id": "C08_B02_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 12,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 12,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C08_B03_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1030,
+          "last_m": 1094,
+          "input_count": 13,
+          "output_count": 12
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 13,
+          "output_count": 12
+        }
+      }
+    },
+    {
+      "task_id": "C08_B04_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1033,
+          "last_m": 1097,
+          "input_count": 15,
+          "output_count": 14
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1032,
+          "last_m": 1096,
+          "input_count": 15,
+          "output_count": 14
+        }
+      }
+    },
+    {
+      "task_id": "C08_B06_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 11,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 11,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C08_B07_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1030,
+          "last_m": 1094,
+          "input_count": 12,
+          "output_count": 12
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 12,
+          "output_count": 12
+        }
+      }
+    },
+    {
+      "task_id": "C08_B08_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1033,
+          "last_m": 1097,
+          "input_count": 14,
+          "output_count": 14
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1031,
+          "last_m": 1095,
+          "input_count": 14,
+          "output_count": 14
+        }
+      }
+    },
+    {
+      "task_id": "C08_B11_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 11,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 11,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C08_B12_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1031,
+          "last_m": 1095,
+          "input_count": 13,
+          "output_count": 13
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1030,
+          "last_m": 1094,
+          "input_count": 13,
+          "output_count": 13
+        }
+      }
+    },
+    {
+      "task_id": "C08_B20_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1033,
+          "last_m": 1097,
+          "input_count": 14,
+          "output_count": 14
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1031,
+          "last_m": 1095,
+          "input_count": 14,
+          "output_count": 14
+        }
+      }
+    },
+    {
+      "task_id": "C09_B01_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1021,
+          "last_m": 1085,
+          "input_count": 11,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 11,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C09_B04_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 12,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C09_B05_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 11,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 11,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C09_B08_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 13,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 13,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C09_B13_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1021,
+          "last_m": 1085,
+          "input_count": 11,
+          "output_count": 7
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 11,
+          "output_count": 7
+        }
+      }
+    },
+    {
+      "task_id": "C09_B14_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 12,
+          "output_count": 8
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 8
+        }
+      }
+    },
+    {
+      "task_id": "C09_B16_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 13,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 13,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C09_B17_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 12,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 12,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C09_B18_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 13,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 13,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C09_B20_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 13,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1028,
+          "last_m": 1092,
+          "input_count": 13,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C10_B05_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1027,
+          "last_m": 1091,
+          "input_count": 14,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 14,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C10_B07_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 12,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 12,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C10_B08_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1036,
+          "last_m": 1100,
+          "input_count": 18,
+          "output_count": 13
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1036,
+          "last_m": 1100,
+          "input_count": 18,
+          "output_count": 13
+        }
+      }
+    },
+    {
+      "task_id": "C10_B09_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 13,
+          "output_count": 10
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 13,
+          "output_count": 10
+        }
+      }
+    },
+    {
+      "task_id": "C10_B10_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1026,
+          "last_m": 1090,
+          "input_count": 11,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1025,
+          "last_m": 1089,
+          "input_count": 11,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C10_B12_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1034,
+          "last_m": 1098,
+          "input_count": 17,
+          "output_count": 12
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1035,
+          "last_m": 1099,
+          "input_count": 17,
+          "output_count": 12
+        }
+      }
+    },
+    {
+      "task_id": "C10_B13_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 14,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1024,
+          "last_m": 1088,
+          "input_count": 14,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C10_B15_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1023,
+          "last_m": 1087,
+          "input_count": 11,
+          "output_count": 9
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1022,
+          "last_m": 1086,
+          "input_count": 11,
+          "output_count": 9
+        }
+      }
+    },
+    {
+      "task_id": "C10_B16_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1033,
+          "last_m": 1097,
+          "input_count": 18,
+          "output_count": 11
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1034,
+          "last_m": 1098,
+          "input_count": 18,
+          "output_count": 11
+        }
+      }
+    },
+    {
+      "task_id": "C10_B18_composite",
+      "roles": {
+        "feedback": {
+          "case_count": 2,
+          "case_ids": [
+            "OT01",
+            "OT02"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1035,
+          "last_m": 1099,
+          "input_count": 18,
+          "output_count": 13
+        },
+        "sealed": {
+          "case_count": 3,
+          "case_ids": [
+            "OT03",
+            "OT04",
+            "OT05"
+          ],
+          "first_m": 1000,
+          "writable_last_m": 1036,
+          "last_m": 1100,
+          "input_count": 18,
+          "output_count": 13
+        }
+      }
+    }
+  ]
+}

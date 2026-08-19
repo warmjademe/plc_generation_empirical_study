@@ -1,0 +1,20 @@
+{
+  "id": "DVP_TYPE_PROBE_TP",
+  "scan": {
+    "period_ms": 100
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "Enable",
+        "type": "BOOL"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Active",
+        "type": "BOOL"
+      }
+    ]
+  }
+}

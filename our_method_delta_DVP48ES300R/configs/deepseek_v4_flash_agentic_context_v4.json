@@ -1,0 +1,115 @@
+{
+  "provider": {
+    "name": "deepseek-official",
+    "base_url": "https://api.deepseek.com",
+    "api_key_env": "DEEPSEEK_API_KEY",
+    "requested_model": "deepseek-v4-flash",
+    "allowed_resolved_models": ["deepseek-v4-flash"],
+    "timeout_seconds": 600,
+    "max_output_tokens": 8192,
+    "thinking_mode": "disabled",
+    "history_mode": "stateless",
+    "transport_retries": 6
+  },
+  "experiment": {
+    "method_revision": "agentic-context-v4.0-actionable-evidence",
+    "max_candidates": 10,
+    "max_feedback_chars": 8000,
+    "certificate_version": "v3",
+    "context_strategy": "state_packet",
+    "anchor_policy": "non_regression",
+    "repair_policy": "adaptive",
+    "pre_emit_review": true,
+    "domain_context": {
+      "enabled": true,
+      "max_cards": 5,
+      "max_chars": 6200
+    },
+    "required_visible_gates": ["compiler", "plcverif", "openplc_feedback"],
+    "sealed_gate": "openplc",
+    "stop_on_visible_pass": true,
+    "development_only": true,
+    "verification_profile": "MatIEC -> PLCverif(all properties) -> OpenPLC(feedback) -> OpenPLC(sealed)"
+  },
+  "validators": [
+    {
+      "name": "compiler",
+      "kind": "command",
+      "blocking": true,
+      "protocol": "json",
+      "version": "matiec-0.1",
+      "command": [
+        "python3", "{config_dir}/../scripts/matiec_validator.py",
+        "--candidate", "{candidate}",
+        "--iec2iec", "{config_dir}/../../../../Source_codes_Agents4PLC/tools/matiec/iec2iec"
+      ]
+    },
+    {
+      "name": "plcverif",
+      "kind": "command",
+      "blocking": true,
+      "inconclusive_is_blocking": true,
+      "inconclusive_retries": 1,
+      "inconclusive_retry_delay_seconds": 2,
+      "protocol": "json",
+      "timeout_seconds": 900,
+      "version": "PLCverif-1.0.0.202410210930+nuXmv-2.0.0+native-pattern-invariant-v1+all-properties-v2+actionable-counterexample-v1",
+      "command": [
+        "python3", "{config_dir}/../scripts/formal_plcverif.py",
+        "--candidate", "{candidate}",
+        "--task-dir", "{task_dir}",
+        "--plcverif", "{config_dir}/../../../../Source_codes_Agents4PLC/tools/plcverif/plcverif-cli",
+        "--nuxmv", "{config_dir}/../../../../Source_codes_Agents4PLC/tools/nuXmv-2.0.0-Linux/bin/nuXmv",
+        "--cbmc", "{config_dir}/../../../../Source_codes_Agents4PLC/tools/cbmc-6.10.0/usr/bin/cbmc",
+        "--timer-library", "{config_dir}/../formal_lib/iec_timers_100ms.scl",
+        "--numeric-library", "{config_dir}/../formal_lib/iec_numeric_functions.scl",
+        "--property-kind", "all",
+        "--minimum-properties", "1",
+        "--backend-timeout", "120",
+        "--cbmc-unwind", "10",
+        "--counterexample-feedback", "actionable",
+        "--case-workers", "1"
+      ]
+    },
+    {
+      "name": "openplc_feedback",
+      "kind": "command",
+      "blocking": true,
+      "inconclusive_is_blocking": true,
+      "inconclusive_retries": 1,
+      "inconclusive_retry_delay_seconds": 1,
+      "protocol": "json",
+      "timeout_seconds": 300,
+      "command": [
+        "python3", "{config_dir}/../scripts/openplc_sealed_validator.py",
+        "--candidate", "{candidate}",
+        "--task-dir", "{task_dir}",
+        "--docker", "/snap/bin/docker",
+        "--image", "plc-egbs/openplc-v3:b5d41356",
+        "--runner", "{config_dir}/../scripts/openplc_container_runner.py",
+        "--case-role", "feedback"
+      ],
+      "version": "OpenPLC_v3@b5d41356+visible-feedback-split-v1+one-scan-request-ack-v2"
+    },
+    {
+      "name": "openplc",
+      "kind": "command",
+      "blocking": true,
+      "sealed": true,
+      "inconclusive_retries": 1,
+      "inconclusive_retry_delay_seconds": 1,
+      "protocol": "json",
+      "timeout_seconds": 420,
+      "command": [
+        "python3", "{config_dir}/../scripts/openplc_sealed_validator.py",
+        "--candidate", "{candidate}",
+        "--task-dir", "{task_dir}",
+        "--docker", "/snap/bin/docker",
+        "--image", "plc-egbs/openplc-v3:b5d41356",
+        "--runner", "{config_dir}/../scripts/openplc_container_runner.py",
+        "--case-role", "sealed"
+      ],
+      "version": "OpenPLC_v3@b5d41356+sealed-holdout-split-v1+one-scan-request-ack-v2"
+    }
+  ]
+}
