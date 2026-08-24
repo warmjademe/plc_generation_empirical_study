@@ -1,0 +1,16 @@
+[Unit]
+Description=100-job ISPSoft/COMMGR qualification for Windows worker %i
+After=plc-dvp-bridge@%i.service
+Requires=plc-dvp-bridge@%i.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/service.env
+EnvironmentFile=/opt/plc-generation/config/dvp-validator.env
+EnvironmentFile=/opt/plc-generation/config/dvp-bridge-%i.env
+ExecStart=/opt/plc-generation/app/scripts/run_vendor_soak.py --spool-root ${PLC_DVP_BRIDGE_ROOT}/dvp-spool --cycles 25 --report ${PLC_DVP_BRIDGE_ROOT}/qualification_report.jsonl
+Nice=10
+IOSchedulingClass=idle

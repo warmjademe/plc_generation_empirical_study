@@ -1,0 +1,14 @@
+[Unit]
+Description=Complete 2x2x2x2 PLC end-to-end acceptance matrix
+After=plc-generation.service plc-generation-worker.service
+Requires=plc-generation.service plc-generation-worker.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/service.env
+ExecStart=/opt/plc-generation/app/scripts/run_full_e2e_acceptance.py --output-root /opt/plc-generation/data/release-tests/full-e2e-matrix-current --max-candidates 20 --timeout-seconds 14400
+Nice=10
+IOSchedulingClass=idle

@@ -1,0 +1,18 @@
+[Unit]
+Description=PLC release qualification milestone notifier
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/service.env
+ExecStart=/opt/plc-generation/app/scripts/monitor_release_qualification.py
+Restart=on-failure
+RestartSec=60
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

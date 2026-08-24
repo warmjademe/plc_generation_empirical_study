@@ -9,9 +9,27 @@ import json
 import os
 import subprocess
 import sys
+import urllib.request
 from pathlib import Path
 
 from run_vendor_canary import execution_identity_error
+
+
+def notify(title: str, body: str) -> None:
+    endpoint = os.environ.get("PLC_BARK_URL", "")
+    if not endpoint:
+        return
+    request = urllib.request.Request(
+        endpoint,
+        data=json.dumps({"title": title, "body": body, "group": "PLC交付"}, ensure_ascii=False).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=15):
+            pass
+    except Exception:
+        pass
 
 
 def main() -> int:
@@ -66,8 +84,16 @@ def main() -> int:
                 with report.open("a", encoding="utf-8") as stream:
                     stream.write(json.dumps(record, separators=(",", ":")) + "\n")
                 if result.returncode != 0:
+                    notify(
+                        "Windows 节点资格测试失败",
+                        f"节点：{spool.parent.name}；周期：{cycle}；型号：{target}",
+                    )
                     return 1
         qualified = True
+        notify(
+            "Windows 节点资格测试通过",
+            f"节点：{spool.parent.name}；完成厂商任务：{args.cycles * 4}",
+        )
         return 0
     finally:
         # Admission is fail-closed: a failed or interrupted qualification run

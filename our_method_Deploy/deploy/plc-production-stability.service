@@ -1,0 +1,20 @@
+[Unit]
+Description=Resumable 24/72-hour PLC production stability test
+After=plc-generation.service plc-generation-worker.service
+Requires=plc-generation.service plc-generation-worker.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/service.env
+EnvironmentFile=/opt/plc-generation/config/providers.env
+ExecStart=/opt/plc-generation/app/scripts/run_production_stability.py --output-root /opt/plc-generation/data/release-tests/stability-72h-current --duration-hours 72 --checkpoint-hours 24 --interval-hours 1.5 --max-candidates 6 --resume
+Restart=on-failure
+RestartSec=60
+Nice=10
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=multi-user.target
