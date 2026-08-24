@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "captured_on": "2026-08-22",
+  "target": "DVP48ES300R",
+  "mutation": "replace declared contact Enable with undeclared contact MissingContact",
+  "status": "fail",
+  "gates": {
+    "ispsoft_compile": "fail",
+    "commgr_connect": "not_run",
+    "dvp_es3_runtime": "not_run"
+  },
+  "compile": {
+    "errors": 1,
+    "warnings": 0,
+    "ispsoft_error_code": 240,
+    "diagnostic": "MissingContact is not defined"
+  },
+  "purpose": "confirm that the native-LD vendor gate rejects a known invalid source unit instead of returning a false pass"
+}

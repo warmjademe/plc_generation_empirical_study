@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "semantics": "end-of-scan state sequence; initial state precedes scan 1",
+  "notation": "qualified PLCverif native invariant profile",
+  "plcverif_profile": {
+    "name": "native-pattern-invariant-v1",
+    "policy": "every listed native case is mandatory",
+    "native_property_count": 1,
+    "fully_native_property_count": 1,
+    "total_property_count": 1,
+    "environment": {"parameters": [], "assumption_invariants": []}
+  },
+  "properties": [
+    {
+      "id": "P1",
+      "requirement_ids": ["R1"],
+      "kind": "safety",
+      "mandatory": true,
+      "expression": "G(Motor = (Start AND NOT Stop))",
+      "source": "expert-authored deployment smoke oracle",
+      "plcverif": {
+        "status": "required",
+        "cases": [{"backend": "auto", "pattern_id": "pattern-invariant", "parameters": ["Motor = (Start AND NOT Stop)"], "mapping": "direct end-of-cycle invariant"}],
+        "coverage": "complete"
+      }
+    }
+  ],
+  "semantic_audit": {
+    "status": "passed",
+    "version": "deterministic-contract-semantics-v4",
+    "state_rules_checked": 0,
+    "state_observations_checked": 0,
+    "property_observations_checked": 3,
+    "traceability": {
+      "status": "passed",
+      "requirements_covered": 1,
+      "rows": [{"requirement_id": "R1", "safety_critical": true, "property_ids": ["P1"], "state_variables": [], "feedback_test_ids": ["FT01"], "sealed_test_ids": ["OT01"]}]
+    }
+  },
+  "oracle_provenance": "expert_authored"
+}

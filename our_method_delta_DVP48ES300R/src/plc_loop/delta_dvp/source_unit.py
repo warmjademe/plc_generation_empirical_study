@@ -103,11 +103,6 @@ def parse_function_block(source: str) -> FunctionBlock:
     portable_source = _strip_comments(source)
     if _LOCATED_ADDRESS_RE.search(portable_source):
         raise SourceUnitError("located I/O addresses are forbidden in the isolated candidate")
-    device = _DELTA_DEVICE_RE.search(portable_source)
-    if device is not None:
-        raise SourceUnitError(
-            f"direct Delta device {device.group(0)} is forbidden in the isolated candidate"
-        )
     harness_name = _HARNESS_IDENTIFIER_RE.search(portable_source)
     if harness_name is not None:
         raise SourceUnitError(
@@ -148,6 +143,25 @@ def parse_function_block(source: str) -> FunctionBlock:
                 f"ISPSoft DVP-ES3 does not provide IEC {declared_type} as a local type; "
                 "use a saturating scan counter derived from metadata.scan.period_ms"
             )
+    # A fixed benchmark or user interface may legitimately declare abstract
+    # ports such as S1 or D1.  Permit a device-shaped token only when it is a
+    # public port; generated local variables remain unable to disguise direct
+    # hardware access as a declaration.
+    public_port_names = {
+        item.name.casefold() for item in declarations
+        if item.scope in {"VAR_INPUT", "VAR_OUTPUT", "VAR_IN_OUT"}
+    }
+    device = next(
+        (
+            item for item in _DELTA_DEVICE_RE.finditer(portable_source)
+            if item.group(0).casefold() not in public_port_names
+        ),
+        None,
+    )
+    if device is not None:
+        raise SourceUnitError(
+            f"direct Delta device {device.group(0)} is forbidden in the isolated candidate"
+        )
     return FunctionBlock(name, tuple(declarations), body)
 
 

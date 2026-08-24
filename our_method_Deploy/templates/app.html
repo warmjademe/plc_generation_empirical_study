@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050b16">
+  <title>PLC ST 与梯形图智能生成验证平台</title>
+  <link rel="stylesheet" href="/static/style.css?v=20260823-24">
+</head>
+<body>
+  <div class="background-grid" aria-hidden="true"></div>
+  <main class="shell app-shell">
+    <nav class="topbar" aria-label="系统导航">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><path d="M20 3 35 11.5v17L20 37 5 28.5v-17Z"/><path d="m13 15 7-4 7 4v10l-7 4-7-4Z"/><circle cx="20" cy="20" r="2.8"/></svg>
+        </span>
+        <span><b>KEMEI</b><small>INDUSTRIAL INTELLIGENCE</small></span>
+      </div>
+      <div class="page-nav" role="navigation" aria-label="工作台页面">
+        <button class="page-nav-item active" type="button" data-page-target="topologyPage">
+          <i aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 12h4m2-1 4-4m-4 6 4 4"/></svg></i>
+          <span><b>实时拓扑</b><small>服务与验证池</small></span>
+        </button>
+        <button class="page-nav-item" type="button" data-page-target="newTaskPage">
+          <i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9"/></svg></i>
+          <span><b>新建任务</b><small>配置控制需求</small></span>
+        </button>
+        <button class="page-nav-item" type="button" data-page-target="taskCenterPage">
+          <i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v5H5zm0 9h14v5H5z"/><path d="M8 7.5h7M8 16.5h5"/></svg></i>
+          <span><b>任务中心</b><small>队列、进度与结果</small></span><em id="taskNavCount">0</em>
+        </button>
+      </div>
+      <div class="header-actions">
+        <span id="systemStatus" class="system-status"><i></i><span>正在检查验证服务</span></span>
+        <button id="logout" class="secondary compact">退出登录</button>
+      </div>
+    </nav>
+
+    <header class="product-banner">
+      <p><span>IEC 61131-3 · ST / LADDER</span><b>PLC 程序智能生成与验证</b><i>自然语言需求 → 证据引导生成 → 厂商工具链复核</i></p>
+      <small>MatIEC · PLCverif · OpenPLC · ISPSoft</small>
+    </header>
+
+    <section id="topologyPage" class="service-topology topology-primary app-page" aria-labelledby="serviceTopologyTitle">
+        <div class="topology-header">
+          <div>
+            <p class="eyebrow"><span class="live-dot"></span> Live Service Topology</p>
+            <h3 id="serviceTopologyTitle">实时服务拓扑</h3>
+          </div>
+          <div class="topology-actions">
+            <button id="refreshModelStatus" class="secondary compact" type="button">探测模型</button>
+            <button id="refreshValidationStatus" class="secondary compact" type="button">刷新验证器</button>
+          </div>
+        </div>
+        <div class="topology-stage">
+          <div class="topology-cluster model-cluster" aria-labelledby="modelStatusTitle">
+            <div class="cluster-heading">
+              <span class="cluster-code">AI</span>
+              <div><b id="modelStatusTitle">大语言模型服务</b><small id="modelCheckedAt">正在发起最小推理探测……</small></div>
+            </div>
+            <div id="modelStatusGrid" class="topology-node-list model-status-grid" aria-live="polite">
+              <article class="validator-card topology-node checking">
+                <div><span class="status-light"></span><b>模型通道</b></div>
+                <strong>检查中</strong><small>正在执行最小真实推理</small>
+              </article>
+            </div>
+          </div>
+
+          <div id="modelTopologyLink" class="topology-link checking" aria-hidden="true"><i></i><span>INFERENCE</span></div>
+          <div id="topologyCore" class="topology-core checking" aria-label="PLC 生成与验证调度核心">
+            <span class="core-ring ring-outer"></span><span class="core-ring ring-inner"></span>
+            <div class="core-body"><b>PLC</b><small>ORCHESTRATOR</small><i></i></div>
+          </div>
+          <div id="validatorTopologyLink" class="topology-link checking" aria-hidden="true"><i></i><span>VERIFICATION</span></div>
+
+          <div class="topology-cluster validator-cluster" aria-labelledby="validatorStatusTitle">
+            <div class="cluster-heading">
+              <span class="cluster-code">OT</span>
+              <div><b id="validatorStatusTitle">台达官方验证服务</b><small id="validatorCheckedAt">正在读取状态……</small></div>
+            </div>
+            <div class="topology-node-list">
+              <article id="validationHostStatus" class="validator-card topology-node checking">
+                <div><span class="status-light"></span><b>科美 VPS 宿主机</b></div>
+                <strong>检查中</strong><small>公网服务探测</small>
+              </article>
+              <article id="windowsPoolStatus" class="validator-card topology-node checking">
+                <div><span class="status-light"></span><b>Windows 验证池</b></div>
+                <strong>检查中</strong><small>正在检查 4 台 ISPSoft worker</small>
+              </article>
+            </div>
+            <div id="windowsWorkerGrid" class="windows-worker-grid" aria-live="polite">
+              <article class="validator-card topology-node checking">
+                <div><span class="status-light"></span><b>VM-01</b></div>
+                <strong>检查中</strong><small>正在读取独立验证节点状态</small>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="topology-console">
+          <p id="modelStatusMessage">正在检查模型通道……</p>
+          <p id="validatorStatusMessage">正在检查厂商验证链路……</p>
+        </div>
+    </section>
+
+    <section id="newTaskPage" class="panel workspace-panel app-page hidden">
+      <div class="section-title workspace-title">
+        <div><p class="eyebrow">Generation Workspace</p><h2>创建控制任务</h2></div>
+        <span class="step-chip">01 / 配置任务</span>
+      </div>
+      <div class="grid four config-grid">
+        <div class="field"><label for="vendor"><span class="field-index">01</span> PLC 厂商</label><select id="vendor"></select></div>
+        <div class="field"><label for="plcModel"><span class="field-index">02</span> 控制器型号</label><select id="plcModel"></select></div>
+        <div class="field"><label for="outputLanguage"><span class="field-index">03</span> 程序类型</label><select id="outputLanguage"></select></div>
+        <div class="field"><label for="llmModel"><span class="field-index">04</span> 大语言模型</label><select id="llmModel"></select></div>
+        <div class="field"><label for="deliveryMode"><span class="field-index">05</span> 交付类型</label><select id="deliveryMode"><option value="downloadable_project" selected>可下载 ISPSoft 工程</option><option value="function_unit">验证功能块 / FBU</option></select></div>
+      </div>
+      <div class="requirement-heading">
+        <label for="requirement"><span class="field-index">06</span> 控制需求描述</label>
+        <span>请明确输入、输出、时序、优先级与安全联锁</span>
+        <button id="requirementCheck" class="secondary compact" type="button">检查需求完整性</button>
+      </div>
+      <textarea id="requirement" rows="18" placeholder="请说明输入、输出、正常流程、停止/复位优先级、故障保持、定时边界和安全联锁。">任务名称：输送机启停与安全联锁控制
+
+1. 控制目标
+生成一个符合 IEC 61131-3 标准的功能块，用于控制一台输送机电机。程序按照 PLC 扫描周期执行，并具有启停保持、安全联锁和故障复位功能。
+
+2. 输入变量
+- StartButton：BOOL，启动按钮；按下时为 TRUE。
+- StopButton：BOOL，停止按钮；按下时为 TRUE。
+- EmergencyStop：BOOL，急停信号；触发时为 TRUE。
+- SafetyDoorClosed：BOOL，安全门状态；关闭时为 TRUE。
+- Overload：BOOL，电机过载信号；发生过载时为 TRUE。
+- ResetButton：BOOL，故障复位按钮；按下时为 TRUE。
+
+3. 输出变量
+- MotorRun：BOOL，输送机电机运行命令。
+- FaultAlarm：BOOL，故障报警状态。
+
+4. 功能要求
+- 当 StartButton=TRUE、SafetyDoorClosed=TRUE、EmergencyStop=FALSE、Overload=FALSE 且 FaultAlarm=FALSE 时，置位 MotorRun=TRUE；StartButton 释放后 MotorRun 保持 TRUE。
+- StopButton=TRUE 时必须立即令 MotorRun=FALSE，但不产生 FaultAlarm。
+- EmergencyStop=TRUE、SafetyDoorClosed=FALSE 或 Overload=TRUE 时必须立即令 MotorRun=FALSE。
+- Overload=TRUE 时置位 FaultAlarm，并保持报警；即使 Overload 随后恢复为 FALSE，报警也不能自动清除。
+- 仅当 Overload=FALSE 且 ResetButton=TRUE 时，才能清除 FaultAlarm。复位操作不得自动启动电机，重新运行必须再次按下 StartButton。
+
+5. 优先级与边界行为
+- StopButton、EmergencyStop、SafetyDoorClosed=FALSE 或 Overload 的停止条件优先于 StartButton；同一扫描周期内 StartButton 与任一停止条件同时出现时，MotorRun 必须为 FALSE。
+- FaultAlarm=TRUE 时禁止启动电机。
+- 程序首次运行时 MotorRun=FALSE、FaultAlarm=FALSE。
+- 所有输出均按本扫描周期结束时的状态进行判断。</textarea>
+      <div id="requirementQuality" class="scope scope-card hidden" aria-live="polite"></div>
+      <div class="row">
+        <div><label for="budget">最多候选数</label><input id="budget" type="number" value="20" min="1" max="20"></div>
+        <button id="submit" class="primary-action"><span>启动智能生成</span><i aria-hidden="true">→</i></button>
+      </div>
+      <p id="scope" class="scope scope-card"></p>
+      <p id="message" class="message"></p>
+    </section>
+
+    <section id="taskCenterPage" class="panel task-center app-page hidden" aria-labelledby="taskCenterTitle">
+      <div class="section-title task-center-title">
+        <div><p class="eyebrow"><span class="live-dot"></span> Multi-task Operations</p><h2 id="taskCenterTitle">任务中心</h2></div>
+        <button id="newTaskFromCenter" class="primary-action compact" type="button">开启新任务</button>
+      </div>
+      <div class="task-capacity" aria-label="后台并发与排队状态">
+        <div><span>Windows 验证槽</span><b id="taskSlots">0 / 4</b></div>
+        <div><span>正在运行</span><b id="taskRunning">0</b></div>
+        <div><span>等待队列</span><b id="taskQueued">0</b></div>
+        <div><span>服务端历史记录</span><b id="taskTracked">0</b></div>
+      </div>
+      <div class="task-filter" role="tablist" aria-label="任务筛选">
+        <button type="button" class="active" data-task-filter="all">全部</button>
+        <button type="button" data-task-filter="active">运行与排队</button>
+        <button type="button" data-task-filter="success">验证通过</button>
+        <button type="button" data-task-filter="ended">其他已结束</button>
+      </div>
+      <div class="history-toolbar" aria-label="历史记录组合筛选">
+        <div class="history-search"><label for="historySearch">任务名称或关键词</label><input id="historySearch" type="search" maxlength="200" placeholder="搜索需求、程序、错误或任务 ID"></div>
+        <div><label for="historyPlcModel">PLC 型号</label><select id="historyPlcModel"><option value="">全部型号</option></select></div>
+        <div><label for="historyLanguage">程序类型</label><select id="historyLanguage"><option value="">全部类型</option><option value="st">Structured Text</option><option value="ld">梯形图</option></select></div>
+        <div><label for="historyModel">大语言模型</label><select id="historyModel"><option value="">全部模型</option></select></div>
+        <div><label for="historyDateFrom">开始日期</label><input id="historyDateFrom" type="date"></div>
+        <div><label for="historyDateTo">结束日期</label><input id="historyDateTo" type="date"></div>
+        <div><label for="historyArchive">记录范围</label><select id="historyArchive"><option value="active">未归档</option><option value="archived">已归档</option><option value="all">全部记录</option></select></div>
+        <div class="history-toolbar-actions"><button id="applyHistoryFilters" type="button" class="secondary compact">查询</button><button id="resetHistoryFilters" type="button" class="secondary compact">重置</button></div>
+      </div>
+      <div class="history-summary"><span id="historySummary">正在读取服务端历史……</span><span id="historyRetention">保留策略加载中</span></div>
+      <div id="taskList" class="task-list" aria-live="polite"></div>
+      <div id="taskEmpty" class="task-empty"><b>没有匹配的历史记录</b><span>可以调整筛选条件，或从“新建任务”提交新的控制需求。</span></div>
+      <div class="history-pagination" aria-label="历史记录分页"><button id="historyPrevious" type="button" class="secondary compact">上一页</button><span id="historyPageInfo">第 1 / 1 页</span><button id="historyNext" type="button" class="secondary compact">下一页</button></div>
+    </section>
+
+    <div id="jobModal" class="job-modal hidden" role="dialog" aria-modal="true" aria-labelledby="progressPhase">
+      <div class="job-modal-card">
+    <section id="progressPanel" class="panel modal-panel hidden" aria-live="polite">
+      <div class="section-title">
+        <div><p class="eyebrow"><span class="live-dot"></span> Live Process</p><h2 id="progressPhase">正在准备</h2></div>
+        <div class="modal-status"><span class="lock-indicator">任务受保护</span><span id="progressAttempt" class="badge">候选 0/20</span></div>
+      </div>
+      <div class="verification-flow" aria-hidden="true"><span>01 生成候选</span><i></i><span>02 工具验证</span><i></i><span>03 反馈迭代</span></div>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <div class="progress-facts" aria-label="任务运行状态">
+        <div><span>当前组件</span><b id="progressComponent">任务提交</b></div>
+        <div><span>总耗时</span><b id="progressElapsed">00:00</b></div>
+        <div><span>最后活动</span><b id="progressIdle">刚刚</b></div>
+        <div><span>运行状态</span><b id="progressHealth" class="health-working">正常运行</b></div>
+      </div>
+      <p id="progressMessage" class="scope">任务已进入队列。</p>
+      <p id="progressHint" class="progress-hint">页面会自动更新，无需重复点击按钮。</p>
+      <section id="vendorProcessPanel" class="vendor-process hidden" aria-label="ISPSoft 与 COMMGR 厂商验证进度">
+        <div class="vendor-process-head">
+          <div><span class="status-light"></span><b>ISPSoft / COMMGR 实时验证</b></div>
+          <code id="vendorProcessTarget">台达 PLC</code>
+        </div>
+        <div id="vendorProcessFlow" class="vendor-process-flow"></div>
+        <div class="vendor-process-foot">
+          <span id="vendorProcessLabel">等待 Windows 验证 worker</span>
+          <b id="vendorProcessCase"></b>
+        </div>
+      </section>
+      <div class="progress-log-head"><span>实时运行日志</span><code id="progressJobId">尚未分配任务编号</code></div>
+      <ol id="progressLog" class="progress-log"></ol>
+      <div class="terminal-actions">
+        <button id="cancelJob" class="secondary danger-action hidden">取消任务</button>
+        <button id="closeProgress" class="secondary">返回任务中心</button>
+      </div>
+    </section>
+
+    <section id="contractPanel" class="panel modal-panel contract-review hidden">
+      <div class="section-title"><div><p class="eyebrow">阶段 1</p><h2>核对验证契约</h2></div><span id="jobStatus" class="badge"></span></div>
+      <p id="contractNotice" class="notice">请确认接口、需求、假设、形式性质和测试预期确实表达了你的需求。</p>
+      <details id="contractDetails" class="contract-details" open>
+        <summary>查看验证契约内容</summary>
+        <pre id="contract"></pre>
+      </details>
+      <section id="engineeringPanel" class="engineering-panel hidden" aria-labelledby="engineeringTitle">
+        <div class="engineering-head"><div><p class="eyebrow">Field Engineering Contract</p><h3 id="engineeringTitle">确认物理 I/O 与交付工程</h3></div><span id="engineeringTarget" class="badge"></span></div>
+        <p class="notice">下列地址由型号内置 I/O 范围自动建议。请按真实电气图核对地址、有效电平和安全逻辑；可下载工程不会自动替代现场接线、安全回路与上机点检。</p>
+        <div class="engineering-facts">
+          <label>工程名称<input id="engineeringProjectName" maxlength="48" autocomplete="off"></label>
+          <label>任务周期<input id="engineeringScanPeriod" readonly></label>
+          <label>输出类型<input id="engineeringOutputType" readonly></label>
+        </div>
+        <div class="engineering-table-wrap"><table class="engineering-table"><thead><tr><th>方向</th><th>逻辑信号</th><th>说明</th><th>物理地址</th><th>有效电平</th><th>安全逻辑值</th><th>端子备注</th></tr></thead><tbody id="engineeringMappings"></tbody></table></div>
+        <label class="engineering-ack"><input id="wiringReviewAck" type="checkbox"> 我已依据现场电气图核对每个物理地址、端子和有效电平。</label>
+        <label class="engineering-ack"><input id="fieldAcceptanceAck" type="checkbox"> 我理解该工程仍须在真实 PLC 上完成下载、I/O 点检、安全回路检查和现场联调。</label>
+        <p id="engineeringError" class="error"></p>
+      </section>
+      <div class="approval-row">
+        <p id="approvalCountdown" class="approval-countdown"></p>
+        <button id="approve" disabled>立即确认并生成程序</button>
+      </div>
+    </section>
+      </div>
+    </div>
+
+    <section id="resultPanel" class="panel hidden">
+      <div class="section-title"><div><p class="eyebrow">Verified Output</p><h2>生成与验证结果</h2></div><span id="resultStatus" class="badge"></span></div>
+      <p id="resultMeta" class="result-meta"></p>
+      <div id="metrics" class="metrics"></div>
+      <div id="ladderPanel" class="ladder-result hidden">
+        <div class="result-heading"><label>梯形图预览</label><span>确定性 SVG 渲染</span></div>
+        <div class="ladder-canvas"><img id="ladderDiagram" alt="生成的 IEC 61131-3 梯形图"></div>
+      </div>
+      <div id="artifactPanel" class="artifact-panel hidden"><label>下载验证工件</label><div id="artifactLinks" class="artifact-links"></div></div>
+      <label id="programLabel">最终候选程序</label>
+      <pre id="program" class="code"></pre>
+      <details id="resultContractPanel" class="result-contract"><summary>查看验证契约</summary><pre id="resultContract"></pre></details>
+      <p id="error" class="error"></p>
+    </section>
+    <footer><span>KEMEI AUTOMATION</span><span>IEC 61131-3 ST &amp; Ladder Generation Platform</span></footer>
+  </main>
+  <script src="/static/job_recovery.js?v=20260823-2"></script>
+  <script src="/static/app.js?v=20260824-31"></script>
+</body>
+</html>

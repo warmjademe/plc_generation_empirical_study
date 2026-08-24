@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "tested_at": "2026-08-22",
+  "task_id": "C01_B02_composite",
+  "target": "DVP48ES300R",
+  "model": "deepseek-v4-flash",
+  "output_language": "ld",
+  "candidate_trace": [
+    {
+      "candidate": 1,
+      "ladder_ir_format": "pass",
+      "matiec": "pass",
+      "plcverif": "fail",
+      "failure": "R10 CrossBlocked retained FALSE when it had to become TRUE"
+    },
+    {
+      "candidate": 2,
+      "ladder_ir_format": "pass",
+      "matiec": "pass",
+      "plcverif": "fail",
+      "failure": "R10 CrossBlocked retained TRUE when it had to become FALSE"
+    },
+    {
+      "candidate": 3,
+      "ladder_ir_format": "pass",
+      "matiec": "pass",
+      "plcverif": "pass"
+    }
+  ],
+  "final_gates": {
+    "ladder_ir_type_and_topology": "pass",
+    "svg_xml": "pass",
+    "matiec": "pass",
+    "plcverif": "10/10 pass",
+    "openplc_feedback": "5/5 pass",
+    "openplc_sealed": "10/10 pass",
+    "ispsoft_commgr_feedback": "pass",
+    "ispsoft_commgr_sealed": "pass"
+  },
+  "model_usage_total": {
+    "prompt_tokens": 8702,
+    "completion_tokens": 6333,
+    "total_tokens": 15035
+  },
+  "artifacts": {
+    "ladder_ir_sha256": "b4c6993207be2d797716df3ec74c5a3063f5e6092006b8aa745f99147f467066",
+    "canonical_st_sha256": "c5f5b8aa7e7b40c2911fa246d77fd27e26d1839668c82758636668178788e31f",
+    "svg_sha256": "0246d34edbc6d3a7a5296df5fcdc4a9e052ab3f96c3ebea7094e7e321fe36ecd"
+  },
+  "claim_boundary": {
+    "semantic_validation_basis": "deterministic Ladder IR to ST lowering",
+    "native_ispsoft_ld_compiled": false,
+    "physical_plc_tested": false
+  }
+}

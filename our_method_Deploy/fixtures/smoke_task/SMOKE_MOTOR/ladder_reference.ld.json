@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "function_block": "SMOKE_MOTOR",
+  "locals": [],
+  "rungs": [
+    {
+      "id": "RUNG_01",
+      "comment": "启动有效且停止未触发时驱动电机",
+      "condition": {
+        "op": "and",
+        "args": [
+          {"op": "var", "name": "Start"},
+          {"op": "not", "arg": {"op": "var", "name": "Stop"}}
+        ]
+      },
+      "instructions": [
+        {"type": "coil", "target": "Motor", "mode": "normal"}
+      ]
+    }
+  ]
+}

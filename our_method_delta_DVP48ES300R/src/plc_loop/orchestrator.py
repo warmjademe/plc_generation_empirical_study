@@ -89,6 +89,9 @@ class BoundedSynthesisHarness:
         self.method = method
         self.provider = ProviderSettings.from_dict(config["provider"])
         self.experiment = dict(config["experiment"])
+        self.output_language = str(self.experiment.get("output_language", "st")).lower()
+        if self.output_language not in {"st", "ld"}:
+            raise ValueError("output_language must be st or ld")
         self.ablation_id = self.experiment.get("ablation_id")
         self.core_component_1_enabled = bool(
             self.experiment.get("core_component_1_enabled", method == "evidence")
@@ -172,8 +175,9 @@ class BoundedSynthesisHarness:
         self.next_diversification_profile_id: str | None = None
 
         method_root = Path(__file__).resolve().parents[2]
-        system_prompt_path = method_root / "prompts/system.md"
-        response_contract_path = method_root / "prompts/response_contract.md"
+        prompt_suffix = "_ladder" if self.output_language == "ld" else ""
+        system_prompt_path = method_root / f"prompts/system{prompt_suffix}.md"
+        response_contract_path = method_root / f"prompts/response_contract{prompt_suffix}.md"
         pattern_cards_path = method_root / "knowledge/iec_st_patterns.json"
         self.system_prompt = system_prompt_path.read_text(encoding="utf-8").strip()
         self.response_contract = response_contract_path.read_text(encoding="utf-8").strip()
@@ -185,6 +189,9 @@ class BoundedSynthesisHarness:
             "context_builder": _sha256(Path(__file__).resolve().with_name("context.py")),
             "repair_policy": _sha256(Path(__file__).resolve().with_name("policy.py")),
         }
+        ladder_asset = Path(__file__).resolve().with_name("ladder.py")
+        if self.output_language == "ld" and ladder_asset.is_file():
+            self.method_asset_sha256["ladder_ir"] = _sha256(ladder_asset)
         for name in (
             "matiec_validator.py",
             "formal_plcverif.py",
@@ -200,7 +207,7 @@ class BoundedSynthesisHarness:
             asset = method_root / "windows" / name
             if asset.is_file():
                 self.method_asset_sha256[f"validator:{name}"] = _sha256(asset)
-        for name in ("__init__.py", "source_unit.py", "harness.py"):
+        for name in ("__init__.py", "source_unit.py", "native_ld.py", "harness.py"):
             asset = method_root / "src" / "plc_loop" / "delta_dvp" / name
             if asset.is_file():
                 self.method_asset_sha256[f"adapter:delta_dvp/{name}"] = _sha256(asset)
@@ -310,7 +317,10 @@ class BoundedSynthesisHarness:
     ) -> str:
         anchor_text = "NONE"
         if anchor is not None and self.method not in {"direct", "independent"}:
-            anchor_text = Path(anchor.candidate_path).read_text(encoding="utf-8")
+            anchor_text = (
+                anchor.candidate.source_text
+                or Path(anchor.candidate_path).read_text(encoding="utf-8")
+            )
         mode_instructions = {
             "SYNTHESIZE": "Derive retained state, priority order, and post-scan outputs before emitting the complete program.",
             "PATCH": "Implement the exact failed predicate or scan observation with the smallest correction; do not invent unrelated guards, and preserve every requirement supported by the anchor.",
@@ -322,6 +332,11 @@ class BoundedSynthesisHarness:
             json.dumps(diversification_profile, ensure_ascii=False, sort_keys=True)
             if diversification_profile is not None else "DEFAULT"
         )
+        anchor_header = (
+            "ANCHOR CANDIDATE (never a reference answer)"
+            if self.output_language == "st"
+            else "ANCHOR CANDIDATE (LD; never a reference answer)"
+        )
         return (
             f"{self.task.public_contract()}\n"
             f"REPAIR MODE\n{mode}\n\n"
@@ -330,7 +345,7 @@ class BoundedSynthesisHarness:
             f"{state_text}\n\n"
             "PUBLIC-ONLY DIVERSIFICATION PROFILE\n"
             f"{profile_text}\n\n"
-            "ANCHOR CANDIDATE (never a reference answer)\n"
+            f"{anchor_header}\n"
             f"{anchor_text.rstrip()}\n\n"
             "DETERMINISTIC VALIDATION FEEDBACK\n"
             f"{json.dumps(certificate, ensure_ascii=False, sort_keys=True)}\n\n"
@@ -482,6 +497,7 @@ class BoundedSynthesisHarness:
             "schema_version": "1.0",
             "task_id": self.task.task_id,
             "method": self.method,
+            "output_language": self.output_language,
             "status": status,
             "success": status == "verified_success",
             "candidate_budget": self.max_candidates,
@@ -540,6 +556,7 @@ class BoundedSynthesisHarness:
             {
                 "task_id": self.task.task_id,
                 "method": self.method,
+                "output_language": self.output_language,
                 "candidate_budget": self.max_candidates,
                 "provider": self.provider.name,
                 "requested_model": self.provider.requested_model,
@@ -675,9 +692,25 @@ class BoundedSynthesisHarness:
                 ledger.append("model_call_failed", {"attempt_slot": number, "error_type": type(exc).__name__, "message": str(exc)})
                 return self._finish(ledger, "infrastructure_error")
             _write_json(attempt_dir / "raw_response.json", reply.raw_response)
-            parsed = parse_candidate(reply.message, self.task.requirement_ids)
+            parsed = parse_candidate(
+                reply.message,
+                self.task.requirement_ids,
+                output_language=self.output_language,
+                interface_text=self.task.interface_text,
+                task_id=self.task.task_id,
+            )
             candidate_path = attempt_dir / "candidate.st"
             candidate_path.write_text(parsed.program, encoding="utf-8")
+            if parsed.source_language == "ld" and parsed.source_text:
+                (attempt_dir / "candidate.ld.json").write_text(
+                    parsed.source_text,
+                    encoding="utf-8",
+                )
+            if parsed.ladder_svg is not None:
+                (attempt_dir / "candidate.ld.svg").write_text(
+                    parsed.ladder_svg,
+                    encoding="utf-8",
+                )
             candidate_sha256 = _sha256(candidate_path)
             duplicate_of_attempt = next(
                 (

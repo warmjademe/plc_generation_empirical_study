@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050b16">
+  <title>登录 · PLC 智能程序生成平台</title>
+  <link rel="stylesheet" href="/static/style.css?v=20260820-8">
+</head>
+<body>
+  <div class="background-grid" aria-hidden="true"></div>
+  <main class="login-shell">
+    <section class="login-showcase">
+      <div class="brand login-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><path d="M20 3 35 11.5v17L20 37 5 28.5v-17Z"/><path d="m13 15 7-4 7 4v10l-7 4-7-4Z"/><circle cx="20" cy="20" r="2.8"/></svg>
+        </span>
+        <span><b>KEMEI</b><small>INDUSTRIAL INTELLIGENCE</small></span>
+      </div>
+      <div class="login-copy">
+        <p class="eyebrow">AI-POWERED AUTOMATION</p>
+        <h1>让控制需求<br><span>成为可验证程序</span></h1>
+        <p class="lead">面向 IEC 61131-3 Structured Text 的智能生成、形式验证与运行时测试平台。</p>
+      </div>
+      <div class="login-capabilities"><span>MATIEC</span><span>PLCVERIF</span><span>OPENPLC</span></div>
+    </section>
+    <section class="panel login-panel">
+      <div class="login-panel-head"><span class="system-status"><i></i>安全连接</span><span class="panel-code">ACCESS / 01</span></div>
+      <p class="eyebrow">Authorized Access</p>
+      <h2 class="login-title">欢迎登录</h2>
+      <p class="lead">请验证身份后进入 PLC 程序生成与验证工作台。</p>
+      <form id="loginForm">
+        <label for="username">用户名</label>
+        <input id="username" name="username" autocomplete="username" value="kemei" required>
+        <label for="password">密码</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" value="kemei" required>
+        <button type="submit" class="primary-action"><span>进入控制台</span><i aria-hidden="true">→</i></button>
+      </form>
+      <p class="notice compact-notice">当前为测试阶段，用户名和密码已默认填写；正式上线前必须更换强密码并取消默认填写。</p>
+      <p id="loginMessage" class="error"></p>
+    </section>
+  </main>
+  <script src="/static/login.js?v=20260820-2"></script>
+</body>
+</html>

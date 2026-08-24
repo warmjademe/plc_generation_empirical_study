@@ -31,6 +31,7 @@ from plc_loop.delta_dvp import (  # noqa: E402
     build_dvp_harness,
     build_ispsoft_package,
     parse_function_block,
+    render_native_ld_function_block_source,
     render_function_block_source,
     render_program_source,
     select_openplc_cases,
@@ -38,7 +39,7 @@ from plc_loop.delta_dvp import (  # noqa: E402
 )
 
 
-TOOL_VERSION = "ISPSoft-3.24+COMMGR-2.11+DVP-ES3+spool-protocol-v1"
+TOOL_VERSION = "ISPSoft-3.24+COMMGR-2.11+DVP-ES3+spool-protocol-v2-native-ld"
 
 
 def emit(document: dict) -> int:
@@ -71,12 +72,27 @@ def prepare_job(
     candidate_hash = _sha256_bytes(candidate_bytes)
     source = candidate_bytes.decode("utf-8-sig")
     block = parse_function_block(source)
+    ladder_ir_path = candidate.with_name("candidate.ld.json")
+    ladder_ir_bytes: bytes | None = None
+    native_ld_source: bytes | None = None
+    if ladder_ir_path.is_file():
+        ladder_ir_bytes = ladder_ir_path.read_bytes()
+        try:
+            ladder_document = json.loads(ladder_ir_bytes.decode("utf-8-sig"))
+        except (UnicodeError, json.JSONDecodeError) as exc:
+            raise SourceUnitError(f"candidate.ld.json is invalid JSON: {exc}") from exc
+        native_ld_source = render_native_ld_function_block_source(
+            ladder_document,
+            (task_dir / "interface.st").read_text(encoding="utf-8"),
+            str(block.name),
+        ).source
     saturation_advisories = unsaturated_retained_integer_names(block)
     metadata = json.loads((task_dir / "metadata.json").read_text(encoding="utf-8"))
     full_suite = json.loads((task_dir / "openplc_tests.json").read_text(encoding="utf-8"))
     suite = select_openplc_cases(full_suite, role)
     identity_material = b"\0".join((
         candidate_bytes,
+        ladder_ir_bytes or b"",
         str(metadata["id"]).encode("utf-8"),
         role.encode("ascii"),
         json.dumps(suite, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"),
@@ -87,10 +103,10 @@ def prepare_job(
         metadata,
         suite,
         image_identity_sha256=image_identity_sha256,
-        inline_candidate=True,
+        inline_candidate=native_ld_source is None,
     )
 
-    function_source = render_function_block_source(block)
+    function_source = native_ld_source or render_function_block_source(block)
     main_source = render_program_source("MAIN", harness.declarations, harness.body)
     package_time = dt.datetime.now()
     function_package = build_ispsoft_package(
@@ -115,6 +131,9 @@ def prepare_job(
     staging = staging_root / job_id
     staging.mkdir()
     (staging / "candidate.st").write_bytes(candidate_bytes)
+    if ladder_ir_bytes is not None:
+        (staging / "candidate.ld.json").write_bytes(ladder_ir_bytes)
+        (staging / "candidate.ispsoft.ld.src").write_bytes(function_source)
     (staging / "candidate.FBU").write_bytes(function_package)
     (staging / "MAIN.MPU").write_bytes(main_package)
     (staging / "suite.json").write_text(
@@ -128,6 +147,10 @@ def prepare_job(
         "task_id": metadata["id"],
         "role": role,
         "candidate_sha256": candidate_hash,
+        "candidate_language": "ld" if native_ld_source is not None else "st",
+        "ladder_ir_sha256": _sha256_bytes(ladder_ir_bytes) if ladder_ir_bytes is not None else None,
+        "native_ld_source_sha256": _sha256_bytes(native_ld_source) if native_ld_source is not None else None,
+        "execution_adapter": "native-ld-function-block" if native_ld_source is not None else "candidate-body-inlined-into-main",
         "image_identity_sha256": image_identity_sha256,
         "function_unit_sha256": _sha256_bytes(function_package),
         "program_unit_sha256": _sha256_bytes(main_package),

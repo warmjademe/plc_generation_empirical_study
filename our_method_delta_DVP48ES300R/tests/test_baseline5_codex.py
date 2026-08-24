@@ -7,6 +7,11 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+LOCAL_SRC = Path(__file__).resolve().parents[1] / "src"
+if str(LOCAL_SRC) not in sys.path:
+    sys.path.insert(0, str(LOCAL_SRC))
+import plc_loop  # noqa: E402,F401
+
 SOURCE_CODES = Path(__file__).resolve().parents[2]
 if str(SOURCE_CODES) not in sys.path:
     sys.path.insert(0, str(SOURCE_CODES))

@@ -1,0 +1,23 @@
+{
+  "source_host": "huashuo",
+  "copied_at": "2026-08-20",
+  "executables": {
+    "matiec/iec2iec": "sha256:1d0a94a37b0e14b8d88ed02ae3bf915104b936cdad674ffe5595617850cd9080",
+    "plcverif/plcverif-cli": "sha256:d8c905f9cecabebe9653f97c9ff67d135deaf2a640aebb8c5612727b254e7c6c",
+    "nuXmv-2.0.0-Linux/bin/nuXmv": "sha256:36c2fc2d27a9544aa731ebe63caaa70f242aa92ded0b84ccdcf66fc6d053fb51",
+    "cbmc-6.10.0/usr/bin/cbmc": "sha256:05f93fd2f2ba6247b345f2bfb3d74c38402966515c65ff69f94adf7a674593f0"
+  },
+  "openplc_image": {
+    "tag": "plc-egbs/openplc-v3:b5d41356",
+    "image_id": "sha256:ac66ed60e985d5a0da4871f79bbf2625389005665b28df7b79d03faea9aba92e"
+  },
+  "postgres_image": {
+    "reference": "postgres@sha256:5d143123fdf80462d1778cd4f24b9f7ca13c87174bca19141fb194c5a1ebca59",
+    "image_id": "sha256:5d143123fdf80462d1778cd4f24b9f7ca13c87174bca19141fb194c5a1ebca59"
+  },
+  "runtime": {
+    "java": "OpenJDK 21",
+    "python": "3.11",
+    "conda_environment": "plc_generation"
+  }
+}

@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily ISPSoft/COMMGR validation canary for %i
+
+[Timer]
+OnBootSec=20min
+OnUnitActiveSec=24h
+RandomizedDelaySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

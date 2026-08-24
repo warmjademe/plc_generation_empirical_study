@@ -1,0 +1,11 @@
+FUNCTION_BLOCK SMOKE_MOTOR
+VAR_INPUT
+    Start : BOOL;
+    Stop : BOOL;
+END_VAR
+VAR_OUTPUT
+    Motor : BOOL;
+END_VAR
+
+Motor := Start AND NOT Stop;
+END_FUNCTION_BLOCK

@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0",
+  "function_block": "C01_B02_composite",
+  "locals": [],
+  "rungs": [
+    {
+      "id": "A_LEVEL_DEFAULT",
+      "comment": "每个扫描周期先把报警等级恢复为零",
+      "condition": {"op": "const", "type": "BOOL", "value": true},
+      "instructions": [
+        {"type": "assign", "target": "A_Level", "value": {"op": "const", "type": "INT", "value": 0}}
+      ]
+    },
+    {
+      "id": "A_LEVEL_INFO",
+      "comment": "未抑制时信息报警对应等级一",
+      "condition": {"op": "and", "args": [
+        {"op": "not", "arg": {"op": "var", "name": "A_Suppress"}},
+        {"op": "var", "name": "A_Info"}
+      ]},
+      "instructions": [
+        {"type": "assign", "target": "A_Level", "value": {"op": "const", "type": "INT", "value": 1}}
+      ]
+    },
+    {
+      "id": "A_LEVEL_WARNING",
+      "comment": "警告等级覆盖信息等级",
+      "condition": {"op": "and", "args": [
+        {"op": "not", "arg": {"op": "var", "name": "A_Suppress"}},
+        {"op": "var", "name": "A_Warning"}
+      ]},
+      "instructions": [
+        {"type": "assign", "target": "A_Level", "value": {"op": "const", "type": "INT", "value": 2}}
+      ]
+    },
+    {
+      "id": "A_LEVEL_TRIP",
+      "comment": "跳闸等级覆盖警告等级",
+      "condition": {"op": "and", "args": [
+        {"op": "not", "arg": {"op": "var", "name": "A_Suppress"}},
+        {"op": "var", "name": "A_Trip"}
+      ]},
+      "instructions": [
+        {"type": "assign", "target": "A_Level", "value": {"op": "const", "type": "INT", "value": 3}}
+      ]
+    },
+    {
+      "id": "A_LEVEL_EMERGENCY",
+      "comment": "紧急报警具有最高优先级且不受抑制",
+      "condition": {"op": "var", "name": "A_Emergency"},
+      "instructions": [
+        {"type": "assign", "target": "A_Level", "value": {"op": "const", "type": "INT", "value": 4}}
+      ]
+    },
+    {
+      "id": "A_ACTIVE",
+      "comment": "报警等级非零时激活报警输出",
+      "condition": {"op": "compare", "operator": "NE",
+        "left": {"op": "var", "name": "A_Level"},
+        "right": {"op": "const", "type": "INT", "value": 0}},
+      "instructions": [
+        {"type": "coil", "target": "A_Active", "mode": "normal"}
+      ]
+    },
+    {
+      "id": "CROSS_READY_SET",
+      "comment": "报警激活后锁存跨子系统就绪状态",
+      "condition": {"op": "var", "name": "A_Active"},
+      "instructions": [
+        {"type": "coil", "target": "CrossReady", "mode": "set"}
+      ]
+    },
+    {
+      "id": "CROSS_READY_RESET",
+      "comment": "跨系统复位具有更高优先级",
+      "condition": {"op": "var", "name": "CrossReset"},
+      "instructions": [
+        {"type": "coil", "target": "CrossReady", "mode": "reset"}
+      ]
+    },
+    {
+      "id": "CROSS_BLOCKED",
+      "comment": "请求启用但尚未就绪时报告阻塞",
+      "condition": {"op": "and", "args": [
+        {"op": "var", "name": "SubsystemBEnable"},
+        {"op": "not", "arg": {"op": "var", "name": "CrossReady"}}
+      ]},
+      "instructions": [
+        {"type": "coil", "target": "CrossBlocked", "mode": "normal"}
+      ]
+    },
+    {
+      "id": "B_VOTE",
+      "comment": "启用且就绪后执行两取三多数表决",
+      "condition": {"op": "and", "args": [
+        {"op": "var", "name": "SubsystemBEnable"},
+        {"op": "var", "name": "CrossReady"},
+        {"op": "or", "args": [
+          {"op": "and", "args": [{"op": "var", "name": "B_S1"}, {"op": "var", "name": "B_S2"}]},
+          {"op": "and", "args": [{"op": "var", "name": "B_S1"}, {"op": "var", "name": "B_S3"}]},
+          {"op": "and", "args": [{"op": "var", "name": "B_S2"}, {"op": "var", "name": "B_S3"}]}
+        ]}
+      ]},
+      "instructions": [
+        {"type": "coil", "target": "B_Vote", "mode": "normal"}
+      ]
+    },
+    {
+      "id": "B_UNANIMOUS",
+      "comment": "启用且就绪后三路全真或全假视为一致",
+      "condition": {"op": "and", "args": [
+        {"op": "var", "name": "SubsystemBEnable"},
+        {"op": "var", "name": "CrossReady"},
+        {"op": "or", "args": [
+          {"op": "and", "args": [{"op": "var", "name": "B_S1"}, {"op": "var", "name": "B_S2"}, {"op": "var", "name": "B_S3"}]},
+          {"op": "and", "args": [
+            {"op": "not", "arg": {"op": "var", "name": "B_S1"}},
+            {"op": "not", "arg": {"op": "var", "name": "B_S2"}},
+            {"op": "not", "arg": {"op": "var", "name": "B_S3"}}
+          ]}
+        ]}
+      ]},
+      "instructions": [
+        {"type": "coil", "target": "B_Unanimous", "mode": "normal"}
+      ]
+    }
+  ]
+}

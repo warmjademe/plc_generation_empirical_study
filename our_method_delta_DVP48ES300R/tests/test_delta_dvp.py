@@ -49,6 +49,7 @@ from audit_reference_differential import (
     normalize_reference_evidence,
 )
 from run_dvp_negative_control import calibration_verdict
+from plc_loop.ladder import compile_ladder_document
 
 
 SIMPLE_ST = """FUNCTION_BLOCK Demo
@@ -195,6 +196,7 @@ class SourceUnitTests(unittest.TestCase):
         for body in (
             "Active := M1000;",
             "Y0 := Active;",
+            "Active := S1;",
             "Active := %IX0.0;",
             "EGBS_STEP_ACK := Active;",
         ):
@@ -205,6 +207,34 @@ class SourceUnitTests(unittest.TestCase):
             )
             with self.subTest(body=body), self.assertRaises(SourceUnitError):
                 parse_function_block(source)
+
+    def test_device_shaped_fixed_interface_names_remain_abstract_symbols(self):
+        source = """FUNCTION_BLOCK SensorVote
+VAR_INPUT
+    S1 : BOOL;
+    D1 : INT;
+END_VAR
+VAR_OUTPUT
+    Vote : BOOL;
+END_VAR
+Vote := S1 AND (D1 > 0);
+END_FUNCTION_BLOCK
+"""
+        self.assertEqual(parse_function_block(source).name, "SensorVote")
+
+    def test_device_shaped_local_cannot_bypass_candidate_isolation(self):
+        source = """FUNCTION_BLOCK HiddenDevice
+VAR_OUTPUT
+    Active : BOOL;
+END_VAR
+VAR
+    M1000 : BOOL;
+END_VAR
+Active := M1000;
+END_FUNCTION_BLOCK
+"""
+        with self.assertRaisesRegex(SourceUnitError, "direct Delta device M1000"):
+            parse_function_block(source)
 
     def test_device_like_text_inside_comment_is_not_treated_as_access(self):
         source = SIMPLE_ST.replace(
@@ -461,6 +491,107 @@ class ResultProtocolTests(unittest.TestCase):
                 "variables": ["FeedbackTimer"],
                 "blocking": False,
             }])
+
+    def test_ld_job_uses_native_function_block_and_non_inline_harness(self) -> None:
+        interface = """FUNCTION_BLOCK FB_GEN_JOB
+VAR_INPUT
+    Enable : BOOL;
+    Block : BOOL;
+END_VAR
+VAR_OUTPUT
+    Active : BOOL;
+    Latched : BOOL;
+END_VAR
+END_FUNCTION_BLOCK
+"""
+        document = {
+            "schema_version": "1.0",
+            "function_block": "FB_GEN_JOB",
+            "locals": [],
+            "rungs": [
+                {
+                    "id": "RUNG_01",
+                    "comment": "normal output",
+                    "condition": {
+                        "op": "and",
+                        "args": [
+                            {"op": "var", "name": "Enable"},
+                            {"op": "not", "arg": {"op": "var", "name": "Block"}},
+                        ],
+                    },
+                    "instructions": [{"type": "coil", "target": "Active", "mode": "normal"}],
+                },
+                {
+                    "id": "RUNG_02",
+                    "comment": "set output",
+                    "condition": {"op": "var", "name": "Enable"},
+                    "instructions": [{"type": "coil", "target": "Latched", "mode": "set"}],
+                },
+                {
+                    "id": "RUNG_03",
+                    "comment": "reset output",
+                    "condition": {"op": "var", "name": "Block"},
+                    "instructions": [{"type": "coil", "target": "Latched", "mode": "reset"}],
+                },
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            task = root / "task"
+            attempt = root / "attempt"
+            task.mkdir()
+            attempt.mkdir()
+            candidate = attempt / "candidate.st"
+            candidate.write_text(
+                compile_ladder_document(document, interface, "FB_GEN_JOB").st_program,
+                encoding="utf-8",
+            )
+            (attempt / "candidate.ld.json").write_text(
+                json.dumps(document), encoding="utf-8"
+            )
+            (task / "interface.st").write_text(interface, encoding="utf-8")
+            (task / "metadata.json").write_text(json.dumps({
+                "id": "FB_GEN_JOB",
+                "scan": {"period_ms": 100},
+                "interface": {
+                    "inputs": [
+                        {"name": "Enable", "type": "BOOL"},
+                        {"name": "Block", "type": "BOOL"},
+                    ],
+                    "outputs": [
+                        {"name": "Active", "type": "BOOL"},
+                        {"name": "Latched", "type": "BOOL"},
+                    ],
+                },
+            }), encoding="utf-8")
+            (task / "openplc_tests.json").write_text(json.dumps({
+                "suite": "openplc",
+                "independent_requirement_oracle": True,
+                "cases": [{
+                    "id": "FT1",
+                    "name": "feedback_basic",
+                    "requirement_ids": ["R1"],
+                    "steps": [{
+                        "inputs": {"Enable": True, "Block": False},
+                        "expect": {"Active": True, "Latched": True},
+                        "repeat": 1,
+                    }],
+                }],
+            }), encoding="utf-8")
+            _job_id, pending, manifest = prepare_job(
+                candidate, task, "feedback", root / "spool", "unit-test-password"
+            )
+            self.assertEqual(manifest["candidate_language"], "ld")
+            self.assertEqual(manifest["execution_adapter"], "native-ld-function-block")
+            self.assertTrue((pending / "candidate.ld.json").is_file())
+            self.assertTrue((pending / "candidate.ispsoft.ld.src").is_file())
+            with zipfile.ZipFile(io.BytesIO((pending / "candidate.FBU").read_bytes()[152:])) as archive:
+                source = archive.read("Unzipped.src", pwd=b"unit-test-password").decode()
+            self.assertIn("ContentName=FB_GEN_JOB [FB,LD]", source)
+            self.assertIn("P_Lang=1", source)
+            self.assertNotIn("<IL_ST_CODE>", source)
+            suite = json.loads((pending / "suite.json").read_text(encoding="utf-8"))
+            self.assertEqual(suite["execution_adapter"], "function-block-instance")
 
     def test_dvp_job_timestamp_is_derived_from_immutable_job_id(self) -> None:
         self.assertEqual(

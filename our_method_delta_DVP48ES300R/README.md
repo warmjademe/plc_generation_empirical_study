@@ -2,7 +2,7 @@
 
 This directory adapts the method in `../our_method` to Delta's
 **DVP48ES300R (DVP-ES3)** target. It generates IEC 61131-3 Structured Text
-(ST) function blocks with Claude Sonnet 5 and evaluates them with the same
+(ST) or typed Ladder Diagram (LD) function blocks and evaluates them with the same
 100-task dataset in `../datasets_100`. Linux performs the model orchestration
 and tool-neutral checks; a serial worker on an interactive Windows desktop
 performs the Delta-specific compilation, download, and simulator checks.
@@ -10,6 +10,53 @@ performs the Delta-specific compilation, download, and simulator checks.
 The implementation evaluates compatibility with the installed ISPSoft and
 COMMGR simulator. Passing the experiment is not evidence that a program has
 been tested on physical DVP48ES300R hardware.
+
+## Experimental ladder-diagram output
+
+The local implementation can also generate a typed ladder-diagram intermediate
+representation by setting `experiment.output_language` to `ld`. Each accepted
+model response produces three linked artifacts in its attempt directory:
+
+- `candidate.ld.json`: the executable, schema-checked Ladder IR;
+- `candidate.ld.svg`: deterministic rails, contacts, branches, coils, and
+  Chinese rung comments for human review;
+- `candidate.st`: deterministic IEC ST lowering used by MatIEC, PLCverif, and
+  OpenPLC, and as the portable semantic counterpart of the LD artifact.
+
+The initial Ladder IR subset supports Boolean contacts and expressions,
+comparisons, normal/set/reset coils, conditional assignments, arithmetic
+expressions, and saturating INT/DINT scan counters. Unknown operations, direct
+Delta device names, harness identifiers, type errors, and ambiguous mixed coil
+writes fail closed before a validator is invoked. The model never emits SVG or
+vendor-private source units directly.
+
+For the calibrated Boolean subset, the Delta gate now exports an ISPSoft native
+`[FB,LD]` source unit, imports and compiles that FBU, and executes it through an
+independent ST test harness and COMMGR. The native subset contains AND/OR
+topologies, normally-open and normally-closed contacts, and normal/set/reset
+coils. Comparisons, arithmetic, assignments, counters, timers, edges, and
+vendor function blocks still fail closed at native export until their official
+encodings are calibrated. The portable ST lowering remains available to the
+three tool-neutral gates and is never presented as native LD.
+
+Run the offline fixture without a model or Windows worker:
+
+```bash
+python3 scripts/ladder_tool.py \
+  --input tests/fixtures/ladder/MotorControl.ld.json \
+  --interface tests/fixtures/ladder/MotorControl.interface.st \
+  --task-id MotorControl \
+  --st-output /tmp/MotorControl.st \
+  --svg-output /tmp/MotorControl.svg \
+  --ispsoft-source-output /tmp/MotorControl.Unzipped.src
+```
+
+Development-only end-to-end configurations are
+`configs/teamorouter_claude_sonnet5_dvp48es300r_ladder_v1.json` and
+`configs/deepseek_v4_flash_dvp48es300r_ladder_v1.json`. The DeepSeek profile
+uses the provider's lowercase `deepseek-v4-flash` identifier and explicitly
+disables thinking mode; otherwise the provider can spend the complete output
+budget on reasoning without returning a Ladder IR document.
 
 ## Validation protocol
 
@@ -37,13 +84,19 @@ the hidden trace.
 ## Delta-specific adapter
 
 The adapter in `src/plc_loop/delta_dvp/` parses one complete function block and
-generates an ISPSoft `MAIN` program that contains:
+generates an ISPSoft `MAIN` test program. For ST candidates, MAIN contains:
 
 - the candidate's retained state and body, inlined to avoid ISPSoft importer
   cache reuse;
 - deterministic M-device mappings for inputs, output comparisons, and the
   request/acknowledgement scan protocol;
 - a candidate-specific 64-bit image identity written on every PLC scan.
+
+For a Ladder IR candidate in the calibrated subset, `native_ld.py` instead
+builds a native `[FB,LD]` FBU. MAIN instantiates that function block, maps the
+same M-device protocol to its ports, and reads its outputs. The submitted job
+hashes the canonical Ladder IR, native LD source, encrypted FBU, ST harness,
+runtime suite, and image identity independently.
 
 The parser also enforces candidate isolation: direct Delta devices such as
 `M1000` or `Y0`, located IEC addresses, and the `EGBS_` harness namespace are
@@ -77,7 +130,8 @@ assumption.
 
 The Windows worker in `windows/Run-DvpValidationWorker.ps1` restores a clean
 ISPSoft project for each job, verifies all submitted artifact hashes, imports
-and compiles `MAIN`, downloads it, starts the simulator, and invokes
+the native FBU when present and then `MAIN`, compiles the combined project,
+downloads it, starts the simulator, and invokes
 `windows/Invoke-DvpRuntimeCase.ps1`. Only one worker is allowed because the
 configured COMMGR DVP simulator exposes one serial execution channel.
 

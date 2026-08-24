@@ -1,0 +1,26 @@
+[Unit]
+Description=Delta ISPSoft/COMMGR validation bridge %i
+After=network-online.target kemei-win11@%i.service
+Wants=network-online.target
+Requires=kemei-win11@%i.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/dvp-validator.env
+EnvironmentFile=/opt/plc-generation/config/dvp-bridge-%i.env
+ExecStart=/opt/plc-generation/app/scripts/start_dvp_bridge.sh
+Restart=always
+RestartSec=10
+TimeoutStopSec=20
+NoNewPrivileges=false
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/plc-generation
+RestrictSUIDSGID=false
+
+[Install]
+WantedBy=multi-user.target

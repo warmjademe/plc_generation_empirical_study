@@ -1,0 +1,21 @@
+(* Minimal IEC numeric-function models for PLCverif's STEP 7 frontend.
+   They are supplied only when the candidate calls the corresponding standard
+   IEC function, because this PLCverif distribution does not bundle them. *)
+
+FUNCTION ABS : REAL
+VAR_INPUT
+    IN : REAL;
+END_VAR
+IF IN < 0.0 THEN
+    ABS := 0.0 - IN;
+ELSE
+    ABS := IN;
+END_IF;
+END_FUNCTION
+
+FUNCTION INT_TO_REAL : REAL
+VAR_INPUT
+    IN : INT;
+END_VAR
+INT_TO_REAL := IN;
+END_FUNCTION

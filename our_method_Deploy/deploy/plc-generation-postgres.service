@@ -1,0 +1,19 @@
+[Unit]
+Description=PostgreSQL for PLC generation durable jobs
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+EnvironmentFile=/opt/plc-generation/config/postgres.env
+ExecStartPre=-/usr/bin/docker rm -f plc-generation-postgres
+ExecStartPre=/usr/bin/docker image inspect postgres@sha256:5d143123fdf80462d1778cd4f24b9f7ca13c87174bca19141fb194c5a1ebca59
+ExecStart=/usr/bin/docker run --rm --name plc-generation-postgres --pull=never --env-file /opt/plc-generation/config/postgres.env -p 127.0.0.1:5433:5432 -v /opt/plc-generation/data/postgres:/var/lib/postgresql/data postgres@sha256:5d143123fdf80462d1778cd4f24b9f7ca13c87174bca19141fb194c5a1ebca59
+ExecStop=/usr/bin/docker stop -t 30 plc-generation-postgres
+Restart=always
+RestartSec=5
+TimeoutStartSec=120
+TimeoutStopSec=45
+
+[Install]
+WantedBy=multi-user.target

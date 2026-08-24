@@ -1,0 +1,23 @@
+{
+  "vendors": [
+    {
+      "id": "delta",
+      "label": "台达 Delta",
+      "models": [
+        {
+          "id": "DVP48ES300R",
+          "label": "DVP48ES300R",
+          "default": true,
+          "iec_profile": "delta-dvp-es3-portable-st-v1",
+          "notes": "生成 ISPSoft 3.24 可导入的 IEC 61131-3 ST 核心子集，并以 COMMGR DVP-ES3 Simulator 执行全部确认契约案例。"
+        },
+        {
+          "id": "AS228T-A",
+          "label": "AS228T-A",
+          "iec_profile": "delta-as200-as228t-portable-st-v1",
+          "notes": "生成 ISPSoft 3.24 可导入的 IEC 61131-3 ST 核心子集，并以 COMMGR AS200 Simulator 执行全部确认契约案例。"
+        }
+      ]
+    }
+  ]
+}

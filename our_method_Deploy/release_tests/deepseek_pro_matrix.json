@@ -1,0 +1,20 @@
+{
+  "model": "deepseek-v4-pro",
+  "max_candidates": 20,
+  "targets": ["DVP48ES300R", "AS228T-A"],
+  "languages": ["st", "ld"],
+  "requirements": [
+    {
+      "id": "conveyor_safety_latch",
+      "description": "任务名称：输送机启停与安全联锁控制。输入 StartButton、StopButton、EmergencyStop、SafetyDoorClosed、Overload、ResetButton 均为 BOOL；输出 MotorRun、FaultAlarm 均为 BOOL。安全门关闭、无急停、无过载且无报警时，StartButton 启动并保持 MotorRun。StopButton、急停、安全门打开或过载必须优先停止。Overload 置位并保持 FaultAlarm；仅在 Overload=FALSE 且 ResetButton=TRUE 时清除，复位不得自动启动。初始输出均为 FALSE。"
+    },
+    {
+      "id": "dual_pump_interlock",
+      "description": "任务名称：双泵选择、互锁与故障控制。输入 Enable、SelectPump2、Stop、Pump1Fault、Pump2Fault、Reset 均为 BOOL；输出 Pump1Run、Pump2Run、FaultAlarm 均为 BOOL。Enable=TRUE 且 Stop=FALSE 时，只能运行被选择且当前无故障的一台泵；SelectPump2=FALSE 选择 1 号泵，TRUE 选择 2 号泵。两台泵任何时刻不得同时运行。Stop 和对应泵当前故障优先停止；任一故障置位并保持 FaultAlarm。只有两路故障均为 FALSE 且 Reset=TRUE 时才能清除报警。Reset 只清除报警，不直接置位任何泵输出；泵输出始终由同一扫描的 Enable、Stop、SelectPump2 和当前故障输入组合决定。因此，当 Enable 保持 TRUE 且所选泵当前无故障时，故障输入清除后允许所选泵重新运行。初始输出均为 FALSE。"
+    },
+    {
+      "id": "tank_fill_drain_priority",
+      "description": "任务名称：储罐进液与排液互锁控制。输入 AutoMode、FillRequest、DrainRequest、LowLevel、HighLevel、EmergencyStop 均为 BOOL；输出 InletValve、OutletValve、LevelAlarm 均为 BOOL。AutoMode=TRUE、FillRequest=TRUE、HighLevel=FALSE 且无急停时开启 InletValve；AutoMode=TRUE、DrainRequest=TRUE、LowLevel=FALSE 且无急停时开启 OutletValve。进液阀与排液阀禁止同时开启；同一扫描同时有两个请求时排液优先。HighLevel 与 LowLevel 同时为 TRUE 时 LevelAlarm=TRUE 且两个阀均关闭。EmergencyStop 优先关闭两个阀。初始输出均为 FALSE。"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "tool": "ISPSoft 3.24",
+  "target": "DVP48ES300R / DVP-ES3",
+  "captured_on": "2026-08-22",
+  "hash_algorithm": "SHA-256",
+  "samples": [
+    {"name": "LD_EMPTY.MPU", "package_sha256": "8d79468b552b52abc2f22c1e45d1a622101c1312a6f1d722868a68413b150803", "source_sha256": "c5cb70d20e8ba4bbb1b668bca199f43db41e1cbb8e079dd64ff1a0b482ee4707"},
+    {"name": "LD_SIMPLE.MPU", "package_sha256": "3473bd3d497e3937e370f89092a5a6f2f226b9a3f278d315d7de00262ae346ca", "source_sha256": "30ad621bb5acfde7287c41d396ea0502f5b22bcae0d113b47ff23d41af99565c"},
+    {"name": "LD_TOPOLOGY.MPU", "package_sha256": "400d8646af2a9e2185930953508bc67975c5a9b432fe512be10c9b08630477b5", "source_sha256": "2ac0f6f4c4b646fcd38b0168247e323321485b61db2226990f19ca37eb97cc21"},
+    {"name": "LD_NC_SET.MPU", "package_sha256": "6569fb7d7a110bde02d7c9a7421a5994d808326dda68a35b09d4ea47610d9e26", "source_sha256": "08fc38429879f41572e513458485dc32daeb6fb53ef81a0deb8db33023f8d867"},
+    {"name": "LD_NC_RESET.MPU", "package_sha256": "4bec93f7ee6d0787ba088f4f88e9399504e8c89bf97e3347be672229bd90132f", "source_sha256": "cfeff4ef0ea97a9aaafd89eeb719f801313c5aaef6a56aa4cc5702f3d35db6e4"},
+    {"name": "LD_OR2.MPU", "package_sha256": "c5d6d1ea3b4a3b6c411089020cb7d43e6d8099a49753b616acab10b480626742", "source_sha256": "a4f4974654d668df8e3d17f8216ca6d19504f8b9c64938937481c230930ed258"},
+    {"name": "FB_LD_EMPTY.FBU", "package_sha256": "e4ac796976adc2bce9928fef747aa36c2a7c160b15446af1acb81e3329e159b2", "source_sha256": "55f44a54cc958eab513d547a2ec97cce73750fe476165fe5dd760dfbb28abcbc"}
+  ]
+}

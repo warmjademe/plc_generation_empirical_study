@@ -1,0 +1,21 @@
+[Unit]
+Description=TLS proxy for PLC Generation Service
+After=network-online.target plc-generation.service
+Wants=network-online.target
+Requires=plc-generation.service
+
+[Service]
+Type=simple
+User=caddy
+Group=caddy
+ExecStart=/usr/bin/caddy run --config /etc/caddy/plc-generation.Caddyfile --adapter caddyfile
+ExecReload=/usr/bin/caddy reload --address 127.0.0.1:2020 --config /etc/caddy/plc-generation.Caddyfile --adapter caddyfile --force
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Positive and negative ISPSoft/COMMGR canary for %i
+After=plc-dvp-bridge@%i.service
+Requires=plc-dvp-bridge@%i.service
+ConditionPathExists=!/opt/plc-generation/dvp-bridge-%i/qualification_active
+
+[Service]
+Type=oneshot
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/service.env
+EnvironmentFile=/opt/plc-generation/config/dvp-validator.env
+EnvironmentFile=/opt/plc-generation/config/dvp-bridge-%i.env
+ExecStart=/opt/plc-generation/app/scripts/run_vendor_long_lease.py --spool-root ${PLC_DVP_BRIDGE_ROOT}/dvp-spool --cycles 1 --report ${PLC_DVP_BRIDGE_ROOT}/daily_canary_report.json
+Nice=10
+IOSchedulingClass=idle

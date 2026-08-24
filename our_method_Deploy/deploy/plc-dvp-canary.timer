@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily ISPSoft/COMMGR canary for the primary Windows worker
+
+[Timer]
+OnBootSec=20min
+OnUnitActiveSec=24h
+RandomizedDelaySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

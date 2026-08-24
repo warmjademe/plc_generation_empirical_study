@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily verified PLC service backup
+
+[Timer]
+OnCalendar=*-*-* 02:15:00
+RandomizedDelaySec=15min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,19 @@
+{
+    admin 127.0.0.1:2020
+    auto_https disable_redirects
+}
+
+https://ai.fuxtagent.com:18080 {
+    tls /etc/company-ai/certs/ai.fuxtagent.com.fullchain.pem /etc/company-ai/certs/ai.fuxtagent.com.key
+    encode zstd gzip
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "no-referrer"
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+        Content-Security-Policy "default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self'; font-src 'self'"
+        -Server
+    }
+    reverse_proxy 127.0.0.1:18081
+}

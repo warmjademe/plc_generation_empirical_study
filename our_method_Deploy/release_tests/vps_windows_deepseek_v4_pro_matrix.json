@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-08-23T01:51:16.823937+00:00",
+  "model": "deepseek-v4-pro",
+  "max_candidates": 20,
+  "elapsed_seconds": 1126.91,
+  "passed": 4,
+  "total": 4,
+  "results": [
+    {
+      "case": "dvp_st_latched_motor_alarm",
+      "job_id": "d7d60d36-4065-436e-9a90-ccc6f32f9d36",
+      "controller": "DVP48ES300R",
+      "output_language": "st",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 2,
+      "vendor_validation": "passed",
+      "error_class": null
+    },
+    {
+      "case": "dvp_ld_dual_motor_interlock",
+      "job_id": "88f1d7cb-16c8-4e5e-87b0-47dde6d540c5",
+      "controller": "DVP48ES300R",
+      "output_language": "ld",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "vendor_validation": "passed",
+      "error_class": null
+    },
+    {
+      "case": "as_st_two_stage_sequence",
+      "job_id": "988a571c-43b3-4fec-9490-14ee0375c726",
+      "controller": "AS228T-A",
+      "output_language": "st",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "vendor_validation": "passed",
+      "error_class": null
+    },
+    {
+      "case": "as_ld_valve_mode_safety",
+      "job_id": "6b03bbd1-fc79-4100-9980-046b7b2ef4eb",
+      "controller": "AS228T-A",
+      "output_language": "ld",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 7,
+      "vendor_validation": "passed",
+      "error_class": null
+    }
+  ]
+}

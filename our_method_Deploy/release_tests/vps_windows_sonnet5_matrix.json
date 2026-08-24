@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-08-23T01:58:33.598851+00:00",
+  "model": "sonnet-5",
+  "max_candidates": 20,
+  "elapsed_seconds": 1563.685,
+  "passed": 4,
+  "total": 4,
+  "results": [
+    {
+      "case": "dvp_st_latched_motor_alarm",
+      "job_id": "753e634e-762e-4460-953c-a5d803eb78e4",
+      "controller": "DVP48ES300R",
+      "output_language": "st",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "vendor_validation": "passed",
+      "error_class": null
+    },
+    {
+      "case": "dvp_ld_dual_motor_interlock",
+      "job_id": "2e7f5fa1-cc1a-4464-9c90-37497c50e7aa",
+      "controller": "DVP48ES300R",
+      "output_language": "ld",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "vendor_validation": "passed",
+      "error_class": null
+    },
+    {
+      "case": "as_st_two_stage_sequence",
+      "job_id": "2ca75afb-bc40-434a-9c07-6fce8618823a",
+      "controller": "AS228T-A",
+      "output_language": "st",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 11,
+      "vendor_validation": "passed",
+      "error_class": null
+    },
+    {
+      "case": "as_ld_valve_mode_safety",
+      "job_id": "398dd559-9cc2-4598-a3cd-e077d33c2da0",
+      "controller": "AS228T-A",
+      "output_language": "ld",
+      "status": "verified_success",
+      "success": true,
+      "candidates_used": 1,
+      "vendor_validation": "passed",
+      "error_class": null
+    }
+  ]
+}

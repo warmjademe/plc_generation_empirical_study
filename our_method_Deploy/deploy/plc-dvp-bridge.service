@@ -1,0 +1,27 @@
+[Unit]
+Description=Delta DVP48ES300R and AS228T ISPSoft/COMMGR RDP validation bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/dvp-bridge.env
+ExecStart=/opt/plc-generation/app/scripts/start_dvp_bridge.sh
+Restart=always
+RestartSec=10
+TimeoutStopSec=20
+# FreeRDP 3 exposes redirected drives through fusermount3.  The setuid helper
+# cannot mount the private tsclient filesystem when either restriction below
+# is enabled, so these two settings apply only to this dedicated RDP bridge.
+NoNewPrivileges=false
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/plc-generation/dvp-bridge
+RestrictSUIDSGID=false
+
+[Install]
+WantedBy=multi-user.target

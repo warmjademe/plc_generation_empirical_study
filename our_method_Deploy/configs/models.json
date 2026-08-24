@@ -1,0 +1,43 @@
+{
+  "models": [
+    {
+      "id": "sonnet-5",
+      "label": "Claude Sonnet 5",
+      "provider": "openai-proxy-anthropic",
+      "api_protocol": "anthropic",
+      "base_url": "https://api.openai-proxy.org/anthropic",
+      "api_key_env": "SONNET_PROXY_API_KEY",
+      "requested_model": "claude-sonnet-5",
+      "allowed_resolved_models": ["claude-sonnet-5"],
+      "timeout_seconds": 600,
+      "max_output_tokens": 8192,
+      "contract_max_output_tokens": 16384,
+      "transport_retries": 2,
+      "max_concurrency": 1,
+      "requests_per_minute": 12,
+      "provider_queue_timeout_seconds": 2400,
+      "circuit_failure_threshold": 3,
+      "circuit_open_seconds": 90
+    },
+    {
+      "id": "deepseek-v4-pro",
+      "label": "DeepSeek V4 Pro",
+      "provider": "deepseek",
+      "base_url": "https://api.deepseek.com",
+      "api_key_env": "DEEPSEEK_API_KEY",
+      "requested_model": "deepseek-v4-pro",
+      "allowed_resolved_models": ["deepseek-v4-pro"],
+      "thinking_mode": "disabled",
+      "contract_thinking_mode": "disabled",
+      "timeout_seconds": 600,
+      "max_output_tokens": 16384,
+      "contract_max_output_tokens": 16384,
+      "transport_retries": 2,
+      "max_concurrency": 2,
+      "requests_per_minute": 20,
+      "provider_queue_timeout_seconds": 1200,
+      "circuit_failure_threshold": 3,
+      "circuit_open_seconds": 60
+    }
+  ]
+}

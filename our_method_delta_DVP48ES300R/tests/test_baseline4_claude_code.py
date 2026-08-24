@@ -10,6 +10,16 @@ from unittest import mock
 from pathlib import Path
 
 
+# Keep this DVP variant's plc_loop package authoritative during full unittest
+# discovery.  The external baseline adapter adds ../our_method/src for its own
+# standalone execution; without this early import it can poison later tests
+# with the sibling package solely because files are discovered alphabetically.
+LOCAL_SRC = Path(__file__).resolve().parents[1] / "src"
+if str(LOCAL_SRC) not in sys.path:
+    sys.path.insert(0, str(LOCAL_SRC))
+import plc_loop  # noqa: E402,F401
+
+
 SOURCE_CODES = Path(__file__).resolve().parents[2]
 if str(SOURCE_CODES) not in sys.path:
     sys.path.insert(0, str(SOURCE_CODES))

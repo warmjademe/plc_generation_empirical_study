@@ -1,0 +1,29 @@
+[Unit]
+Description=PLC IEC 61131-3 ST Generation Service
+After=network-online.target docker.service plc-dvp-bridge@01.service plc-dvp-bridge@02.service plc-dvp-bridge@03.service plc-dvp-bridge@04.service plc-generation-postgres.service plc-generation-worker.service
+Wants=network-online.target plc-dvp-bridge@01.service plc-dvp-bridge@02.service plc-dvp-bridge@03.service plc-dvp-bridge@04.service plc-generation-worker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/service.env
+EnvironmentFile=/opt/plc-generation/config/providers.env
+EnvironmentFile=/opt/plc-generation/config/dvp-validator.env
+Environment=PLC_RUN_BACKGROUND_JOBS=false
+Environment=PYTHONPATH=/opt/plc-generation/app/src
+ExecStart=/home/ubuntu/miniforge3/envs/plc_generation/bin/plc-generation-web
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/opt/plc-generation/data /opt/plc-generation/dvp-bridge-01 /opt/plc-generation/dvp-bridge-02 /opt/plc-generation/dvp-bridge-03 /opt/plc-generation/dvp-bridge-04 /tmp
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

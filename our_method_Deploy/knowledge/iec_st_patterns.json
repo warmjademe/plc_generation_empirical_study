@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "cards": [
+    {
+      "id": "scan_semantics",
+      "always": true,
+      "retrieval_weight": 1.0,
+      "keywords": [],
+      "guidance": [
+        "Treat one function-block invocation as one PLC scan: read inputs, update retained state in explicit priority order, then derive externally observed outputs from the updated state.",
+        "In IEC ST, statements execute sequentially. An output assigned before its backing state changes can expose the previous value for one scan; place final output derivation after state transitions unless the requirement explicitly needs prior-state behavior.",
+        "Initialize retained variables so a fresh function-block instance has the required safe outputs without relying on an unrequested startup call."
+      ]
+    },
+    {
+      "id": "numeric_conversion_and_scaling",
+      "retrieval_weight": 2.0,
+      "keywords": ["real", "raw", "engineering", "analog", "scale", "scaled", "rate", "difference", "tolerance", "average"],
+      "guidance": [
+        "Use IEC conversion functions such as INT_TO_REAL(value); do not use C-style or type-name casts such as REAL(value).",
+        "Perform REAL division only after explicit conversion, and clamp the input or output at every declared boundary before applying the nominal scaling expression.",
+        "Keep intermediate numeric expressions simple and assign them to declared local variables when a nested expression obscures types or precedence."
+      ]
+    },
+    {
+      "id": "priority_and_isolation",
+      "retrieval_weight": 1.0,
+      "keywords": ["priority", "reset", "stop", "emergency", "safety", "permit", "isolate", "default", "crossreset"],
+      "guidance": [
+        "Encode dominant events in one mutually exclusive IF/ELSIF chain. Typical order is emergency or isolation, reset under its guard, stop or permission loss, normal transition, then hold.",
+        "When isolation is required, force every externally visible isolated output to its type-safe default in the same scan. Preserve internal latches only if the requirements explicitly say they survive isolation.",
+        "Check simultaneous inputs, not only nominal traces; a lower-priority start must never overwrite a stop, reset, or safety action later in the same scan."
+      ]
+    },
+    {
+      "id": "edge_and_pulse_memory",
+      "retrieval_weight": 2.0,
+      "keywords": ["edge", "rising", "falling", "true-to-false", "rose", "one-scan", "pulse", "new demand", "new request", "accepted", "rejected"],
+      "guidance": [
+        "Use the requested polarity: rising_edge := current_input AND NOT previous_input; falling_edge := NOT current_input AND previous_input. Compute the event before updating previous-input memory at scan end.",
+        "Clear one-scan pulse outputs to FALSE by default at the start of every scan, then set them only on the triggering branch.",
+        "Held-high inputs must not retrigger edge-defined actions; reset and simultaneous-edge behavior need explicit branches."
+      ]
+    },
+    {
+      "id": "timers_and_timeouts",
+      "retrieval_weight": 2.0,
+      "keywords": ["timer", "timeout", "delay", " ms", "second", "continuous", "remained", "feedback", "ton", "cooldown", "pre-lube"],
+      "guidance": [
+        "Convert time thresholds using the declared scan period and state exactly whether the transition occurs on the Nth qualifying end-of-scan observation or the following scan.",
+        "Reset a timer whenever its enabling condition becomes false; do not carry partial time across a condition that must be continuous.",
+        "For counter-based timing, update the counter once per scan in one location and compare using an inequality chosen for the required boundary. Derive commands after the counter/state update to avoid a one-scan lag.",
+        "Saturate every retained scan counter at its largest meaningful threshold. Never allow an auxiliary IEC INT to grow after that threshold because the extra values add no behavior and can make formal verification intractable."
+      ]
+    },
+    {
+      "id": "latched_faults_and_restart",
+      "retrieval_weight": 1.5,
+      "keywords": ["latch", "latched", "remain", "until", "fault", "lockout", "inhibit", "restart", "acknowledgement"],
+      "guidance": [
+        "Represent a latch with retained state and enumerate every set, permitted clear, and hold path. No unrelated branch should clear it as a side effect.",
+        "If reset is guarded, evaluate the complete guard in the reset branch; an invalid reset must preserve the latch.",
+        "Separate the persistent latch from an output that may be gated or isolated, so output defaulting does not accidentally erase retained history."
+      ]
+    },
+    {
+      "id": "state_machine",
+      "retrieval_weight": 1.5,
+      "keywords": ["state", "sequence", "stage", "lifecycle", "idle", "running", "proving", "startup", "cooldown"],
+      "guidance": [
+        "Use one retained state variable with an explicit meaning for every value. For each state, enumerate dominant aborts, normal transitions, and the hold case.",
+        "Keep state transition logic separate from final output decoding. This prevents branch-local assignments from leaving stale outputs.",
+        "When a transition is required before later reselection, block reselection during the release scan and allow it only on a subsequent scan."
+      ]
+    },
+    {
+      "id": "bounded_counter",
+      "retrieval_weight": 2.0,
+      "keywords": ["counter", "count", "batch", "capacity", "increment", "decrement", "additem", "removeitem", "target"],
+      "guidance": [
+        "Apply reset first, simultaneous-event policy second, then a lone increment or decrement. Clamp or guard updates so the retained count remains within its bounds.",
+        "Derive Empty, Full, and completion outputs from the post-update count at the end of the scan.",
+        "If item signals are edge-triggered, retain separate previous-input bits and update them only after all edge decisions.",
+        "Keep every auxiliary event or timeout counter within a requirement-derived finite range; once its threshold is reached, hold it there until the specified reset condition."
+      ]
+    },
+    {
+      "id": "supervisory_composition",
+      "retrieval_weight": 1.0,
+      "keywords": ["subsystembenable", "crossready", "crossblocked", "crossreset", "subsystem a", "subsystem b", "supervisory"],
+      "guidance": [
+        "Respect the declared within-scan order: compute subsystem A, update the supervisory latch, then decide whether subsystem B executes.",
+        "Make CrossReset dominant over setting CrossReady in the same scan. Compute CrossBlocked exactly from the requested enable and readiness condition.",
+        "When subsystem B is disabled, default all B outputs in the same scan and ensure normal B logic cannot overwrite those defaults later."
+      ]
+    },
+    {
+      "id": "mutual_exclusion_and_arbitration",
+      "retrieval_weight": 2.0,
+      "keywords": ["mutual", "never be true simultaneously", "grant", "arbiter", "duty", "standby", "failover", "owner", "turn"],
+      "guidance": [
+        "Encode ownership or command selection in one retained variable and decode mutually exclusive outputs from it, rather than latching multiple outputs independently.",
+        "Define tie-breaking, release, failover, and no-eligible-device cases explicitly. A release scan should not silently grant a new owner if the specification requires later reselection.",
+        "After selecting or failing over, re-check availability and feedback conditions without allowing both commands in the same scan."
+      ]
+    }
+  ]
+}

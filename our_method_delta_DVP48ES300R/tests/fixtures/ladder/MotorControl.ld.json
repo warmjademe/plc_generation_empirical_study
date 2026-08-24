@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "function_block": "MotorControl",
+  "locals": [
+    {
+      "name": "RunLatch",
+      "type": "BOOL",
+      "initial": false
+    },
+    {
+      "name": "DelayScans",
+      "type": "INT",
+      "initial": 0
+    }
+  ],
+  "rungs": [
+    {
+      "id": "RUNG_01",
+      "comment": "许可成立并按下启动按钮时锁存运行命令",
+      "condition": {
+        "op": "and",
+        "args": [
+          {"op": "var", "name": "StartButton"},
+          {"op": "var", "name": "Permit"}
+        ]
+      },
+      "instructions": [
+        {"type": "coil", "target": "RunLatch", "mode": "set"},
+        {"type": "increment_saturating", "target": "DelayScans", "limit": 3}
+      ]
+    },
+    {
+      "id": "RUNG_02",
+      "comment": "停止按钮复位运行锁存并覆盖启动命令",
+      "condition": {"op": "var", "name": "StopButton"},
+      "instructions": [
+        {"type": "coil", "target": "RunLatch", "mode": "reset"}
+      ]
+    },
+    {
+      "id": "RUNG_03",
+      "comment": "根据锁存状态和停止信号驱动电机输出",
+      "condition": {
+        "op": "and",
+        "args": [
+          {"op": "var", "name": "RunLatch"},
+          {"op": "not", "arg": {"op": "var", "name": "StopButton"}}
+        ]
+      },
+      "instructions": [
+        {"type": "coil", "target": "MotorRun", "mode": "normal"}
+      ]
+    },
+    {
+      "id": "RUNG_04",
+      "comment": "累计三个有效扫描周期后置位就绪输出",
+      "condition": {
+        "op": "compare",
+        "operator": "GE",
+        "left": {"op": "var", "name": "DelayScans"},
+        "right": {"op": "const", "type": "INT", "value": 3}
+      },
+      "instructions": [
+        {"type": "coil", "target": "Ready", "mode": "normal"}
+      ]
+    }
+  ]
+}

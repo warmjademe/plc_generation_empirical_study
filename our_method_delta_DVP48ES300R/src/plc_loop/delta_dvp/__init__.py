@@ -1,6 +1,7 @@
 """Delta DVP48ES300R source-unit and simulator adapters."""
 
 from .harness import DvpHarness, build_dvp_harness, select_openplc_cases
+from .native_ld import NativeLdCompilation, NativeLdError, render_native_ld_function_block_source
 from .source_unit import (
     Declaration,
     FunctionBlock,
@@ -17,11 +18,14 @@ __all__ = [
     "Declaration",
     "DvpHarness",
     "FunctionBlock",
+    "NativeLdCompilation",
+    "NativeLdError",
     "SourceUnitError",
     "build_dvp_harness",
     "build_ispsoft_package",
     "parse_function_block",
     "render_function_block_source",
+    "render_native_ld_function_block_source",
     "render_program_source",
     "select_openplc_cases",
     "unsaturated_retained_integer_names",

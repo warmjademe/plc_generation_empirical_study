@@ -1,0 +1,17 @@
+[Unit]
+Description=Positive and negative ISPSoft/COMMGR canary for the primary Windows worker
+After=plc-dvp-bridge.service
+Requires=plc-dvp-bridge.service
+ConditionPathExists=!/opt/plc-generation/dvp-bridge/qualification_active
+
+[Service]
+Type=oneshot
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/plc-generation/app
+EnvironmentFile=/opt/plc-generation/config/service.env
+EnvironmentFile=/opt/plc-generation/config/dvp-validator.env
+ExecStart=/opt/plc-generation/app/scripts/run_vendor_canary.py --spool-root /opt/plc-generation/dvp-bridge/dvp-spool --target DVP48ES300R
+ExecStart=/opt/plc-generation/app/scripts/run_vendor_canary.py --spool-root /opt/plc-generation/dvp-bridge/dvp-spool --target AS228T-A
+Nice=10
+IOSchedulingClass=idle

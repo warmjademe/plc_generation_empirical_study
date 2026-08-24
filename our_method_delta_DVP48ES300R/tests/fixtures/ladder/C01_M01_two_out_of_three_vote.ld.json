@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "function_block": "C01_M01_two_out_of_three_vote",
+  "locals": [],
+  "rungs": [
+    {
+      "id": "RUNG_VOTE",
+      "comment": "任意两路传感器同时有效时，多数表决输出为真",
+      "condition": {
+        "op": "or",
+        "args": [
+          {
+            "op": "and",
+            "args": [
+              {"op": "var", "name": "S1"},
+              {"op": "var", "name": "S2"}
+            ]
+          },
+          {
+            "op": "and",
+            "args": [
+              {"op": "var", "name": "S1"},
+              {"op": "var", "name": "S3"}
+            ]
+          },
+          {
+            "op": "and",
+            "args": [
+              {"op": "var", "name": "S2"},
+              {"op": "var", "name": "S3"}
+            ]
+          }
+        ]
+      },
+      "instructions": [
+        {"type": "coil", "target": "Vote", "mode": "normal"}
+      ]
+    },
+    {
+      "id": "RUNG_UNANIMOUS",
+      "comment": "三路传感器全部为真或全部为假时，一致性输出为真",
+      "condition": {
+        "op": "or",
+        "args": [
+          {
+            "op": "and",
+            "args": [
+              {"op": "var", "name": "S1"},
+              {"op": "var", "name": "S2"},
+              {"op": "var", "name": "S3"}
+            ]
+          },
+          {
+            "op": "and",
+            "args": [
+              {"op": "not", "arg": {"op": "var", "name": "S1"}},
+              {"op": "not", "arg": {"op": "var", "name": "S2"}},
+              {"op": "not", "arg": {"op": "var", "name": "S3"}}
+            ]
+          }
+        ]
+      },
+      "instructions": [
+        {"type": "coil", "target": "Unanimous", "mode": "normal"}
+      ]
+    }
+  ]
+}

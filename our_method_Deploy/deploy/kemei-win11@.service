@@ -1,0 +1,29 @@
+[Unit]
+Description=Kemei Windows ISPSoft validation VM %i
+Requires=kemei-win11-network@%i.service
+After=kemei-win11-network@%i.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=libvirt
+SupplementaryGroups=kvm
+EnvironmentFile=/opt/plc-generation/config/win11-%i.env
+RuntimeDirectory=kemei-win11-%i
+RuntimeDirectoryMode=0750
+ExecStartPre=+/usr/bin/install -d -o ubuntu -g libvirt -m 0750 /run/libvirt/qemu/swtpm
+ExecStartPre=+/usr/bin/install -d -o ubuntu -g libvirt -m 0700 /var/lib/libvirt/swtpm/kemei-win11-%i
+ExecStart=/usr/local/libexec/start-kemei-win11-instance.sh
+ExecStop=/usr/local/libexec/qmp-shutdown-instance.py /run/kemei-win11-%i/qmp.sock
+Restart=always
+RestartSec=10
+TimeoutStopSec=120
+KillSignal=SIGTERM
+CPUWeight=25
+IOWeight=25
+MemoryHigh=20G
+MemoryMax=24G
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

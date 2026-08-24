@@ -1,0 +1,16 @@
+{
+  "model": "deepseek-v4-pro",
+  "max_candidates": 4,
+  "targets": ["DVP48ES300R", "AS228T-A"],
+  "languages": ["st"],
+  "requirements": [
+    {
+      "id": "edge_count_reset_priority",
+      "description": "任务名称：上升沿计数与复位控制。输入 Pulse、Reset 均为 BOOL；输出 Count 为 INT、Done 为 BOOL。初始 Count=0、Done=FALSE。仅在 Pulse 从 FALSE 变为 TRUE 的扫描周期令 Count 增加 1；Pulse 保持 TRUE 时不得重复计数。Count 达到 5 后保持为 5 且 Done=TRUE。Reset 具有最高优先级，同一扫描 Reset=TRUE 时必须令 Count=0、Done=FALSE，且不处理 Pulse 上升沿。"
+    },
+    {
+      "id": "temperature_threshold_priority",
+      "description": "任务名称：温度阈值与安全停机控制。输入 Enable、EmergencyStop 均为 BOOL，Temperature 为 REAL；输出 Heater、Alarm 均为 BOOL。初始 Heater=FALSE、Alarm=FALSE。EmergencyStop 具有最高优先级并立即令 Heater=FALSE、Alarm=TRUE。无急停时，Temperature>=80.0 令 Heater=FALSE、Alarm=TRUE；Temperature<=60.0 且 Enable=TRUE 时令 Heater=TRUE、Alarm=FALSE；温度在 60.0 与 80.0 之间时 Heater=FALSE、Alarm=FALSE。该控制无保持状态，每一扫描都由当前输入计算输出。"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$toolVersion = 'ISPSoft-3.24+COMMGR-2.11+DVP-ES3+serial-worker-v2-inline-main'
+$toolVersion = 'ISPSoft-3.24+COMMGR-2.11+DVP-ES3+serial-worker-v3-native-ld'
 $ispSoftExe = 'C:\Program Files (x86)\Delta Industrial Automation\ISPSoft 3.24\NewISPSoft.exe'
 $runtimeRunner = Join-Path $WorkerRoot 'Invoke-DvpRuntimeCase.ps1'
 $projectFile = Join-Path $ProjectRoot 'DVP_CLEAN.isp'
@@ -79,6 +79,12 @@ function Copy-SharedJobToLocal([string]$SharedJob, [string]$LocalJob) {
     New-Item -ItemType Directory -Path $LocalJob -Force | Out-Null
     foreach ($name in @('manifest.json','candidate.st','candidate.FBU','MAIN.MPU','suite.json')) {
         Copy-OneFileWithCmd (Join-Path $SharedJob $name) (Join-Path $LocalJob $name)
+    }
+    foreach ($name in @('candidate.ld.json','candidate.ispsoft.ld.src')) {
+        $optional = Join-Path $SharedJob $name
+        if (Test-Path -LiteralPath $optional) {
+            Copy-OneFileWithCmd $optional (Join-Path $LocalJob $name)
+        }
     }
 }
 
@@ -284,6 +290,9 @@ function Get-VisibleUnexpectedDialog {
 function Import-IspSoftUnit([IntPtr]$MainHandle, [ValidateSet('function','program')]$Kind, [string]$Path) {
     if (-not (Test-Path -LiteralPath $Path)) { throw "ISPSoft import unit is missing: $Path" }
     Activate-Window $MainHandle -Maximize
+    # Before either unit is imported, the clean template has no visible MAIN
+    # child: Programs is at y=358 and Function Blocks is at y=374.  Import the
+    # FBU first; importing MAIN later expands Programs and shifts the tree.
     $folderY = if ($Kind -eq 'function') { 374 } else { 358 }
     Click-Screen 76 $folderY -Right
     Send-Keys '{END}{ENTER}'
@@ -425,17 +434,31 @@ function Read-RemoteListText([IntPtr]$ListView, [int]$Item, [int]$SubItem) {
 
 function Read-CompileSummary([IntPtr]$MainHandle) {
     $lists = @(Get-ChildWindows $MainHandle -ClassName 'TListView')
+    $diagnostics = New-Object System.Collections.ArrayList
+    # This script is intentionally BOM-less UTF-8, while Windows PowerShell
+    # 5.1 parses it through the active ANSI code page.  Construct the two CJK
+    # words from code points so the parser does not depend on source encoding.
+    $errorWord = -join ([char[]](0x9519, 0x8BEF))
+    $warningWord = -join ([char[]](0x8B66, 0x544A))
     foreach ($list in $lists) {
         $count = [DvpWorkerWin32]::SendMessage($list.hwnd, 0x1004, [IntPtr]::Zero, [IntPtr]::Zero).ToInt32()
+        $rows = @()
+        if ($count -gt 0) {
+            $rows = @(for ($index = 0; $index -lt $count; $index++) { Read-RemoteListText $list.hwnd $index 0 })
+        }
+        [void]$diagnostics.Add([ordered]@{ hwnd=[string]$list.hwnd; count=$count; rows=@($rows) })
         if ($count -lt 2) { continue }
-        $rows = for ($index = 0; $index -lt $count; $index++) { Read-RemoteListText $list.hwnd $index 0 }
         $errorCount = $null
         $warningCount = $null
         foreach ($row in $rows) {
-            $errorMatch = [regex]::Match([string]$row, '^\s*(\d+)\s*(?:个\s*)?(?:错误|errors?)', 'IgnoreCase')
-            if ($errorMatch.Success) { $errorCount = [int]$errorMatch.Groups[1].Value }
-            $warningMatch = [regex]::Match([string]$row, '^\s*(\d+)\s*(?:个\s*)?(?:警告|warnings?)', 'IgnoreCase')
-            if ($warningMatch.Success) { $warningCount = [int]$warningMatch.Groups[1].Value }
+            $countMatch = [regex]::Match([string]$row, '^\s*(\d+)')
+            if (-not $countMatch.Success) { continue }
+            if ([string]$row -match [regex]::Escape($errorWord) -or [string]$row -match '(?i)errors?') {
+                $errorCount = [int]$countMatch.Groups[1].Value
+            }
+            if ([string]$row -match [regex]::Escape($warningWord) -or [string]$row -match '(?i)warnings?') {
+                $warningCount = [int]$countMatch.Groups[1].Value
+            }
         }
         if ($null -ne $errorCount -and $null -ne $warningCount) {
             return [ordered]@{
@@ -445,15 +468,17 @@ function Read-CompileSummary([IntPtr]$MainHandle) {
             }
         }
     }
-    throw 'ISPSoft compile summary was not machine-readable.'
+    throw ('ISPSoft compile summary was not machine-readable: ' + (
+        $diagnostics | ConvertTo-Json -Depth 5 -Compress
+    ))
 }
 
 function Compile-IspSoftProject([IntPtr]$MainHandle, [string]$EvidenceRoot) {
     Activate-Window $MainHandle -Maximize
     Send-Keys '^{F7}'
     Start-Sleep -Seconds 6
-    $summary = Read-CompileSummary $MainHandle
     Save-Screenshot (Join-Path $EvidenceRoot 'ispsoft_compile.png')
+    $summary = Read-CompileSummary $MainHandle
     return $summary
 }
 
@@ -562,6 +587,10 @@ function Test-JobHashes([string]$JobRoot, [object]$Manifest) {
         @('MAIN.MPU', [string]$Manifest.program_unit_sha256),
         @('suite.json', [string]$Manifest.suite_sha256)
     )
+    if ([string]$Manifest.candidate_language -eq 'ld') {
+        $pairs += ,@('candidate.ld.json', [string]$Manifest.ladder_ir_sha256)
+        $pairs += ,@('candidate.ispsoft.ld.src', [string]$Manifest.native_ld_source_sha256)
+    }
     foreach ($pair in $pairs) {
         $path = Join-Path $JobRoot $pair[0]
         if (-not (Test-Path -LiteralPath $path)) { throw "Job artifact is missing: $($pair[0])" }
@@ -655,10 +684,17 @@ function Invoke-OneJob([string]$SharedJob, [string]$LocalJob) {
         (Get-Item -LiteralPath $shortProgram).LastWriteTime = $functionPackageTime.AddSeconds(4)
         Write-WorkerLog "job $jobId restoring clean ISPSoft project"
         $main = Open-IspSoftProject
-        # The generated MAIN contains the candidate body and all of its retained
-        # variables.  Importing one executable MPU avoids ISPSoft's stale
-        # Unzipped.src replay when an FBU and MPU are imported consecutively.
-        Write-WorkerLog "job $jobId importing inline candidate MAIN and assigning periodic task"
+        if ([string]$manifest.candidate_language -eq 'ld') {
+            Write-WorkerLog "job $jobId importing generated native-LD function block"
+            Import-IspSoftUnit $main.hwnd 'function' $shortFunction
+            # ISPSoft extracts every protected source unit under this fixed
+            # name.  Remove the first import's cache before loading MAIN so the
+            # program import cannot replay the LD function block.
+            if (Test-Path -LiteralPath $extractionCache) {
+                Remove-Item -LiteralPath $extractionCache -Force
+            }
+        }
+        Write-WorkerLog "job $jobId importing candidate harness MAIN and assigning periodic task"
         Import-IspSoftUnit $main.hwnd 'program' $shortProgram
         Assign-MainToPeriodicTask $main.hwnd
         Write-WorkerLog "job $jobId compiling with ISPSoft"
