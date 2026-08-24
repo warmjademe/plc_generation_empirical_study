@@ -53,6 +53,24 @@ def test_production_rejects_default_password_and_requires_durable_storage(monkey
         Settings.load()
 
 
+def test_internal_test_may_explicitly_use_static_kemei_password(monkeypatch) -> None:
+    monkeypatch.setenv("PLC_ENVIRONMENT", "production")
+    monkeypatch.setenv("PLC_LOGIN_PASSWORD", "kemei")
+    monkeypatch.setenv("PLC_ALLOW_TEST_STATIC_PASSWORD", "true")
+    monkeypatch.setenv("PLC_SESSION_SECRET", "s" * 64)
+    monkeypatch.setenv("PLC_DATABASE_URL", "postgresql://plc:test@127.0.0.1/plc")
+    monkeypatch.setenv("PLC_HOST", "127.0.0.1")
+    assert Settings.load().login_password == "kemei"
+
+
+def test_static_password_exception_does_not_allow_other_weak_passwords(monkeypatch) -> None:
+    monkeypatch.setenv("PLC_ENVIRONMENT", "production")
+    monkeypatch.setenv("PLC_LOGIN_PASSWORD", "password")
+    monkeypatch.setenv("PLC_ALLOW_TEST_STATIC_PASSWORD", "true")
+    with pytest.raises(ValueError, match="non-default login password"):
+        Settings.load()
+
+
 def test_production_accepts_independent_secrets_and_loopback(monkeypatch) -> None:
     monkeypatch.setenv("PLC_ENVIRONMENT", "production")
     monkeypatch.setenv("PLC_LOGIN_PASSWORD", "customer-password-strong")

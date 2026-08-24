@@ -31,6 +31,7 @@ class Settings:
     api_token: str | None
     login_username: str
     login_password: str
+    allow_test_static_password: bool
     session_secret: str
     session_ttl_seconds: int
     database_url: str | None
@@ -110,6 +111,9 @@ class Settings:
             api_token=api_token,
             login_username=login_username,
             login_password=login_password,
+            allow_test_static_password=os.getenv(
+                "PLC_ALLOW_TEST_STATIC_PASSWORD", "false"
+            ).strip().casefold() in {"1", "true", "yes", "on"},
             session_secret=os.getenv("PLC_SESSION_SECRET") or api_token or login_password,
             session_ttl_seconds=max(
                 300, min(86400, int(os.getenv("PLC_SESSION_TTL_SECONDS", "43200")))
@@ -136,7 +140,14 @@ class Settings:
             raise ValueError("PLC_ENVIRONMENT must be development, test, or production")
         if self.environment != "production":
             return
-        if self.login_password in {"kemei", "change-me", "password"} or len(self.login_password) < 12:
+        weak_password = (
+            self.login_password in {"kemei", "change-me", "password"}
+            or len(self.login_password) < 12
+        )
+        test_password_exception = (
+            self.allow_test_static_password and self.login_password == "kemei"
+        )
+        if weak_password and not test_password_exception:
             raise ValueError("production requires a non-default login password of at least 12 characters")
         if len(self.session_secret) < 32 or self.session_secret in {
             self.login_password, self.api_token
